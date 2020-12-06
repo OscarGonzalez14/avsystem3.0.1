@@ -150,6 +150,51 @@ class Caja extends Conectar{
 //print_r($_POST);
   }
 
+  public function acepta_requisicion($n_requisicion){
+
+     $conectar= parent::conexion($n_requisicion);
+    $sql= "update requisicion set estado='2' where n_requisicion=?;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$n_requisicion);
+    $sql->execute();
+  }
+
+
+//////////////////////FINZALIZAR REQUISICION
+
+   public function finalizar_requisicion(){
+
+    $str = '';
+    $detalles = array();
+    $detalles = json_decode($_POST['arrayFinalizarReq']);
+    $conectar= parent::conexion();
+    parent::set_names();
+
+  foreach ($detalles as $k => $v) {
+    $precio = $v->precio;
+    $id_detalle = $v->id_detalle;
+
+    $usuario = $_POST["usuario"];
+    $n_requisicion = $_POST["n_requisicion"];
+
+      
+    $sql ="update detalle_requisicion set precio=? where id_detalle_req=?;";
+    $sql =$conectar->prepare($sql);
+    $sql->bindValue(1,$precio);
+    $sql->bindValue(2,$id_detalle);
+    $sql->execute();
+         
+    }///////////////FIN FOREACH
+
+    $sql1="update requisicion set estado='3' where n_requisicion=?;";
+    $sql1=$conectar->prepare($sql1);          
+    $sql1->bindValue(2,$n_requisicion);
+    $sql1->execute();
+
+//print_r($_POST);
+  }
+
+
 }
 
 

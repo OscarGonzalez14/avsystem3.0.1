@@ -230,5 +230,77 @@ case "listar_requisiciones":
    } 
 
     break;
+//////////////////////////ACEPTAR REQUISICION
+case 'acepta_requisicion':
 
+  $datos = $caja->valida_existe_requisicion($_POST["n_requisicion"]);
+
+      if(is_array($datos)==true and count($datos)>0){
+      $caja->acepta_requisicion($_POST["n_requisicion"]);
+      $messages[]="ok";
+      
+    }else{
+      $errors[]="error";
+    }
+
+    if (isset($messages)){
+     ?>
+       <?php
+         foreach ($messages as $message) {
+            echo json_encode($message);
+         }
+         ?>
+   <?php
+ }
+    //mensaje error
+      if (isset($errors)){
+
+   ?>
+
+         <?php
+           foreach ($errors as $error) {
+               echo json_encode($error);
+             }
+           ?>
+   <?php
+   } 
+
+    break;
+
+/////////////////////////ACEPTAR REQUISICION
+case 'finaliza_requisicion':
+
+  $datos = $caja->valida_existe_requisicion($_POST["n_requisicion"]);
+
+      if(is_array($datos)==true and count($datos)>0){
+      $caja->finalizar_requisicion($_POST["n_requisicion"]);
+      $messages[]="ok";
+      
+    }else{
+      $errors[]="error";
+    }
+
+    if (isset($messages)){
+     ?>
+       <?php
+         foreach ($messages as $message) {
+            echo json_encode($message);
+         }
+         ?>
+   <?php
+ }
+    //mensaje error
+      if (isset($errors)){
+
+   ?>
+
+         <?php
+           foreach ($errors as $error) {
+               echo json_encode($error);
+             }
+           ?>
+   <?php
+   } 
+
+    break;
 }

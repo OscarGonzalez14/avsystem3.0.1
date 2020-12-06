@@ -2,7 +2,7 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header bg-info" style="color:white">
-              <h4 class="modal-title">REQUISICIÓN&nbsp;&nbsp;#<span id="n_requisicion"></span></h4>
+              <h4 class="modal-title">REQUISICIÓN&nbsp;&nbsp;#<span id="n_requisicion" class="n_requisicion"></span></h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close" onClick="clear_items_req();">
                 <span aria-hidden="true">&times;</span>
               </button>

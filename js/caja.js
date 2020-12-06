@@ -390,6 +390,7 @@ function setCantidadItem(event, obj, idx){
     items_requisicion[idx].cantidad = parseInt(obj.value);
     //recalcular(idx);
 }
+///////////////////////APROBAR REQUICISION 
 
 function aprobar_requisicion(){
 
@@ -420,6 +421,66 @@ function aprobar_requisicion(){
 	 	
 }
 
+///////////////////////ACEPTAR REQUICISION 
+
+function aceptar_requisicion(){
+
+    let usuario = $("#usuario").val();
+    let n_requisicion = $(".n_requisicion").html();
+
+  $.ajax({
+    url:"ajax/caja.php?op=acepta_requisicion",
+    method:"POST",
+    data:{n_requisicion:n_requisicion},
+    cache: false,
+    dataType:"json",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+    },     
+    success:function(data){
+    console.log(data);
+      if(data=='ok'){
+       setTimeout ("Swal.fire('La requisicion ha sido Aprobada','','success')", 100);
+       setTimeout ("explode();", 2000); 
+      }
+
+    }
+
+    });//////FIN AJAX
+    
+}
+
+function finalizar_requisicion(){
+
+    let usuario = $("#usuario").val();
+    let n_requisicion = $(".n_requisicion").html();
+
+  $.ajax({
+    url:"ajax/caja.php?op=acepta_requisicion",
+    method:"POST",
+    data:{'arrayFinalizarReq':JSON.stringify(item_est_dos),'usuario':usuario,'n_requisicion':n_requisicion},
+    cache: false,
+    dataType:"json",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+    },     
+    success:function(data){
+    console.log(data);
+      if(data=='ok'){
+       setTimeout ("Swal.fire('La requisicion ha sido Ingresada al corte','','success')", 100);
+       setTimeout ("explode();", 2000); 
+      }
+
+    }
+
+    });//////FIN AJAX
+    
+}
+
 var item_est_uno = [];
 var item_est_dos = [];
 
@@ -427,6 +488,7 @@ function actions_requisicions(id_requisicion,n_requisicion,estado){
 
 	console.log(estado);
 	if (estado==1) {
+  $(".n_requisicion").html(n_requisicion);
 	$("#modal_estado_uno").modal("show");
 	  $.ajax({
       url:"ajax/caja.php?op=data_req_est_uno",
@@ -454,6 +516,7 @@ function actions_requisicions(id_requisicion,n_requisicion,estado){
     })
 	  console.log(item_est_uno);
 	}else if(estado==2){
+    $(".n_requisicion").html(n_requisicion);
 	  $("#modal_estado_dos").modal("show");
 	  $.ajax({
       url:"ajax/caja.php?op=data_req_est_uno",
@@ -501,7 +564,7 @@ function lista_items_est_dos(){
     var filas = "";
     for(var i=0; i<item_est_dos.length; i++){
     	var filas = filas +"<tr id='fila"+i+"'><td style='text-align:center;width: 50% !important'>"+item_est_dos[i].descripcion+"</td>"+
-        "<td style='text-align:center;width: 10%'>"+"<input style='text-align:left' type='number' class='form-control' name='cantidad[]' id='cantidad[]' onClick='setCantidadItem(event, this, "+(i)+");' onKeyUp='setCantidadItem(event, this, "+(i)+");' value='"+item_est_dos[i].cantidad+"'>"+"</td>"+
+        "<td style='text-align:center;width: 10%'>"+"<input style='text-align:left' type='text' class='form-control' name='cantidad[]' id='cantidad[]' onClick='setCantidadItem(event, this, "+(i)+");' onKeyUp='setCantidadItem(event, this, "+(i)+");' value='"+item_est_dos[i].cantidad+"' readonly>"+"</td>"+
     	"<td style='text-align:center;width: 15%'>"+"<input style='text-align:left' type='number' class='form-control' name='cantidad[]' id='cantidad[]' onClick='setPrecioItem(event, this, "+(i)+");' onKeyUp='setPrecioItem(event, this, "+(i)+");' value='"+item_est_dos[i].precio+"'>"+"</td>"+
     	"<td style='text-align:center;width: 25% !important'>"+"<input style='text-align:left' type='text' class='form-control' name='cantidad[]' id='cantidad[]' onClick='setCantidadItem(event, this, "+(i)+");' onKeyUp='setCantidadItem(event, this, "+(i)+");' value='"+item_est_dos[i].comprobante+"'>"+"</td>"+"</tr>";
     }
