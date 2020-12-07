@@ -44,7 +44,7 @@ class Caja extends Conectar{
       $usuario = $_POST["usuario"];
       $sucursal = $_POST["sucursal"];
 
-      $sql="insert into detalle_requisicion values(null,?,?,?,'0',?,?,'No');";
+      $sql="insert into detalle_requisicion values(null,?,?,?,'0',?,?,'No','0000');";
       $sql=$conectar->prepare($sql);
 
     	$sql->bindValue(1,$numero_req);
@@ -173,22 +173,25 @@ class Caja extends Conectar{
   foreach ($detalles as $k => $v) {
     $precio = $v->precio;
     $id_detalle = $v->id_detalle;
+    $comprobante = $v->comprobante;
 
     $usuario = $_POST["usuario"];
     $n_requisicion = $_POST["n_requisicion"];
 
       
-    $sql ="update detalle_requisicion set precio=? where id_detalle_req=?;";
+    $sql ="update detalle_requisicion set precio=?,comprobante=?,usuario=? where id_detalle_req=?;";
     $sql =$conectar->prepare($sql);
     $sql->bindValue(1,$precio);
-    $sql->bindValue(2,$id_detalle);
+    $sql->bindValue(2,$comprobante);
+    $sql->bindValue(3,$usuario);
+    $sql->bindValue(4,$id_detalle);
     $sql->execute();
          
     }///////////////FIN FOREACH
 
     $sql1="update requisicion set estado='3' where n_requisicion=?;";
     $sql1=$conectar->prepare($sql1);          
-    $sql1->bindValue(2,$n_requisicion);
+    $sql1->bindValue(1,$n_requisicion);
     $sql1->execute();
 
 //print_r($_POST);

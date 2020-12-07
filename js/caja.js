@@ -458,7 +458,7 @@ function finalizar_requisicion(){
     let n_requisicion = $(".n_requisicion").html();
 
   $.ajax({
-    url:"ajax/caja.php?op=acepta_requisicion",
+    url:"ajax/caja.php?op=finaliza_requisicion",
     method:"POST",
     data:{'arrayFinalizarReq':JSON.stringify(item_est_dos),'usuario':usuario,'n_requisicion':n_requisicion},
     cache: false,
@@ -563,12 +563,13 @@ function lista_items_est_dos(){
     $('#det_modal_aceptada').html('');
     var filas = "";
     for(var i=0; i<item_est_dos.length; i++){
-    	var filas = filas +"<tr id='fila"+i+"'><td style='text-align:center;width: 50% !important'>"+item_est_dos[i].descripcion+"</td>"+
-        "<td style='text-align:center;width: 10%'>"+"<input style='text-align:left' type='text' class='form-control' name='cantidad[]' id='cantidad[]' onClick='setCantidadItem(event, this, "+(i)+");' onKeyUp='setCantidadItem(event, this, "+(i)+");' value='"+item_est_dos[i].cantidad+"' readonly>"+"</td>"+
-    	"<td style='text-align:center;width: 15%'>"+"<input style='text-align:left' type='number' class='form-control' name='cantidad[]' id='cantidad[]' onClick='setPrecioItem(event, this, "+(i)+");' onKeyUp='setPrecioItem(event, this, "+(i)+");' value='"+item_est_dos[i].precio+"'>"+"</td>"+
-    	"<td style='text-align:center;width: 25% !important'>"+"<input style='text-align:left' type='text' class='form-control' name='cantidad[]' id='cantidad[]' onClick='setCantidadItem(event, this, "+(i)+");' onKeyUp='setCantidadItem(event, this, "+(i)+");' value='"+item_est_dos[i].comprobante+"'>"+"</td>"+"</tr>";
+      if((item_est_dos[i].estado) != "No"){
+    	var filas = filas +"<tr id='fila"+i+"'><td style='text-align:center;width: 60% !important' colspan='60'>"+item_est_dos[i].descripcion+"</td>"+
+        "<td style='text-align:center;width: 10% !important' colspan='10'>"+"<input style='text-align:left' type='text' class='form-control' name='cantidad[]' id='cantidad[]' onClick='setCantidadItem(event, this, "+(i)+");' onKeyUp='setCantidadItem(event, this, "+(i)+");' value='"+item_est_dos[i].cantidad+"' readonly>"+"</td>"+
+    	"<td style='text-align:center;width: 10% !important' colspan='10'>"+"<input style='text-align:left' type='number' class='form-control' name='cantidad[]' id='cantidad[]' onClick='setPrecioItem(event, this, "+(i)+");' onKeyUp='setPrecioItem(event, this, "+(i)+");' value='"+item_est_dos[i].precio+"'>"+"</td>"+
+    	"<td style='text-align:center;width: 20% !important' colspan='20'>"+"<input style='text-align:left' type='text' class='form-control' onClick='setTicketItem(event, this, "+(i)+");' onKeyUp='setTicketItem(event, this, "+(i)+");' value='"+item_est_dos[i].comprobante+"' maxlength='4' placeholder='---- ultimos dígitos'>"+"</td>"+"</tr>";
     }
-
+  }
     $('#det_modal_aceptada').html(filas);
 
 }
@@ -576,6 +577,13 @@ function lista_items_est_dos(){
 function setPrecioItem(event, obj, idx){
 	event.preventDefault();
     item_est_dos[idx].precio = parseFloat(obj.value);
+    calcularTotales();
+
+}
+
+function setTicketItem(event, obj, idx){
+  event.preventDefault();
+    item_est_dos[idx].comprobante = obj.value;
     calcularTotales();
 
 }

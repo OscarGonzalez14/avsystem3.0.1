@@ -89,6 +89,10 @@ case "listar_requisiciones":
     $badge="info";
     $icon="fa-clock";
     $estado="Aceptada";
+  }elseif($row["estado"]==3){
+    $badge="secondary";
+    $icon="fa-ban";
+    $estado="Finalizado";
   }
 
 

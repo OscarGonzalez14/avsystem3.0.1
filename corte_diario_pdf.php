@@ -669,13 +669,77 @@ if(($recuperado_cargo[$j]["monto_cobrado"])>0){
 </table>
 
 
-<!--<div id="footer"> 
-    <p class="page">Page <?php //$PAGE_NUM ?></p> 
-    </div> 
-    <div id="content"> 
-    <p>the first page</p> 
-    <p style="page-break-before: always;">the second page</p> 
-    </div> -->
+<!-- DATA CAJA CHICA-->
+<?php 
+  $caja_chica = $reporteria->get_data_caja_chica($fecha,$sucursal);
+?>
+
+
+<table width="100%" class="table2" style="margin-top: 20px">
+  <tr><td colspan="105"></td></tr>
+    <tr>
+     <th style="text-align: center;font-size: 12px;background: #C0C0C0" colspan="105">DETALLE DE CAJA CHICA</th>
+  </tr>
+  <thead>
+  <tr>
+    <th bgcolor="#004e00" colspan="15" class="stilot2"  style="width:15%"><span class="Estilo11">#REQUISICIÓN</span></th>
+    <th bgcolor="#004e00" colspan="15" class="stilot2" style="width:15%;"><span class="Estilo11">FECHA</span></th>
+    <th bgcolor="#004e00" colspan="41" class="stilot2" style="width: 41%"><span class="Estilo11">DESCRIPCIÓN</span></th>
+    <th bgcolor="#004e00" colspan="6" class="stilot2" style="width: 6%"><span class="Estilo11">CANTIDAD</span></th>
+    <th bgcolor="#004e00" colspan="6" class="stilot2" style="width: 6%"><span class="Estilo11">PRECIO</span></th>
+    <th bgcolor="#004e00" colspan="6" class="stilot2" style="width: 6%"><span class="Estilo11">COMPROBANTE</span></th>
+    <th bgcolor="#004e00" colspan="8" class="stilot2" style="width: 8%"><span class="Estilo11">APROBADO POR</span></th>
+    <th bgcolor="#004e00" colspan="8" class="stilot2" style="width: 8%"><span class="Estilo11">INGRESADO POR</span></th>
+  </tr>
+</thead>
+<tbody>
+
+<?php 
+$inicio_caja = 50;
+$gastos_caja = 0;
+$total_diario_efectivo = 0;
+
+
+for($j=0;$j<count($caja_chica);$j++){
+  $gastos_caja = $gastos_caja+$caja_chica[$j]["precio"];
+ ?>
+<tr>
+  <td colspan="15" class="stilot1"  style="width:15%"><?php echo $caja_chica[$j]["n_requisicion"];?></td>
+  <td colspan="15" class="stilot1" style="width:15%;"><?php echo $caja_chica[$j]["fecha"];?></td>
+  <td colspan="41" class="stilot1" style="width: 41%"><?php echo $caja_chica[$j]["descripcion"];?></td>
+  <td colspan="6" class="stilot1" style="width: 6%"><?php echo $caja_chica[$j]["cantidad"];?></td>
+  <td colspan="6" class="stilot1" style="width: 6%"><?php echo "$".number_format($caja_chica[$j]["precio"],2,".",",");?></td>
+  <td colspan="6" class="stilot1" style="width: 6%"><?php echo $caja_chica[$j]["comprobante"];?></td>
+  <td colspan="8" class="stilot1" style="width: 8%"><?php echo $caja_chica[$j]["aprobado_por"];;?></td>
+  <td colspan="8" class="stilot1" style="width: 8%"><?php echo $caja_chica[$j]["usuario"];;?></td>
+</tr>
+<?php
+  }
+
+  $dif_gastos = $inicio_caja - $gastos_caja;
+
+  $total_diario_efectivo = $total_efectivo_diario + $dif_gastos;
+
+  echo $total_diario_efectivo;
+?>
+</tbody>
+
+</table>
+
+<table style="margin-top: 20px;" width="100%" class="table2">
+  <tr>
+    <td colspan="26"  style="background: #001a57;color: white;color;text-align: center;font-size: 11px">INGRESO EFECTIVO</td>
+    <td colspan="26" style="background: #001a57;color: white;color;text-align: center;font-size: 11px">GASTOS CAJA CHICA</td>
+    <td colspan="26" style="background: #001a57;color: white;color;text-align: center;font-size: 11px">SOBRANTE CAJA CHICA</td>
+    <td colspan="28" style="background: #001a57;color: white;color;text-align: center;font-size: 11px">TOTALES EFECTIVO</td>
+  </tr>
+
+  <td colspan="26"  style="text-align: center;font-size: 12px;color: red;" class="stilot1"><strong><?php echo "$".number_format($total_efectivo_diario,2,".",","); ?></strong></td>
+    <td colspan="26" style="text-align: center;font-size: 12px;color: red;" class="stilot1"><strong><?php echo "$".number_format($gastos_caja,2,".",",");?></strong></td>
+    <td colspan="26" style="text-align: center;font-size: 12px;color: red;" class="stilot1"><strong><?php echo "$".number_format($dif_gastos,2,".",",");?></strong></td>
+    <td colspan="28" style="text-align: center;font-size: 12px;color: red;" class="stilot1"><strong><?php echo "$".number_format($total_diario_efectivo,2,".",",");?></strong></td>
+  </tr>
+</table>
 
 </body>
 

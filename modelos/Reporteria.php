@@ -204,6 +204,20 @@ public function get_resumen_ventas_cobros($fecha,$sucursal){
 	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/////////////////GET DATA CAJA CHICA
+
+public function get_data_caja_chica($fecha,$sucursal){
+	$conectar= parent::conexion();
+	parent::set_names(); 
+	$fecha_corte = $fecha."%";
+	$sql="select r.n_requisicion,r.fecha,r.estado,r.aprobado_por,r.sucursal,dr.descripcion,dr.cantidad,dr.precio,dr.usuario,dr.comprobante from requisicion as r join detalle_requisicion as dr where r.n_requisicion=dr.numero_requicision and r.estado='3' AND dr.precio>0 and r.sucursal=? and r.fecha like ?;";
+	$sql=$conectar->prepare($sql);
+	$sql->bindValue(1,$sucursal);
+	$sql->bindValue(2,$fecha_corte);
+	$sql->execute();
+	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
 
 ////////////NOTIFICACION DE GANADORES POR REFERIDOS
