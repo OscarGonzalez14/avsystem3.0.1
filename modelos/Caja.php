@@ -196,7 +196,68 @@ class Caja extends Conectar{
 
 //print_r($_POST);
   }
+public function get_id_caja_chica($sucursal){
+  $conectar= parent::conexion();
+  $sql="select id_caja from caja_chica where sucursal=?;";
+  $sql = $conectar->prepare($sql);
+  $sql->bindValue(1,$sucursal);
+  $sql->execute();
+  return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+}
 
+////////////// GET DATA EFECTIVO DIARIO
+
+public function ver_ingesos_efectivo($sucursal){
+    $conectar= parent::conexion();
+
+    date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y");
+
+    $fecha_abonos = $hoy."%";
+
+    $sql= "select sum(monto_abono) as efectivo from abonos where forma_pago='Efectivo' and sucursal=? and fecha_abono like ?;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$sucursal);
+    $sql->bindValue(2,$fecha_abonos);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    echo $resultado;
+}
+
+public function depositar_caja_chica($usuario,$monto_deposito,$fecha,$id_caja){
+
+$conectar= parent::conexion();
+  $sql = "select*from caja_chica where id_caja=?";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$id_caja);
+  $sql->execute();
+  $resultados = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+  foreach($resultados as $b=>$row){
+      $re["saldo"] = $row["saldo"];
+  }
+
+  $nuevo_saldo = $row["saldo"] + $monto_deposito;
+  
+  if(is_array($resultados)==true and count($resultados)>0) {                    
+    $sql12 = "update caja_chica set saldo=? where id_caja=?;";
+    $sql12 = $conectar->prepare($sql12);
+    $sql12->bindValue(1,$nuevo_saldo);
+    $sql12->bindValue(2,$id_caja);
+    $sql12->execute();      
+  }
+
+}
+
+//////GET SALDO CAJA CHICA
+public function saldo_caja_chica($sucursal){
+    $conectar= parent::conexion();           
+    $sql="select saldo from caja_chica where sucursal=?;";             
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$sucursal);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+   }
 
 }
 

@@ -227,11 +227,7 @@ require_once("modals/empresas_credito_fiscal.php");
 <script type="text/javascript" src="js/bootbox.min.js"></script>
 <script type="text/javascript" src="js/recibos.js"></script>
 
-  <script type="text/javascript">
-    var title = document.getElementById("name_pag").value;
-    document.getElementById("title_mod").innerHTML=" "+
-    title;
-  </script>
+
 </div><!-- FIN CONTENIDO-->
             <!-- /.card-body -->
           </div>

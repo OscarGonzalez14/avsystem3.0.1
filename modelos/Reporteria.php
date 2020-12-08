@@ -54,7 +54,7 @@ public function get_datos_factura_cantidad($n_venta,$id_paciente){
 public function get_datos_factura_p_unitario($n_venta,$id_paciente){
 	$conectar= parent::conexion();
 	parent::set_names();
-	$sql="select precio_venta from detalle_ventas where numero_venta=? and id_paciente=? order by id_detalle_ventas ASC;";
+	$sql="select precio_final from detalle_ventas where numero_venta=? and id_paciente=? order by id_detalle_ventas ASC;";
 	$sql=$conectar->prepare($sql);
 	$sql->bindValue(1,$n_venta);
     $sql->bindValue(2,$id_paciente);
@@ -65,7 +65,7 @@ public function get_datos_factura_p_unitario($n_venta,$id_paciente){
 public function get_datos_factura_subtotal($n_venta,$id_paciente){
 	$conectar= parent::conexion();
 	parent::set_names();
-	$sql="select precio_venta*cantidad_venta as subtotal from detalle_ventas where numero_venta=? and id_paciente=? order by id_detalle_ventas ASC;";
+	$sql="select precio_final*cantidad_venta as subtotal from detalle_ventas where numero_venta=? and id_paciente=? order by id_detalle_ventas ASC;";
 	$sql=$conectar->prepare($sql);
 	$sql->bindValue(1,$n_venta);
     $sql->bindValue(2,$id_paciente);
@@ -203,6 +203,18 @@ public function get_resumen_ventas_cobros($fecha,$sucursal){
 	$sql->execute();
 	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
+
+//////GET REQUICISIONES PENDIENTES
+public function count_req_pendientes(){
+    $conectar= parent::conexion();           
+    $sql="select estado from requisicion where estado=0;";             
+    $sql=$conectar->prepare($sql);
+    $sql->execute();
+    $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+    return $sql->rowCount();
+}
+
+
 
 /////////////////GET DATA CAJA CHICA
 

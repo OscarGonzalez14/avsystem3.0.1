@@ -601,4 +601,84 @@ function calcularTotales() {
   
 }
 
+function deposito_caja(){
+  let usuario = $("#usuario").val();
+  let monto_deposito = $("#monto_deposito").val();
+  let fecha = $("#fecha").val();
+  let id_caja = $("#id_caja_chica").val();
+  let sucursal = $("#sucursal").val();
+
+  $.ajax({
+    url:"ajax/caja.php?op=realiza_deposito_caja",
+    method:"POST",
+    data:{usuario:usuario,monto_deposito:monto_deposito,fecha:fecha,id_caja:id_caja,sucursal:sucursal},
+    cache: false,
+    dataType:"json",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+    },     
+    success:function(data){
+    console.log(data);
+      if(data=='ok'){
+       setTimeout ("Swal.fire('Se ha realizado deposito a caja chica','','success')", 100);
+       setTimeout ("explode();", 2000); 
+      }else{
+       setTimeout ("Swal.fire('No existen fondos para realizar deposito','','warning')", 100);
+       return false;
+      }
+
+    }
+
+    });//////FIN AJAX
+    setTimeout ("Swal.fire('Se ha realizado deposito a caja chica','','success')", 100);
+    setTimeout ("explode();", 2000); 
+
+}
+
+function get_id_caja_chica(){
+  let sucursal = $("#sucursal").val();
+
+  $.ajax({
+    url:"ajax/caja.php?op=get_id_caja_chica",
+    method:"POST",
+    data:{sucursal:sucursal},
+    cache: false,
+    dataType:"json",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+    },     
+    success:function(data){
+    console.log(data);
+      $("#id_caja_chica").val(data.id_caja);
+    }
+
+    });//////FIN AJAX
+
+
+  $.ajax({
+    url:"ajax/caja.php?op=get_saldo_caja",
+    method:"POST",
+    data:{sucursal:sucursal},
+    cache: false,
+    dataType:"json",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+    },     
+    success:function(data){
+    console.log(data);
+      $("#saldo_caja").html(data.saldo);
+    }
+
+    });//////FIN AJAX
+    
+}
+
+
+
 init();

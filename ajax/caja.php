@@ -307,4 +307,64 @@ case 'finaliza_requisicion':
    } 
 
     break;
+
+    case "get_id_caja_chica":
+
+    $datos= $caja->get_id_caja_chica($_POST["sucursal"]);
+
+        foreach($datos as $row){
+          $output = array();
+          $output["id_caja"] = $row["id_caja"];               
+        }      
+  echo json_encode($output);
+
+  break;
+
+  //////////////GET SALDO CAJA CHICA
+  case "get_saldo_caja":
+
+    $datos= $caja->saldo_caja_chica($_POST["sucursal"]);
+
+        foreach($datos as $row){
+          $output = array();
+          $output["saldo"] = number_format($row["saldo"],2,".",",");               
+        }      
+  echo json_encode($output);
+
+  break;
+
+  case 'realiza_deposito_caja':
+
+  //$datos = $caja->ver_ingesos_efectivo($_POST["sucursal"]);
+
+  //if(is_array($datos)==true and count($datos)>0){
+  $caja->depositar_caja_chica($_POST["usuario"],$_POST["monto_deposito"],$_POST["fecha"],$_POST["id_caja"]);
+  //$messages[]="ok";
+      
+   /* }else{
+      $errors[]="error";
+    }
+
+    if (isset($messages)){
+     ?>
+       <?php
+         foreach ($messages as $message) {
+            echo json_encode($message);
+         }
+         ?>
+   <?php
+  }
+    //mensaje error
+      if (isset($errors)){
+   ?>
+
+         <?php
+           foreach ($errors as $error) {
+               echo json_encode($error);
+             }
+           ?>
+   <?php
+   } */
+
+    break;
 }
