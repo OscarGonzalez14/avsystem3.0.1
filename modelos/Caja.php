@@ -177,6 +177,9 @@ class Caja extends Conectar{
 
     $usuario = $_POST["usuario"];
     $n_requisicion = $_POST["n_requisicion"];
+    $sucursal = $_POST["sucursal"];
+    $monto = $_POST["monto"];
+
 
       
     $sql ="update detalle_requisicion set precio=?,comprobante=?,usuario=? where id_detalle_req=?;";
@@ -194,8 +197,46 @@ class Caja extends Conectar{
     $sql1->bindValue(1,$n_requisicion);
     $sql1->execute();
 
-//print_r($_POST);
+    $sql2 = "select*from caja_chica where sucursal=?;";
+    $sql2 = $conectar->prepare($sql2);
+    $sql2->bindValue(1,$sucursal);
+    $sql2->execute();
+    $resultados = $sql2->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($resultados as $b => $row) {
+      $re["saldo_caja_c"] = $row["saldo"];
+    }
+
+    $saldo_act = $row["saldo"];
+    $sobrante = $saldo_act - $monto;
+    $observaciones = "0";
+    $tipo_movimiento = "Egreso";
+    date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y");
+
+    $nuevo_saldo = $row["saldo"] - $monto;
+
+    $sql3 = "update caja_chica set saldo=? where sucursal=?;";
+    $sql3 = $conectar->prepare($sql3);
+    $sql3->bindValue(1,$nuevo_saldo);
+    $sql3->bindValue(2,$sucursal);
+    $sql3->execute();
+
+    $sql4 = "insert into movimientos_caja values(null,?,?,?,?,?,?,?,?);";
+    $sql4 = $conectar->prepare($sql4);
+    $sql4->bindValue(1,$tipo_movimiento);
+    $sql4->bindValue(2,$usuario);
+    $sql4->bindValue(3,$monto);
+    $sql4->bindValue(4,$hoy);
+    $sql4->bindValue(5,$observaciones);
+    $sql4->bindValue(6,$saldo_act);
+    $sql4->bindValue(7,$sobrante);
+    $sql4->bindValue(8,$sucursal);
+    $sql4->execute();
+    
+
   }
+
+
 public function get_id_caja_chica($sucursal){
   $conectar= parent::conexion();
   $sql="select id_caja from caja_chica where sucursal=?;";

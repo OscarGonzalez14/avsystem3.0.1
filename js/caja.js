@@ -1,6 +1,5 @@
-
 function init(){
-	listar_requicisiones();
+  listar_requicisiones();
 }
 
 $(document).keypress(function(e) {
@@ -18,20 +17,20 @@ function agregar_item_requi(){
   
    if(descripcion !="" && cantidad !=""){
 
-		var item = {
-			descripcion : descripcion,
-			cantidad : cantidad
-		};
+    var item = {
+      descripcion : descripcion,
+      cantidad : cantidad
+    };
 
-		item_req.push(item);
-		console.log(item_req);
+    item_req.push(item);
+    console.log(item_req);
     
-    	$("#desc_requi").val("");
-    	$("#cant_requi").val("");
-    	$("#precio_requi").val("");
+      $("#desc_requi").val("");
+      $("#cant_requi").val("");
+      $("#precio_requi").val("");
 
     }else{
-    	Swal.fire('Error!. Campos vacios!','','error')
+      Swal.fire('Error!. Campos vacios!','','error')
     }
 
     document.getElementById("desc_requi").focus();
@@ -41,17 +40,17 @@ function agregar_item_requi(){
 
 function lista_items_requisicion(){
 
-	$('#listar_det_items_requisicion').html('');
+  $('#listar_det_items_requisicion').html('');
 
-	for(var i=0; i<item_req.length; i++){
-		var filas = filas + "<tr id='fila"+i+"'><td>"+(i+1)+
-		"</td><td style='text-align:center;'>"+item_req[i].descripcion+
-		"<td style='text-align:center'>"+item_req[i].cantidad+"</td>"+
-		"<td style='text-align:center'><i class='nav-icon fas fa-times-circle fa-2x' onClick='eliminarFila("+i+");' style='color:red'></i></td></tr>";
+  for(var i=0; i<item_req.length; i++){
+    var filas = filas + "<tr id='fila"+i+"'><td>"+(i+1)+
+    "</td><td style='text-align:center;'>"+item_req[i].descripcion+
+    "<td style='text-align:center'>"+item_req[i].cantidad+"</td>"+
+    "<td style='text-align:center'><i class='nav-icon fas fa-times-circle fa-2x' onClick='eliminarFila("+i+");' style='color:red'></i></td></tr>";
 
-	}
+  }
 
-	  $('#listar_det_items_requisicion').html(filas);
+    $('#listar_det_items_requisicion').html(filas);
 
 }
 
@@ -87,7 +86,7 @@ function get_correlativo_requisiciones(){
 
 function registrar_requisicion(){
 
-	var cuenta_elem = item_req.length;
+  var cuenta_elem = item_req.length;
     var fecha_req = $("#fecha_requi").val();
     var numero_req = $("#n_requisicion").html();
     var sucursal = $("#sucursal").val();
@@ -95,9 +94,9 @@ function registrar_requisicion(){
     //var precio = $("#precio_requi").val();
     //var cantidad = $("#cant_requi").val();
 
-	if(cuenta_elem > 0 && numero_req !=""){
+  if(cuenta_elem > 0 && numero_req !=""){
 
-	$.ajax({
+  $.ajax({
     url:"ajax/caja.php?op=registrar_req",
     method:"POST",
     data:{'arrayRequisicion':JSON.stringify(item_req),'fecha_req':fecha_req,'numero_req':numero_req,'sucursal':sucursal,'usuario':usuario},
@@ -114,17 +113,17 @@ function registrar_requisicion(){
        setTimeout ("Swal.fire('Requicisión creada Existosamente','','success')", 100);
        setTimeout ("explode();", 2000); 
       }else{
-      	setTimeout ("Swal.fire('Correlativo Duplicado','','error')", 100);
+        setTimeout ("Swal.fire('Correlativo Duplicado','','error')", 100);
       }
 
 
     }
 
     });//////FIN AJAX
-	 	
-	 }else{
-	 	Swal.fire('Error!. Requisión vacía o Correlativo incorrecto!','','error')
-	 }
+    
+   }else{
+    Swal.fire('Error!. Requisión vacía o Correlativo incorrecto!','','error')
+   }
 }
 
   function explode(){
@@ -133,15 +132,15 @@ function registrar_requisicion(){
 
 function listar_requicisiones(){
 
-	var sucursal = $('#sucursal').val();
+  var sucursal = $('#sucursal').val();
 
-	tabla_requi_general=$('#data_requisiciones').dataTable(
-	{
-		"aProcessing": true,//Activamos el procesamiento del datatables
-	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
-	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
+  tabla_requi_general=$('#data_requisiciones').dataTable(
+  {
+    "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
 
-	    columnDefs: [
+      columnDefs: [
           {"targets": [0],
             "visible": false,
             "searchable": false
@@ -161,76 +160,76 @@ buttons: [
                 columns:  ':not(:last-child)'
             }
         }],
-		"ajax":
-				{
-					url: 'ajax/caja.php?op=listar_requisiciones',
-					type : "post",
-					dataType : "json",
-					data:{sucursal:sucursal},					
-					error: function(e){
-						console.log(e.responseText);	
-					}
-				},
-		"bDestroy": true,
-		"responsive": true,
-		"bInfo":true,
-		"iDisplayLength":25,//Por cada 10 registros hace una paginación
-	    //"order": [[ 0, "desc" ]],//Ordenar (columna,orden)
-	    
-	    "language": {
+    "ajax":
+        {
+          url: 'ajax/caja.php?op=listar_requisiciones',
+          type : "post",
+          dataType : "json",
+          data:{sucursal:sucursal},         
+          error: function(e){
+            console.log(e.responseText);  
+          }
+        },
+    "bDestroy": true,
+    "responsive": true,
+    "bInfo":true,
+    "iDisplayLength":25,//Por cada 10 registros hace una paginación
+      //"order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+      
+      "language": {
  
-			    "sProcessing":     "Procesando...",
-			 
-			    "sLengthMenu":     "Mostrar _MENU_ registros",
-			 
-			    "sZeroRecords":    "No se encontraron resultados",
-			 
-			    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-			 
-			    "sInfo":           "Mostrando un total de _TOTAL_ registros",
-			 
-			    "sInfoEmpty":      "Mostrando un total de 0 registros",
-			 
-			    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			 
-			    "sInfoPostFix":    "",
-			 
-			    "sSearch":         "",
-			 
-			    "sUrl":            "",
-			 
-			    "sInfoThousands":  ",",
-			 
-			    "sLoadingRecords": "Cargando...",
-			 
-			    "oPaginate": {
-			 
-			        "sFirst":    "Primero",
-			 
-			        "sLast":     "Último",
-			 
-			        "sNext":     "Siguiente",
-			 
-			        "sPrevious": "Anterior"
-			 
-			    }
+          "sProcessing":     "Procesando...",
+       
+          "sLengthMenu":     "Mostrar _MENU_ registros",
+       
+          "sZeroRecords":    "No se encontraron resultados",
+       
+          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+       
+          "sInfo":           "Mostrando un total de _TOTAL_ registros",
+       
+          "sInfoEmpty":      "Mostrando un total de 0 registros",
+       
+          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+       
+          "sInfoPostFix":    "",
+       
+          "sSearch":         "",
+       
+          "sUrl":            "",
+       
+          "sInfoThousands":  ",",
+       
+          "sLoadingRecords": "Cargando...",
+       
+          "oPaginate": {
+       
+              "sFirst":    "Primero",
+       
+              "sLast":     "Último",
+       
+              "sNext":     "Siguiente",
+       
+              "sPrevious": "Anterior"
+       
+          }
 
-			   }//cerrando language
-	       
-	}).DataTable();
+         }//cerrando language
+         
+  }).DataTable();
 }
 
 function listar_requicisiones_pendientes(){
 
-	//var sucursal = $('#sucursal').val();
+  //var sucursal = $('#sucursal').val();
 
-	tabla_requi_pendientes=$('#data_requisiciones').dataTable(
-	{
-		"aProcessing": true,//Activamos el procesamiento del datatables
-	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
-	    dom: 'Bfrtip',//Definimos los elementos del control de tabla
+  tabla_requi_pendientes=$('#data_requisiciones').dataTable(
+  {
+    "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
 
-	    columnDefs: [
+      columnDefs: [
           {"targets": [0],
             "visible": false,
             "searchable": false
@@ -250,63 +249,63 @@ buttons: [
                 columns:  ':not(:last-child)'
             }
         }],
-		"ajax":
-				{
-					url: 'ajax/caja.php?op=listar_requisiciones_pendientes',
-					type : "get",
-					dataType : "json",
-					//data:{sucursal:sucursal},					
-					error: function(e){
-						console.log(e.responseText);	
-					}
-				},
-		"bDestroy": true,
-		"responsive": true,
-		"bInfo":true,
-		"iDisplayLength":25,//Por cada 10 registros hace una paginación
-	    //"order": [[ 0, "desc" ]],//Ordenar (columna,orden)
-	    
-	    "language": {
+    "ajax":
+        {
+          url: 'ajax/caja.php?op=listar_requisiciones_pendientes',
+          type : "get",
+          dataType : "json",
+          //data:{sucursal:sucursal},         
+          error: function(e){
+            console.log(e.responseText);  
+          }
+        },
+    "bDestroy": true,
+    "responsive": true,
+    "bInfo":true,
+    "iDisplayLength":25,//Por cada 10 registros hace una paginación
+      //"order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+      
+      "language": {
  
-			    "sProcessing":     "Procesando...",
-			 
-			    "sLengthMenu":     "Mostrar _MENU_ registros",
-			 
-			    "sZeroRecords":    "No se encontraron resultados",
-			 
-			    "sEmptyTable":     "Ningún dato disponible en esta tabla",
-			 
-			    "sInfo":           "Mostrando un total de _TOTAL_ registros",
-			 
-			    "sInfoEmpty":      "Mostrando un total de 0 registros",
-			 
-			    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			 
-			    "sInfoPostFix":    "",
-			 
-			    "sSearch":         "",
-			 
-			    "sUrl":            "",
-			 
-			    "sInfoThousands":  ",",
-			 
-			    "sLoadingRecords": "Cargando...",
-			 
-			    "oPaginate": {
-			 
-			        "sFirst":    "Primero",
-			 
-			        "sLast":     "Último",
-			 
-			        "sNext":     "Siguiente",
-			 
-			        "sPrevious": "Anterior"
-			 
-			    }
+          "sProcessing":     "Procesando...",
+       
+          "sLengthMenu":     "Mostrar _MENU_ registros",
+       
+          "sZeroRecords":    "No se encontraron resultados",
+       
+          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+       
+          "sInfo":           "Mostrando un total de _TOTAL_ registros",
+       
+          "sInfoEmpty":      "Mostrando un total de 0 registros",
+       
+          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+       
+          "sInfoPostFix":    "",
+       
+          "sSearch":         "",
+       
+          "sUrl":            "",
+       
+          "sInfoThousands":  ",",
+       
+          "sLoadingRecords": "Cargando...",
+       
+          "oPaginate": {
+       
+              "sFirst":    "Primero",
+       
+              "sLast":     "Último",
+       
+              "sNext":     "Siguiente",
+       
+              "sPrevious": "Anterior"
+       
+          }
 
-			   }//cerrando language
-	       
-	}).DataTable();
+         }//cerrando language
+         
+  }).DataTable();
 }
 
 var items_requisicion = [];
@@ -318,7 +317,7 @@ function show_datos_requi(id_requisicion,n_requisicion){
 
  if (cat_user=="administrador") {
 
- 	  $.ajax({
+    $.ajax({
       url:"ajax/caja.php?op=get_data_requisicion_admin",
       method:"POST",
       data:{n_requisicion:n_requisicion},
@@ -332,11 +331,11 @@ function show_datos_requi(id_requisicion,n_requisicion){
           //console.log(data[i].cantidad);
           //console.log(data[i].precio);
           var obj = {
-          	id_detalle : data[i].id_detalle_req,
-          	descripcion : data[i].descripcion,
-          	cantidad : data[i].cantidad,
-          	precio : data[i].precio,
-          	estado : "No"
+            id_detalle : data[i].id_detalle_req,
+            descripcion : data[i].descripcion,
+            cantidad : data[i].cantidad,
+            precio : data[i].precio,
+            estado : "No"
 
           };//FIN OBJ
           items_requisicion.push(obj);
@@ -350,8 +349,8 @@ function show_datos_requi(id_requisicion,n_requisicion){
 
 function clear_items_req(){
     console.log("holaa");
-	items_requisicion.length = 0;
-	item_est_uno.length = 0;
+  items_requisicion.length = 0;
+  item_est_uno.length = 0;
     item_est_dos.length = 0;
 
 }
@@ -362,9 +361,9 @@ function lista_items_requisicion_pendientes(){
     var filas = "";
 
     for(var i=0; i<items_requisicion.length; i++){
-    	var filas = filas + "<tr id='fila"+i+"'><td style='width: 5%'>"+"<input class='hemograma' type='checkbox' name='check_box' value='hemograma' id=item"+i+" onClick='item_check(event, this, "+(i)+");'></td>"+
-    	"<td style='text-align:center;width: 60% !important'>"+items_requisicion[i].descripcion+"</td>"+
-    	"<td style='text-align:center;width: 20% !important'>"+"<input style='text-align:left' type='number' class='form-control' name='cantidad[]' id='cantidad[]' onClick='setCantidadItem(event, this, "+(i)+");' onKeyUp='setCantidadItem(event, this, "+(i)+");' value='"+items_requisicion[i].cantidad+"'>"+"</td>"+"</tr>";
+      var filas = filas + "<tr id='fila"+i+"'><td style='width: 5%'>"+"<input class='hemograma' type='checkbox' name='check_box' value='hemograma' id=item"+i+" onClick='item_check(event, this, "+(i)+");'></td>"+
+      "<td style='text-align:center;width: 60% !important'>"+items_requisicion[i].descripcion+"</td>"+
+      "<td style='text-align:center;width: 20% !important'>"+"<input style='text-align:left' type='number' class='form-control' name='cantidad[]' id='cantidad[]' onClick='setCantidadItem(event, this, "+(i)+");' onKeyUp='setCantidadItem(event, this, "+(i)+");' value='"+items_requisicion[i].cantidad+"'>"+"</td>"+"</tr>";
     }
 
     $('#det_items_requisicion_admin').html(filas);
@@ -381,7 +380,7 @@ function item_check(event, obj, idx){
  if (document.getElementById(x).checked){
     items_requisicion[idx].estado = "Ok";
  }else{
- 	items_requisicion[idx].estado = "No";
+  items_requisicion[idx].estado = "No";
  }
 }
 ////
@@ -397,7 +396,7 @@ function aprobar_requisicion(){
     let usuario = $("#usuario").val();
     let n_requisicion = $(".n_requisicion").html();
 
-	$.ajax({
+  $.ajax({
     url:"ajax/caja.php?op=aprueba_requisicion",
     method:"POST",
     data:{'arrayAprobados':JSON.stringify(items_requisicion),'usuario':usuario,'n_requisicion':n_requisicion},
@@ -418,7 +417,7 @@ function aprobar_requisicion(){
     }
 
     });//////FIN AJAX
-	 	
+    
 }
 
 ///////////////////////ACEPTAR REQUICISION 
@@ -456,11 +455,13 @@ function finalizar_requisicion(){
 
     let usuario = $("#usuario").val();
     let n_requisicion = $(".n_requisicion").html();
+    let sucursal = $("#sucursal").val();
+    let monto = $("#total_caja").html();
 
   $.ajax({
     url:"ajax/caja.php?op=finaliza_requisicion",
     method:"POST",
-    data:{'arrayFinalizarReq':JSON.stringify(item_est_dos),'usuario':usuario,'n_requisicion':n_requisicion},
+    data:{'arrayFinalizarReq':JSON.stringify(item_est_dos),'usuario':usuario,'n_requisicion':n_requisicion,'sucursal':sucursal,'monto':monto},
     cache: false,
     dataType:"json",
     error:function(x,y,z){
@@ -473,6 +474,9 @@ function finalizar_requisicion(){
       if(data=='ok'){
        setTimeout ("Swal.fire('La requisicion ha sido Ingresada al corte','','success')", 100);
        setTimeout ("explode();", 2000); 
+      }else{
+        setTimeout ("Swal.fire('Saldo de Caja chica es menor a gasto actual','','error')", 100);
+       
       }
 
     }
@@ -486,11 +490,11 @@ var item_est_dos = [];
 
 function actions_requisicions(id_requisicion,n_requisicion,estado){
 
-	console.log(estado);
-	if (estado==1) {
+  console.log(estado);
+  if (estado==1) {
   $(".n_requisicion").html(n_requisicion);
-	$("#modal_estado_uno").modal("show");
-	  $.ajax({
+  $("#modal_estado_uno").modal("show");
+    $.ajax({
       url:"ajax/caja.php?op=data_req_est_uno",
       method:"POST",
       data:{n_requisicion:n_requisicion},
@@ -501,11 +505,11 @@ function actions_requisicions(id_requisicion,n_requisicion,estado){
         console.log(data);
         for(var i in data){ 
          var obj = {
-          	id_detalle : data[i].id_detalle_req,
-          	descripcion : data[i].descripcion,
-          	cantidad : data[i].cantidad,
-          	precio : data[i].precio,
-          	estado : data[i].estado,
+            id_detalle : data[i].id_detalle_req,
+            descripcion : data[i].descripcion,
+            cantidad : data[i].cantidad,
+            precio : data[i].precio,
+            estado : data[i].estado,
     
           };//FIN OBJ
           item_est_uno.push(obj);
@@ -514,11 +518,11 @@ function actions_requisicions(id_requisicion,n_requisicion,estado){
       }
       
     })
-	  console.log(item_est_uno);
-	}else if(estado==2){
+    console.log(item_est_uno);
+  }else if(estado==2){
     $(".n_requisicion").html(n_requisicion);
-	  $("#modal_estado_dos").modal("show");
-	  $.ajax({
+    $("#modal_estado_dos").modal("show");
+    $.ajax({
       url:"ajax/caja.php?op=data_req_est_uno",
       method:"POST",
       data:{n_requisicion:n_requisicion},
@@ -528,22 +532,22 @@ function actions_requisicions(id_requisicion,n_requisicion,estado){
       {
         for(var i in data){ 
          var obj = {
-          	id_detalle : data[i].id_detalle_req,
-          	descripcion : data[i].descripcion,
-          	cantidad : data[i].cantidad,
-          	precio : 0,
-          	estado : data[i].estado,
-          	comprobante : ""
+            id_detalle : data[i].id_detalle_req,
+            descripcion : data[i].descripcion,
+            cantidad : data[i].cantidad,
+            precio : 0,
+            estado : data[i].estado,
+            comprobante : ""
 
-          	
+            
           };//FIN OBJ
           item_est_dos.push(obj);
         }
         lista_items_est_dos();
       }
     })
-	  console.log(item_est_dos);
-	}
+    console.log(item_est_dos);
+  }
 }
 
 
@@ -551,9 +555,9 @@ function lista_items_est_uno(){
     $('#det_modal_aprobada').html('');
     var filas = "";
     for(var i=0; i<item_est_uno.length; i++){
-    	var filas = filas +"<tr id='fila"+i+"'><td style='text-align:center;width: 60% !important'>"+item_est_uno[i].descripcion+"</td>"+
+      var filas = filas +"<tr id='fila"+i+"'><td style='text-align:center;width: 60% !important'>"+item_est_uno[i].descripcion+"</td>"+
         "<td style='text-align:ce nter;width: 60% !important'>"+item_est_uno[i].cantidad+"</td>"+
-    	"<td style='text-align:center;width: 15%'>"+item_est_uno[i].estado+"</td>"+"</tr>";
+      "<td style='text-align:center;width: 15%'>"+item_est_uno[i].estado+"</td>"+"</tr>";
     }
 
     $('#det_modal_aprobada').html(filas);
@@ -564,10 +568,10 @@ function lista_items_est_dos(){
     var filas = "";
     for(var i=0; i<item_est_dos.length; i++){
       if((item_est_dos[i].estado) != "No"){
-    	var filas = filas +"<tr id='fila"+i+"'><td style='text-align:center;width: 60% !important' colspan='60'>"+item_est_dos[i].descripcion+"</td>"+
+      var filas = filas +"<tr id='fila"+i+"'><td style='text-align:center;width: 60% !important' colspan='60'>"+item_est_dos[i].descripcion+"</td>"+
         "<td style='text-align:center;width: 10% !important' colspan='10'>"+"<input style='text-align:left' type='text' class='form-control' name='cantidad[]' id='cantidad[]' onClick='setCantidadItem(event, this, "+(i)+");' onKeyUp='setCantidadItem(event, this, "+(i)+");' value='"+item_est_dos[i].cantidad+"' readonly>"+"</td>"+
-    	"<td style='text-align:center;width: 10% !important' colspan='10'>"+"<input style='text-align:left' type='number' class='form-control' name='cantidad[]' id='cantidad[]' onClick='setPrecioItem(event, this, "+(i)+");' onKeyUp='setPrecioItem(event, this, "+(i)+");' value='"+item_est_dos[i].precio+"'>"+"</td>"+
-    	"<td style='text-align:center;width: 20% !important' colspan='20'>"+"<input style='text-align:left' type='text' class='form-control' onClick='setTicketItem(event, this, "+(i)+");' onKeyUp='setTicketItem(event, this, "+(i)+");' value='"+item_est_dos[i].comprobante+"' maxlength='4' placeholder='---- ultimos dígitos'>"+"</td>"+"</tr>";
+      "<td style='text-align:center;width: 10% !important' colspan='10'>"+"<input style='text-align:left' type='number' class='form-control' name='cantidad[]' id='cantidad[]' onClick='setPrecioItem(event, this, "+(i)+");' onKeyUp='setPrecioItem(event, this, "+(i)+");' value='"+item_est_dos[i].precio+"'>"+"</td>"+
+      "<td style='text-align:center;width: 20% !important' colspan='20'>"+"<input style='text-align:left' type='text' class='form-control' onClick='setTicketItem(event, this, "+(i)+");' onKeyUp='setTicketItem(event, this, "+(i)+");' value='"+item_est_dos[i].comprobante+"' maxlength='4' placeholder='---- ultimos dígitos'>"+"</td>"+"</tr>";
     }
   }
     $('#det_modal_aceptada').html(filas);
@@ -575,7 +579,7 @@ function lista_items_est_dos(){
 }
 
 function setPrecioItem(event, obj, idx){
-	event.preventDefault();
+  event.preventDefault();
     item_est_dos[idx].precio = parseFloat(obj.value);
     calcularTotales();
 
@@ -595,7 +599,7 @@ function calcularTotales() {
   }
   console.log(total_final);
   if (total_final>50) {
-  	setTimeout ("Swal.fire('Se ha excedido el gasto de Caja Chica','','error')", 100);
+    setTimeout ("Swal.fire('Se ha excedido el gasto de Caja Chica','','error')", 100);
   }
   $('#total_caja').html(total_final.toFixed(2));
   

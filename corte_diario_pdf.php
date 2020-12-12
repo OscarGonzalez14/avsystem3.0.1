@@ -672,6 +672,15 @@ if(($recuperado_cargo[$j]["monto_cobrado"])>0){
 <!-- DATA CAJA CHICA-->
 <?php 
   $caja_chica = $reporteria->get_data_caja_chica($fecha,$sucursal);
+
+  $saldo_caja_chica = $reporteria->get_saldo_caja($sucursal);
+  $saldo_caja =0;
+
+  for($j=0;$j<count($saldo_caja_chica);$j++){
+  $saldo_caja = $saldo_caja+$saldo_caja_chica[$j]["saldo"];
+
+}
+
 ?>
 
 
@@ -695,14 +704,11 @@ if(($recuperado_cargo[$j]["monto_cobrado"])>0){
 <tbody>
 
 <?php 
-$inicio_caja = 50;
 $gastos_caja = 0;
-$total_diario_efectivo = 0;
-
-
 for($j=0;$j<count($caja_chica);$j++){
   $gastos_caja = $gastos_caja+$caja_chica[$j]["precio"];
- ?>
+?>
+
 <tr>
   <td colspan="15" class="stilot1"  style="width:15%"><?php echo $caja_chica[$j]["n_requisicion"];?></td>
   <td colspan="15" class="stilot1" style="width:15%;"><?php echo $caja_chica[$j]["fecha"];?></td>
@@ -711,34 +717,40 @@ for($j=0;$j<count($caja_chica);$j++){
   <td colspan="6" class="stilot1" style="width: 6%"><?php echo "$".number_format($caja_chica[$j]["precio"],2,".",",");?></td>
   <td colspan="6" class="stilot1" style="width: 6%"><?php echo $caja_chica[$j]["comprobante"];?></td>
   <td colspan="8" class="stilot1" style="width: 8%"><?php echo $caja_chica[$j]["aprobado_por"];;?></td>
-  <td colspan="8" class="stilot1" style="width: 8%"><?php echo $caja_chica[$j]["usuario"];;?></td>
+  <td colspan="8" class="stilot1" style="width: 8%"><?php echo $caja_chica[$j]["usuario"];?></td>
 </tr>
 <?php
   }
-
-  $dif_gastos = $inicio_caja - $gastos_caja;
-
-  $total_diario_efectivo = $total_efectivo_diario + $dif_gastos;
-
-  echo $total_diario_efectivo;
 ?>
-</tbody>
 
+<?php ?>
+
+</tbody>
+<?php 
+$get_movimientos_caja = $reporteria->get_mov_caja($fecha,$sucursal);
+
+?>
 </table>
 
 <table style="margin-top: 20px;" width="100%" class="table2">
   <tr>
-    <td colspan="26"  style="background: #001a57;color: white;color;text-align: center;font-size: 11px">INGRESO EFECTIVO</td>
+    <td colspan="26"  style="background: #001a57;color: white;color;text-align: center;font-size: 11px">SALDO CAJA</td>
     <td colspan="26" style="background: #001a57;color: white;color;text-align: center;font-size: 11px">GASTOS CAJA CHICA</td>
-    <td colspan="26" style="background: #001a57;color: white;color;text-align: center;font-size: 11px">SOBRANTE CAJA CHICA</td>
     <td colspan="28" style="background: #001a57;color: white;color;text-align: center;font-size: 11px">TOTALES EFECTIVO</td>
   </tr>
+  <?php 
+$saldo_caja = 0;
 
-  <td colspan="26"  style="text-align: center;font-size: 12px;color: red;" class="stilot1"><strong><?php echo "$".number_format($total_efectivo_diario,2,".",","); ?></strong></td>
+for($j=0;$j<count($get_movimientos_caja);$j++){
+  $saldo_caja = $saldo_caja+$get_movimientos_caja[$j]["sobrante"];
+?>
+  <?php $total_diario_efectivo = $total_efectivo_diario + $saldo_caja;?>
+  <td colspan="26"  style="text-align: center;font-size: 12px;color: red;" class="stilot1"><strong><?php echo "$".number_format($saldo_caja,2,".",","); ?></strong></td>
     <td colspan="26" style="text-align: center;font-size: 12px;color: red;" class="stilot1"><strong><?php echo "$".number_format($gastos_caja,2,".",",");?></strong></td>
-    <td colspan="26" style="text-align: center;font-size: 12px;color: red;" class="stilot1"><strong><?php echo "$".number_format($dif_gastos,2,".",",");?></strong></td>
     <td colspan="28" style="text-align: center;font-size: 12px;color: red;" class="stilot1"><strong><?php echo "$".number_format($total_diario_efectivo,2,".",",");?></strong></td>
   </tr>
+<?php
+} ?>
 </table>
 
 </body>

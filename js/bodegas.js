@@ -16,7 +16,7 @@ $(document).ready(ocultar_btns_post_ingreso);
 var tablas_compras_ingreso_bodegas;
 function init(){
   get_numero_ingreso();
-   get_correlativo_traslado();
+  get_correlativo_traslado();
 }
  function ingresar_compras_bodega() {
  	$('#modal_ingreso_bodega').modal('show');
@@ -117,7 +117,6 @@ function agregaIngreso(id_producto,numero_compra){
       id_producto: data.id_producto,
       cant_ingreso: data.cant_ingreso,
       precio_venta: data.precio_venta,
-      precio_compra : data.precio_compra,
       cantidad : 1,
       ubicacion  : '',
       numero_compra   : data.numero_compra,

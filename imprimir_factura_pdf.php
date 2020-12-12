@@ -24,7 +24,7 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
     <title></title>
    <style>
       html{
-      	margin-top: 0;
+        margin-top: 0;
         margin-left: 28px;
         margin-right:20px; 
         margin-bottom: 0;
@@ -234,7 +234,7 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
 
     <?php 
     for ($i=0; $i < sizeof($datos_factura_precio_u); $i++) {
-     echo "$".number_format(($datos_factura_precio_u[$i]["precio_venta"]),2,".",",");?><br>
+     echo "$".number_format(($datos_factura_precio_u[$i]["precio_final"]),2,".",",");?><br>
      <?php } ?> 
     
   </td>

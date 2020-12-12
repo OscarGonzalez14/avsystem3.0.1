@@ -7,7 +7,7 @@ class Ventas extends Conectar{//////inicio de la clase
 
 public function buscar_aros_ventas($id_producto,$id_ingreso){
   $conectar= parent::conexion();
-  $sql="select p.desc_producto,p.categoria_producto,e.precio_venta,e.stock,e.categoria_ub,e.num_compra,e.fecha_ingreso,e.id_ingreso,p.id_producto,e.precio_compra from
+  $sql="select p.desc_producto,p.categoria_producto,e.precio_venta,e.stock,e.categoria_ub,e.num_compra,e.fecha_ingreso,e.id_ingreso,p.id_producto from
 productos as p inner join existencias as e on p.id_producto=e.id_producto
 where e.id_producto=? and e.id_ingreso=?";
 
@@ -67,25 +67,7 @@ public function valida_existencia_venta($numero_venta){
 /////////////////////REGISTRAR VENTA
 public function agrega_detalle_venta(){
 
-$str = '';
-$detalles = array();
-$detalles = json_decode($_POST['arrayVenta']);
-$conectar= parent::conexion();
-parent::set_names();
 
-foreach ($detalles as $k => $v) {
-  $cantidad = $v->cantidad;
-  $categoria_prod = $v->categoria_prod;
-  $categoria_ub = $v->categoria_ub;
-  $codProd = $v->codProd;
-  $descripcion = $v->descripcion;
-  $descuento = $v->descuento;
-  $id_ingreso = $v->id_ingreso;
-  $num_compra = $v->num_compra;
-  $precio_venta = $v->precio_venta;
-  $stock = $v->stock;
-  $subtotal = $v->subtotal;
-  $precio_compra = $v->precio_compra;
 
   $fecha_venta = $_POST["fecha_venta"];
   $numero_venta = $_POST["numero_venta"];
@@ -100,9 +82,30 @@ foreach ($detalles as $k => $v) {
   $evaluado = $_POST["evaluado"];
   $optometra = $_POST["optometra"];
   $plazo = $_POST["plazo"];
-  $id_ref = $_POST["id_ref"];
+  $id_ref = $_POST["id_ref"];  
 
-  $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,?,?,?,?,?);";
+  $str = '';
+  $detalles = array();
+  $detalles = json_decode($_POST['arrayVenta']);
+  $conectar= parent::conexion();
+  parent::set_names();
+
+  if($tipo_venta == "Contado"){
+    foreach ($detalles as $k => $v) {
+    $cantidad = $v->cantidad;
+    $categoria_prod = $v->categoria_prod;
+    $categoria_ub = $v->categoria_ub;
+    $codProd = $v->codProd;
+    $descripcion = $v->descripcion;
+    $descuento = $v->descuento;
+    $id_ingreso = $v->id_ingreso;
+    $num_compra = $v->num_compra;
+    $precio_venta = $v->precio_venta;
+    $stock = $v->stock;
+    $subtotal = $v->subtotal;
+   
+
+  $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,?,?,?,?);";
   $sql=$conectar->prepare($sql);
 
     $sql->bindValue(1,$numero_venta);
@@ -116,9 +119,10 @@ foreach ($detalles as $k => $v) {
     $sql->bindValue(9,$id_usuario);
     $sql->bindValue(10,$id_paciente);
     $sql->bindValue(11,$evaluado);
-    $sql->bindValue(12,$precio_compra);
+   // $sql->bindValue(12,$precio_compra);
     $sql->execute();
 
+    if($categoria_prod=="aros" or $categoria_prod == "accesorios"){
     ////////////////////ACTUALIZAR STOCK DE BODEGA SI PRODUCTO == aros o accesorios
       $sql3="select * from existencias where id_producto=? and bodega=? and categoria_ub=? and num_compra=? and id_ingreso=?;";           
       $sql3=$conectar->prepare($sql3);
@@ -147,9 +151,11 @@ foreach ($detalles as $k => $v) {
       $sql12->bindValue(4,$id_ingreso);
       $sql12->bindValue(5,$categoria_ub);
       $sql12->bindValue(6,$num_compra);
-      $sql12->execute();               
-  }
-
+      $sql12->execute();
+  }          
+  
+  }////////////fin validar para descontar de inventario     
+}////////////////FIN VALIDA SI ES CONTADO 
 
 }//FIN DEL FOREACH**************
 

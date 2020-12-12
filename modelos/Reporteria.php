@@ -27,6 +27,7 @@ public function print_recibo_paciente($n_recibo,$n_venta,$id_paciente){
   $sql->execute();
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
+
 /////////GET DATOS DESCRIPCION DE PRODUCTOS FACTURA
 public function get_datos_factura($n_venta,$id_paciente){
 	$conectar= parent::conexion();
@@ -214,7 +215,17 @@ public function count_req_pendientes(){
     return $sql->rowCount();
 }
 
-
+///////////////GET MOVIMIENTOS caja chica
+public function get_mov_caja($fecha,$sucursal){
+	$conectar= parent::conexion();
+	parent::set_names(); 
+	$sql="select*from movimientos_caja where fecha=? and sucursal=? order by id_mov_caja DESC limit 1;";
+	$sql=$conectar->prepare($sql);
+	$sql->bindValue(1,$fecha);
+	$sql->bindValue(2,$sucursal);
+	$sql->execute();
+	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
 
 /////////////////GET DATA CAJA CHICA
 
@@ -253,8 +264,17 @@ public function get_datos_empresa($empresa){
 	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
-#############GET RESUMEN VENTAS Y COBROS
-
+############# GET RESUMEN VENTAS Y COBROS
+public function get_saldo_caja($sucursal){
+	$conectar= parent::conexion();
+	parent::set_names();
+ 
+	$sql="select saldo from caja_chica where sucursal=?;";
+	$sql=$conectar->prepare($sql);
+	$sql->bindValue(1,$sucursal);
+	$sql->execute();
+	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
 
 
 }

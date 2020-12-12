@@ -276,11 +276,21 @@ case 'finaliza_requisicion':
 
   $datos = $caja->valida_existe_requisicion($_POST["n_requisicion"]);
 
-      if(is_array($datos)==true and count($datos)>0){
+    $saldo_caja = $caja->saldo_caja_chica($_POST["sucursal"]);
+
+     foreach($saldo_caja as $row){
+       $saldo = number_format($row["saldo"],2,".",",");               
+     }
+
+     $gasto_caja = $_POST["monto"];
+
+   if ($gasto_caja < $saldo) {
+     if(is_array($datos)==true and count($datos)>0){
       $caja->finalizar_requisicion($_POST["n_requisicion"]);
       $messages[]="ok";
       
-    }else{
+    }
+  }else{
       $errors[]="error";
     }
 

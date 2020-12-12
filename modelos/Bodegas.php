@@ -43,7 +43,7 @@ public function registrar_ingreso_a_bodega(){
     $descripcion = $v->descripcion;
     $id_producto = $v->id_producto;
     $precio_venta =$v->precio_venta;
-    $precio_compra = $v->precio_compra;
+    //$precio_compra = $v->precio_compra;
 
     $fecha_ingreso = $_POST["fecha_ingreso"];
     $usuario = $_POST["usuario"];
@@ -86,7 +86,7 @@ public function registrar_ingreso_a_bodega(){
       }
 
     }else{
-     $sql="insert into existencias values (null,?,?,?,?,?,?,?,?,?);";
+     $sql="insert into existencias values (null,?,?,?,?,?,?,?,?);";
         $sql=$conectar->prepare($sql);
         $sql->bindValue(1,$id_producto);
         $sql->bindValue(2,$cantidad);
@@ -96,7 +96,7 @@ public function registrar_ingreso_a_bodega(){
         $sql->bindValue(6,$usuario);
         $sql->bindValue(7,$numero_compra);
         $sql->bindValue(8,$precio_venta);
-        $sql->bindValue(9,$precio_compra);       
+        //$sql->bindValue(9,$precio_compra);       
 
         $sql->execute();
     } //cierre la condicional
