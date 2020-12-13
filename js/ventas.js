@@ -230,7 +230,7 @@ function setDescuento(event, obj, idx){
     event.preventDefault();
     var desc = document.getElementById("descuento"+idx).value;
     var desc_n = parseInt(desc);
-     if(desc_n>30){
+     if(desc_n>200){
       Swal.fire('Error!, Ha excedido el limite de descuento autorizado','','error')
       document.getElementById("descuento"+idx).value="";
       document.getElementById("descuento"+idx).style.border='solid 1px red';
@@ -450,7 +450,7 @@ function listar_pacientes_sin_consultas_ventas(){
 
           //"scrollX": true
 
-        });
+    });
 }
 
 ///////////////////SHOW CONTRIBUYENTES 

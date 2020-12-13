@@ -90,37 +90,38 @@ public function agrega_detalle_venta(){
   $conectar= parent::conexion();
   parent::set_names();
 
-  if($tipo_venta == "Contado"){
+  if($tipo_venta == "Contado"){ ////////////////////VALIDAR SI LA VENTA ES DE CONTADO  ///////////
+
     foreach ($detalles as $k => $v) {
-    $cantidad = $v->cantidad;
-    $categoria_prod = $v->categoria_prod;
-    $categoria_ub = $v->categoria_ub;
-    $codProd = $v->codProd;
-    $descripcion = $v->descripcion;
-    $descuento = $v->descuento;
-    $id_ingreso = $v->id_ingreso;
-    $num_compra = $v->num_compra;
-    $precio_venta = $v->precio_venta;
-    $stock = $v->stock;
-    $subtotal = $v->subtotal;
+      $cantidad = $v->cantidad;
+      $categoria_prod = $v->categoria_prod;
+      $categoria_ub = $v->categoria_ub;
+      $codProd = $v->codProd;
+      $descripcion = $v->descripcion;
+      $descuento = $v->descuento;
+      $id_ingreso = $v->id_ingreso;
+      $num_compra = $v->num_compra;
+      $precio_venta = $v->precio_venta;
+      $stock = $v->stock;
+      $subtotal = $v->subtotal;
    
 
-  $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,?,?,?,?);";
-  $sql=$conectar->prepare($sql);
+      $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,?,?,?,?);";
+      $sql=$conectar->prepare($sql);
 
-    $sql->bindValue(1,$numero_venta);
-    $sql->bindValue(2,$codProd);
-    $sql->bindValue(3,$descripcion);
-    $sql->bindValue(4,$precio_venta);
-    $sql->bindValue(5,$cantidad);
-    $sql->bindValue(6,$descuento);
-    $sql->bindValue(7,$subtotal);
-    $sql->bindValue(8,$fecha_venta);
-    $sql->bindValue(9,$id_usuario);
-    $sql->bindValue(10,$id_paciente);
-    $sql->bindValue(11,$evaluado);
-   // $sql->bindValue(12,$precio_compra);
-    $sql->execute();
+      $sql->bindValue(1,$numero_venta);
+      $sql->bindValue(2,$codProd);
+      $sql->bindValue(3,$descripcion);
+      $sql->bindValue(4,$precio_venta);
+      $sql->bindValue(5,$cantidad);
+      $sql->bindValue(6,$descuento);
+      $sql->bindValue(7,$subtotal);
+      $sql->bindValue(8,$fecha_venta);
+      $sql->bindValue(9,$id_usuario);
+      $sql->bindValue(10,$id_paciente);
+      $sql->bindValue(11,$evaluado);
+     // $sql->bindValue(12,$precio_compra);
+     $sql->execute();
 
     if($categoria_prod=="aros" or $categoria_prod == "accesorios"){
     ////////////////////ACTUALIZAR STOCK DE BODEGA SI PRODUCTO == aros o accesorios
@@ -153,9 +154,9 @@ public function agrega_detalle_venta(){
       $sql12->bindValue(6,$num_compra);
       $sql12->execute();
   }          
-  
-  }////////////fin validar para descontar de inventario     
-}////////////////FIN VALIDA SI ES CONTADO 
+
+  }//////////// fin validar para descontar de inventario     
+ 
 
 }//FIN DEL FOREACH**************
 
@@ -237,6 +238,56 @@ public function agrega_detalle_venta(){
 
     $sql2->execute();
 
+  }elseif($tipo_venta == "Credito"){////////////////////////FIN PARA VALIDAR SI9 VENTA  == CONTADO
+
+  ////////////////////////   SI NO ES  == CONTADO REGISTRAR VENTAS FLOTANTES /////////////
+
+  $sql="select numero_orden from ventas_flotantes where sucursal= order by id_venta_flotante DESC limit 1;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$sucursal);
+  $sql->execute();
+  $resultado_correlativo = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+  ########## PREFIJOS #######
+  $prefijo = "";
+  if ($sucursal=="Metrocentro") {
+    $prefijo="ME";
+  }elseif ($sucursal=="Santa Ana") {
+    $prefijo="SA";
+  }elseif ($sucursal=="San Miguel") {
+    $prefijo="SM";
+  }
+  ########## FIN PREFIJOS #######
+
+  if(is_array($resultado_correlativo) == true and count($resultado_correlativo) > 0){
+    foreach($resultado_correlativo as $row){
+      $correlativo = $row["numero_orden"];
+      $cod = (substr($correlativo,4,11))+1;
+      $codigo = "O".$prefijo."-".$cod;
+    }
+  }else{
+    $codigo = "O".$prefijo."-1";
+}
+
+ // $codigo = "0001";
+
+  $sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    $sql5=$conectar->prepare($sql5);
+    $sql5->bindValue(1,$codigo);          
+    $sql5->bindValue(2,$fecha_venta);
+    $sql5->bindValue(3,$numero_venta);
+    $sql5->bindValue(4,$paciente);
+    $sql5->bindValue(5,$vendedor);       
+    $sql5->bindValue(6,$monto_total);
+    $sql5->bindValue(7,$tipo_pago);
+    $sql5->bindValue(8,$tipo_venta);          
+    $sql5->bindValue(9,$id_usuario);
+    $sql5->bindValue(10,$id_paciente);
+    $sql5->bindValue(11,$sucursal);
+    $sql5->bindValue(12,$evaluado);
+    $sql5->bindValue(13,$optometra);
+    $sql5->execute();
+  }
 
 }//////////FIN FUNCION REGISTRA VENTA
 
