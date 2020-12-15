@@ -6,6 +6,20 @@ require_once("../modelos/Creditos.php");
 $creditos = new Creditos();
 
 switch ($_GET["op"]){
+
+  case 'get_correlativo_factura':
+    $datos=$creditos->get_correlativo_factura($_POST["sucursal"]);
+
+    if(is_array($datos)==true and count($datos)>0){
+      foreach($datos as $row){
+        $output["correlativo"] = $row["n_correlativo"];
+      }
+    }
+
+    echo json_encode($output);
+
+    break;
+
 	case 'listar_creditos_contado':
 	$datos=$creditos->get_creditos_contado($_POST["sucursal"]);
   $data= Array();
@@ -18,17 +32,20 @@ switch ($_GET["op"]){
     $evento="";
     $class="";
     $href="";
+    $event = "";
 
     if($row["saldo"] == 0){
         $icon="fas fa-print";
         $atrib = "btn btn-info";
         $txt = 'CANC.';
         $href='imprimir_factura_pdf.php?n_venta='.$row['numero_venta'].'&id_paciente='.$row['id_paciente'].'';
+        $event = 'print_invoices';
     }elseif ($row["saldo"] > 0) {
         $icon=" fas fa-clock";
         $atrib = "btn btn-secondary";
         $txt = '';
         $href='#';
+        $event = "";
     }
 
     $sub_array[] = $row["numero_venta"];
@@ -39,7 +56,7 @@ switch ($_GET["op"]){
 
     $sub_array[] = '<button type="button" onClick="realizarAbonos('.$row["id_paciente"].','.$row["id_credito"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-md bg-warning" data-backdrop="static" data-keyboard="false"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>';
      $sub_array[] = '<button type="button" onClick="verDetAbonos('.$row["id_paciente"].',\''.$row["numero_venta"].'\');" id="'.$row["id_paciente"].'" class="btn btn-md bg-success"><i class="fas fa-file-invoice-dollar" aria-hidden="true" style="color:white"></i></button>';
-    $sub_array[] = '<a href="'.$href.'" method="POST" target="_blank"><button type="button"  class="btn '.$atrib.' btn-md"><i class="'.$icon.'"></i>'.$txt.'</button></a>';           
+    $sub_array[] = '<button type="button"  class="btn '.$atrib.' btn-md" onClick="'.$event.'('.$row["id_paciente"].','.$row["id_credito"].',\''.$row["numero_venta"].'\');"><i class="'.$icon.'"></i>'.$txt.'</button>';           
                                                 
     $data[] = $sub_array;
   }
@@ -302,6 +319,9 @@ switch ($_GET["op"]){
     } 
   break;
 
+  case 'save_correlativo_factura':    
+      $creditos->registrar_impresion_factura($_POST["sucursal"],$_POST["numero_venta"],$_POST["id_usuario"],$_POST["correlativo_fac"]);
+    break;
 
-    }//70814834
+    }
  ?>

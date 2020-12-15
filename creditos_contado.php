@@ -40,6 +40,25 @@ require_once("modals/modal_detalle_abonos.php");
 </section>
 
 
+<!-- IMPRIMIR FACTURA-->
+<div class="modal fade" id="print_invoices" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-body" style="color: #ff6500;display: block;margin-left: auto;margin-right: auto;">
+        <div>
+          <i class="fas fa-exclamation-triangle fa-2x" style="color: #ff6500;text-align: center;"></i> <span style="font-size: 30px;color: #404040;font-family: font-family: Helvetica, Arial, sans-serif;"><b>Correlativo</span> <span style="font-size: 30px;color: red;font-family: font-family: Helvetica, Arial, sans-serif;"><span style="color: red" id="correlativo_factura"></span></span></b>
+        </div>
+      </div>
+      <input type="hidden" name="" id="n_venta_factura">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <a id="link_invoice_print" target="_blank" href=""><button type="button" class="btn btn-primary" onClick="registrar_impresion();">Imprimir</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <?php require_once("footer.php");?>
 <?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>
 <input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>

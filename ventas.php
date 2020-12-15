@@ -128,7 +128,8 @@ require_once("modals/empresas_credito_fiscal.php");
 
            <div class="col-md-12">
               <div><!--BOTONES AGREGAR PRODUCTO-->
-                  <a class="btn btn-dark" style="color:white;border-radius:1px; background:black" data-toggle="modal" data-target="#listar_aros_ventas" data-backdrop="static" data-keyboard="false" id="btn_aros_venta"><i class="fas fa-plus"></i>Aro</a>
+                <section>
+                  <button class="btn btn-info" style="color:white;border-radius:1px;" data-toggle="modal" data-target="#listar_aros_ventas" data-backdrop="static" data-keyboard="false" id="btn_aros_venta"><i class="fas fa-plus"></i> Aro</button>
                   
                   <a class="btn btn-dark" style="color:white;border-radius:1px; background:black" data-toggle="modal" data-target="#listar_lentes_ventas" data-backdrop="static" data-keyboard="false" id="btn_aros_venta" onClick='listar_lentes_venta();'><i class="fas fa-plus"></i> Lentes</a>             
 
@@ -138,10 +139,10 @@ require_once("modals/empresas_credito_fiscal.php");
 
                   <a class="btn btn-dark" style="color:white;border-radius:1px; background:black" data-toggle="modal" data-target="#listar_lentes_ventas" data-backdrop="static" data-keyboard="false" id="btn_aros_venta" onClick='listar_lentes_venta();'><i class="fas fa-plus"></i> Reparaciones</a>
 
-                  <a class="btn btn-dark" style="color:white;border-radius:1px; background:black" data-toggle="modal" data-target="#listar_accesorios_ventas" data-backdrop="static" data-keyboard="false" id="btn_accesorios_venta"><i class="fas fa-plus"></i> Accesorios</a>
+                  <button class="btn btn-secondary" style="color:white;border-radius:1px;" data-toggle="modal" data-target="#listar_accesorios_ventas" data-backdrop="static" data-keyboard="false" id="btn_accesorios_venta"><i class="fas fa-plus"></i> Accesorios</button>
 
-                  <a class="btn btn-primary" style="color:white;border-radius:1px;" href="reporte_gral_ventas.php"><i class="fas fa-eye"></i> REPORTES </a>
-
+                  <a href="reporte_gral_ventas.php"><button class="btn btn-primary" style="color:white;border-radius:1px;" ><i class="fas fa-eye"></i> REPORTES </button></a>
+             </section>       
             </div><!-- FIN BOTONES AGREGAR PRODUCTO-->
             <div class="card">
               <div class="card-header">
@@ -156,7 +157,7 @@ require_once("modals/empresas_credito_fiscal.php");
                       <th style="text-align:center" width="40%">Descripción&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                       <th style="text-align:center" width="10%">Cantidad</th>
                       <th style="text-align:center" width="10%">P/U</th>
-                       <th style="text-align:center" width="10%">Desc.%</th>
+                       <th style="text-align:center" width="10%">Desc. $</th>
                       <th style="text-align:center" width="10%">Subtotal</th>
                       <th style="text-align:center" width="10%">Quitar</th>
                     </tr>

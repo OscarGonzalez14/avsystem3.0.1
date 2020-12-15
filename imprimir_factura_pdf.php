@@ -8,6 +8,7 @@ require_once("modelos/Reporteria.php");
 $reporteria=new Reporteria();
 $id_paciente =$_GET["id_paciente"];
 $n_venta =$_GET["n_venta"];
+$correlativo = $_GET["correlativo_f"];
 
 $datos_factura_cantidad = $reporteria->get_datos_factura_cantidad($_GET["n_venta"],$_GET["id_paciente"]);
 $datos_factura_producto = $reporteria->get_datos_factura($_GET["n_venta"],$_GET["id_paciente"]);
@@ -180,7 +181,8 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
 <?php
   for($i=0;$i<sizeof($datos_factura_venta);$i++){
  ?>
-<p style="font-size: 10px;text-align: right;">No.Venta:<?php echo $datos_factura_venta[$i]["numero_venta"];?>&nbsp;&nbsp;user:&nbsp;<?php echo $datos_factura_venta[$i]["id_usuario"];?>&nbsp;&nbsp;opto:&nbsp;<?php echo $datos_factura_venta[$i]["optometra"];?>&nbsp;&nbsp;-&nbsp;&nbsp;<?php echo $datos_factura_venta[$i]["fecha_venta"];?>&nbsp;&nbsp;<?php echo $datos_factura_venta[$i]["sucursal"];?></p>
+ <?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>
+<p style="font-size: 10px;text-align: right;">NF: <span style="color:red"><?php echo $correlativo; ?>&nbsp;-- &nbsp;</span> No.Venta:<?php echo $datos_factura_venta[$i]["numero_venta"];?>&nbsp;&nbsp;&nbsp;opto:&nbsp;<?php echo $datos_factura_venta[$i]["optometra"];?>&nbsp;&nbsp;-&nbsp;Impreso:&nbsp;<?php echo $hoy;?>&nbsp;&nbsp;&nbsp;user:&nbsp;<?php echo $datos_factura_venta[$i]["id_usuario"];?>--<?php echo $datos_factura_venta[$i]["sucursal"];?></p>
     <?php
   }
 ?>
@@ -310,7 +312,8 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
 <?php
   for($i=0;$i<sizeof($datos_factura_venta);$i++){
  ?>
-<p style="font-size: 10px;text-align: right;">No.Venta:<?php echo $datos_factura_venta[$i]["numero_venta"];?>&nbsp;&nbsp;user:&nbsp;<?php echo $datos_factura_venta[$i]["id_usuario"];?>&nbsp;&nbsp;opto:&nbsp;<?php echo $datos_factura_venta[$i]["optometra"];?>&nbsp;&nbsp;-&nbsp;&nbsp;<?php echo $datos_factura_venta[$i]["fecha_venta"];?>&nbsp;&nbsp;<?php echo $datos_factura_venta[$i]["sucursal"];?></p>
+<?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>
+<p style="font-size: 10px;text-align: right;">NF: <span style="color:red"><?php echo $correlativo; ?>&nbsp;-- &nbsp;</span> No.Venta:<?php echo $datos_factura_venta[$i]["numero_venta"];?>&nbsp;&nbsp;&nbsp;opto:&nbsp;<?php echo $datos_factura_venta[$i]["optometra"];?>&nbsp;&nbsp;-&nbsp;Impreso:&nbsp;<?php echo $hoy;?>&nbsp;&nbsp;&nbsp;user:&nbsp;<?php echo $datos_factura_venta[$i]["id_usuario"];?>--<?php echo $datos_factura_venta[$i]["sucursal"];?></p>
     <?php
   }
 ?>

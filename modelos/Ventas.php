@@ -67,8 +67,6 @@ public function valida_existencia_venta($numero_venta){
 /////////////////////REGISTRAR VENTA
 public function agrega_detalle_venta(){
 
-
-
   $fecha_venta = $_POST["fecha_venta"];
   $numero_venta = $_POST["numero_venta"];
   $paciente = $_POST["paciente"];
@@ -105,10 +103,8 @@ public function agrega_detalle_venta(){
       $stock = $v->stock;
       $subtotal = $v->subtotal;
    
-
       $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,?,?,?,?);";
       $sql=$conectar->prepare($sql);
-
       $sql->bindValue(1,$numero_venta);
       $sql->bindValue(2,$codProd);
       $sql->bindValue(3,$descripcion);
@@ -242,7 +238,7 @@ public function agrega_detalle_venta(){
 
   ////////////////////////   SI NO ES  == CONTADO REGISTRAR VENTAS FLOTANTES /////////////
 
-  $sql="select numero_orden from ventas_flotantes where sucursal= order by id_venta_flotante DESC limit 1;";
+  $sql="select numero_orden from ventas_flotantes where sucursal=? order by id_venta_flotante DESC limit 1;";
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$sucursal);
   $sql->execute();
@@ -258,18 +254,48 @@ public function agrega_detalle_venta(){
     $prefijo="SM";
   }
   ########## FIN PREFIJOS #######
-
+  $num = 1;
   if(is_array($resultado_correlativo) == true and count($resultado_correlativo) > 0){
     foreach($resultado_correlativo as $row){
       $correlativo = $row["numero_orden"];
-      $cod = (substr($correlativo,4,11))+1;
-      $codigo = "O".$prefijo."-".$cod;
+      $cod = substr($correlativo,4,11);
+      $codigo = "O".$prefijo."-".($cod+$num);
     }
   }else{
     $codigo = "O".$prefijo."-1";
 }
 
- // $codigo = "0001";
+ ///////////////   insert into detalle ventas flotantes //////////////
+
+  foreach ($detalles as $k => $v) {
+    $cantidad = $v->cantidad;
+    $categoria_prod = $v->categoria_prod;
+    $categoria_ub = $v->categoria_ub;
+    $codProd = $v->codProd;
+    $descripcion = $v->descripcion;
+    $descuento = $v->descuento;
+    $id_ingreso = $v->id_ingreso;
+    $num_compra = $v->num_compra;
+    $precio_venta = $v->precio_venta;
+    $stock = $v->stock;
+    $subtotal = $v->subtotal;
+
+    $sql5="insert into detalle_ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?);";
+    $sql5=$conectar->prepare($sql5);
+    $sql5->bindValue(1,$codigo);
+    $sql5->bindValue(2,$codProd);
+    $sql5->bindValue(3,$descripcion);
+    $sql5->bindValue(4,$precio_venta);
+    $sql5->bindValue(5,$cantidad);
+    $sql5->bindValue(6,$descuento);
+    $sql5->bindValue(7,$subtotal);
+    $sql5->bindValue(8,$fecha_venta);
+    $sql5->bindValue(9,$id_usuario);
+    $sql5->bindValue(10,$id_paciente);
+    $sql5->bindValue(11,$evaluado);
+    $sql5->execute();
+
+  } 
 
   $sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5=$conectar->prepare($sql5);
