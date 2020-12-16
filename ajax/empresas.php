@@ -121,7 +121,7 @@ case 'listar_en_pacientes':
 				$sub_array[] = $row["correo"];
 				$sub_array[] = $row["responsable"];
 
-				$sub_array[] = '<button type="button" class="btn btn-edit btn-md edit_empresa bg-light" style="text-align:center" onClick="show_datos_empresa('.$row["id_empresa"].');" data-toggle="modal" data-target="#newEpresa" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit" aria-hidden="true" style="color:#006600"></i></button>';
+				$sub_array[] = '<button type="button" class="btn btn-edit btn-md edit_empresa bg-light" style="text-align:center" onClick="show_datos_empresa('.$row["id_empresa"].');" data-toggle="modal" data-target="#newEmpresa" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit" aria-hidden="true" style="color:#006600"></i></button>';
 				$sub_array[] = '<button type="button"  class="btn btn-md bg-light" onClick="eliminar_empresa('.$row["id_empresa"].')"><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></button>';
 
 				$data[] = $sub_array;
