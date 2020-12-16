@@ -103,7 +103,7 @@ if(($datos_ventas_contado[$j]["monto_cobrado"])>0){
 
 ?>
   <tr>
-<td colspan="5" class="stilot1"><?php echo "";?></td>
+<td colspan="5" class="stilot1"><?php echo $datos_ventas_contado[$j]["n_factura"];;?></td>
 <td colspan="5" class="stilot1"><?php echo $datos_ventas_contado[$j]["n_recibo"];?></td>
 <td colspan="50" class="stilot1"><?php echo $datos_ventas_contado[$j]["paciente"];?></td>
 <td colspan="5" class="stilot1 vendedor"><?php echo $datos_ventas_contado[$j]["usuario"];?></td>
@@ -148,7 +148,7 @@ if(($datos_ventas_empresarial[$j]["monto_cobrado"])>0){
 ?>  
 
 <tr>
-<td colspan="5" class="stilot1"><?php echo "";?></td>
+<td colspan="5" class="stilot1"><?php echo $datos_ventas_empresarial[$j]["n_factura"];;?></td>
 <td colspan="5" class="stilot1"><?php echo $datos_ventas_empresarial[$j]["n_recibo"];?></td>
 <td colspan="35" class="stilot1"><?php echo $datos_ventas_empresarial[$j]["nombres"];?></td>
 <td colspan="20" class="stilot1"><?php echo $datos_ventas_empresarial[$j]["empresas"];?></td>
@@ -193,7 +193,7 @@ if(($datos_ventas_c_auto[$j]["monto_cobrado"])>0){
 }
 ?>
 <tr>
-<td colspan="5" class="stilot1"><?php echo "";?></td>
+<td colspan="5" class="stilot1"><?php echo $datos_ventas_c_auto[$j]["n_factura"];;?></td>
 <td colspan="5" class="stilot1"><?php echo $datos_ventas_c_auto[$j]["n_recibo"];?></td>
 <td colspan="50" class="stilot1"><?php echo $datos_ventas_c_auto[$j]["paciente"];?></td>
 <td colspan="5" class="stilot1  vendedor"><?php echo $datos_ventas_c_auto[$j]["usuario"];?></td>
@@ -243,7 +243,7 @@ if(($recuperado_contado[$j]["monto_cobrado"])>0){
 ?>  
 
 <tr>
-<td colspan="5" class="stilot1"><?php echo "";?></td>
+<td colspan="5" class="stilot1"><?php echo $recuperado_contado[$j]["n_factura"];;?></td>
 <td colspan="5" class="stilot1"><?php echo $recuperado_contado[$j]["n_recibo"];?></td>
 <td colspan="30" class="stilot1"><?php echo $recuperado_contado[$j]["paciente"];?></td>
 <td colspan="10" class="stilot1  vendedor"><?php echo $recuperado_contado[$j]["usuario"];?></td>
@@ -296,7 +296,7 @@ if(($recuperado_emp[$j]["monto_cobrado"])>0){
 ?>  
 
 <tr>
-<td colspan="5" class="stilot1"><?php echo "";?></td>
+<td colspan="5" class="stilot1"><?php echo $recuperado_emp[$j]["n_factura"];;?></td>
 <td colspan="5" class="stilot1"><?php echo $recuperado_emp[$j]["n_recibo"];?></td>
 <td colspan="30" class="stilot1"><?php echo $recuperado_emp[$j]["paciente"];?></td>
 <td colspan="10" class="stilot1  vendedor"><?php echo $recuperado_emp[$j]["usuario"];?></td>
@@ -348,7 +348,7 @@ if(($recuperado_cargo[$j]["monto_cobrado"])>0){
 ?>  
 
 <tr>
-<td colspan="5" class="stilot1"><?php echo "";?></td>
+<td colspan="5" class="stilot1"><?php echo $recuperado_cargo[$j]["n_factura"];;?></td>
 <td colspan="5" class="stilot1"><?php echo $recuperado_cargo[$j]["n_recibo"];?></td>
 <td colspan="30" class="stilot1"><?php echo $recuperado_cargo[$j]["paciente"];?></td>
 <td colspan="10" class="stilot1  vendedor"><?php echo $recuperado_cargo[$j]["usuario"];?></td>

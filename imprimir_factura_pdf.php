@@ -90,14 +90,15 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
   <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 10px;text-align: center;margin:20px;height: 95px">
  <?php 
     for ($i=0; $i < sizeof($datos_factura_cantidad); $i++) {
-     echo $datos_factura_cantidad[$i]["cantidad_venta"]?><br>
+     ?><span style="margin-left: 0px !important"><?php echo $datos_factura_cantidad[$i]["cantidad_venta"]?></span><br>
      <?php } ?>     
   </td>
  
-  <td colspan="50" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 10px;text-align: center;margin:20px">
+  <td colspan="50" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 10px;text-align: left;margin:20px;text-transform: uppercase;
+  ">
      <?php 
     for ($i=0; $i < sizeof($datos_factura_producto); $i++) {
-     echo $datos_factura_producto[$i]["producto"]?><br>
+     echo "&nbsp;&nbsp;&nbsp;".$datos_factura_producto[$i]["producto"]?><br>
      <?php } ?>    
   </td>
  
@@ -225,10 +226,10 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
      <?php } ?>     
   </td>
  
-  <td colspan="50" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center">
+  <td colspan="50" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: left;">
      <?php 
     for ($i=0; $i < sizeof($datos_factura_producto); $i++) {
-     echo $datos_factura_producto[$i]["producto"]?><br>
+     echo "&nbsp;&nbsp;&nbsp;".$datos_factura_producto[$i]["producto"]?><br>
      <?php } ?>    
   </td>
  

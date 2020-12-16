@@ -14,6 +14,7 @@ require_once("modals/antireflejante_ventas.php");
 require_once("modals/photosensible_ventas.php");
 require_once("modals/referentes.php");
 require_once("modals/empresas_credito_fiscal.php");
+require_once("modals/modal_correlativo_factura.php");
 
 
 ?>
@@ -186,7 +187,7 @@ require_once("modals/empresas_credito_fiscal.php");
               <br>
               <div class="row">
               <div class="col-sm-4" id="print_factura">
-                  <a href="" id="factura_contado" target="_blank"><button class="btn btn-info btn-block" style="border-radius:2px"><i class="fas fa-print"></i> Imprimir Factura</button></a>
+                  <button class="btn btn-info btn-block" style="border-radius:2px" onClick="print_facturas_ventas()"><i class="fas fa-print"></i> Imprimir Factura</button>
                 </div>
 
                 <div class="col-sm-4" id="print_credito_fiscal">
@@ -227,6 +228,7 @@ require_once("modals/empresas_credito_fiscal.php");
 <script type="text/javascript" src="js/ventas.js"></script>
 <script type="text/javascript" src="js/bootbox.min.js"></script>
 <script type="text/javascript" src="js/recibos.js"></script>
+<script type="text/javascript" src="js/creditos.js"></script>
 
 
 </div><!-- FIN CONTENIDO-->

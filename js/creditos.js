@@ -666,7 +666,17 @@ function info_pacientes_mora(id_paciente,numero_venta){
 
 }
 
-function print_invoices(id_paciente,id_credito,numero_venta){
+function print_facturas_ventas(){
+
+  let id_paciente = $("#id_paciente").val();
+  let numero_venta = $("#n_venta").val();
+
+  console.log(numero_venta);
+  print_invoices(id_paciente,numero_venta);
+}
+
+function print_invoices(id_paciente,numero_venta){
+ // console.log(numero_venta);return false;
 var sucursal = $("#sucursal").val();
 var id_usuario = $("#usuario").val();
 $("#id_paciente_venta_factura").val(id_paciente);
@@ -700,7 +710,8 @@ function registrar_impresion(){
   let id_usuario = $("#usuario").val();
   let correlativo_fac = $("#correlativo_factura").html();
   let numero_venta = $("#n_venta_factura").val();
-  var id_paciente = $("#id_paciente_venta_factura").val(); 
+  var id_paciente = $("#id_paciente_venta_factura").val();
+  $("#print_invoices").modal("hide"); 
   ///////////// REGISTRA CORRELATIVO EN BD ////////////////
   $.ajax({
     url:"ajax/creditos.php?op=save_correlativo_factura",

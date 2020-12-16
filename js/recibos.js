@@ -138,7 +138,7 @@ if (tipo_venta=="Credito Fiscal"){
 }
   comprobarSaldo();  
   document.getElementById("btn_print_recibo").style.display = "block";
-  document.getElementById("factura_contado").href='imprimir_factura_pdf.php?n_venta='+n_venta_recibo_ini+'&'+'id_paciente='+id_paciente;  
+  //document.getElementById("factura_contado").href='imprimir_factura_pdf.php?n_venta='+n_venta_recibo_ini+'&'+'id_paciente='+id_paciente;  
 
 
 
