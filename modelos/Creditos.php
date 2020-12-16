@@ -152,16 +152,37 @@ public function get_correlativo_factura($sucursal){
   return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
-public function registrar_impresion_factura($sucursal,$numero_venta,$id_usuario,$correlativo_fac){
+///////// VALIDAR CORRELATIVO 
+public function validar_correlativo($correlativo_fac,$sucursal){
+    $conectar  = parent::conexion();
+    parent::set_names();
+    $sql = "select n_correlativo from correlativo_factura where n_correlativo=? and sucursal=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1,$correlativo_fac);
+    $sql->bindValue(2,$sucursal);
+    $sql->execute();
+    return $resultado = $sql->fetchAll();
+}
+
+public function registrar_impresion_factura($sucursal,$numero_venta,$id_usuario,$correlativo_fac,$id_paciente){
     $conectar = parent::conexion();
     parent::set_names();
     $sql ="insert into correlativo_factura values(null,?,?,?,?);";
-    $sql=$conectar->prepare($sql);
+    $sql = $conectar->prepare($sql);
     $sql->bindValue(1,$correlativo_fac);
     $sql->bindValue(2,$sucursal);
     $sql->bindValue(3,$numero_venta);
     $sql->bindValue(4,$id_usuario);
     $sql->execute();
+
+    ////////////////////UPDATE EN CORTE DIARIO //////////
+    $sql = "update corte_diario set n_factura = ? where n_venta =? and id_paciente=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1,$correlativo_fac);
+    $sql->bindValue(2,$numero_venta);
+    $sql->bindValue(3,$id_paciente);
+    $sql->execute();
+
 }
 
 }/////FIN CLASS

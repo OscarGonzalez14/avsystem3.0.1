@@ -51,6 +51,7 @@ require_once("modals/modal_detalle_abonos.php");
         </div>
       </div>
       <input type="hidden" name="" id="n_venta_factura">
+      <input type="hidden" name="" id="id_paciente_venta_factura">
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         <a id="link_invoice_print" target="_blank" href=""><button type="button" class="btn btn-primary" onClick="registrar_impresion();">Imprimir</button></a>
