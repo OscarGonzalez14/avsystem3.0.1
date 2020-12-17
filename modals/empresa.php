@@ -21,7 +21,7 @@
       <div class="modal-content" >
         <div class="modal-header" id="head" style="justify-content: space-between">
           <span><i class="fas fa-plus-square"></i> CREAR NUEVA EMPRESA</span>
-          <button type="button" class="close justify-content-between" data-dismiss="modal" aria-label="Close" onClick="destroy_edits(); style="color: white;" >&times;
+          <button type="button" class="close justify-content-between" data-dismiss="modal" aria-label="Close" onClick="destroy_edits();" style="color: white;" >&times;
           </button>
         </div>
         

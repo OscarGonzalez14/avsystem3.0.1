@@ -46,6 +46,7 @@ require_once('modals/empresa.php');
 <?php require_once("footer.php"); ?>
 <script src="js/empresas.js"></script>
 <script type="text/javascript" src="js/cleave.js"></script>
+<script type="text/javascript" src="js/bootbox.min.js"></script>
 <script>
   var nit = new Cleave('#nitEmpresa', {
     delimiter: '-',

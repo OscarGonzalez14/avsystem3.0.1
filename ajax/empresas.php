@@ -37,7 +37,19 @@ switch ($_GET["op"]){
 						 }
 					 ?>
 	 <?php
-	 }
+	 }else{
+	 	$empresas->edit_empresa ($_POST["id_empresa"],$_POST["nomEmpresa"],$_POST["dirEmpresa"],$_POST["nitEmpresa"],$_POST["telEmpresa"],$_POST["respEmpresa"],$_POST["correoEmpresa"],$_POST["encargado"],$_POST["registro"],$_POST["giro"]);
+    	$messages[]="editado";
+        if (isset($messages)){
+     ?>
+       <?php
+         foreach ($messages as $message) {
+             echo json_encode($message);
+           }
+         ?>
+   <?php
+ }	 }
+
 	break;
 
 
@@ -164,7 +176,7 @@ case 'listar_en_pacientes':
 	$datos=$empresas->valida_empresa_paciente($_POST["id_empresa"]);
 
 	if (is_array($datos)==true and count($datos)==0 ){ //Si existe consulta(no eliminar)
-		$pacientes->eliminar_paciente($_POST["id_empresa"]);
+		$empresas->eliminar_empresa($_POST["id_empresa"]);
 		$messages[]="ok";
 	}else{
 		$errors[]="existe";

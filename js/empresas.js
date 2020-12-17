@@ -28,7 +28,7 @@ function guardarEmpresa(){
 	var giro=$("#giroEmpresa").val();
 	var registro=$("#registroEmpresa").val();
 	
-	if(nomEmpresa !="" && dirEmpresa !="" && nitEmpresa !="" || telEmpresa !="" || respEmpresa !="" || correoEmpresa !="" || encargado !=""){
+	if(nomEmpresa !="" && dirEmpresa !="" || nitEmpresa !="" || telEmpresa !="" || respEmpresa !="" || correoEmpresa !="" || encargado !=""){
 		$.ajax({
 			url:"ajax/empresas.php?op=guardar_empresa",
 			method:"POST",
@@ -55,6 +55,54 @@ function guardarEmpresa(){
 }
 }
 
+function save_empresa(){
+   var nomEmpresa=$("#nomEmpresa").val();
+	var dirEmpresa=$("#dirEmpresa").val();
+	var nitEmpresa=$("#nitEmpresa").val();
+	var telEmpresa=$("#telEmpresa").val();
+	var respEmpresa=$("#respEmpresa").val();
+	var correoEmpresa=$("#correoEmpresa").val();
+	var encargado=$("#encargado").val();
+	var giro=$("#giroEmpresa").val();
+	var registro=$("#registroEmpresa").val();
+	if(nomEmpresa !=""){
+    $.ajax({
+    url:"ajax/empresas.php?op=guardar_empresa",
+    method:"POST",
+    data:{nomEmpresa:nomEmpresa,dirEmpresa:dirEmpresa,nitEmpresa:nitEmpresa,telEmpresa:telEmpresa,respEmpresa:respEmpresa,correoEmpresa:correoEmpresa,encargado:encargado,giro:giro},
+    cache: false,
+    dataType:"json",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+    },        
+      
+  success:function(data){
+  	console.log(data);
+
+  if(data=='ok'){
+    setTimeout ("Swal.fire('Empresa se ha guardado Existosamente','','success')", 100);
+    setTimeout ("explode();", 2000); 
+  }else if(data=='nombre'){
+    setTimeout ("Swal.fire('La Empresa ya existe en la base de Datos','','error')", 100);
+    return false;           
+ }else if(data="editado"){
+	setTimeout ("Swal.fire('Guardado Existosamente','','success')", 100);
+    setTimeout ("explode();", 2000); 
+}
+}
+});
+}else{
+	setTimeout ("Swal.fire('Hay campos obligatorios sin llenar','','error')", 100);
+}
+//cierre del condicional de validacion de los campos de empresa
+}
+
+function explode(){
+    location.reload();
+  }
+
 function listar_en_pacientes(){
 
 	tabla_en_pacientes=$('#lista_pacientes_data_emp').dataTable(
@@ -67,12 +115,7 @@ function listar_en_pacientes(){
 		            'excelHtml5',
 
 		            'pdf'
-		        ],other branch?
-
-I am trying to use:
-
-git checkout "the commmit to the changed branch" -b "the other branch"
-
+		        ],
 		"ajax":
 				{
 					url: 'ajax/empresas.php?op=listar_en_pacientes',
@@ -276,55 +319,10 @@ function destroy_edits(){
 	explode();
 }
 
-function save_empresa() {
 
-	var id_empresa =$("#id_empresa").val();
-    var nomEmpresa=$("#nomEmpresa").val();
-    var dirEmpresa=$("#dirEmpresa").val();
-	var nitEmpresa=$("#nitEmpresa").val();
-	var telEmpresa=$("#telEmpresa").val();
-	var respEmpresa =$("#respEmpresa").val();
-	var correoEmpresa=$("#correoEmpresa").val();
-	var encargado=$("#encargado").val();	
-	var giro=$("#giroEmpresa").val();    
-	if(edad !=""){
-    $.ajax({
-    url:"ajax/empresas.php?op=guardar_empresa",
-    method:"POST",
-    data:{id_empresa:id_empresa,nomEmpresa:nomEmpresa,dirEmpresa:dirEmpresa,nitEmpresa:nitEmpresa,telEmpresa:telEmpresa,respEmpresa:respEmpresa,correoEmpresa:correoEmpresa,encargado:encargado,giro:giro},
-    cache: false,
-    dataType:"json",
-    error:function(x,y,z){
-      d_pacole.log(x);
-      console.log(y);
-      console.log(z);
-    },        
-      
-  success:function(data){
-  	console.log(data);
-
-  if(data=='ok'){
-    setTimeout ("Swal.fire('Paciente guardado Existosamente','','success')", 100);
-    setTimeout ("explode();", 2000); 
-  }else if(data=='nombre'){
-    setTimeout ("Swal.fire('La empresa ya existe en la base de Datos','','error')", 100);
-    return false;           
- }else if(data="editado"){
-	setTimeout ("Swal.fire('Guardado Existosamente','','success')", 100);
-    setTimeout ("explode();", 2000); 
-}
-}
-});
-}else{
-	setTimeout ("Swal.fire('Hay campos obligatorios sin llenar','','error')", 100);
-}
-//cierre del condicional de validacion de los campos de empresa
-}
-
-
-///////////
+/////////// funcion para eliminar empresa
 function eliminar_empresa(id_empresa){
-	  
+
 	bootbox.confirm("¿Está Seguro de eliminar Empresa?", function(result){
     if(result){
 
@@ -337,7 +335,7 @@ function eliminar_empresa(id_empresa){
 		{
 			console.log(data);
 			if(data=="ok"){
-				setTimeout ("Swal.fire('Empresa Eliminado Existosamente','','success')", 100);
+				setTimeout ("Swal.fire('Empresa Eliminada Existosamente','','success')", 100);
 			}else if(data=="existe"){
 				setTimeout ("Swal.fire('Existen pacientes asociados a esta empresa','','error')", 100);
 			}						//alert(data);
@@ -354,3 +352,4 @@ init();
 
 function explode(){
     location.reload();
+}

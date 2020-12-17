@@ -85,10 +85,20 @@ public function get_empresas(){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
   }
 
-////////////VALIDACION PARA ELIMINAR PACIENTE SI EXISTE CONSULTA
+////////////VALIDACION, SI PACIENTE ESTA LIGADO A EMPRESA NO ELIMINAR
    public function valida_empresa_paciente($id_empresa){
     $conectar= parent::conexion();
     $sql="select*from pacientes where id_empresa=?;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $id_empresa);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+  }
+
+////////////VALIDACION PARA ELIMINAR PACIENTE SI EXISTE CONSULTA
+   public function eliminar_empresa($id_empresa){
+    $conectar= parent::conexion();
+    $sql="delete from empresas where id_empresa=?;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1, $id_empresa);
     $sql->execute();
