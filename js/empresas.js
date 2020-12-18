@@ -1,7 +1,13 @@
 var tabla_empresas;
 
 function init(){
+
 	listar_empresas();
+}
+
+$(document).ready(ocultar_btns_modalempresa);
+function ocultar_btns_modalempresa(){
+	ocultar_btn_editar();
 }
 
 function ocultar_btn_editar(){
@@ -304,7 +310,7 @@ function show_datos_empresa (id_empresa){
 }
 
 ///////////////EDITAR PACIENTE
-function editar_empresa(){
+function edit_empresa(){
 	show_btn_editar();
 	hidden_btn_guardar();
 	$('.modal-title').text("Editar Empresa");
@@ -335,9 +341,9 @@ function eliminar_empresa(id_empresa){
 		{
 			console.log(data);
 			if(data=="ok"){
-				setTimeout ("Swal.fire('Empresa Eliminada Existosamente','','success')", 100);
+				setTimeout ("Swal.fire('Existen pacientes asociados a esta Empresa','','error')", 100);
 			}else if(data=="existe"){
-				setTimeout ("Swal.fire('Existen pacientes asociados a esta empresa','','error')", 100);
+				setTimeout ("Swal.fire('Eliminada Existosamente','','success')", 100);
 			}						//alert(data);
 			$("#data_empresas_creadas").DataTable().ajax.reload();
 		}
