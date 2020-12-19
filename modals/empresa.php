@@ -20,7 +20,8 @@
       <!-- cabecera de la modal-->
       <div class="modal-content" >
         <div class="modal-header" id="head" style="justify-content: space-between">
-          <span><i class="fas fa-plus-square"></i> CREAR NUEVA EMPRESA</span>
+          <!--<span id="modalTitle"><i class="fas fa-plus-square"></i> h4</span>-->
+            <h4 class="modalTitle">CREAR NUEVA EMPRESA</h4>
           <button type="button" class="close justify-content-between" data-dismiss="modal" aria-label="Close" onClick="destroy_edits();" style="color: white;" >&times;
           </button>
         </div>
@@ -83,4 +84,5 @@
   function mayus(e) {
     e.value = e.value.toUpperCase();
 }
+
 </script>

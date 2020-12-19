@@ -90,8 +90,7 @@ public function edit_empresa($nomEmpresa,$dirEmpresa,$nitEmpresa,$telEmpresa,$re
   $conectar= parent::conexion();
   parent::set_names();
 
-  $sql="update empresas set 
-  nombre=?,ubicacion=?,nit=?,telefono=?,responsable=?,correo=?,encargado_optica=?,registro=?,giro=? where id_empresa=?";          
+  $sql="update empresas set nombre=?,ubicacion=?,nit=?,telefono=?,responsable=?,correo=?,encargado_optica=?,registro=?,giro=? where id_empresa=?;";          
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1, $_POST["nomEmpresa"]);
   $sql->bindValue(2, $_POST["dirEmpresa"]);

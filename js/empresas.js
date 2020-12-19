@@ -5,8 +5,8 @@ function init(){
 	listar_empresas();
 }
 
-$(document).ready(ocultar_btns_modalempresa);
-function ocultar_btns_modalempresa(){
+$(document).ready(ocultar_btns_editempresa);
+function ocultar_btns_editempresa(){
 	ocultar_btn_editar();
 }
 
@@ -33,12 +33,13 @@ function guardarEmpresa(){
 	var encargado=$("#encargado").val();
 	var giro=$("#giroEmpresa").val();
 	var registro=$("#registroEmpresa").val();
+	var id_empresa=$("#id_empresa").val();
 	
 	if(nomEmpresa !="" && dirEmpresa !="" || nitEmpresa !="" || telEmpresa !="" || respEmpresa !="" || correoEmpresa !="" || encargado !=""){
 		$.ajax({
 			url:"ajax/empresas.php?op=guardar_empresa",
 			method:"POST",
-			data:{nomEmpresa:nomEmpresa, dirEmpresa:dirEmpresa, nitEmpresa:nitEmpresa, telEmpresa:telEmpresa, respEmpresa:respEmpresa, correoEmpresa:correoEmpresa, encargado:encargado,giro:giro,registro:registro},
+			data:{nomEmpresa:nomEmpresa, dirEmpresa:dirEmpresa, nitEmpresa:nitEmpresa, telEmpresa:telEmpresa, respEmpresa:respEmpresa, correoEmpresa:correoEmpresa, encargado:encargado,giro:giro,registro:registro,id_empresa:id_empresa},
 			cache: false,
 			dataType: "json",
 			error:function(x,y,z){
@@ -54,56 +55,17 @@ function guardarEmpresa(){
       			}else if (data=="ok") {
         			Swal.fire('Se ha creado una nueva Empresa!','','success')
         			setTimeout ("explode();", 2000);
-			}
+				}else{
+					Swal.fire('Empresa ha sido editada!','','success')
+        			setTimeout ("explode();", 2000);
+
+				}
 
 		}
 	});
 }
 }
 
-function save_empresa(){
-   var nomEmpresa=$("#nomEmpresa").val();
-	var dirEmpresa=$("#dirEmpresa").val();
-	var nitEmpresa=$("#nitEmpresa").val();
-	var telEmpresa=$("#telEmpresa").val();
-	var respEmpresa=$("#respEmpresa").val();
-	var correoEmpresa=$("#correoEmpresa").val();
-	var encargado=$("#encargado").val();
-	var giro=$("#giroEmpresa").val();
-	var registro=$("#registroEmpresa").val();
-	if(nomEmpresa !=""){
-    $.ajax({
-    url:"ajax/empresas.php?op=guardar_empresa",
-    method:"POST",
-    data:{nomEmpresa:nomEmpresa,dirEmpresa:dirEmpresa,nitEmpresa:nitEmpresa,telEmpresa:telEmpresa,respEmpresa:respEmpresa,correoEmpresa:correoEmpresa,encargado:encargado,giro:giro},
-    cache: false,
-    dataType:"json",
-    error:function(x,y,z){
-      d_pacole.log(x);
-      console.log(y);
-      console.log(z);
-    },        
-      
-  success:function(data){
-  	console.log(data);
-
-  if(data=='ok'){
-    setTimeout ("Swal.fire('Empresa se ha guardado Existosamente','','success')", 100);
-    setTimeout ("explode();", 2000); 
-  }else if(data=='nombre'){
-    setTimeout ("Swal.fire('La Empresa ya existe en la base de Datos','','error')", 100);
-    return false;           
- }else if(data="editado"){
-	setTimeout ("Swal.fire('Guardado Existosamente','','success')", 100);
-    setTimeout ("explode();", 2000); 
-}
-}
-});
-}else{
-	setTimeout ("Swal.fire('Hay campos obligatorios sin llenar','','error')", 100);
-}
-//cierre del condicional de validacion de los campos de empresa
-}
 
 function explode(){
     location.reload();
@@ -285,7 +247,7 @@ function listar_empresas()
   }).DataTable();
 }
 
-function show_datos_empresa (id_empresa){
+function show_datos_empresa(id_empresa){
 
 		$.ajax({
 		url:"ajax/empresas.php?op=show_datos_empresa",
@@ -311,9 +273,10 @@ function show_datos_empresa (id_empresa){
 
 ///////////////EDITAR PACIENTE
 function edit_empresa(){
+	console.log("prueba");
 	show_btn_editar();
 	hidden_btn_guardar();
-	$('.modal-title').text("Editar Empresa");
+	$('.modalTitle').text("Editar Empresa");
 	var element= document.getElementById("head");
     element.classList.add("bg-secondary");
 
@@ -321,9 +284,6 @@ function edit_empresa(){
     elements.classList.add("bg-success");
 }
 
-function destroy_edits(){
-	explode();
-}
 
 
 /////////// funcion para eliminar empresa
