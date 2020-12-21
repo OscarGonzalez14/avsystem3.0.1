@@ -20,9 +20,8 @@
       <!-- cabecera de la modal-->
       <div class="modal-content" >
         <div class="modal-header" id="head" style="justify-content: space-between">
-          <!--<span id="modalTitle"><i class="fas fa-plus-square"></i> h4</span>-->
-            <h4 class="modalTitle">CREAR NUEVA EMPRESA</h4>
-          <button type="button" class="close justify-content-between" data-dismiss="modal" aria-label="Close" onClick="destroy_edits();" style="color: white;" >&times;
+          <h5 id="titulo">CREAR NUEVA EMPRESA</h5>
+          <button type="button" class="close justify-content-between" data-dismiss="modal" aria-label="Close" style="color: white;" >&times;
           </button>
         </div>
         

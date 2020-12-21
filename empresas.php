@@ -30,6 +30,7 @@ require_once('modals/empresa.php');
             <th style="text-align:center">Teléfono</th>
             <th style="text-align:center">correo</th>
             <th style="text-align:center">Encargado</th>
+            <th style="text-align:center">Detalles</th>
             <th style="text-align:center">Editar</th>
             <th style="text-align:center">Eliminar</th>
 

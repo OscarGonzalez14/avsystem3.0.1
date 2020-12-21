@@ -276,7 +276,8 @@ function edit_empresa(){
 	console.log("prueba");
 	show_btn_editar();
 	hidden_btn_guardar();
-	$('.modalTitle').text("Editar Empresa");
+	//$('.modalTitle').text("Editar Empresa");
+	titulo.textContent="EDITAR EMPRESA";
 	var element= document.getElementById("head");
     element.classList.add("bg-secondary");
 

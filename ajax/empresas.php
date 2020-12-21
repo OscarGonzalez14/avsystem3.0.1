@@ -122,7 +122,10 @@ switch ($_GET["op"]){
 		$sub_array[] = $row["correo"];
 		$sub_array[] = $row["responsable"];
 
-		$sub_array[] = '<button type="button"  id="'.$row["nombre"].'" class="btn btn-edit btn-md editaEmpresa bg-light" style="text-align:center" onClick="show_datos_empresa('.$row["id_empresa"].');" data-toggle="modal" data-target="#newEmpresa" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit" aria-hidden="true" style="color:#006600"></i></button>';
+		$sub_array[] = '<button type="button"  class="btn btn-md bg-light" onClick="('.$row["id_empresa"].')"><i class="fa fa-info-circle" aria-hidden="true" style="color:#17a2b8"></i></button>';
+
+
+		$sub_array[] = '<button type="button"  id="'.$row["nombre"].'" class="btn btn-edit btn-md edit_Empresa bg-light" style="text-align:center" onClick="show_datos_empresa('.$row["id_empresa"].');" data-toggle="modal" data-target="#newEmpresa" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit" aria-hidden="true" style="color:#006600"></i></button>';
 
 		$sub_array[] = '<button type="button"  class="btn btn-md bg-light" onClick="eliminar_empresa('.$row["id_empresa"].')"><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></button>';
 
