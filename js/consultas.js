@@ -91,6 +91,8 @@ function listar(){
  $(document).on('click', '.edit_consultas', function(){
 	 	$('#consultasModal_edit').modal("show");
 		var id_consulta = $(this).attr("id");
+		var id_paciente = $(this).attr("name");
+		
 
 		$.ajax({
 			url:"ajax/consultas.php?op=ver_consultas",
@@ -176,11 +178,59 @@ function listar(){
 			   $("#id_consulta_e").val(data.id_consulta);
 			   $("#parentesco_evaluado").val(data.parentesco_beneficiario);
 			   $("#tel_evaluado").val(data.telefono_beneficiario);
+			   $("#edad_p").val(data.edad);
+			   $("#id_paciente_consulta").val(data.id_paciente);
 
 			
 			}
 		})
+
+		listar_ventas(id_paciente);
 	});
+var detalle_ventas=[];
+ function listar_ventas(id_paciente){
+
+  $.ajax({
+  url:"ajax/consultas.php?op=get_ventas_consultas",
+  method:"POST",
+  data:{id_paciente:id_paciente},
+  cache:false,
+  dataType:"json",
+  success:function(data)
+  { 
+    console.log(data);
+    /*for(var i in data){
+    	console.log(data[i]);
+    	detalle_ventas.push(data[i]);
+    }
+    listar_detalle_ventas_expediente(); */
+    var obj = {
+    	fecha_venta :data.fecha_venta,
+    	numero_venta : data.fecha_venta,
+    	paciente : data.paciente
+    };
+    detalle_ventas.push(obj);
+    listar_detalle_ventas_expediente();
+  }
+  })
+ }
+
+function listar_detalle_ventas_expediente(){
+	$("#item_ventas_exp").html('');
+	var items="";
+
+
+	for(var i=0; i<detalle_ventas.length;i++){
+
+    	var items = items + "<div>"+
+    	+"<h4 class='card-title'>"+"<a>"+detalle_ventas[i].numero_venta+"</a></h4>"+	
+    	+"</div>";
+    }
+
+	$("#item_ventas_exp").html(items);
+
+}
+
 
 function editarConsultas(){
 var id_consulta_e = $("#id_consulta_e").val();
@@ -282,5 +332,86 @@ $(document).on('click', '#addCons', function(){
    document.getElementById("addCons").style.display = "none";
 });
 
+//////////////////////////guardar consulta
+function guardarConsultas(){
+var nombre_pac = $("#nombre_pac").val();
+var p_evaluado=$("#p_evaluado").val();
+var parentesco_evaluado=$("#parentesco_evaluado").val();
+var tel_evaluado = $("#tel_evaluado").val();
+var fecha_consulta=$("#fecha_consulta").val();
+var motivo=$("#motivo").val();
+var patologias = $("#patologias").val();
+///////LENSOMETRIA
+var odesferasl=$("#odesferasl").val();
+var odcilndrosl=$("#odcilndrosl").val();
+var odejesl=$("#odejesl").val();
+var odprismal=$("#odprismal").val();
+var odadicionl=$("#odadicionl").val();
+var oiesfreasl=$("#oiesfreasl").val();
+var oicilindrosl=$("#oicilindrosl").val();
+var oiejesl=$("#oiejesl").val();
+var oiprismal=$("#oiprismal").val();
+var oiadicionl=$("#oiadicionl").val();
+///////////REFRACTOMETRO
+var odesferasa=$("#odesferasa").val();
+var odcilindrosa=$("#odcilindrosa").val();
+var odejesa=$("#odejesa").val();
+var dprismaa=$("#dprismaa").val();
+var oddiciona=$("#oddiciona").val();
+var oiesferasa=$("#oiesferasa").val();
+var oicolindrosa=$("#oicolindrosa").val();
+var oiejesa=$("#oiejesa").val();
+var oiprismaa=$("#oiprismaa").val();
+var oiadiciona=$("#oiadiciona").val();
+///////////RX FINAL////////
+var odesferasf=$("#odesferasf").val();
+var odcilindrosf=$("#odcilindrosf").val();
+var odejesf=$("#odejesf").val();
+var dprismaf=$("#dprismaf").val();
+var oddicionf=$("#oddicionf").val();
+var oiesferasf=$("#oiesferasf").val();
+var oicolindrosf=$("#oicolindrosf").val();
+var oiejesf=$("#oiejesf").val();
+var oiprismaf=$("#oiprismaf").val();
+var oiadicionf=$("#oiadicionf").val();
+/////////// OBLEAS ///////
+var dip=$("#dip").val();
+var oddip=$("#oddip").val();
+var oidip=$("#oidip").val();
+var aood=$("#aood").val();
+var aooi=$("#aooi").val();
+var apod=$("#apod").val();
+var opoi=$("#opoi").val();
+///////OTROS////////////
+var diagnostico=$("#diagnostico").val();
+var medicamento=$("#medicamento").val();
+var observaciones=$("#observaciones").val();
+var id_usuario=$("#id_usuario").val();
+var codigop = $("#codigop").val();
+
+$.ajax({
+    url:"ajax/consultas.php?op=guardar_consulta",
+    method:"POST",
+    data:{nombre_pac:nombre_pac,p_evaluado:p_evaluado,parentesco_evaluado:parentesco_evaluado,tel_evaluado:tel_evaluado,fecha_consulta:fecha_consulta,motivo:motivo,patologias:patologias,odesferasl:odesferasl,odcilndrosl:odcilndrosl,odejesl:odejesl,odprismal:odprismal,odadicionl:odadicionl,oiesfreasl:oiesfreasl,oicilindrosl:oicilindrosl,oiejesl:oiejesl,oiprismal:oiprismal,oiadicionl:oiadicionl,odesferasa:odesferasa,odcilindrosa:odcilindrosa,odejesa:odejesa,dprismaa:dprismaa,oddiciona:oddiciona,oiesferasa:oiesferasa,oicolindrosa:oicolindrosa,oiejesa:oiejesa,oiprismaa:oiprismaa,oiadiciona:oiadiciona,odesferasf:odesferasf,odcilindrosf:odcilindrosf,odejesf:odejesf,dprismaf:dprismaf,oddicionf:oddicionf,oiesferasf:oiesferasf,oicolindrosf:oicolindrosf,oiejesf:oiejesf,oiprismaf:oiprismaf,oiadicionf:oiadicionf,dip:dip,oddip:oddip,oidip:oidip,aood:aood,aooi:aooi,apod:apod,opoi:opoi,diagnostico:diagnostico,medicamento:medicamento,observaciones:observaciones,id_usuario:id_usuario,codigop:codigop},
+    cache: false,
+    dataType:"json",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+    },        
+      
+  success:function(data){
+  	if (data=='ok') {
+  		Swal.fire('La Consulta se ha registrado exitosamente','','success')
+  		setTimeout (location.href ="consultas.php", 100);
+  	}
+  //
+  //refresca la pagina, se llama a la funtion explode
+  //setTimeout ("explode();", 2000);          
+}
+
+  });    
+}
 
 init();

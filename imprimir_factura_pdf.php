@@ -155,7 +155,7 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
   Firma:<br>
   </td>
   <td colspan="30" rowspan="4" class="stilot1" style="width: 60%;text-align: left;font-size: 9px">
-  Firma por:<br>
+  Recibido por:<br>
   Nombre:<br>
   DUI:<br>
   Firma:<br>

@@ -7,7 +7,7 @@ class Consulta extends Conectar{
     public function get_consultas($sucursal){
 
         $conectar= parent::conexion();       
-        $sql= "select c.fecha_reg,c.id_consulta,p.nombres,p.edad,c.sugeridos,c.diagnostico,u.usuario,c.p_evaluado from usuarios as u inner join consulta as c on u.id_usuario=c.id_usuario inner join pacientes as p on c.id_paciente=p.id_paciente where p.sucursal=?;";
+        $sql= "select c.fecha_reg,c.id_consulta,p.nombres,p.edad,c.sugeridos,c.diagnostico,u.usuario,c.p_evaluado,p.id_paciente from usuarios as u inner join consulta as c on u.id_usuario=c.id_usuario inner join pacientes as p on c.id_paciente=p.id_paciente where p.sucursal=?;";
         $sql=$conectar->prepare($sql);
         $sql->bindValue(1,$sucursal);
         $sql->execute();
@@ -18,7 +18,7 @@ class Consulta extends Conectar{
         $conectar=parent::conexion();
         parent::set_names();
 
-        $sql="select p.codigo,p.nombres,u.usuario,c.id_consulta,c.motivo,c.patologias,c.id_paciente,c.id_usuario,c.fecha_reg,c.oiesfreasl,c.oicilindrosl,c.oiejesl,c.oiprismal,c.oiadicionl,c.odesferasl,c.odcilndrosl,c.odejesl,c.odprismal,c.odadicionl,c.oiesferasa,c.oicolindrosa,c.oiejesa,c.oiprismaa,c.oiadiciona,c.odesferasa,c.odcilindrosa,c.odejesa ,c.dprismaa,c.oddiciona,c.sugeridos,c.diagnostico,c.medicamento,c.observaciones,c.oiesferasf,c.oicolindrosf,c.oiejesf,c.oiprismaf,c.oiadicionf,c.odesferasf,c.odcilindrosf,c.odejesf,c.dprismaf,c.oddicionf,c.prisoicorrige,c.addodcorrige,c.prisodcorrige,c.addoicorrige,c.fecha_consulta,c.patologias,c.odavsclejos,c.odavphlejos,c.odavcclejos,c.odavsccerca,c.odavcccerca,c.oiavesferasf,c.oiavcolindrosf,c.oiavejesf,c.oiavprismaf,c.oiavadicionf,c.dip,c.oddip,c.oidip,c.aood,c.aooi,c.apod,c.opoi,c.ishihara,c.amsler,c.anexos,
+        $sql="select p.codigo,p.nombres,u.usuario,p.edad,c.id_consulta,c.motivo,c.patologias,c.id_paciente,c.id_usuario,c.fecha_reg,c.oiesfreasl,c.oicilindrosl,c.oiejesl,c.oiprismal,c.oiadicionl,c.odesferasl,c.odcilndrosl,c.odejesl,c.odprismal,c.odadicionl,c.oiesferasa,c.oicolindrosa,c.oiejesa,c.oiprismaa,c.oiadiciona,c.odesferasa,c.odcilindrosa,c.odejesa ,c.dprismaa,c.oddiciona,c.sugeridos,c.diagnostico,c.medicamento,c.observaciones,c.oiesferasf,c.oicolindrosf,c.oiejesf,c.oiprismaf,c.oiadicionf,c.odesferasf,c.odcilindrosf,c.odejesf,c.dprismaf,c.oddicionf,c.prisoicorrige,c.addodcorrige,c.prisodcorrige,c.addoicorrige,c.fecha_consulta,c.patologias,c.odavsclejos,c.odavphlejos,c.odavcclejos,c.odavsccerca,c.odavcccerca,c.oiavesferasf,c.oiavcolindrosf,c.oiavejesf,c.oiavprismaf,c.oiavadicionf,c.dip,c.oddip,c.oidip,c.aood,c.aooi,c.apod,c.opoi,c.ishihara,c.amsler,c.anexos,
 c.id_consulta,p_evaluado,c.parentesco_beneficiario,c.telefono_beneficiario from usuarios as u inner join consulta as c on u.id_usuario=c.id_usuario inner join pacientes as p on c.id_paciente=p.id_paciente where id_consulta=? order by c.id_consulta DESC;";
 
 
@@ -193,6 +193,155 @@ public function editar_consultas($mot_consulta,$patologias_c,$id_consulta_e,$oie
 
 
 }
+
+
+public function agrega_consulta(){
+
+$conectar=parent::conexion();
+parent::set_names();
+
+$motivo = $_POST["motivo"];
+$patologias = $_POST["patologias"];
+$id_paciente = $_POST["codigop"];
+$id_usuario = $_POST["id_usuario"];
+$fecha_reg = "";
+$oiesfreasl = $_POST["oiesfreasl"];
+$oicilindrosl = $_POST["oicilindrosl"];
+$oiejesl = $_POST["oiejesl"];
+$oiprismal = $_POST["oiprismal"];
+$oiadicionl = $_POST["oiadicionl"];
+$odesferasl = $_POST["odesferasl"];
+$odcilndrosl = $_POST["odcilndrosl"];
+$odejesl = $_POST["odejesl"];
+$odprismal = $_POST["odprismal"];
+$odadicionl = $_POST["odadicionl"];
+$oiesferasa = $_POST["oiesferasa"];
+$oicolindrosa = $_POST["oicolindrosa"];
+$oiejesa  =$_POST["oiejesa"];
+$oiprismaa = $_POST["oiprismaa"];
+$oiadiciona = $_POST["oiadiciona"];
+$odesferasa = $_POST["odesferasa"];
+$odcilindrosa  =$_POST["odcilindrosa"];
+$odejesa = $_POST["odejesa"];
+$dprismaa = $_POST["dprismaa"];
+$oddiciona = $_POST["oddiciona"];
+$sugeridos = "";
+$diagnostico = $_POST["diagnostico"];
+$medicamento = $_POST["medicamento"];
+$observaciones = $_POST["observaciones"];
+$oiesferasf = $_POST["oiesferasf"];
+$oicolindrosf = $_POST["oicolindrosf"];
+$oiejesf = $_POST["oiejesf"];
+$oiprismaf = $_POST["oiprismaf"];
+$oiadicionf = $_POST["oiadicionf"];
+$odesferasf = $_POST["odesferasf"];
+$odcilindrosf = $_POST["odcilindrosf"];
+$odejesf = $_POST["odejesf"];
+$dprismaf = $_POST["dprismaf"];
+$oddicionf  = $_POST["oddicionf"];
+$odavsclejos = "";
+$odavphlejos = "";
+$odavcclejos= "";
+$odavsccerca = "";
+$oiavcolindrosf = "";
+$oiavesferasf = "";
+$oiavejesf = "";
+$oiavprismaf = "";
+$oiavadicionf = "";
+$prisoicorrige = "";
+$addodcorrige = "";
+$prisodcorrige = "";
+$addoicorrige ="";
+$addoicorrige ="";
+$ishihara ="";
+$amsler = "";
+$anexos = "";
+$dip = $_POST["dip"];
+$oddip = $_POST["oddip"];
+$oidip = $_POST["oidip"];
+$aood = $_POST["aood"];
+$aooi = $_POST["aooi"];
+$apod = $_POST["apod"];
+$opoi = $_POST["opoi"];
+$fecha_consulta = $_POST["fecha_consulta"];
+$p_evaluado = $_POST["p_evaluado"];
+$parentesco_evaluado = $_POST["parentesco_evaluado"];
+$tel_evaluado = $_POST["tel_evaluado"];
+
+
+$sql="insert into consulta VALUES (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+$sql=$conectar->prepare($sql);
+$sql->bindValue(1,$motivo);
+$sql->bindValue(2,$patologias);
+$sql->bindValue(3,$id_paciente);
+$sql->bindValue(4,$id_usuario);
+$sql->bindValue(5,$fecha_reg);
+$sql->bindValue(6,$oiesfreasl);
+$sql->bindValue(7,$oicilindrosl);
+$sql->bindValue(8,$oiejesl);
+$sql->bindValue(9,$oiprismal);
+$sql->bindValue(10,$oiadicionl);
+$sql->bindValue(11,$odesferasl);
+$sql->bindValue(12,$odcilndrosl);
+$sql->bindValue(13,$odejesl);
+$sql->bindValue(14,$odprismal);
+$sql->bindValue(15,$odadicionl);
+$sql->bindValue(16,$oiesferasa);
+$sql->bindValue(17,$oicolindrosa);
+$sql->bindValue(18,$oiejesa);
+$sql->bindValue(19,$oiprismaa);
+$sql->bindValue(20,$oiadiciona);
+$sql->bindValue(21,$odesferasa);
+$sql->bindValue(22,$odcilindrosa);
+$sql->bindValue(23,$odejesa);
+$sql->bindValue(24,$dprismaa);
+$sql->bindValue(25,$oddiciona);
+$sql->bindValue(26,$sugeridos);
+$sql->bindValue(27,$diagnostico);
+$sql->bindValue(28,$medicamento);
+$sql->bindValue(29,$observaciones);
+$sql->bindValue(30,$oiesferasf);
+$sql->bindValue(31,$oicolindrosf);
+$sql->bindValue(32,$oiejesf);
+$sql->bindValue(33,$oiprismaf);
+$sql->bindValue(34,$oiadicionf);
+$sql->bindValue(35,$odesferasf);
+$sql->bindValue(36,$odcilindrosf);
+$sql->bindValue(37,$odejesf);
+$sql->bindValue(38,$dprismaf);
+$sql->bindValue(39,$oddicionf);
+$sql->bindValue(40,$odavsclejos);
+$sql->bindValue(41,$odavphlejos);
+$sql->bindValue(42,$odavcclejos);
+$sql->bindValue(43,$odavsccerca);
+$sql->bindValue(44,$oiavcolindrosf);
+$sql->bindValue(45,$oiavesferasf);
+$sql->bindValue(46,$oiavejesf);
+$sql->bindValue(47,$oiavprismaf);
+$sql->bindValue(48,$oiavadicionf);
+$sql->bindValue(49,$prisoicorrige);
+$sql->bindValue(50,$addodcorrige);
+$sql->bindValue(51,$prisodcorrige);
+$sql->bindValue(52,$addoicorrige);
+$sql->bindValue(53,$addoicorrige);
+$sql->bindValue(54,$ishihara);
+$sql->bindValue(55,$amsler);
+$sql->bindValue(56,$anexos);
+$sql->bindValue(57,$dip);
+$sql->bindValue(58,$oddip);
+$sql->bindValue(59,$oidip);
+$sql->bindValue(60,$aood);
+$sql->bindValue(61,$aooi);
+$sql->bindValue(62,$apod);
+$sql->bindValue(63,$opoi);
+$sql->bindValue(64,$fecha_consulta);
+$sql->bindValue(65,$p_evaluado);
+$sql->bindValue(66,$parentesco_evaluado);
+$sql->bindValue(67,$tel_evaluado);
+$sql->execute();
+
+}
+
 
 }
 

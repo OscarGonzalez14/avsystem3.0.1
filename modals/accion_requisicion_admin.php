@@ -23,8 +23,7 @@
             </table>
           </div>
 
-            </div>
-
+          </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-thumbs-o-down" aria-hidden="true"></i> DENEGAR</button>
               <button type="button" class="btn btn-success" onClick="aprobar_requisicion();"><i class="fas fa-thumbs-o-up" aria-hidden="true"></i> APROBAR</button>

@@ -116,8 +116,6 @@
 /////////////////////listado general pacintes
   case "listar_pacientes":
 
-
-
 	$datos=$pacientes->get_pacientes($_POST["sucursal_paciente"]);
 	$data= Array();
     foreach($datos as $row){
@@ -141,17 +139,13 @@
 			$sub_array[] = $row["nombres"];
       $sub_array[] = $row["edad"]." años";
 			$sub_array[] = $row["telefono"];			            
-            $sub_array[] = '<button type="button" onClick="mostrarc('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-md btn-outline-info btn-sm info_pac" data-toggle="modal" data-target="#consultasModal" data-backdrop="static" data-keyboard="false"><i class="fas fa-file-alt" aria-hidden="true" style="color:blue"></i></button>';
-
-            $sub_array[] = '<button type="button"  id="'.$row["id_paciente"].'" class="btn btn-edit btn-md edita_pacc bg-light" style="text-align:center" onClick="show_datos_paciente('.$row["id_paciente"].',\''.$row["codigo"].'\');" data-toggle="modal" data-target="#newPaciente" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit" aria-hidden="true" style="color:#006600"></i></button>';
-
-            $sub_array[] = '<button type="button"  class="btn btn-md bg-light" onClick="eliminar_paciente('.$row["id_paciente"].')"><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></button>';
-
-            $sub_array[] = '<button type="button" onClick="mostrarc('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn  btn-md bg-light"><i class="fas fa-clipboard-list" aria-hidden="true" style="color:blue"></i></button>';
-
-             $sub_array[] = '<span class="right badge badge-light"><i class=" fas '.$icon.'" style="color:'.$badge.'"></i> '.$referido.'<span> '.$estado.'</span>';            
+      $sub_array[] = '<button type="button" onClick="mostrarc('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn btn-md btn-outline-info btn-sm info_pac" data-toggle="modal" data-target="#consultasModal" data-backdrop="static" data-keyboard="false"><i class="fas fa-file-alt" aria-hidden="true" style="color:blue"></i></button>';
+      $sub_array[] = '<button type="button"  id="'.$row["id_paciente"].'" class="btn btn-edit btn-md edita_pacc bg-light" style="text-align:center" onClick="show_datos_paciente('.$row["id_paciente"].',\''.$row["codigo"].'\');" data-toggle="modal" data-target="#newPaciente" data-backdrop="static" data-keyboard="false"><i class="fa fa-edit" aria-hidden="true" style="color:#006600"></i></button>';
+      $sub_array[] = '<button type="button"  class="btn btn-md bg-light" onClick="eliminar_paciente('.$row["id_paciente"].')"><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></button>';
+      $sub_array[] = '<button type="button" onClick="mostrarc('.$row["id_paciente"].');" id="'.$row["id_paciente"].'" class="btn  btn-md bg-light"><i class="fas fa-clipboard-list" aria-hidden="true" style="color:blue"></i></button>';
+      $sub_array[] = '<span class="right badge badge-light"><i class=" fas '.$icon.'" style="color:'.$badge.'"></i> '.$referido.'<span> '.$estado.'</span>';            
                                                 
-		$data[] = $sub_array;
+		  $data[] = $sub_array;
 	}
 
       $results = array(

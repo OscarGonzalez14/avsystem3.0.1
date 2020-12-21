@@ -202,7 +202,7 @@ case 'tipo_pago';
 
 case 'registrar_venta':
 
-    $datos=$ventas->valida_existencia_venta($_POST["numero_venta"]);
+  $datos=$ventas->valida_existencia_venta($_POST["numero_venta"]);
       if(is_array($datos)==true and count($datos)==0){
       $ventas->agrega_detalle_venta();
       $messages[]="ok";
@@ -219,7 +219,7 @@ case 'registrar_venta':
            }
          ?>
    <?php
- }
+  }
     //mensaje error
       if (isset($errors)){
 
@@ -231,9 +231,11 @@ case 'registrar_venta':
              }
            ?>
    <?php
-   } 
 
-    break;    //////////GET DATA LENTES RECIBO INICIAL 
+  }
+
+  break;    //////////GET DATA LENTES RECIBO INICIAL 
+
     case 'get_datos_lentes_rec_ini':
       $datos= $ventas->get_detalle_lente_rec_ini($_POST["id_paciente"],$_POST["numero_venta"]); 
 
@@ -311,13 +313,11 @@ case 'registrar_venta':
       "iTotalRecords"=>count($data), //enviamos el total registros al datatable
       "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
       "aaData"=>$data);
-      echo json_encode($results);
-
+      echo json_encode($results);      
     break;
     /// FIN LISTAR TODAS LAS VENTAS
-
     case "ver_detalle_venta":
-       $datos= $ventas->get_detalle_ventas_paciente($_POST["numero_venta"],$_POST["id_paciente"]);
-     break;
+      $datos= $ventas->get_detalle_ventas_paciente($_POST["numero_venta"],$_POST["id_paciente"]);
+    break;
    }
    ?>

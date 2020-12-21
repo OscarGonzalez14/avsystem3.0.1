@@ -130,8 +130,7 @@ require_once("modals/modal_correlativo_factura.php");
            <div class="col-md-12">
               <div><!--BOTONES AGREGAR PRODUCTO-->
                 <section>
-                  <button class="btn btn-info" style="color:white;border-radius:1px;" data-toggle="modal" data-target="#listar_aros_ventas" data-backdrop="static" data-keyboard="false" id="btn_aros_venta"><i class="fas fa-plus"></i> Aro</button>
-                  
+                  <button class="btn btn-info" style="color:white;border-radius:1px;" data-toggle="modal" data-target="#listar_aros_ventas" data-backdrop="static" data-keyboard="false" id="btn_aros_venta"><i class="fas fa-plus"></i> Aro</button>                
                   <a class="btn btn-dark" style="color:white;border-radius:1px; background:black" data-toggle="modal" data-target="#listar_lentes_ventas" data-backdrop="static" data-keyboard="false" id="btn_aros_venta" onClick='listar_lentes_venta();'><i class="fas fa-plus"></i> Lentes</a>             
 
                   <a class="btn btn-dark" style="color:white;border-radius:1px; background:black" data-toggle="modal" data-target="#listar_ar_ventas" data-backdrop="static" data-keyboard="false" id="btn_ar_venta" onClick="listar_ar_venta();"><i class="fas fa-plus"></i> AR</a>
@@ -186,10 +185,9 @@ require_once("modals/modal_correlativo_factura.php");
               </div>
               <br>
               <div class="row">
-              <div class="col-sm-4" id="print_factura">
+                <div class="col-sm-4" id="print_factura">
                   <button class="btn btn-info btn-block" style="border-radius:2px" onClick="print_facturas_ventas()"><i class="fas fa-print"></i> Imprimir Factura</button>
                 </div>
-
                 <div class="col-sm-4" id="print_credito_fiscal">
                   <a href="" id="credito_fiscal_print" target="_blank"><button class="btn btn-secondary btn-block" style="border-radius:2px"><i class="fas fa-print"></i> Imprimir Credito Fiscal</button></a>
                 </div>
@@ -199,16 +197,14 @@ require_once("modals/modal_correlativo_factura.php");
             <!-- /.card -->
           </div> <!--Fin trable--> 
 
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <ul class="navbar-nav">
-    <li>
-      <input type="text" class="form-control" id="n_venta" readonly="" style="background: white;border: 1px solid white;color: black;text-align: right;">
-    </li>
+      <li><input type="text" class="form-control" id="n_venta" readonly="" style="background: white;border: 1px solid white;color: black;text-align: right;"></li>
     </ul>
   </nav>  
 </div>
-        </div>
-    </section>
+</div>
+</section>
 
 
 <?php require_once("footer.php");?>

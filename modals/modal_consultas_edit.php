@@ -45,8 +45,8 @@ body.modal-open {
             </div>
 
             <div class="col-sm-2">
-              <label for="ex1">Parentesco</label>
-              <input class="form-control" id="parentesco_evaluado" name="parentesco_evaluado" type="text" onkeyup="mayus(this);">
+              <label for="ex1">Edad</label>
+              <input class="form-control" id="edad_p" name="edad_p" type="text" readonly>
             </div>
 
             <div class="col-sm-2">
@@ -258,44 +258,31 @@ body.modal-open {
       </tr>      
   </tbody>
   </table>
+<input type="hidden" id="id_paciente_consulta">
+
+<script>
+  var id_paciente_c = 116;
+ console.log(id_paciente_c);
+  </script>
+<?php
+  require_once("modelos/Reporteria.php");
+  $reporteria = new Reporteria();
+?>
+<div class="card-body">
+  <div id="accordion">                  
+    <div class="card card-primary" id="item_ventas_exp">
+      
+    </div>
+  </div>
+</div>
 </div>
 <!--======= FIN OBLEAS=======-->
-<div class="col-sm-12">
-    <label for="ex3">Test de ISHIHARA</label>
-    <input class="form-control" id="ishihara_e" type="text" name="ishihara" placeholder="Lentes sugeridos">
+<div class="row">
+
 </div>
 
-<div class="col-sm-12">
-    <label for="ex3">Test de AMSLER</label>
-    <input class="form-control" id="amsler_e" type="text" name="amsler" placeholder="Lentes sugeridos">
-</div>
-
-<div class="col-sm-12">
-    <label for="ex3">Superficie Ocular y Anexos</label>
-    <input class="form-control" id="anexos_e" type="text" name="anexos" placeholder="Lentes sugeridos">
-</div>
-
-<div class="col-sm-12">
-  <label for="ex3">Lentes Sugeridos</label>
-  <input class="form-control" id="sugeridos_e" type="text" name="sugeridos" placeholder="Lentes sugeridos">
-</div>
-
-<div class="col-sm-12">
-  <label for="comment">Diagnostico</label>
-  <textarea cols="80" class="form-control" rows="2" id="diagnostico_e" name="diagnostico" placeholder="Diagnostico"></textarea>
-</div>
-
-<div class="col-sm-12">
-  <label for="ex3">Medicamento</label>
-  <input class="form-control" id="medicamento_e" type="text" name="medicamento" placeholder="Medicamento">
-</div>
-
-<div class="col-sm-12">
-  <label for="comment">Observaciones</label>
-  <input class="form-control" id="observaciones_e" name="observaciones" placeholder="Observaciones" required>
-</div>
-<input class="form-control" id="id_consulta_e" name="codigop" type="hidden">
-<input type="hidden" name="id_usuario" id="id_usuario_e" value="<?php echo $_SESSION["id_usuario"];?>"/>
+<input type="text" class="form-control" id="id_consulta_e" name="codigop">
+<input type="text" name="id_usuario" id="id_usuario_e" value="<?php echo $_SESSION["id_usuario"];?>"/>
 </div><!--FIN FORM-GROUP-->
 <button class="btn btn-success btn-block btn-flat" onClick="editarConsultas();"><span class="fas fa-edit" aria-hidden="true"></span>
 Editar</button>

@@ -66,7 +66,7 @@ public function get_datos_factura_p_unitario($n_venta,$id_paciente){
 public function get_datos_factura_subtotal($n_venta,$id_paciente){
 	$conectar= parent::conexion();
 	parent::set_names();
-	$sql="select precio_final*cantidad_venta as subtotal from detalle_ventas where numero_venta=? and id_paciente=? order by id_detalle_ventas ASC;";
+	$sql="select precio_final as subtotal from detalle_ventas where numero_venta=? and id_paciente=? order by id_detalle_ventas ASC;";
 	$sql=$conectar->prepare($sql);
 	$sql->bindValue(1,$n_venta);
     $sql->bindValue(2,$id_paciente);
@@ -276,5 +276,16 @@ public function get_saldo_caja($sucursal){
 	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/////////////////////////DATOS DE VENTA EN CONSULTAS /////////
+public function get_ventas_consulta($id_paciente){
+	$conectar= parent::conexion();
+	parent::set_names();
+ 
+	$sql="select*from ventas where id_paciente=?;";
+	$sql=$conectar->prepare($sql);
+	$sql->bindValue(1,$id_paciente);
+	$sql->execute();
+	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
 
 }
