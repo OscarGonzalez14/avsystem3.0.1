@@ -234,7 +234,7 @@ function setDescuento(event, obj, idx){
       Swal.fire('Error!, Ha excedido el limite de descuento autorizado','','error')
       document.getElementById("descuento"+idx).value="";
       document.getElementById("descuento"+idx).style.border='solid 1px red';
-     }else if(desc_n<=150){
+     }else if(desc_n<=50){
     detalles[idx].descuento = parseFloat(obj.value);
     document.getElementById("descuento"+idx).style.border='solid 1px green';
     recalcular(idx);
@@ -614,13 +614,19 @@ if (paciente !="" && tipo_pago !=""  && tipo_venta !="") {
     if (tipo_venta=="Contado") {       
         setTimeout ("reciboInicial();", 2500);
         mostrar_btn_post_venta();        
-      }else {
-      Swal.fire('Venta registrada exitosamente!','','success')
+      }else if(tipo_venta=="Credito" && tipo_pago=="Descuento en Planilla") {
+      desc_planilla();
     }
 }else{
   Swal.fire('Existen campos obligatorios vacios!','','error')
 }
 }////////////FIN FUNCION REGISTRAR LA VENTA
+
+
+function desc_planilla(){
+  $("#oid").modal("show");
+}
+
 
 function reciboInicial(){
   $('#recibo_inicial').modal('show');

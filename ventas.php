@@ -15,7 +15,7 @@ require_once("modals/photosensible_ventas.php");
 require_once("modals/referentes.php");
 require_once("modals/empresas_credito_fiscal.php");
 require_once("modals/modal_correlativo_factura.php");
-
+require_once("modals/modal_oid.php");
 
 ?>
   <!-- Content Wrapper. Contains page content -->
