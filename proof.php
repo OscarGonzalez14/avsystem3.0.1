@@ -1,453 +1,75 @@
 <?php
-$monto_letras=numletras(1355.55,1)
-
-// Y toda la función quedó de la siguiente manera:
-
-//************* INICIO DE CÓDIGO *********
-
-function numletras($numero,$_moneda)
-/*
-$numero=valor a retornar en letras.
-$_moneda=1=Colones, 2=Dólares 3=Euros
-Las siguientes funciones (unidad() hasta milmillon() forman parte de ésta función
-*/
-{
-switch($_moneda)
-{
-case 1:
-$_nommoneda='COLONES';
-break;
-case 2:
-$_nommoneda='DÓLARES';
-break;
-case 3:
-$_nommoneda='EUROS';
-break;
-}
-//***
-$tempnum = explode('.',$numero);
-
-if ($tempnum[0] !== ""){
-$numf = milmillon($tempnum[0]);
-if ($numf == "UNO")
-{
-$numf = substr($numf, 0, -1);
+function basico($numero) {
+$valor = array ('uno','dos','tres','cuatro','cinco','seis','siete','ocho',
+'nueve','diez', 'veinticuatro','veinticinco',
+'veintiséis','veintisiete','veintiocho','veintinueve');
+return $valor[$numero - 1];
 }
 
-$TextEnd = $numf.' ';
-$TextEnd .= $_nommoneda.' CON ';
+function decenas($n) {
+$decenas = array (30=>'treinta',40=>'cuarenta',50=>'cincuenta',60=>'sesenta',
+70=>'setenta',80=>'ochenta',90=>'noventa');
+if( $n <= 29) return basico($n);
+$x = $n % 10;
+if ( $x == 0 ) {
+return $decenas[$n];
+} else return $decenas[$n - $x].' y '. basico($x);
 }
-if ($tempnum[1] == "" || $tempnum[1] >= 100)
-{
-$tempnum[1] = "00" ;
+
+function centenas($n) {
+$cientos = array (100 =>'cien',200 =>'doscientos',300=>'trecientos',
+400=>'cuatrocientos', 500=>'quinientos',600=>'seiscientos',
+700=>'setecientos',800=>'ochocientos', 900 =>'novecientos');
+if( $n >= 100) {
+if ( $n % 100 == 0 ) {
+return $cientos[$n];
+} else {
+$u = (int) substr($n,0,1);
+$d = (int) substr($n,1,2);
+return (($u == 1)?'ciento':$cientos[$u*100]).' '.decenas($d);
 }
-$TextEnd .= $tempnum[1] ;
-$TextEnd .= "/100";
-return $TextEnd;
+} else return decenas($n);
 }
+
+function miles($n) {
+if($n > 999) {
+if( $n == 1000) {return 'mil';}
+else {
+$l = strlen($n);
+$c = (int)substr($n,0,$l-3);
+$x = (int)substr($n,-3);
+if($c == 1) {$cadena = 'mil '.centenas($x);}
+else if($x != 0) {$cadena = centenas($c).' mil '.centenas($x);}
+else $cadena = centenas($c). ' mil';
+return $cadena;
+}
+} else return centenas($n);
+}
+
+function millones($n) {
+if($n == 1000000) {return 'un millón';}
+else {
+$l = strlen($n);
+$c = (int)substr($n,0,$l-6);
+$x = (int)substr($n,-6);
+if($c == 1) {
+$cadena = ' millón ';
+} else {
+$cadena = ' millones ';
+}
+return miles($c).$cadena.(($x > 0)?miles($x):'');
+}
+}
+$n=125;
+function convertir($n) {
+switch (true) {
+case ( $n >= 1 && $n <= 29) : return basico($n); break;
+case ( $n >= 30 && $n < 100) : return decenas($n); break;
+case ( $n >= 100 && $n < 1000) : return centenas($n); break;
+case ($n >= 1000 && $n <= 999999): return miles($n); break;
+case ($n >= 1000000): return millones($n);
+}
+}
+
+echo convertir($n);
 ?>
-
-<?php
-
-function unidad($numuero){
-switch ($numuero)
-{
-case 9:
-{
-$numu = "NUEVE";
-break;
-}
-case 8:
-{
-$numu = "OCHO";
-break;
-}
-case 7:
-{
-$numu = "SIETE";
-break;
-}
-case 6:
-{
-$numu = "SEIS";
-break;
-}
-case 5:
-{
-$numu = "CINCO";
-break;
-}
-case 4:
-{
-$numu = "CUATRO";
-break;
-}
-case 3:
-{
-$numu = "TRES";
-break;
-}
-case 2:
-{
-$numu = "DOS";
-break;
-}
-case 1:
-{
-$numu = "UNO";
-break;
-}
-case 0:
-{
-$numu = "";
-break;
-}
-}
-return $numu;
-}
-
-function decena($numdero){
-
-if ($numdero >= 90 && $numdero <= 99)
-{
-$numd = "NOVENTA ";
-if ($numdero > 90)
-$numd = $numd."Y ".(unidad($numdero - 90));
-}
-else if ($numdero >= 80 && $numdero <= 89)
-{
-$numd = "OCHENTA ";
-if ($numdero > 80)
-$numd = $numd."Y ".(unidad($numdero - 80));
-}
-else if ($numdero >= 70 && $numdero <= 79)
-{
-$numd = "SETENTA ";
-if ($numdero > 70)
-$numd = $numd."Y ".(unidad($numdero - 70));
-}
-else if ($numdero >= 60 && $numdero <= 69)
-{
-$numd = "SESENTA ";
-if ($numdero > 60)
-$numd = $numd."Y ".(unidad($numdero - 60));
-}
-else if ($numdero >= 50 && $numdero <= 59)
-{
-$numd = "CINCUENTA ";
-if ($numdero > 50)
-$numd = $numd."Y ".(unidad($numdero - 50));
-}
-else if ($numdero >= 40 && $numdero <= 49)
-{
-$numd = "CUARENTA ";
-if ($numdero > 40)
-$numd = $numd."Y ".(unidad($numdero - 40));
-}
-else if ($numdero >= 30 && $numdero <= 39)
-{
-$numd = "TREINTA ";
-if ($numdero > 30)
-$numd = $numd."Y ".(unidad($numdero - 30));
-}
-else if ($numdero >= 20 && $numdero <= 29)
-{
-if ($numdero == 20)
-$numd = "VEINTE ";
-else
-$numd = "VEINTI".(unidad($numdero - 20));
-}
-else if ($numdero >= 10 && $numdero <= 19)
-{
-switch ($numdero){
-case 10:
-{
-$numd = "DIEZ ";
-break;
-}
-case 11:
-{
-$numd = "ONCE ";
-break;
-}
-case 12:
-{
-$numd = "DOCE ";
-break;
-}
-case 13:
-{
-$numd = "TRECE ";
-break;
-}
-case 14:
-{
-$numd = "CATORCE ";
-break;
-}
-case 15:
-{
-$numd = "QUINCE ";
-break;
-}
-case 16:
-{
-$numd = "DIECISEIS ";
-break;
-}
-case 17:
-{
-$numd = "DIECISIETE ";
-break;
-}
-case 18:
-{
-$numd = "DIECIOCHO ";
-break;
-}
-case 19:
-{
-$numd = "DIECINUEVE ";
-break;
-}
-}
-}
-else
-$numd = unidad($numdero);
-return $numd;
-}
-
-function centena($numc){
-if ($numc >= 100)
-{
-if ($numc >= 900 && $numc <= 999)
-{
-$numce = "NOVECIENTOS ";
-if ($numc > 900)
-$numce = $numce.(decena($numc - 900));
-}
-else if ($numc >= 800 && $numc <= 899)
-{
-$numce = "OCHOCIENTOS ";
-if ($numc > 800)
-$numce = $numce.(decena($numc - 800));
-}
-else if ($numc >= 700 && $numc <= 799)
-{
-$numce = "SETECIENTOS ";
-if ($numc > 700)
-$numce = $numce.(decena($numc - 700));
-}
-else if ($numc >= 600 && $numc <= 699)
-{
-$numce = "SEISCIENTOS ";
-if ($numc > 600)
-$numce = $numce.(decena($numc - 600));
-}
-else if ($numc >= 500 && $numc <= 599)
-{
-$numce = "QUINIENTOS ";
-if ($numc > 500)
-$numce = $numce.(decena($numc - 500));
-}
-else if ($numc >= 400 && $numc <= 499)
-{
-$numce = "CUATROCIENTOS ";
-if ($numc > 400)
-$numce = $numce.(decena($numc - 400));
-}
-else if ($numc >= 300 && $numc <= 399)
-{
-$numce = "TRESCIENTOS ";
-if ($numc > 300)
-$numce = $numce.(decena($numc - 300));
-}
-else if ($numc >= 200 && $numc <= 299)
-{
-$numce = "DOSCIENTOS ";
-if ($numc > 200)
-$numce = $numce.(decena($numc - 200));
-}
-else if ($numc >= 100 && $numc <= 199)
-{
-if ($numc == 100)
-$numce = "CIEN ";
-else
-$numce = "CIENTO ".(decena($numc - 100));
-}
-}
-else
-$numce = decena($numc);
-
-return $numce;
-}
-
-function miles($nummero){
-if ($nummero >= 1000 && $nummero < 2000){
-$numm = "MIL ".(centena($nummero%1000));
-}
-if ($nummero >= 2000 && $nummero <10000){
-$numm = unidad(Floor($nummero/1000))." MIL ".(centena($nummero%1000));
-}
-if ($nummero < 1000)
-$numm = centena($nummero);
-
-return $numm;
-}
-
-function decmiles($numdmero){
-if ($numdmero == 10000)
-$numde = "DIEZ MIL";
-if ($numdmero > 10000 && $numdmero <20000){
-$numde = decena(Floor($numdmero/1000))."MIL ".(centena($numdmero%1000));
-}
-if ($numdmero >= 20000 && $numdmero <100000){
-$numde = decena(Floor($numdmero/1000))." MIL ".(miles($numdmero%1000));
-}
-if ($numdmero < 10000)
-$numde = miles($numdmero);
-
-return $numde;
-}
-
-function cienmiles($numcmero){
-if ($numcmero == 100000)
-$num_letracm = "CIEN MIL";
-if ($numcmero >= 100000 && $numcmero <1000000){
-$num_letracm = centena(Floor($numcmero/1000))." MIL ".(centena($numcmero%1000));
-}
-if ($numcmero < 100000)
-$num_letracm = decmiles($numcmero);
-return $num_letracm;
-}
-
-function millon($nummiero){
-if ($nummiero >= 1000000 && $nummiero <2000000){
-$num_letramm = "UN MILLON ".(cienmiles($nummiero%1000000));
-}
-if ($nummiero >= 2000000 && $nummiero <10000000){
-$num_letramm = unidad(Floor($nummiero/1000000))." MILLONES ".(cienmiles($nummiero%1000000));
-}
-if ($nummiero < 1000000)
-$num_letramm = cienmiles($nummiero);
-
-return $num_letramm;
-}
-
-function decmillon($numerodm){
-if ($numerodm == 10000000)
-$num_letradmm = "DIEZ MILLONES";
-if ($numerodm > 10000000 && $numerodm <20000000){
-$num_letradmm = decena(Floor($numerodm/1000000))."MILLONES ".(cienmiles($numerodm%1000000));
-}
-if ($numerodm >= 20000000 && $numerodm <100000000){
-$num_letradmm = decena(Floor($numerodm/1000000))." MILLONES ".(millon($numerodm%1000000));
-}
-if ($numerodm < 10000000)
-$num_letradmm = millon($numerodm);
-
-return $num_letradmm;
-}
-
-function cienmillon($numcmeros){
-if ($numcmeros == 100000000)
-$num_letracms = "CIEN MILLONES";
-if ($numcmeros >= 100000000 && $numcmeros <1000000000){
-$num_letracms = centena(Floor($numcmeros/1000000))." MILLONES ".(millon($numcmeros%1000000));
-}
-if ($numcmeros < 100000000)
-$num_letracms = decmillon($numcmeros);
-return $num_letracms;
-}
-
-function milmillon($nummierod){
-if ($nummierod >= 1000000000 && $nummierod <2000000000){
-$num_letrammd = "MIL ".(cienmillon($nummierod%1000000000));
-}
-if ($nummierod >= 2000000000 && $nummierod <10000000000){
-$num_letrammd = unidad(Floor($nummierod/1000000000))." MIL ".(cienmillon($nummierod%1000000000));
-}
-if ($nummierod < 1000000000)
-$num_letrammd = cienmillon($nummierod);
-
-return $num_letrammd;
-}
-?>
-//******* FIN DE CÓDIGO ********
-
-
-<?php
- 
-if(isset($_POST['submit']))
- 
-{
- 
-$name = $_POST['name'];
- 
-echo "Usuario Has submitted the form and entered this name : <b> $name </b>";
- 
-
-}
- 
-?>
- 
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"><input type="hidden" name="name" value="CARLOS ROJAS"><br><input type="submit" name="submit" value="Submit Form"><br></form>
-
-
-                  <div class="card card-danger">
-                    <div class="card-header">
-                      <h4 class="card-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                          Venta 16-12-2018
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="collapseTwo" class="panel-collapse collapse">
-                      <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        3
-                        wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum
-                        eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee
-                        nulla
-                        assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                        nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
-                        beer
-                        farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-                        labore sustainable VHS.
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card card-success">
-                    <div class="card-header">
-                      <h4 class="card-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                          Venta 16-12-2019
-                        </a>
-                      </h4>
-                    </div>
-                    <div id="collapseThree" class="panel-collapse collapse">
-                      <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-                        wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum
-                        eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee
-                        nulla
-                        assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-                        nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
-                        beer
-                        farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-                        labore sustainable VHS.
-                      </div>
-                    </div>
-                  </div>
-
-
-<button onClick="addElement();">Click</button>
-<h4 id="titulo"></h4>
-
-<script>
-    function addElement(){
-        titulo.textContent = "Hola Mundo";
-    }
-</script>

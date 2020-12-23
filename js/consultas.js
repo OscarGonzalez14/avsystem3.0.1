@@ -89,7 +89,7 @@ function listar(){
 }
 
  $(document).on('click', '.edit_consultas', function(){
-	 	$('#consultasModal_edit').modal("show");
+	 	//$('#consultasModal_edit').modal("show");
 		var id_consulta = $(this).attr("id");
 		var id_paciente = $(this).attr("name");
 		
@@ -185,7 +185,7 @@ function listar(){
 			}
 		})
 
-		listar_ventas(id_paciente);
+		//listar_ventas(id_paciente);
 	});
 var detalle_ventas=[];
  function listar_ventas(id_paciente){
@@ -404,7 +404,7 @@ $.ajax({
   success:function(data){
   	if (data=='ok') {
   		Swal.fire('La Consulta se ha registrado exitosamente','','success')
-  		setTimeout (location.href ="consultas.php", 100);
+  		setTimeout (location.href ="consultas.php", 1000);
   	}
   //
   //refresca la pagina, se llama a la funtion explode
@@ -412,6 +412,77 @@ $.ajax({
 }
 
   });    
+}
+
+function show_det_venta(id_paciente){
+  //console.log(id_paciente+"EEE")
+  $.ajax({
+  url:"ajax/consultas.php?op=get_ultima_venta_paciente",
+  method:"POST",
+  data:{id_paciente:id_paciente},
+  cache:false,
+  dataType:"json",
+  success:function(data){
+  	console.log(data);
+    $("#numero_venta_cons").val(data.numero_venta);
+    listar_det_ventas(id_paciente);
+  }
+  })
+ 
+}
+ultima_venta = [];
+function listar_det_ventas(id_paciente){
+	    ultima_venta = [];
+	//var id_paciente = document.getElementById("id_paciente_consulta").value;
+	var numero_venta = document.getElementById("numero_venta_cons").value;
+	//console.log(id_paciente+numero_venta+"**********");
+  $.ajax({
+  url:"ajax/consultas.php?op=detalle_venta_consulta",
+  method:"POST",
+  data:{id_paciente:id_paciente,numero_venta:numero_venta},
+  cache: false,
+  dataType:"json",
+  success:function(data){
+  console.log(data);
+
+
+    for(var i in data){
+    var obj = {
+      fecha : data[i].fecha_venta,    
+      descripcion  : data[i].producto,
+      precio  : data[i].precio_final,
+      beneficiario  : data[i].beneficiario
+    };//Fin objeto*/
+    ultima_venta.push(obj);
+   }
+   let ventas = ultima_venta.length;
+    if(ventas >= 1){
+    listarDetallesVentas();
+    }else{
+    	ultima_venta = [];
+    }
+   //$('#listar_aros_ventas').modal("hide");
+    //console.log(detalles);
+    }//fin success
+  });//fin de ajax
+}
+
+function listarDetallesVentas(){
+ 
+    $('#listar_det_ventas_cons').html('');
+    var filas = "";
+
+    for(var i=0; i<ultima_venta.length; i++){
+      var filas = filas + "<tr id='fila"+i+"'><td>"+ultima_venta[i].fecha+"</td>"+
+      "<td>"+ultima_venta[i].descripcion+"</td>"+"</tr>";
+    }
+
+    $('#listar_det_ventas_cons').html(filas);
+
+}
+
+function clear_det_ventas(){
+	ultima_venta = [];
 }
 
 init();

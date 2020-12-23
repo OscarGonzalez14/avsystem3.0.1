@@ -3,7 +3,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 
 require_once 'dompdf/autoload.inc.php';
-
+require_once 'pages/convierte_a_texto.php';
 require_once("modelos/Reporteria.php");
 $reporteria=new Reporteria();
 $id_paciente =$_GET["id_paciente"];
@@ -130,7 +130,7 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
 </tr>
 
 <tr>
-  <td colspan="60" rowspan="2" class="stilot1" style="width: 60%;text-align: left">Son: </td>
+  <td colspan="60" rowspan="2" class="stilot1" style="width: 60%;text-align: left"><b>SON</b>: <?php echo numletras(number_format($subtotal,2,".",","),$_moneda);?></td>
   <td colspan="10" class="stilot1" style="font-size:8px">SUMAS</td>
   <td colspan="10" class="stilot1"></td>
   <td colspan="10" class="stilot1"></td>
@@ -261,7 +261,7 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
 </tr>
 
 <tr>
-  <td colspan="60" rowspan="2" class="stilot1" style="width: 60%;text-align: left">Son: </td>
+  <td colspan="60" rowspan="2" class="stilot1" style="width: 60%;text-align: left"><b>SON</b>: <?php echo numletras(number_format($subtotal,2,".",","),$_moneda);?></td>
   <td colspan="10" class="stilot1" style="font-size:11px">SUMAS</td>
   <td colspan="10" class="stilot1"></td>
   <td colspan="10" class="stilot1"></td>

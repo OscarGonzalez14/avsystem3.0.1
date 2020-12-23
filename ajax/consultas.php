@@ -16,12 +16,12 @@
 
 		  $sub_array = array();
       $sub_array[] = $row["id_consulta"];
-			$sub_array[] = date("d-m-Y", strtotime($row["fecha_reg"]));				
+			$sub_array[] = $row["fecha_consulta"];				
 			$sub_array[] = $row["nombres"];      
 			$sub_array[] = $row["p_evaluado"];
       $sub_array[] = $row["edad"];
 			$sub_array[] = ucfirst($row["usuario"]);
-			$sub_array[] = '<button type="button" class="btn btn-dark edit_consultas" id="'.$row["id_consulta"].'" name="'.$row["id_paciente"].'"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></i> Ver y Editar</button>';
+			$sub_array[] = '<button type="button" class="btn btn-dark edit_consultas" id="'.$row["id_consulta"].'" name="'.$row["id_paciente"].'" data-toggle="modal" data-target="#consultasModal_edit" data-backdrop="static" data-keyboard="false" onClick="show_det_venta('.$row["id_paciente"].');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></i> Ver y Editar</button>';
 			$data[] = $sub_array;
 			 
 		}
@@ -211,4 +211,55 @@ case 'get_ventas_consultas':
    <?php
    } 
       break;
+
+  case 'get_ultima_venta_paciente':
+    $datos= $consultas->get_ultima_venta($_POST["id_paciente"]);
+        if(is_array($datos)==true and count($datos)>0){
+          foreach($datos as $row){         
+            $output["id_paciente"] = $row["id_paciente"];
+            $output["numero_venta"] = $row["numero_venta"];            
+          }       
+        echo json_encode($output);
+
+        } 
+    break;
+
+case "detalle_venta_consulta":
+  $numero_venta = $_POST["numero_venta"];
+  $id_paciente = $_POST["id_paciente"];
+  $datos = $consultas->buscar_venta_consulta($id_paciente,$numero_venta);
+  if(is_array($datos)==true and count($datos)>0){
+        $data = Array();
+        foreach($datos as $row)
+        {
+          $output["fecha_venta"] = $row["fecha_venta"];
+          $output["producto"] = $row["producto"];
+          $output["precio_final"] = "$".number_format($row["precio_final"],2,".",",");
+          $output["beneficiario"] = $row["beneficiario"];
+          $data[] = $output;
+               
+        }
+    }else{
+      $array = [
+       "index1" => "-",
+       "index2" => "-",
+       "index3" => "-",
+       "index4" => "-"
+      ];
+      $data = Array();
+      foreach($array as $row)
+        {
+          $output["fecha_venta"] = $row["index1"];
+          $output["producto"] = $row["index2"];
+          $output["precio_final"] = $row["index3"];
+          $output["beneficiario"] = $row["index4"];
+          $data[] = $output;
+               
+        }
+      }         
+
+     
+  echo json_encode($data);
+
+     break;
 }

@@ -7,7 +7,7 @@ class Consulta extends Conectar{
     public function get_consultas($sucursal){
 
         $conectar= parent::conexion();       
-        $sql= "select c.fecha_reg,c.id_consulta,p.nombres,p.edad,c.sugeridos,c.diagnostico,u.usuario,c.p_evaluado,p.id_paciente from usuarios as u inner join consulta as c on u.id_usuario=c.id_usuario inner join pacientes as p on c.id_paciente=p.id_paciente where p.sucursal=?;";
+        $sql= "select c.fecha_consulta,c.id_consulta,p.nombres,p.edad,c.sugeridos,c.diagnostico,u.usuario,c.p_evaluado,p.id_paciente from usuarios as u inner join consulta as c on u.id_usuario=c.id_usuario inner join pacientes as p on c.id_paciente=p.id_paciente where p.sucursal=?;";
         $sql=$conectar->prepare($sql);
         $sql->bindValue(1,$sucursal);
         $sql->execute();
@@ -200,6 +200,7 @@ public function agrega_consulta(){
 $conectar=parent::conexion();
 parent::set_names();
 
+date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
 $motivo = $_POST["motivo"];
 $patologias = $_POST["patologias"];
 $id_paciente = $_POST["codigop"];
@@ -263,7 +264,7 @@ $aood = $_POST["aood"];
 $aooi = $_POST["aooi"];
 $apod = $_POST["apod"];
 $opoi = $_POST["opoi"];
-$fecha_consulta = $_POST["fecha_consulta"];
+$fecha_consulta = $hoy;
 $p_evaluado = $_POST["p_evaluado"];
 $parentesco_evaluado = $_POST["parentesco_evaluado"];
 $tel_evaluado = $_POST["tel_evaluado"];
@@ -341,6 +342,34 @@ $sql->bindValue(67,$tel_evaluado);
 $sql->execute();
 
 }
+
+public function get_ultima_venta($id_paciente){
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select*from ventas where id_paciente=? order by id_ventas desc limit 1;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$id_paciente);
+  $sql->execute();
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function buscar_venta_consulta($id_paciente,$numero_venta){
+  //$id_paciente = 127;
+  //$numero_venta ="AVME-18";
+  $conectar= parent::conexion();
+  parent::set_names();
+  $sql="select*from detalle_ventas where id_paciente=? and numero_venta=?;";
+  $sql = $conectar->prepare($sql);
+  $sql->bindValue(1,$id_paciente);
+  $sql->bindValue(2,$numero_venta);
+  $sql->execute();
+  //return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+  //print_r($_POST);
+}
+
+
+
 
 
 }

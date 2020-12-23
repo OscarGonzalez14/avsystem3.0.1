@@ -25,7 +25,7 @@ body.modal-open {
       <!-- Modal Header -->
       <div class="modal-header bg-info">
         <h5 class="modal-title" align="center">CONSULTAS</h5>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" onClick="clear_det_ventas();">&times;</button>
       </div>
 
       <!-- Modal body -->
@@ -152,7 +152,7 @@ body.modal-open {
   <!--==================== Rx Final==================-->
 <div class="final-agudeza" style="display:flex">
   <!--==================== AgudezaVisual==================-->
-<div class="aguvisual" style="margin:5px">
+<!--<div class="aguvisual" style="margin:5px">
 <table style="border: solid 2px gray;border-radius:8px;width:100%">
 <div><center><h5 style="color:blue;"><strong>Agudeza Visual</strong></h5></center></div>
     <thead class="thead-light">
@@ -190,7 +190,7 @@ body.modal-open {
       </tr>
   </tbody>
   </table>
-  </div>
+  </div>-->
 
   <!--==================== FIN AgudezaVisual==================-->
 
@@ -259,19 +259,37 @@ body.modal-open {
   </tbody>
   </table>
 <input type="hidden" id="id_paciente_consulta">
-
-<script>
-  var id_paciente_c = 116;
- console.log(id_paciente_c);
-  </script>
-<?php
-  require_once("modelos/Reporteria.php");
-  $reporteria = new Reporteria();
-?>
+<input type="hidden" id="numero_venta_cons">
+<div class="col-sm-12">
+  <label for="comment">Observaciones</label>
+  <input class="form-control" id="observaciones_e" name="observaciones" placeholder="Observaciones" required>
+</div>
+</script>
 <div class="card-body">
   <div id="accordion">                  
     <div class="card card-primary" id="item_ventas_exp">
-      
+      <div class="card-header">
+        <h4 class="card-title" style="display: flex;">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+            <button type="button" class="btn btn-block btn-outline-primary btn-sm"><i class="fas fa-eye"></i> Ver detalle venta</button>
+          </a>
+        </h4>
+      </div>
+
+      <div id="collapseOne" class="panel-collapse collapse in">
+        <div class="card-body">
+          <table  id="tabla_det_ventas" width="100%">
+            <thead style="background: #00001a;color:white;font-family: Helvetica, Arial, sans-serif;font-size: 12px;text-align: center">
+              <tr>
+                <th style="text-align:center" width="10%">Fecha Venta</th>
+                <th style="text-align:center" width="40%">Producto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th style="text-align:center" width="10%">Precio final</th>
+              </tr>
+            </thead>
+            <tbody id="listar_det_ventas_cons" style="width: 100%;text-align: center;"></tbody>
+          </table>        
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -281,8 +299,8 @@ body.modal-open {
 
 </div>
 
-<input type="text" class="form-control" id="id_consulta_e" name="codigop">
-<input type="text" name="id_usuario" id="id_usuario_e" value="<?php echo $_SESSION["id_usuario"];?>"/>
+<input type="hidden" class="form-control" id="id_consulta_e" name="codigop">
+<input type="hidden" name="id_usuario" id="id_usuario_e" value="<?php echo $_SESSION["id_usuario"];?>"/>
 </div><!--FIN FORM-GROUP-->
 <button class="btn btn-success btn-block btn-flat" onClick="editarConsultas();"><span class="fas fa-edit" aria-hidden="true"></span>
 Editar</button>

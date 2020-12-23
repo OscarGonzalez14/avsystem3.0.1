@@ -120,6 +120,18 @@
             </a>
           </li>
 
+          <?php if ($_SESSION["EnviosLab"]) {
+           echo '
+          <li class="nav-item">
+            <a href="envios_lab.php" class="nav-link">
+              <i class="fas fa-exchange-alt"></i>
+              <p>
+                Envios a Laboratorios
+                <span class="fas fa-exchange-alt" style="visibility:hidden">New</span>
+              </p>
+            </a>
+          </li>';
+        }?>   
           
           <li class="nav-item">
             <a href="ventas.php" class="nav-link">

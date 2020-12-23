@@ -51,8 +51,6 @@ public function login(){
           foreach($marcados as $row){
               $valores[]= $row["id_permiso"];
           }
-
-
       ////Determinamos los accesos del usuario
       //si los id_permiso estan en el array $valores entonces se ejecuta la session=1, en caso contrario el usuario no tendria acceso al modulo      
       in_array(1,$valores)?$_SESSION['Empresas']=1:$_SESSION['Empresas']=0;
@@ -61,10 +59,10 @@ public function login(){
       in_array(4,$valores)?$_SESSION['Pacientes&Consultas']=1:$_SESSION['Pacientes&Consultas']=0;
       in_array(5,$valores)?$_SESSION['Ventas']=1:$_SESSION['Ventas']=0;
       in_array(6,$valores)?$_SESSION['Creditos&Cobros']=1:$_SESSION['Creditos&Cobros']=0;
-      in_array(7,$valores)?$_SESSION['Caja Chica']=1:$_SESSION['Caja Chica']=0;        
+      in_array(7,$valores)?$_SESSION['Caja Chica']=1:$_SESSION['Caja Chica']=0;
+      in_array(8,$valores)?$_SESSION['EnviosLab']=1:$_SESSION['EnviosLab']=0;    
         
-
-        header("Location:home.php");
+      header("Location:home.php");
       exit();
     } else {                         
     //si no existe el registro entonces le aparece un mensaje
