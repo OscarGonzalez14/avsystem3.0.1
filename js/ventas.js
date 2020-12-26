@@ -1,6 +1,10 @@
 function init() {
   reporte_ventas_gral();
   get_correlativo_venta();
+    //get_correlativo_venta();btn_print_recibos
+  document.getElementById("btn_print_recibos").style.display = "none";
+  document.getElementById("print_factura").style.display = "none";
+  document.getElementById("credito_fiscal_print").style.display = "none";
 
 }
 

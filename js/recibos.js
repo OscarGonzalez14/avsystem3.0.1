@@ -7,10 +7,10 @@ function init(){
 $(document).ready(ocultar_btn_print_rec_ini);
 
   function ocultar_btn_print_rec_ini(){
-  get_correlativo_venta();
-  document.getElementById("btn_print_recibo").style.display = "none";
-  document.getElementById("print_factura").style.display = "none";
-  document.getElementById("credito_fiscal_print").style.display = "none";
+  //get_correlativo_venta();
+  //document.getElementById("btn_print_recibo").style.display = "none";
+  //document.getElementById("print_factura").style.display = "none";
+  //document.getElementById("credito_fiscal_print").style.display = "none";
   document.getElementById("btn_print_recibos").style.display = "none";
 
 }
@@ -121,9 +121,9 @@ $(document).on('click', '#btn_enviar_ini', function(){
   var n_recibo = $("#n_recibo").html();
   var n_venta_recibo_ini =$("#n_venta_recibo_ini").val();
   var id_paciente =$("#id_paciente").val();
+  var sucursal = $("#sucursal").val();
 
-  document.getElementById("btn_print_recibo").href='imprimir_recibo_pdf.php?n_recibo='+
-  n_recibo+'&'+'n_venta='+n_venta_recibo_ini+'&'+'id_paciente='+id_paciente;
+  document.getElementById("btn_print_recibo").href='imprimir_recibo_pdf.php?n_recibo='+n_recibo+'&'+'n_venta='+n_venta_recibo_ini+'&'+'id_paciente='+id_paciente+'&'+'sucursal='+sucursal;
     
 });
 /////////////IMPRIME FACTURA DE CONTADO
@@ -132,6 +132,7 @@ $(document).on('click', '#btn_enviar_ini', function(){
   var id_paciente =$("#id_paciente").val();
   var empresa_fisc = $("#empresa_fisc").val();
   var tipo_venta = $("#tipo_venta").val();
+  
 console.log(tipo_venta);
 if (tipo_venta=="Credito Fiscal"){
   document.getElementById("credito_fiscal_print").href='imprimir_c_fiscal_pdf.php?n_venta='+empresa_fisc+'&'+'id_paciente='+id_paciente;

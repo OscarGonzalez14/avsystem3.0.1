@@ -184,6 +184,7 @@ require_once("modals/modal_oid.php");
 
               </div>
               <br>
+
               <div class="row">
                 <div class="col-sm-4" id="print_factura">
                   <button class="btn btn-info btn-block" style="border-radius:2px" onClick="print_facturas_ventas()"><i class="fas fa-print"></i> Imprimir Factura</button>
@@ -196,7 +197,9 @@ require_once("modals/modal_oid.php");
             </div>
             <!-- /.card -->
           </div> <!--Fin trable--> 
-
+              <div class="col-sm-4" id="print_factura">
+                  <button class="btn btn-info btn-block" style="border-radius:2px" data-toggle="modal" data-target="#oid"><i class="fas fa-print"></i> OID</button>
+                </div>
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <ul class="navbar-nav">
       <li><input type="text" class="form-control" id="n_venta" readonly="" style="background: white;border: 1px solid white;color: black;text-align: right;"></li>

@@ -9,6 +9,21 @@ $reporteria=new Reporteria();
 $id_paciente =$_GET["id_paciente"];
 $n_venta =$_GET["n_venta"];
 $n_recibo =$_GET["n_recibo"];
+$sucursal = $_GET["sucursal"];
+if ($sucursal == "Metrocentro") {
+  $direccion = "Boulevard de los Heroes. Centro Comercial Metrocentro Local#7 San Salvador";
+  $telefono = "2260-1653";
+  $wha = "7469-2542";
+}elseif ($sucursal == "San Miguel") {
+  $direccion = "3<sup>ra</sup> Calle Poniente Av. Roosevelt Sur Esquina #115 ";
+  $telefono = "2661 7549";
+  $wha = "7946-0464";
+}elseif ($sucursal == "Santa Ana"){
+    $direccion = " 61 Calle Pte. Block K9 #10, Col, Avenida El Trebol, Santa Ana";
+    $telefono = "2445 3150";
+    $wha = "-";
+}
+
 $datos_recibo = $reporteria->print_recibo_paciente($_GET["n_recibo"],$_GET["n_venta"],$_GET["id_paciente"]);
 
 ?>
@@ -64,10 +79,10 @@ $datos_recibo = $reporteria->print_recibo_paciente($_GET["n_recibo"],$_GET["n_ve
     <td style="text-align:center; font-size:14px;font-family: Helvetica, Arial, sans-serif;"><strong>GIRO: </strong>OTROS SERVICIO RELACIONADOS CON LA SALUD</td>
   </tr>
   <tr>
-    <td style="text-align:center; font-size:11px;font-family: Helvetica, Arial, sans-serif;">Boulevard de los Heroes. Centro Comercial Metrocentro Local#7 San Salvador&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="date"></span></td>
+    <td style="text-align:center; font-size:11px;font-family: Helvetica, Arial, sans-serif;"><?php echo $direccion;?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="date"></span></td>
   </tr>
   <tr>
-    <td style="text-align:center; font-size:11px;font-family: Helvetica, Arial, sans-serif;"><span><strong>Telefono:</strong> 2260-1653&nbsp;&nbsp;&nbsp;</span><span><strong>Whatsapp:</strong> 7469-2542&nbsp;&nbsp;&nbsp;<br></span>E-mail: metrocentro@opticaavplussv.com</td>
+    <td style="text-align:center; font-size:11px;font-family: Helvetica, Arial, sans-serif;"><span><strong>Telefono:</strong> <?php echo $telefono;?>&nbsp;&nbsp;&nbsp;</span><span><strong>Whatsapp:</strong> <?php echo $wha;?>&nbsp;&nbsp;&nbsp;<br></span>E-mail: metrocentro@opticaavplussv.com</td>
   </tr>
 
 
@@ -215,10 +230,10 @@ $datos_recibo = $reporteria->print_recibo_paciente($_GET["n_recibo"],$_GET["n_ve
     <td style="text-align:center; font-size:14px;font-family: Helvetica, Arial, sans-serif;"><strong>GIRO: </strong>OTROS SERVICIO RELACIONADOS CON LA SALUD</td>
   </tr>
   <tr>
-    <td style="text-align:center; font-size:11px;font-family: Helvetica, Arial, sans-serif;">Boulevard de los Heroes. Centro Comercial Metrocentro Local#7 San Salvador&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="date"></span></td>
+    <td style="text-align:center; font-size:11px;font-family: Helvetica, Arial, sans-serif;"><?php echo $direccion;?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="date"></span></td>
   </tr>
   <tr>
-   <td style="text-align:center; font-size:11px;font-family: Helvetica, Arial, sans-serif;"><span><strong>Telefono:</strong> 2260-1653&nbsp;&nbsp;&nbsp;</span><span><strong>Whatsapp:</strong> 7469-2542&nbsp;&nbsp;&nbsp;<br></span>E-mail: metrocentro@opticaavplussv.com</td>
+   <td style="text-align:center; font-size:11px;font-family: Helvetica, Arial, sans-serif;"><span><strong>Telefono:</strong> <?php echo $telefono;?>&nbsp;&nbsp;&nbsp;</span><span><strong>Whatsapp:</strong><?php echo $wha;?>&nbsp;&nbsp;&nbsp;<br></span>E-mail: metrocentro@opticaavplussv.com</td>
   </tr>
 
 

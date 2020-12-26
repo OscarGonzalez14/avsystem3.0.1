@@ -7,7 +7,9 @@ function init(){
 $(document).ready(ocultar_element_ini);
 
   function ocultar_element_ini(){
+  document.getElementById("print_orden_desp").style.display = "none";
   document.getElementById("btn_print_recibos").style.display = "none";
+
 }
 ////////////////LISTAR CREDITOS DE CONTADO
 function listar_creditos_sucursal(){
@@ -433,9 +435,10 @@ function registrar_abono(){
   var n_venta_recibo_ini =$("#n_venta_recibo_ini").val();
   var id_paciente =$("#id_paciente").val();
   document.getElementById("btn_print_recibos").style.display = "block";
+  let sucursal = $("#sucursal").val();
 
   document.getElementById("btn_print_recibos").href='imprimir_recibo_pdf.php?n_recibo='+
-  n_recibo+'&'+'n_venta='+n_venta_recibo_ini+'&'+'id_paciente='+id_paciente;
+  n_recibo+'&'+'n_venta='+n_venta_recibo_ini+'&'+'id_paciente='+id_paciente+'&'+'sucursal='+sucursal;
   
 });
   /////////////////LISTAR DETALLE DE ABONOS
@@ -725,6 +728,20 @@ function registrar_impresion(){
     }
   })
 
+}
+
+///////////////REGISTRAR ORDEN DE DESCUENTO //////////////
+function registra_orden_desc(){
+
+  let nombre_paciente = $("#paciente_empresarial").val();
+  if (nombre_paciente != ""){
+    document.getElementById("print_orden_desp").style.display = "block";
+    document.getElementById("btn_reg_orden").style.display = "none";
+
+   Swal.fire('Descuento en planilla Registrado a la espera de aprobación!','','info');
+  }else{
+    Swal.fire('Existen campos obligatorios vacios!','','error');
+  }
 }
 
 init();

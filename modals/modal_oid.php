@@ -2,8 +2,8 @@
     #tamModal{
       width: 90% !important;
     }
-     #head{
-        background-color: #17a2b8;
+     #head_oid{
+        background-color: #292F33;
         color: white;
         text-align: center;
     }
@@ -14,42 +14,110 @@
     .input-dark{
       border: solid 1px black;
     }
+    .obs{
+      color: red;
+    }
 </style>
 
 <div class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="oid" style="border-radius:0px !important;">
-  <div class="modal-dialog modal-lg" role="document" id="tamModal">
+  <div class="modal-dialog modal-xl" role="document" id="tamModal">
 
-    <div class="modal-content">
-     <div class="modal-header" id="head" style="justify-content:space-between">
-       <span><i class="far fa-file-alt"></i> FORMULARIO DESCUENTO EN PLANILLA</span>
-        <button type="button" class="close" data-dismiss="modal" style="color:white">&times;</button>
-     </div>
-
-              <div class="card-body p-0" style="margin:7px">
-                <table class="table display nowrap" id="" style="cursor:pointer;" width="100%" cellspacing="0">
-                  <thead style="background:#034f84;color:white">
-                    <tr>
-                      <th style="text-align:center">Prueba</th>
-                      <th style="text-align:center">Prueba</th>
-                      <th style="text-align:center">Prueba</th>
-                      <th style="text-align:center">Prueba</th>
-                      <th style="text-align:center">Prueba</th>
-                    </tr>
-                  </thead>
-                  <tbody style="text-align:center">
-                                        
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-  
-    </div><!--Fin modal Content-->
-
+  <div class="modal-content">
+  <div class="modal-header" id="head_oid" style="justify-content:space-between">
+    <span><i class="far fa-file-alt"></i> FORMULARIO DESCUENTO EN PLANILLA</span>
+    <button type="button" class="close" data-dismiss="modal" style="color:white">&times;</button>
   </div>
+    <div class="modal-body">
+<div class="card card-danger" style="margin-top: 5px">
+      
+      
+  <div class="form-row" style="margin: 5px">
+    <div class="input-group col-md-12">
+        <input type="text" class="form-control" placeholder="AGREGAR EMPRESA" aria-label="AGREGAR EMPRESA" aria-describedby="basic-addon2" readonly="">
+        <div class="input-group-append">
+          <button class="btn btn-outline-success" type="button"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Nombre Completo</label>
+      <input type="text" class="form-control" id="paciente_empresarial">
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Función Laboral</label>
+      <input type="text" class="form-control" id="funcion_laboral">
+    </div>
+
+    <div class="form-group col-sm-4">
+      <label for="inputAddress">Edad</label>
+      <input type="text" class="form-control" id="edad_pac">
+    </div>
+
+    <div class="form-group col-sm-4">
+      <label for="inputAddress2">DUI <span class="obs">*</span></label>
+      <input type="text" class="form-control" id="dui_pac">
+    </div>
+
+    <div class="form-group col-sm-4">
+     <label for="inputAddress2">NIT</label>
+     <input type="text" class="form-control" id="nit_pac">
+    </div>
+
+    <div class="form-group col-md-4">
+      <label for="inputCity">Telefono <span class="obs">*</span></label>
+      <input type="text" class="form-control" id="tel_pac">
+    </div>
+
+    <div class="form-group col-md-4">
+      <label for="inputCity">Tel. Oficina <span class="obs">*</span></label>
+      <input type="text" class="form-control" id="tel_of_pac">
+    </div>
+
+    <div class="form-group col-md-4">
+      <label for="inputCity">Correo</label>
+      <input type="text" class="form-control" id="corre_pac">
+    </div>
+
+    <div class="form-group col-md-12">
+      <label for="inputCity">Direccion Completa <span class="obs">*</span></label>
+      <input type="text" class="form-control" id="direccion_pac">
+    </div>
+      <style>hr { background-color: red; height: 1px; border: 0; }</style>
+<hr>
+    <div class="form-group col-md-8">
+      <label for="inputCity">1° Referencia <span class="obs">*</span></label>
+      <input type="text" class="form-control" id="ref_1">
+    </div>
+        <div class="form-group col-md-4">
+      <label for="inputCity">Telefono 1° Ref. <span class="obs">*</span></label>
+      <input type="text" class="form-control" id="tel_ref1">
+    </div>
+
+    <div class="form-group col-md-8">
+      <label for="inputCity">2° Referencia <span class="obs">*</span></label>
+      <input type="text" class="form-control" id="ref_2">
+    </div>
+      <div class="form-group col-md-4">
+      <label for="inputCity">Telefono 2° Ref. <span class="obs">*</span></label>
+      <input type="text" class="form-control" id="tel_ref2">
+    </div>
+
+
+  </div> 
+ <button class="btn btn-outline-primary btn-block" type="button" id="btn_reg_orden" onClick="registra_orden_desc();"><i class="fas fa-save"> Registrar Orden</i></button>
+ <a class="btn btn-primary" style="color:white;border-radius:1px;" href="" id="print_orden_desp" target="_blank"><i class="fas fa-print"></i> Imprimir</a>
+
+ 
+</div><!--Fin Card-->
 </div>
+      </div><!-- /.card-body -->  
+    </div><!--Fin modal Content-->
+  </div>
+
+
 <script type="">
   $(function() {
-    $("div.dataTables_filter input").focus();
+  $("div.dataTables_filter input").focus();
 });
 
 </script>
