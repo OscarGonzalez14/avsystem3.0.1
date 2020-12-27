@@ -25,12 +25,37 @@ existe la <i>muerte</i>;<br>y cuando existe la <i>muerte</i>,
 <article>
  <pre>
  <code>
-function cambiarColor() {
- document.body.style.backgroundColor = "#0000FF";
+<script>
+/**
+ * Funcion que devuelve la fecha actual y la fecha modificada n dias
+ * Tiene que recibir el numero de dias en positivo o negativo para sumar o 
+ * restar a la fecha actual.
+ * Ejemplo:
+ *  mostrarFecha(-10) => restara 10 dias a la fecha actual
+ *  mostrarFecha(30) => añadira 30 dias a la fecha actual
+ */
+var fechass = "2020-12-27";
+const mostrarFecha = days => {
+    fecha=new Date(fechass);
+    document.write("Fecha actual: "+devolverFechaFormateada(fecha));
+ 
+    fecha.setDate(fecha.getDate()+days);
+    document.write(" - Fecha "+(days>0?"+"+days:days)+" dias : "+devolverFechaFormateada(fecha));
 }
-document.addEventListener("click", cambiarColor);
- </code>
- </pre>
-</article>
+ 
+const devolverFechaFormateada = fecha => {
+    const day=fecha.getDate();
+    // el mes es devuelto entre 0 y 11
+    const month=fecha.getMonth()+1;
+    const year=fecha.getFullYear();
+    return day+"/"+(month+2)+"/"+year;
+}
+ 
+mostrarFecha(-5);
+document.write("<br>");
+mostrarFecha(-10);
+document.write("<br>");
+mostrarFecha(+31);
+</script>
 </body>
 </html>

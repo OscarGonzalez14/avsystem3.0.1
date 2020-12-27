@@ -35,7 +35,7 @@ require_once("modals/modal_consultas.php");
       </div>
 
       <table id="data_pacientes" width="100%" style="text-align: center;text-align:center" data-order='[[ 0, "desc" ]]' class="table-hover table-bordered">
-      <thead style="color:black;min-height:10px;border-radius: 2px;font-style: normal;font-size: 15px" class="bg-info">
+        <thead style="color:black;min-height:10px;border-radius: 2px;font-style: normal;font-size: 15px" class="bg-info">
           <tr style="min-height:10px;border-radius: 3px;font-style: normal;font-size: 15px">
             <th style="text-align:center">ID</th>
             <th style="text-align:center">Paciente</th>
@@ -64,7 +64,7 @@ require_once("modals/modal_consultas.php");
                 <span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body" style="background: white;color:black">
-                    <div class="card-body p-0" style="margin:1px">
+              <div class="card-body p-0" style="margin:1px">
                 <table id="lista_pacientes_data_emp" width="100%">
                   <thead class="bg-secondary">
                     <tr>

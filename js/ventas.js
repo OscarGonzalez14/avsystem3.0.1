@@ -543,21 +543,37 @@ function show_pacientes_empresas(){
 
 
 
-function registrarVenta2(){
+function saveVenta(){
   var tipo_pago = $("#tipo_pago").val();
   var tipo_venta = $("#tipo_venta").val();
+
   if (tipo_venta=="Contado") {
-    saveVenta();
-    $('#recibo_inicial').modal('show');
-    setTimeout ("mostrar_recibo_inicial();", 2000);
+     registrarVenta();
+    //$('#recibo_inicial').modal('show');
+    //setTimeout ("mostrar_recibo_inicial();", 2000);
   }else if(tipo_venta=="Credito" && tipo_pago=="Descuento en Planilla"){
-    alert("Debo Lanzar formulario de OID")
+    $("#oid").modal("show");
+    let id_paciente = $("#id_paciente").val();
+    $.ajax({
+    url:"ajax/ventas.php?op=show_datos_paciente",
+    method:"POST",
+    data:{id_paciente:id_paciente},
+    cache:false,
+    dataType:"json",
+    success:function(data){ 
+    console.log(data);   
+      $("#paciente_empresarial").val(data.nombres);
+      $("#edad_pac").val(data.edad);
+      $("#tel_pac").val(data.telefono);
+    }
+  })
   }
 }
 
-
+/**************************************************************************
+***************************  INICIO REGISTRAR VENTAS  *********************
+**************************************************************************/
 function registrarVenta(){
-
 
   var fecha_venta = $("#fecha").val();
   var numero_venta = $("#n_venta").val();
@@ -586,6 +602,9 @@ function registrarVenta(){
   Swal.fire('Debe Agregar Productos a la Venta!','','error')
   return false;
 }
+//VALIDAMOS EL TIPO DE VENTA
+
+/*****SI VENTA ES CONTADO****/
 
 if (paciente !="" && tipo_pago !=""  && tipo_venta !="") {
   $('#listar_det_ventas').html('');
@@ -616,19 +635,23 @@ if (paciente !="" && tipo_pago !=""  && tipo_venta !="") {
     });//////FIN AJAX
     
     if (tipo_venta=="Contado") {       
-        setTimeout ("reciboInicial();", 2500);
-        mostrar_btn_post_venta();        
-      }else if(tipo_venta=="Credito" && tipo_pago=="Descuento en Planilla") {
-      desc_planilla();
+      setTimeout ("reciboInicial();", 2500);
+      mostrar_btn_post_venta();        
+    }else if(tipo_venta == "Credito" && tipo_pago == "Descuento en Planilla"){
+      Swal.fire('OID Registrada a la espera de Aprobación...','','info')
     }
 }else{
   Swal.fire('Existen campos obligatorios vacios!','','error')
 }
-}////////////FIN FUNCION REGISTRAR LA VENTA
 
+}
+
+/**************************************************************************
+=============================  FIN REGISTRAR VENTAS =======================
+**************************************************************************/
 
 function desc_planilla(){
-  $("#oid").modal("show");
+  
 }
 
 

@@ -1,5 +1,5 @@
 <style>
-    #tamModal{
+    #tamModal_orden{
       width: 90% !important;
     }
      #head_oid{
@@ -20,7 +20,7 @@
 </style>
 
 <div class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="oid" style="border-radius:0px !important;">
-  <div class="modal-dialog modal-xl" role="document" id="tamModal">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" id="tamModal_orden">
 
   <div class="modal-content">
   <div class="modal-header" id="head_oid" style="justify-content:space-between">
@@ -32,33 +32,43 @@
       
       
   <div class="form-row" style="margin: 5px">
-    <div class="input-group col-md-12">
-        <input type="text" class="form-control" placeholder="AGREGAR EMPRESA" aria-label="AGREGAR EMPRESA" aria-describedby="basic-addon2" readonly="">
-        <div class="input-group-append">
-          <button class="btn btn-outline-success" type="button"><i class="fas fa-search"></i></button>
-        </div>
-      </div>
+
     <div class="form-group col-md-6">
       <label for="inputEmail4">Nombre Completo</label>
       <input type="text" class="form-control" id="paciente_empresarial">
     </div>
 
+    <div class="form-group col-md-4">
+      <label for="inputCity">Inicio crédito</span></label>
+      <input type="date" class="form-control" id="fecha_inicio">
+    </div>
+
+        <div class="form-group col-md-2">
+      <label for="inputCity">Plazo</span></label>
+      <input type="text" class="form-control" id="plazo">
+    </div>
+    <div class="input-group col-md-12">
+        <input type="text" class="form-control" placeholder="AGREGAR EMPRESA" aria-label="AGREGAR EMPRESA" aria-describedby="basic-addon2" readonly="">
+        <div class="input-group-append">
+          <button class="btn btn-outline-success" type="button" data-toggle="modal" data-target="#empresasModal" onClick="listar_empresas();"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Función Laboral</label>
       <input type="text" class="form-control" id="funcion_laboral">
     </div>
 
-    <div class="form-group col-sm-4">
+    <div class="form-group col-sm-2">
       <label for="inputAddress">Edad</label>
       <input type="text" class="form-control" id="edad_pac">
     </div>
 
-    <div class="form-group col-sm-4">
+    <div class="form-group col-sm-2">
       <label for="inputAddress2">DUI <span class="obs">*</span></label>
       <input type="text" class="form-control" id="dui_pac">
     </div>
 
-    <div class="form-group col-sm-4">
+    <div class="form-group col-sm-2">
      <label for="inputAddress2">NIT</label>
      <input type="text" class="form-control" id="nit_pac">
     </div>
@@ -82,8 +92,7 @@
       <label for="inputCity">Direccion Completa <span class="obs">*</span></label>
       <input type="text" class="form-control" id="direccion_pac">
     </div>
-      <style>hr { background-color: red; height: 1px; border: 0; }</style>
-<hr>
+     
     <div class="form-group col-md-8">
       <label for="inputCity">1° Referencia <span class="obs">*</span></label>
       <input type="text" class="form-control" id="ref_1">
@@ -97,12 +106,11 @@
       <label for="inputCity">2° Referencia <span class="obs">*</span></label>
       <input type="text" class="form-control" id="ref_2">
     </div>
-      <div class="form-group col-md-4">
+    
+    <div class="form-group col-md-4">
       <label for="inputCity">Telefono 2° Ref. <span class="obs">*</span></label>
       <input type="text" class="form-control" id="tel_ref2">
     </div>
-
-
   </div> 
  <button class="btn btn-outline-primary btn-block" type="button" id="btn_reg_orden" onClick="registra_orden_desc();"><i class="fas fa-save"> Registrar Orden</i></button>
  <a class="btn btn-primary" style="color:white;border-radius:1px;" href="" id="print_orden_desp" target="_blank"><i class="fas fa-print"></i> Imprimir</a>

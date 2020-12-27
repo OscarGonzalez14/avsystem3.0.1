@@ -282,7 +282,7 @@ public function agrega_detalle_venta(){
 
     $sql5="insert into detalle_ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5=$conectar->prepare($sql5);
-    $sql5->bindValue(1,$codigo);
+    $sql5->bindValue(1,$numero_venta);
     $sql5->bindValue(2,$codProd);
     $sql5->bindValue(3,$descripcion);
     $sql5->bindValue(4,$precio_venta);
@@ -299,7 +299,7 @@ public function agrega_detalle_venta(){
 
   $sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5=$conectar->prepare($sql5);
-    $sql5->bindValue(1,$codigo);          
+    $sql5->bindValue(1,$numero_venta);          
     $sql5->bindValue(2,$fecha_venta);
     $sql5->bindValue(3,$numero_venta);
     $sql5->bindValue(4,$paciente);
@@ -436,5 +436,13 @@ echo $html;
   return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
-
+//////////////get data pacientes en ventas.php modal
+ public function show_datos_paciente($id_paciente){
+    $conectar= parent::conexion();
+    $sql="select*from pacientes where id_paciente=?;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $id_paciente);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+  }
 }//////Fin de la clase

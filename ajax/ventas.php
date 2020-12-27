@@ -319,5 +319,24 @@ case 'registrar_venta':
     case "ver_detalle_venta":
       $datos= $ventas->get_detalle_ventas_paciente($_POST["numero_venta"],$_POST["id_paciente"]);
     break;
+    //////////////////// GET DATA PACIENTE PARA MODAL CREDITOS EN VENTAS.PHP
+    case 'show_datos_paciente':    
+    $datos=$ventas->show_datos_paciente($_POST["id_paciente"]);
+      foreach($datos as $row){
+      $output["id_paciente"] = $row["id_paciente"];
+      $output["nombres"] = $row["nombres"];
+      $output["telefono"] = $row["telefono"];
+      $output["edad"] = $row["edad"];
+      $output["ocupacion"] = $row["ocupacion"];
+      $output["dui"] = $row["dui"];
+      $output["correo"] = $row["correo"]; 
+      $output["empresas"] = $row["empresas"]; 
+      $output["nit"] = $row["nit"];
+      $output["telefono_oficina"] = $row["telefono_oficina"];
+      $output["direccion"] = $row["direccion"];
+
+      }
+    echo json_encode($output);
+  break;
    }
    ?>

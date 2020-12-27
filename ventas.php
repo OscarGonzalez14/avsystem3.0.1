@@ -18,6 +18,12 @@ require_once("modals/modal_correlativo_factura.php");
 require_once("modals/modal_oid.php");
 
 ?>
+<style>
+  html{ 
+    overflow: scroll; 
+    -webkit-overflow-scrolling: touch;
+}
+</style>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
@@ -171,7 +177,7 @@ require_once("modals/modal_oid.php");
                     </tr>
                     <tfoot>                      
                 </table>
-                <button class="btn btn-primary btn-block enviar_venta" id="btn_de_compra" style="border-radius:2px" onClick='registrarVenta();'><i class="fas fa-save"></i> REGISTRAR VENTA</button>
+                <button class="btn btn-primary btn-block enviar_venta" id="btn_de_compra" style="border-radius:2px" onClick='saveVenta();'><i class="fas fa-save"></i> REGISTRAR VENTA</button>
               </div>
               <br>
               <div class="row post_venta" id="post_venta" style="display: flex;justify-content: space-between !important;">
@@ -228,6 +234,7 @@ require_once("modals/modal_oid.php");
 <script type="text/javascript" src="js/bootbox.min.js"></script>
 <script type="text/javascript" src="js/recibos.js"></script>
 <script type="text/javascript" src="js/creditos.js"></script>
+<script type="text/javascript" src="js/empresas.js"></script>
 
 
 </div><!-- FIN CONTENIDO-->
@@ -247,7 +254,37 @@ require_once("modals/modal_oid.php");
 function mayus(e) {
     e.value = e.value.toUpperCase();
 }
+</script>
 
+
+<div id="empresasModal" class="modal fade" data-modal-index="2">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content bg-info">
+            <div class="modal-header">
+              <span class="modal-title">SELECCIONAR EMPRESA</span>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" style="background: white;color:black">
+              <div class="card-body p-0" style="margin:1px">
+                <table id="lista_pacientes_data_emp" width="100%">
+                  <thead class="bg-secondary">
+                    <tr>
+                    <th>Codigo</th>          
+                    <th>Nombre</th>
+                    <th>Sucursal</th>
+                    <th>Agregar</th>
+                    </tr>
+                  </thead>
+                  <tbody style="text-align:center">                                  
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+</div>
 
    <?php } else{
 echo "Acceso denegado";
