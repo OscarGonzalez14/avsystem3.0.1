@@ -541,11 +541,13 @@ function show_pacientes_empresas(){
 
 }
 
-
+var data_oid = [];
 
 function saveVenta(){
   var tipo_pago = $("#tipo_pago").val();
   var tipo_venta = $("#tipo_venta").val();
+  let plazo = $("#plazo").val();
+
 
   if (tipo_venta=="Contado") {
      registrarVenta();
@@ -565,14 +567,67 @@ function saveVenta(){
       $("#paciente_empresarial").val(data.nombres);
       $("#edad_pac").val(data.edad);
       $("#tel_pac").val(data.telefono);
+      $("#dui_pac").val(data.dui);
+      $("#plazo_credito").val(plazo);
     }
   })
+  }
+}
+data_oid = [];
+function guardar_oid(){
+    let id_paciente = $("#id_paciente").val();
+    let fecha_inicio = $("#fecha_inicio").val();
+    let plazo_credito = $("#plazo_credito").val();
+    let empresa = $("#empresa").val();
+    let funcion_laboral = $("#funcion_laboral").val();
+    let edad_pac = $("#edad_pac").val();
+    let dui_pac = $("#dui_pac").val();
+    let nit_pac = $("#nit_pac").val();
+    let tel_pac = $("#tel_pac").val();
+    let tel_of_pac = $("#tel_of_pac").val();
+    let corre_pac = $("#corre_pac").val();
+    let direccion_pac = $("#direccion_pac").val();
+    let ref_1 = $("#ref_1").val();
+    let tel_ref1 = $("#tel_ref1").val();
+    let ref_2 = $("#ref_2").val();
+    let tel_ref2 = $("#tel_ref2").val();
+
+
+  if(fecha_inicio !="" && empresa !="" && funcion_laboral !="" && edad_pac !="" && dui_pac !="" && tel_pac !="" && tel_of_pac !="" && direccion_pac !="" && ref_1 !="" && tel_ref1 !="" && ref_2 !="" && tel_ref2 !=""){
+    var obj = {
+          id_paciente:id_paciente,
+          fecha_inicio:fecha_inicio,
+          plazo_credito:plazo_credito,
+          empresa:empresa,
+          funcion_laboral:funcion_laboral,
+          edad_pac:edad_pac,
+          dui_pac:dui_pac,
+          nit_pac:nit_pac,
+          tel_pac:tel_pac,
+          tel_of_pac:tel_of_pac,
+          corre_pac:corre_pac,
+          direccion_pac:direccion_pac,
+          ref_1:ref_1,
+          tel_ref1:tel_ref1,
+          ref_2:ref_2,
+          tel_ref2:tel_ref2     
+    }
+    data_oid.push(obj);
+    console.log(data_oid);
+    document.getElementById("btn_reg_orden").style.display = "none";
+    document.getElementById("print_orden_desp").style.display = "block";
+    registrarVenta();
+    
+  }else{
+    Swal.fire('Hay campos obligatorios vacios','','error');
+    return false;
   }
 }
 
 /**************************************************************************
 ***************************  INICIO REGISTRAR VENTAS  *********************
 **************************************************************************/
+
 function registrarVenta(){
 
   var fecha_venta = $("#fecha").val();
@@ -590,7 +645,9 @@ function registrarVenta(){
   var plazo = $("#plazo").val();
   var id_ref = $("#id_refererido").val();
 
-  //if (tipo_venta=="Credito Fiscal") {}
+  if (tipo_venta=="Credito" && tipo_pago == "Descuento en Planilla") {
+
+  }
 
   if (tipo_venta == "Credito" && plazo =="0") {
     setTimeout ("Swal.fire('Debe seleccionar el plazo','','error')", 100);
@@ -613,7 +670,7 @@ if (paciente !="" && tipo_pago !=""  && tipo_venta !="") {
     $.ajax({
     url:"ajax/ventas.php?op=registrar_venta",
     method:"POST",
-    data:{'arrayVenta':JSON.stringify(detalles),'fecha_venta':fecha_venta,'numero_venta':numero_venta,'paciente':paciente,'vendedor':vendedor,'monto_total':monto_total,'tipo_pago':tipo_pago,'tipo_venta':tipo_venta,'id_usuario':id_usuario,'id_paciente':id_paciente,'sucursal':sucursal,'evaluado':evaluado,'optometra':optometra,'plazo':plazo,"id_ref":id_ref},
+    data:{'arrayVenta':JSON.stringify(detalles),'arrayOid':JSON.stringify(data_oid),'fecha_venta':fecha_venta,'numero_venta':numero_venta,'paciente':paciente,'vendedor':vendedor,'monto_total':monto_total,'tipo_pago':tipo_pago,'tipo_venta':tipo_venta,'id_usuario':id_usuario,'id_paciente':id_paciente,'sucursal':sucursal,'evaluado':evaluado,'optometra':optometra,'plazo':plazo,"id_ref":id_ref},
     cache: false,
     dataType:"json",
     error:function(x,y,z){

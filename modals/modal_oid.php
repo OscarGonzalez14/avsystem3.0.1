@@ -35,7 +35,7 @@
 
     <div class="form-group col-md-6">
       <label for="inputEmail4">Nombre Completo</label>
-      <input type="text" class="form-control" id="paciente_empresarial">
+      <input type="text" class="form-control" id="paciente_empresarial" readonly="">
     </div>
 
     <div class="form-group col-md-4">
@@ -43,16 +43,18 @@
       <input type="date" class="form-control" id="fecha_inicio">
     </div>
 
-        <div class="form-group col-md-2">
+    <div class="form-group col-md-2">
       <label for="inputCity">Plazo</span></label>
-      <input type="text" class="form-control" id="plazo">
+      <input type="text" class="form-control" id="plazo_credito">
     </div>
+
     <div class="input-group col-md-12">
-        <input type="text" class="form-control" placeholder="AGREGAR EMPRESA" aria-label="AGREGAR EMPRESA" aria-describedby="basic-addon2" readonly="">
+        <input type="text" class="form-control" placeholder="AGREGAR EMPRESA" aria-label="AGREGAR EMPRESA" aria-describedby="basic-addon2" readonly="" id="empresa">
         <div class="input-group-append">
-          <button class="btn btn-outline-success" type="button" data-toggle="modal" data-target="#empresasModal" onClick="listar_empresas();"><i class="fas fa-search"></i></button>
+          <button class="btn btn-outline-success" type="button" data-toggle="modal" data-target="#empresasModal" onClick="listar_en_pacientes();"><i class="fas fa-search"></i></button>
         </div>
-      </div>
+    </div>
+
     <div class="form-group col-md-6">
       <label for="inputPassword4">Función Laboral</label>
       <input type="text" class="form-control" id="funcion_laboral">
@@ -97,7 +99,8 @@
       <label for="inputCity">1° Referencia <span class="obs">*</span></label>
       <input type="text" class="form-control" id="ref_1">
     </div>
-        <div class="form-group col-md-4">
+    
+    <div class="form-group col-md-4">
       <label for="inputCity">Telefono 1° Ref. <span class="obs">*</span></label>
       <input type="text" class="form-control" id="tel_ref1">
     </div>
@@ -112,7 +115,7 @@
       <input type="text" class="form-control" id="tel_ref2">
     </div>
   </div> 
- <button class="btn btn-outline-primary btn-block" type="button" id="btn_reg_orden" onClick="registra_orden_desc();"><i class="fas fa-save"> Registrar Orden</i></button>
+ <button class="btn btn-outline-primary btn-block" type="button" id="btn_reg_orden" onClick="guardar_oid();"><i class="fas fa-save"> Registrar Orden</i></button>
  <a class="btn btn-primary" style="color:white;border-radius:1px;" href="" id="print_orden_desp" target="_blank"><i class="fas fa-print"></i> Imprimir</a>
 
  

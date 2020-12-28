@@ -238,8 +238,7 @@ require_once("modals/modal_oid.php");
 
 
 </div><!-- FIN CONTENIDO-->
-            <!-- /.card-body -->
-          </div>
+</div>
           <!-- /.card -->
         </div>
         <!-- /.col -->
@@ -267,8 +266,8 @@ function mayus(e) {
             </div>
             <div class="modal-body" style="background: white;color:black">
               <div class="card-body p-0" style="margin:1px">
-                <table id="lista_pacientes_data_emp" width="100%">
-                  <thead class="bg-secondary">
+                <table id="lista_pacientes_data_emp" width="100%" class="table-hover table-bordered">
+                  <thead class="bg-secondary" style="font-family: Helvetica, Arial, sans-serif;text-align: center;font-size: 11px">
                     <tr>
                     <th>Codigo</th>          
                     <th>Nombre</th>
@@ -276,7 +275,7 @@ function mayus(e) {
                     <th>Agregar</th>
                     </tr>
                   </thead>
-                  <tbody style="text-align:center">                                  
+                  <tbody style="text-align:center;font-family: Helvetica, Arial, sans-serif;font-size: 11px">                                  
                   </tbody>
                 </table>
               </div>

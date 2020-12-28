@@ -52,7 +52,7 @@ switch ($_GET["op"]){
 		$sub_array[] = $row["id_empresa"];
 		$sub_array[] = $row["nombre"];
 		$sub_array[] = $row["ubicacion"];
-		$sub_array[] = '<button type="button" onClick="agregar_empresa_pac('.$row["id_empresa"].');" id="'.$row["id_empresa"].'" class="btn btn-edit btn-md"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>';
+		$sub_array[] = '<button type="button" onClick="agregar_empresa_pac('.$row["id_empresa"].');" id="'.$row["id_empresa"].'" class="btn btn-md bg-success"d"><i class="fa fa-plus" aria-hidden="true"></i></button>';
 		$data[] = $sub_array;
 	}
 

@@ -237,6 +237,49 @@ public function agrega_detalle_venta(){
   }elseif($tipo_venta == "Credito"){////////////////////////FIN PARA VALIDAR SI9 VENTA  == CONTADO
 
   ////////////////////////   SI NO ES  == CONTADO REGISTRAR VENTAS FLOTANTES /////////////
+  $detalles_oid = array();
+  $detalles_oid = json_decode($_POST['arrayOid']);
+
+  foreach ($detalles_oid as $k => $v) {
+      $id_paciente = $v->id_paciente;
+      $fecha_inicio = $v->fecha_inicio;
+      $plazo_credito = $v->plazo_credito;
+      $empresa = $v->empresa;
+      $funcion_laboral = $v->funcion_laboral;
+      $edad_pac = $v->edad_pac;
+
+      $dui_pac = $v->dui_pac;
+      $nit_pac = $v->nit_pac;
+      $tel_pac = $v->tel_pac;
+      $tel_of_pac = $v->tel_of_pac;
+      $corre_pac = $v->corre_pac;
+      $direccion_pac = $v->direccion_pac;
+      $ref_1 = $v->ref_1;
+      $tel_ref1 = $v->tel_ref1;
+      $ref_2 = $v->ref_2;
+      $tel_ref2 = $v->tel_ref2;
+  }//Fin foreach
+    $n_ord ="";
+    $fin = "";
+    $ee = "1";
+    $sql8="insert into orden_credito values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    $sql8=$conectar->prepare($sql8);          
+    $sql8->bindValue(1,$n_ord);
+    $sql8->bindValue(2,$id_paciente);
+    $sql8->bindValue(3,$ref_1);
+    $sql8->bindValue(4,$tel_ref1);
+    $sql8->bindValue(5,$ref_2);
+    $sql8->bindValue(6,$tel_ref2);
+    $sql8->bindValue(7,$fecha_venta);
+    $sql8->bindValue(8,$fecha_inicio);
+    $sql8->bindValue(9,$fin);
+    $sql8->bindValue(10,$ee);
+    $sql8->bindValue(11,$id_usuario);
+    $sql8->bindValue(12,$sucursal);
+    $sql8->bindValue(13,$monto_total);
+    $sql8->bindValue(14,$plazo);
+
+    $sql8->execute();
 
   $sql="select numero_orden from ventas_flotantes where sucursal=? order by id_venta_flotante DESC limit 1;";
   $sql=$conectar->prepare($sql);

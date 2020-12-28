@@ -735,8 +735,7 @@ function registra_orden_desc(){
 
   let nombre_paciente = $("#paciente_empresarial").val();
   if (nombre_paciente != ""){
-    document.getElementById("print_orden_desp").style.display = "block";
-    document.getElementById("btn_reg_orden").style.display = "none";
+    
 
    Swal.fire('Descuento en planilla Registrado a la espera de aprobación!','','info');
   }else{

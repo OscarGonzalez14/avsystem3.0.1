@@ -58,7 +58,6 @@ function guardarEmpresa(){
 				}else{
 					Swal.fire('Empresa ha sido editada!','','success')
         			setTimeout ("explode();", 2000);
-
 				}
 
 		}
