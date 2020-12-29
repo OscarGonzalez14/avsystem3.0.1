@@ -236,6 +236,34 @@ public function agrega_detalle_venta(){
 
   }elseif($tipo_venta == "Credito"){////////////////////////FIN PARA VALIDAR SI9 VENTA  == CONTADO
 
+    /*GET NUMERO ORDEN */
+    $sql="select numero_orden from ventas_flotantes where sucursal=? order by id_venta_flotante DESC limit 1;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$sucursal);
+  $sql->execute();
+  $resultado_correlativo = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+  ########## PREFIJOS #######
+  $prefijo = "";
+  if ($sucursal=="Metrocentro") {
+    $prefijo="ME";
+  }elseif ($sucursal=="Santa Ana") {
+    $prefijo="SA";
+  }elseif ($sucursal=="San Miguel") {
+    $prefijo="SM";
+  }
+  ########## FIN PREFIJOS #######
+  $num = 1;
+  if(is_array($resultado_correlativo) == true and count($resultado_correlativo) > 0){
+    foreach($resultado_correlativo as $row){
+      $correlativo = $row["numero_orden"];
+      $cod = substr($correlativo,4,11)+1;
+      $codigo = "O".$prefijo."-".($cod);
+    }
+  }else{
+    $codigo = "O".$prefijo."-1";
+}/////////////FIN GET NUMERO ORDEN
+
   ////////////////////////   SI NO ES  == CONTADO REGISTRAR VENTAS FLOTANTES /////////////
   $detalles_oid = array();
   $detalles_oid = json_decode($_POST['arrayOid']);
@@ -259,12 +287,13 @@ public function agrega_detalle_venta(){
       $ref_2 = $v->ref_2;
       $tel_ref2 = $v->tel_ref2;
   }//Fin foreach
-    $n_ord ="";
-    $fin = "";
-    $ee = "1";
+
+    $finalizacion = date("d-m-Y",strtotime($fecha_inicio."+ $plazo month"));
+
+    $estado_orden = "0";
     $sql8="insert into orden_credito values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql8=$conectar->prepare($sql8);          
-    $sql8->bindValue(1,$n_ord);
+    $sql8->bindValue(1,$codigo);
     $sql8->bindValue(2,$id_paciente);
     $sql8->bindValue(3,$ref_1);
     $sql8->bindValue(4,$tel_ref1);
@@ -272,8 +301,8 @@ public function agrega_detalle_venta(){
     $sql8->bindValue(6,$tel_ref2);
     $sql8->bindValue(7,$fecha_venta);
     $sql8->bindValue(8,$fecha_inicio);
-    $sql8->bindValue(9,$fin);
-    $sql8->bindValue(10,$ee);
+    $sql8->bindValue(9,$finalizacion);
+    $sql8->bindValue(10,$estado_orden);
     $sql8->bindValue(11,$id_usuario);
     $sql8->bindValue(12,$sucursal);
     $sql8->bindValue(13,$monto_total);
@@ -281,32 +310,7 @@ public function agrega_detalle_venta(){
 
     $sql8->execute();
 
-  $sql="select numero_orden from ventas_flotantes where sucursal=? order by id_venta_flotante DESC limit 1;";
-  $sql=$conectar->prepare($sql);
-  $sql->bindValue(1,$sucursal);
-  $sql->execute();
-  $resultado_correlativo = $sql->fetchAll(PDO::FETCH_ASSOC);
-
-  ########## PREFIJOS #######
-  $prefijo = "";
-  if ($sucursal=="Metrocentro") {
-    $prefijo="ME";
-  }elseif ($sucursal=="Santa Ana") {
-    $prefijo="SA";
-  }elseif ($sucursal=="San Miguel") {
-    $prefijo="SM";
-  }
-  ########## FIN PREFIJOS #######
-  $num = 1;
-  if(is_array($resultado_correlativo) == true and count($resultado_correlativo) > 0){
-    foreach($resultado_correlativo as $row){
-      $correlativo = $row["numero_orden"];
-      $cod = substr($correlativo,4,11);
-      $codigo = "O".$prefijo."-".($cod+$num);
-    }
-  }else{
-    $codigo = "O".$prefijo."-1";
-}
+  
 
  ///////////////   insert into detalle ventas flotantes //////////////
 
@@ -325,7 +329,7 @@ public function agrega_detalle_venta(){
 
     $sql5="insert into detalle_ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5=$conectar->prepare($sql5);
-    $sql5->bindValue(1,$numero_venta);
+    $sql5->bindValue(1,$codigo);
     $sql5->bindValue(2,$codProd);
     $sql5->bindValue(3,$descripcion);
     $sql5->bindValue(4,$precio_venta);
@@ -342,7 +346,7 @@ public function agrega_detalle_venta(){
 
   $sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5=$conectar->prepare($sql5);
-    $sql5->bindValue(1,$numero_venta);          
+    $sql5->bindValue(1,$codigo);          
     $sql5->bindValue(2,$fecha_venta);
     $sql5->bindValue(3,$numero_venta);
     $sql5->bindValue(4,$paciente);

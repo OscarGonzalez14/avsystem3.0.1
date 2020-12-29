@@ -1,6 +1,6 @@
 <style>
-    #tamModal_orden{
-      width: 90% !important;
+    #tamModal_orden_desc{
+      max-width: 95% !important;
     }
      #head_oid{
         background-color: #292F33;
@@ -20,7 +20,7 @@
 </style>
 
 <div class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="oid" style="border-radius:0px !important;">
-  <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document" id="tamModal_orden">
+  <div class="modal-dialog" role="document" id="tamModal_orden_desc">
 
   <div class="modal-content">
   <div class="modal-header" id="head_oid" style="justify-content:space-between">
@@ -33,19 +33,24 @@
       
   <div class="form-row" style="margin: 5px">
 
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-5">
       <label for="inputEmail4">Nombre Completo</label>
       <input type="text" class="form-control" id="paciente_empresarial" readonly="">
     </div>
 
-    <div class="form-group col-md-4">
+    <div class="form-group col-md-3">
       <label for="inputCity">Inicio crédito</span></label>
-      <input type="date" class="form-control" id="fecha_inicio">
+      <input type="date" class="form-control" id="fecha_inicio" onClick="calculaFinCredito();">
     </div>
 
     <div class="form-group col-md-2">
       <label for="inputCity">Plazo</span></label>
       <input type="text" class="form-control" id="plazo_credito">
+    </div>
+
+    <div class="form-group col-md-2">
+      <label for="inputCity">Finaliza</span></label>
+      <input type="text" class="form-control" id="end_credito">
     </div>
 
     <div class="input-group col-md-12">

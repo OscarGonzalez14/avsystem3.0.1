@@ -731,16 +731,25 @@ function registrar_impresion(){
 }
 
 ///////////////REGISTRAR ORDEN DE DESCUENTO //////////////
-function registra_orden_desc(){
+function calculaFinCredito(){
+  setTimeout ("get_finaliza();", 5000);
 
-  let nombre_paciente = $("#paciente_empresarial").val();
-  if (nombre_paciente != ""){
-    
-
-   Swal.fire('Descuento en planilla Registrado a la espera de aprobación!','','info');
-  }else{
-    Swal.fire('Existen campos obligatorios vacios!','','error');
-  }
+}
+function get_finaliza(){
+  let inicio = $("#fecha_inicio").val();
+  let plazo_credito = $("#plazo_credito").val();
+  console.log("inicioo"+inicio+plazo_credito);
+    $.ajax({
+    url:"ajax/creditos.php?op=get_finaliza_fecha",
+    method:"POST",
+    data:{inicio:inicio,plazo_credito:plazo_credito},
+    cache:false,
+    dataType:"json",
+    success:function(data){ 
+      console.log(data);  
+      $("#end_credito").val(data);
+    }
+  })
 }
 
 init();

@@ -352,5 +352,13 @@ switch ($_GET["op"]){
 
     break;
 
+    case 'get_finaliza_fecha':
+      $inicio = $_POST["inicio"];
+      $plazo_credito = $_POST["plazo_credito"];
+      $finalizacion = date("d-m-Y",strtotime($inicio."+ $plazo_credito month"));
+      echo json_encode($finalizacion);
+
+      break;
+
     }
  ?>
