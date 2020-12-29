@@ -236,33 +236,8 @@ public function agrega_detalle_venta(){
 
   }elseif($tipo_venta == "Credito"){////////////////////////FIN PARA VALIDAR SI9 VENTA  == CONTADO
 
-    /*GET NUMERO ORDEN */
-    $sql="select numero_orden from ventas_flotantes where sucursal=? order by id_venta_flotante DESC limit 1;";
-  $sql=$conectar->prepare($sql);
-  $sql->bindValue(1,$sucursal);
-  $sql->execute();
-  $resultado_correlativo = $sql->fetchAll(PDO::FETCH_ASSOC);
-
   ########## PREFIJOS #######
-  $prefijo = "";
-  if ($sucursal=="Metrocentro") {
-    $prefijo="ME";
-  }elseif ($sucursal=="Santa Ana") {
-    $prefijo="SA";
-  }elseif ($sucursal=="San Miguel") {
-    $prefijo="SM";
-  }
-  ########## FIN PREFIJOS #######
-  $num = 1;
-  if(is_array($resultado_correlativo) == true and count($resultado_correlativo) > 0){
-    foreach($resultado_correlativo as $row){
-      $correlativo = $row["numero_orden"];
-      $cod = substr($correlativo,4,11)+1;
-      $codigo = "O".$prefijo."-".($cod);
-    }
-  }else{
-    $codigo = "O".$prefijo."-1";
-}/////////////FIN GET NUMERO ORDEN
+  ////////////FIN GET NUMERO ORDEN
 
   ////////////////////////   SI NO ES  == CONTADO REGISTRAR VENTAS FLOTANTES /////////////
   $detalles_oid = array();
@@ -286,6 +261,7 @@ public function agrega_detalle_venta(){
       $tel_ref1 = $v->tel_ref1;
       $ref_2 = $v->ref_2;
       $tel_ref2 = $v->tel_ref2;
+      $codigo = $v->codigo;
   }//Fin foreach
 
     $finalizacion = date("d-m-Y",strtotime($fecha_inicio."+ $plazo month"));
@@ -327,6 +303,7 @@ public function agrega_detalle_venta(){
     $stock = $v->stock;
     $subtotal = $v->subtotal;
 
+
     $sql5="insert into detalle_ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5=$conectar->prepare($sql5);
     $sql5->bindValue(1,$codigo);
@@ -364,6 +341,16 @@ public function agrega_detalle_venta(){
 
 }//////////FIN FUNCION REGISTRA VENTA
 
+public function get_correlativo_orden($sucursal){
+ /*GET NUMERO ORDEN */
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select numero_orden from ventas_flotantes where sucursal=? order by id_venta_flotante DESC limit 1;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$sucursal);
+  $sql->execute();
+  return $resultado_correlativo = $sql->fetchAll(PDO::FETCH_ASSOC);
+}
 ////////LENADO DE RECIBO INICIAL DE LENTE
 public function get_detalle_lente_rec_ini($id_paciente,$numero_venta){
   $conectar=parent::conexion();

@@ -24,7 +24,7 @@
 
   <div class="modal-content">
   <div class="modal-header" id="head_oid" style="justify-content:space-between">
-    <span><i class="far fa-file-alt"></i> FORMULARIO DESCUENTO EN PLANILLA</span>
+    <span><i class="far fa-file-alt"></i> FORMULARIO DESCUENTO EN PLANILLA #</span><span id="correlativo_orden"></span>
     <button type="button" class="close" data-dismiss="modal" style="color:white">&times;</button>
   </div>
     <div class="modal-body">
@@ -60,9 +60,9 @@
         </div>
     </div>
 
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-5">
       <label for="inputPassword4">Función Laboral</label>
-      <input type="text" class="form-control" id="funcion_laboral">
+      <input type="text" class="form-control" id="funcion_laboral" onkeyup="mayus(this);">
     </div>
 
     <div class="form-group col-sm-2">
@@ -75,7 +75,7 @@
       <input type="text" class="form-control" id="dui_pac">
     </div>
 
-    <div class="form-group col-sm-2">
+    <div class="form-group col-sm-3">
      <label for="inputAddress2">NIT</label>
      <input type="text" class="form-control" id="nit_pac">
     </div>
@@ -97,12 +97,12 @@
 
     <div class="form-group col-md-12">
       <label for="inputCity">Direccion Completa <span class="obs">*</span></label>
-      <input type="text" class="form-control" id="direccion_pac">
+      <input type="text" class="form-control" id="direccion_pac" onkeyup="mayus(this);">
     </div>
      
     <div class="form-group col-md-8">
       <label for="inputCity">1° Referencia <span class="obs">*</span></label>
-      <input type="text" class="form-control" id="ref_1">
+      <input type="text" class="form-control" id="ref_1" onkeyup="mayus(this);">
     </div>
     
     <div class="form-group col-md-4">
@@ -112,12 +112,12 @@
 
     <div class="form-group col-md-8">
       <label for="inputCity">2° Referencia <span class="obs">*</span></label>
-      <input type="text" class="form-control" id="ref_2">
+      <input type="text" class="form-control" id="ref_2" onkeyup="mayus(this);">
     </div>
     
     <div class="form-group col-md-4">
       <label for="inputCity">Telefono 2° Ref. <span class="obs">*</span></label>
-      <input type="text" class="form-control" id="tel_ref2">
+      <input type="text" class="form-control get_correlativo_o" id="tel_ref2">
     </div>
   </div> 
  <button class="btn btn-outline-primary btn-block" type="button" id="btn_reg_orden" onClick="guardar_oid();"><i class="fas fa-save"> Registrar Orden</i></button>
@@ -126,14 +126,46 @@
  
 </div><!--Fin Card-->
 </div>
-      </div><!-- /.card-body -->  
-    </div><!--Fin modal Content-->
-  </div>
+  </div><!-- /.card-body -->  
+  </div><!--Fin modal Content-->
+</div>
 
+<script type="text/javascript" src="js/cleave.js"></script>
+<script>
+  function mayus(e) {
+    e.value = e.value.toUpperCase();
+  }
 
-<script type="">
-  $(function() {
-  $("div.dataTables_filter input").focus();
+var dui = new Cleave('#dui_pac', {
+  delimiter: '-',
+  blocks: [8,1],
+  uppercase : true
 });
 
+var dui = new Cleave('#nit_pac', {
+  delimiter: '-',
+  blocks: [4,6,3,1],
+  uppercase : true
+});
+
+var dui = new Cleave('#tel_pac', {
+  delimiter: '-',
+  blocks: [4,4],
+  uppercase : true
+});
+var dui = new Cleave('#tel_of_pac', {
+  delimiter: '-',
+  blocks: [4,4],
+  uppercase : true
+});
+var dui = new Cleave('#tel_ref1', {
+  delimiter: '-',
+  blocks: [4,4],
+  uppercase : true
+});
+var dui = new Cleave('#tel_ref2', {
+  delimiter: '-',
+  blocks: [4,4],
+  uppercase : true
+});
 </script>

@@ -1,6 +1,7 @@
 function init() {
   reporte_ventas_gral();
   get_correlativo_venta();
+  get_correlativo_orden();
     //get_correlativo_venta();btn_print_recibos
   document.getElementById("btn_print_recibos").style.display = "none";
   document.getElementById("print_factura").style.display = "none";
@@ -591,6 +592,7 @@ function guardar_oid(){
     let tel_ref1 = $("#tel_ref1").val();
     let ref_2 = $("#ref_2").val();
     let tel_ref2 = $("#tel_ref2").val();
+    let codigo = $("#correlativo_orden").html();
 
 
   if(fecha_inicio !="" && empresa !="" && funcion_laboral !="" && edad_pac !="" && dui_pac !="" && tel_pac !="" && tel_of_pac !="" && direccion_pac !="" && ref_1 !="" && tel_ref1 !="" && ref_2 !="" && tel_ref2 !=""){
@@ -610,20 +612,39 @@ function guardar_oid(){
           ref_1:ref_1,
           tel_ref1:tel_ref1,
           ref_2:ref_2,
-          tel_ref2:tel_ref2     
+          tel_ref2:tel_ref2,
+          codigo: codigo     
     }
     data_oid.push(obj);
     console.log(data_oid);
     document.getElementById("btn_reg_orden").style.display = "none";
     document.getElementById("print_orden_desp").style.display = "block";
     registrarVenta();
-    
+    //get_correlativo_orden();
   }else{
     Swal.fire('Hay campos obligatorios vacios','','error');
     return false;
   }
 }
+$(document).on('keyup', '#tel_ref2', function(){
+  get_correlativo_orden();
+});
+function get_correlativo_orden(){
+  let sucursal = $("#sucursal").val();
+ 
+    $.ajax({
+    url:"ajax/ventas.php?op=get_correlativo_orden",
+    method:"POST",
+    data:{sucursal:sucursal},
+    cache:false,
+    dataType:"json",
+    success:function(data){ 
+    console.log(data);   
+      $("#correlativo_orden").html(data);
 
+    }
+  })
+}
 /**************************************************************************
 ***************************  INICIO REGISTRAR VENTAS  *********************
 **************************************************************************/

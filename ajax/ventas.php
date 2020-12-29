@@ -338,5 +338,31 @@ case 'registrar_venta':
       }
     echo json_encode($output);
   break;
-   }
-   ?>
+
+  case 'get_correlativo_orden':
+  $sucursal = $_POST["sucursal"];
+  $prefijo = "";
+  if ($sucursal=="Metrocentro") {
+    $prefijo="ME";
+  }elseif ($sucursal=="Santa Ana") {
+    $prefijo="SA";
+  }elseif ($sucursal=="San Miguel") {
+    $prefijo="SM";
+  }
+  ########## FIN PREFIJOS #######
+  
+  $resultado_correlativo = $ventas->get_correlativo_orden($_POST["sucursal"]);
+
+  if(is_array($resultado_correlativo) == true and count($resultado_correlativo) > 0){
+    foreach($resultado_correlativo as $row){
+      $correlativo = $row["numero_orden"];
+      $cod = substr($correlativo,4,11)+1;
+      $codigo = "O".$prefijo."-".($cod);
+    }
+  }else{
+    $codigo = "O".$prefijo."-1";
+}
+  echo json_encode($codigo);
+  break;
+}
+?>
