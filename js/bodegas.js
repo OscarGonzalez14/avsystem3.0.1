@@ -368,34 +368,9 @@ function reporte_ingresos_bodega()
     "aProcessing": true,//Activamos el procesamiento del datatables
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
       dom: 'Bfrtip',//Definimos los elementos del control de tabla
-      buttons: [{
-          extend: 'excelHtml5',
-          download: 'open',
-          text: 'Descargar Excel',
-          filename: function() {
-              var date_edition = 'Ingresos a Bodega '+moment().format("DD-MM-YYYY HH[h]mm")
-              var selected_machine_name = $("#output_select_machine select option:selected").text()
-              return date_edition + ' - ' + selected_machine_name
-           },
-           sheetName: 'Compras',
-           title : null
-       },
-            {
-              extend: 'pdfHtml5',
-              download: 'open',
-              text: 'Imprimir',
-              orientation: 'portrait',
-              pageSize: 'letter',
-              customize : function(doc) {doc.pageMargins = [10, 10, 10,10 ]; },
-              filename: function() {
-              var fecha = 'Ingreso '+moment().format("DD-MM-YYYY HH[h]mm")
-              var selected_machine_name = $("#output_select_machine select option:selected").text()
-              return fecha + ' - ' + selected_machine_name
-              
-            },
-            title : 'Ingreso a Bodega'
-        }   
-       ],
+      buttons: [
+                'excelHtml5'
+            ],
     "ajax":
         {
           url: 'ajax/bodegas.php?op=reporte_ingresos_bodega',
@@ -542,7 +517,7 @@ $(document).on("click","#categoria_ubicaciones", function(){
   "aProcessing": true,//Activamos el procesamiento del datatables
          "aServerSide": true,//Paginación y filtrado realizados por el servidor
         dom: 'Bfrtip',//Definimos los elementos del control de tabla
-          buttons: [{
+        /*  buttons: [{
           extend: 'excelHtml5',
           download: 'open',
           text: 'Descargar Ingreso',
@@ -569,7 +544,11 @@ $(document).on("click","#categoria_ubicaciones", function(){
             },
             title : 'Ingreso a Bodega'
         }   
-       ],
+       ],*/
+
+      buttons: [
+                'excelHtml5'
+            ],
 
            "ajax":{
             url:"ajax/bodegas.php?op=get_inventario_general",

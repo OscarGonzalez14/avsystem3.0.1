@@ -3,6 +3,7 @@ function init() {
   get_correlativo_venta();
   get_correlativo_orden();
     //get_correlativo_venta();btn_print_recibos
+  document.getElementById("print_orden_descplanilla").style.display = "none";
   document.getElementById("btn_print_recibos").style.display = "none";
   document.getElementById("print_factura").style.display = "none";
   document.getElementById("credito_fiscal_print").style.display = "none";
@@ -593,6 +594,9 @@ function guardar_oid(){
     let ref_2 = $("#ref_2").val();
     let tel_ref2 = $("#tel_ref2").val();
     let codigo = $("#correlativo_orden").html();
+    let numero_venta = $("#n_venta").val();
+    let sucursal = $("#sucursal").val();
+
 
 
   if(fecha_inicio !="" && empresa !="" && funcion_laboral !="" && edad_pac !="" && dui_pac !="" && tel_pac !="" && tel_of_pac !="" && direccion_pac !="" && ref_1 !="" && tel_ref1 !="" && ref_2 !="" && tel_ref2 !=""){
@@ -618,7 +622,10 @@ function guardar_oid(){
     data_oid.push(obj);
     console.log(data_oid);
     document.getElementById("btn_reg_orden").style.display = "none";
-    document.getElementById("print_orden_desp").style.display = "block";
+    document.getElementById("print_orden_descplanilla").href='imprimir_oid_pdf.php?n_orden='+codigo+'&'+'n_venta='+numero_venta+'&'+'id_paciente='+id_paciente+'&'+'sucursal='+sucursal;;
+    setTimeout("show_btn_print_oid();",1500);
+
+    
     registrarVenta();
     //get_correlativo_orden();
   }else{
@@ -629,6 +636,10 @@ function guardar_oid(){
 $(document).on('keyup', '#tel_ref2', function(){
   get_correlativo_orden();
 });
+
+function show_btn_print_oid(){
+  document.getElementById("print_orden_descplanilla").style.display = "block";
+}
 function get_correlativo_orden(){
   let sucursal = $("#sucursal").val();
  
@@ -652,6 +663,7 @@ function get_correlativo_orden(){
 function registrarVenta(){
 
   var fecha_venta = $("#fecha").val();
+  
   var numero_venta = $("#n_venta").val();
   var paciente = $("#titular_cuenta").val();
   var vendedor = $("#usuario").val();
@@ -716,7 +728,8 @@ if (paciente !="" && tipo_pago !=""  && tipo_venta !="") {
       setTimeout ("reciboInicial();", 2500);
       mostrar_btn_post_venta();        
     }else if(tipo_venta == "Credito" && tipo_pago == "Descuento en Planilla"){
-      Swal.fire('OID Registrada a la espera de Aprobación...','','info')
+      Swal.fire('OID Registrada a la espera de Aprobación...','','info');
+
     }
 }else{
   Swal.fire('Existen campos obligatorios vacios!','','error')
@@ -726,7 +739,7 @@ if (paciente !="" && tipo_pago !=""  && tipo_venta !="") {
 
 /**************************************************************************
 =============================  FIN REGISTRAR VENTAS =======================
-**************************************************************************/
+***************************************************************************/
 
 function desc_planilla(){
   

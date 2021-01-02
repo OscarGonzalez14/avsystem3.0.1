@@ -80,7 +80,14 @@
               <i class="nav-icon fas fa-building"></i>
               <p>Empresas</p>
             </a>
-          </li>           
+          </li>
+
+        <li class="nav-item">
+            <a href="empresas.php" class="nav-link">
+              <i class="nav-icon fas fa-building"></i>
+              <p>Ordenes de Descuento</p>
+            </a>
+          </li>          
          
          <?php if ($_SESSION["Compras"]) {
            echo '

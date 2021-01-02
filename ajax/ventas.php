@@ -20,7 +20,7 @@ case "agregar_aros_venta":
           $output["num_compra"] = $row["num_compra"];
           $output["id_producto"] = $row["id_producto"];
           $output["id_ingreso"] = $row["id_ingreso"];
-          $output["categoria_producto"] = substr(strtoupper($row["categoria_producto"]),0,3);
+          $output["categoria_producto"] = $row["categoria_producto"];
           //$output["precio_compra"] = $row["precio_compra"];                   
         }      
 

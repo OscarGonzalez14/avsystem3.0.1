@@ -288,4 +288,28 @@ public function get_ventas_consulta($id_paciente){
 	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+//////////////////GET DATA ORDEN CREDITO
+public function get_data_orden_credito($id_paciente,$n_orden){
+	$conectar= parent::conexion();
+	parent::set_names(); 
+	$sql="select*from orden_credito where id_paciente=? and numero_orden=?;";
+	$sql=$conectar->prepare($sql);
+	$sql->bindValue(1,$id_paciente);
+	$sql->bindValue(2,$n_orden);
+	$sql->execute();
+	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function get_detalle_orden_credito($id_paciente,$n_orden){
+	$conectar= parent::conexion();
+	parent::set_names(); 
+	$sql="select*from detalle_ventas_flotantes where id_paciente=? and numero_orden=?;";
+	$sql=$conectar->prepare($sql);
+	$sql->bindValue(1,$id_paciente);
+	$sql->bindValue(2,$n_orden);
+	$sql->execute();
+	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
 }

@@ -732,7 +732,7 @@ function registrar_impresion(){
 
 ///////////////REGISTRAR ORDEN DE DESCUENTO //////////////
 function calculaFinCredito(){
-  setTimeout ("get_finaliza();", 5000);
+  setTimeout ("get_finaliza();", 3000);
 
 }
 function get_finaliza(){

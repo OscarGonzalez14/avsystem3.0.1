@@ -1,9 +1,9 @@
 <style>
     #tamModal_orden_desc{
-      max-width: 95% !important;
+      max-width: 85% !important;
     }
      #head_oid{
-        background-color: #292F33;
+        background-color: #000080;
         color: white;
         text-align: center;
     }
@@ -28,7 +28,7 @@
     <button type="button" class="close" data-dismiss="modal" style="color:white">&times;</button>
   </div>
     <div class="modal-body">
-<div class="card card-danger" style="margin-top: 5px">
+      <div class="card card-danger" style="margin-top: 5px">
       
       
   <div class="form-row" style="margin: 5px">
@@ -119,9 +119,10 @@
       <label for="inputCity">Telefono 2° Ref. <span class="obs">*</span></label>
       <input type="text" class="form-control get_correlativo_o" id="tel_ref2">
     </div>
+
   </div> 
  <button class="btn btn-outline-primary btn-block" type="button" id="btn_reg_orden" onClick="guardar_oid();"><i class="fas fa-save"> Registrar Orden</i></button>
- <a class="btn btn-primary" style="color:white;border-radius:1px;" href="" id="print_orden_desp" target="_blank"><i class="fas fa-print"></i> Imprimir</a>
+ <a class="btn btn-primary" style="color:white;border-radius:1px;" href="" id="print_orden_descplanilla" target="_blank"><i class="fas fa-print"></i> Imprimir</a>
 
  
 </div><!--Fin Card-->

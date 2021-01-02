@@ -140,7 +140,7 @@ public function agrega_detalle_venta(){
 
     if(is_array($resultados)==true and count($resultados)>0) {                    
 
-    $sql12 = "update existencias set stock=? where id_producto=? and bodega=? and id_ingreso=? and categoria_ub=? and num_compra=?";
+      $sql12 = "update existencias set stock=? where id_producto=? and bodega=? and id_ingreso=? and categoria_ub=? and num_compra=?";
       $sql12 = $conectar->prepare($sql12);
       $sql12->bindValue(1,$cantidad_totales);
       $sql12->bindValue(2,$codProd);
@@ -198,7 +198,8 @@ public function agrega_detalle_venta(){
     $sql2->bindValue(3,$fecha_venta);
     $sql2->bindValue(4,$sucursal);
     $sql2->execute();
-    }
+  }
+
 #################  REGISTRAR VENTA EN CORTE DIARIO #####################
 
     $n_recibo="";
@@ -234,11 +235,10 @@ public function agrega_detalle_venta(){
 
     $sql2->execute();
 
-  }elseif($tipo_venta == "Credito"){////////////////////////FIN PARA VALIDAR SI9 VENTA  == CONTADO
 
-  ########## PREFIJOS #######
-  ////////////FIN GET NUMERO ORDEN
 
+//////////////////////VALIDAR SI VENTA ES CREDITO
+  }elseif($tipo_venta == "Credito" and $tipo_pago == "Descuento en Planilla"){////////////////////////FIN PARA VALIDAR SI9 VENTA  == CONTADO
   ////////////////////////   SI NO ES  == CONTADO REGISTRAR VENTAS FLOTANTES /////////////
   $detalles_oid = array();
   $detalles_oid = json_decode($_POST['arrayOid']);
@@ -283,10 +283,21 @@ public function agrega_detalle_venta(){
     $sql8->bindValue(12,$sucursal);
     $sql8->bindValue(13,$monto_total);
     $sql8->bindValue(14,$plazo);
-
     $sql8->execute();
 
-  
+  ///////////////////////UPDATE DATOS DE PACIENTE
+   $sql9 = "update pacientes set telefono=?,ocupacion=?,dui=?,correo=?,empresas=?,nit=?,telefono_oficina=?,direccion=? where id_paciente=?;";
+   $sql9 = $conectar->prepare($sql9);
+   $sql9->bindValue(1,$tel_pac);
+   $sql9->bindValue(2,$funcion_laboral);
+   $sql9->bindValue(3,$dui_pac);
+   $sql9->bindValue(4,$corre_pac);
+   $sql9->bindValue(5,$empresa);
+   $sql9->bindValue(6,$nit_pac);
+   $sql9->bindValue(7,$tel_of_pac);
+   $sql9->bindValue(8,$direccion_pac);
+   $sql9->bindValue(9,$id_paciente);
+   $sql9->execute();
 
  ///////////////   insert into detalle ventas flotantes //////////////
 
@@ -304,7 +315,7 @@ public function agrega_detalle_venta(){
     $subtotal = $v->subtotal;
 
 
-    $sql5="insert into detalle_ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?);";
+    $sql5="insert into detalle_ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5=$conectar->prepare($sql5);
     $sql5->bindValue(1,$codigo);
     $sql5->bindValue(2,$codProd);
@@ -317,6 +328,7 @@ public function agrega_detalle_venta(){
     $sql5->bindValue(9,$id_usuario);
     $sql5->bindValue(10,$id_paciente);
     $sql5->bindValue(11,$evaluado);
+    $sql5->bindValue(12,$categoria_ub);
     $sql5->execute();
 
   } 
@@ -337,6 +349,41 @@ public function agrega_detalle_venta(){
     $sql5->bindValue(12,$evaluado);
     $sql5->bindValue(13,$optometra);
     $sql5->execute();
+
+
+    if($categoria_prod=="aros"){
+    ////////////////////ACTUALIZAR STOCK DE BODEGA SI PRODUCTO == aros o accesorios
+      $sql3="select * from existencias where id_producto=? and bodega=? and categoria_ub=? and num_compra=? and id_ingreso=?;";           
+      $sql3=$conectar->prepare($sql3);
+      $sql3->bindValue(1,$codProd);
+      $sql3->bindValue(2,$sucursal);
+      $sql3->bindValue(3,$categoria_ub);
+      $sql3->bindValue(4,$num_compra);
+      $sql3->bindValue(5,$id_ingreso);
+      $sql3->execute();
+
+      $resultados = $sql3->fetchAll(PDO::FETCH_ASSOC);
+
+      foreach($resultados as $b=>$row){
+      $re["existencia"] = $row["stock"];
+    }            
+    
+    $cantidad_totales = $row["stock"] - $cantidad;
+
+    if(is_array($resultados)==true and count($resultados)>0) {                    
+
+    $sql12 = "update existencias set stock=? where id_producto=? and bodega=? and id_ingreso=? and categoria_ub=? and num_compra=?";
+      $sql12 = $conectar->prepare($sql12);
+      $sql12->bindValue(1,$cantidad_totales);
+      $sql12->bindValue(2,$codProd);
+      $sql12->bindValue(3,$sucursal);
+      $sql12->bindValue(4,$id_ingreso);
+      $sql12->bindValue(5,$categoria_ub);
+      $sql12->bindValue(6,$num_compra);
+      $sql12->execute();
+  }          
+
+  }//////////// fin validar para descontar de inventario   
   }
 
 }//////////FIN FUNCION REGISTRA VENTA
