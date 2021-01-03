@@ -39,7 +39,7 @@ public function login(){
         $_SESSION["sucursal"] = $sucursal;
         $_SESSION["sucursal_usuario"] = $resultado["sucursal"];
         $_SESSION["categoria"] = $resultado["categoria"];
-        
+        $_SESSION["nombres"] = $resultado["nombres"];
         require_once("Usuarios.php");
 
         $usuario = new Usuarios();

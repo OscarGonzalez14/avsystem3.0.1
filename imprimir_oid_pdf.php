@@ -1,9 +1,12 @@
+
 <?php ob_start();
+
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
 require_once 'dompdf/autoload.inc.php';
-
+require_once("config/conexion.php");
+if(isset($_SESSION["usuario"])){
 require_once("modelos/Reporteria.php");
 $reporteria=new Reporteria();
   $id_paciente =$_GET["id_paciente"];
@@ -46,17 +49,23 @@ for ($i=0; $i <sizeof($data_orden_desc) ; $i++) {
     $tel_ref_dos = $data_orden_desc[$i]["tel_ref_dos"];
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
     <title></title>
    <style>
+    body{
+      font-family: Helvetica, Arial, sans-serif;
+      font-size: 12px;
+    }
       html{
         margin-top: 10px;
         margin-left: 30px;
         margin-right:20px; 
         margin-bottom: 0px;
+    }
     }
     .stilot1{
        border: 1px solid black;
@@ -98,10 +107,10 @@ for ($i=0; $i <sizeof($data_orden_desc) ; $i++) {
     <td  style="text-align: center;margin-top: 0px;color:#0088b6;font-size:13px;font-family: Helvetica, Arial, sans-serif;"><b>ORDEN DE DESCUENTO EN PLANILLA</b></td>
   </tr>
   <tr>
-    <td style="text-align:center; font-size:11px;font-family: Helvetica, Arial, sans-serif;"><?php echo $direccion;?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="date"></span></td>
+    <td style="text-align:center; font-size:12px;font-family: Helvetica, Arial, sans-serif;"><?php echo $direccion;?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="date"></span></td>
   </tr>
   <tr>
-    <td style="text-align:center; font-size:11px;font-family: Helvetica, Arial, sans-serif;"><span><strong>Telefono:</strong> <?php echo $telefono;?>&nbsp;&nbsp;&nbsp;</span><span><strong>Whatsapp:</strong> <?php echo $wha;?>&nbsp;&nbsp;&nbsp;<br></span>E-mail: metrocentro@opticaavplussv.com</td>
+    <td style="text-align:center; font-size:12px;font-family: Helvetica, Arial, sans-serif;"><span><strong>Telefono:</strong> <?php echo $telefono;?>&nbsp;&nbsp;&nbsp;</span><span><strong>Whatsapp:</strong> <?php echo $wha;?>&nbsp;&nbsp;&nbsp;<br></span>E-mail: metrocentro@opticaavplussv.com</td>
   </tr>
 
 
@@ -120,14 +129,20 @@ for ($i=0; $i <sizeof($data_orden_desc) ; $i++) {
 </tr>
 </table>
 <p style="text-align: right;font-size:11px;font-family: Helvetica, Arial, sans-serif;" align="right"><?php echo $dir2.",&nbsp;".$hoy;?></p>
-<div style="width:100%;margin-top:0px;font-size:12px;font-family: Helvetica, Arial, sans-serif;">
+<div style="width:100%;margin-top:0px;font-size:12px;font-family: Helvetica, Arial, sans-serif;height: 885px">
 <!--INICIO GET DATA PACIENTES-->
 <?php    
-    for($j=0; $j<count($datos_paciente);$j++){ ?>
+    for($j=0; $j<count($datos_paciente);$j++){
+      $empresa_pac = $datos_paciente[$j]["empresas"];
+      $nombre_pac = $datos_paciente[$j]["nombres"];
+     ?>
       <span> <b>EMPRESA:</b>&nbsp; <u><?php echo $datos_paciente[$j]["empresas"]."."?></u></span><br><br>
       <span style="font-size:13px;font-family: Helvetica, Arial, sans-serif;">Por la presente y de confirmidad con el artículo N° 136 del código de trabajo, publicado en el Diario Oficial del 31 de Julio de 1972, autorizo a usted a descontar de mi sueldo mensual que devengo en esta empresa como empleado(a) de la misma; la cantidad de:&nbsp;<b style="color: black"><u><?php echo "$".number_format($monto_orden,2,".",",");?></u></b> en <?php echo $plazo_credito?> cuotas __mensuales de: <b><u><?php echo "$".number_format($cuotas_creditos,2,".",",");?></u></b>, las cuales deberán pagar por mi cuenta a partir de: <u><?php echo date("d-m-Y", strtotime($inicio_credito));?></u> hasta <u><?php echo date("d-m-Y", strtotime($fin_credito));?></u>. Por lo tanto autorizo a que se realicen los pagos en concepto de producto y servicios visuales. <br><br><br>  <b>Atentamente.</b><br><br><br> </span>
 
   <table width="100%" class="table2">
+        <tr>
+    <th colspan="100" style="color:black;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><b>DATOS GENERALES DEL PACIENTE</b></th>  
+    </tr>
     <tr>
       <th colspan="45" style="color:black;font-size:11px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:45%" bgcolor="#c5e2f6"><b>NOMBRE COMPLETO</b></th>
       <th colspan="30" style="color:black;font-size:11px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:30%" bgcolor="#c5e2f6"><b>FUNCIÓN LABORAL</b></th>
@@ -175,19 +190,42 @@ for ($i=0; $i <sizeof($data_orden_desc) ; $i++) {
       <td colspan="30" style="font-size:11px;border: 1px solid :black;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><?php echo $ref_dos;?></td>
       <td colspan="20" style="font-size:11px;border: 1px solid :black;font-family: Helvetica, Arial, sans-serif;width:20%;text-align: center"><?php echo $tel_ref_dos;?></td>
     </tr>
-    <?php $detalle_orden_desc = $reporteria->get_detalle_orden_credito($id_paciente,$n_orden);
-      /*for ($i=0; $i <sizeof($detalle_orden_desc) ; $i++) { 
-         echo $detalle_orden_desc[$i];
-      }*/
-      print_r($detalle_orden_desc);
-      print_r($data_orden_desc);
-    ?>
-    <tr>
-      <td colspan="100" style="font-size:12px;border: 1px solid black;font-family: Helvetica, Arial, sans-serif;width:100%">&nbsp;&nbsp;<b>SERVICIO QUE RECIBIÓ:&nbsp;&nbsp;</b><?php foreach($detalle_orden_desc as $row){
-        echo strtoupper($row["producto"])."&nbsp;&nbsp;-&nbsp;&nbsp;";
-      }?></td>
+    
+  </table><br>
+  <?php $detalle_orden_desc = $reporteria->get_detalle_orden_credito($id_paciente,$n_orden);?>
+  <table width="100%" class="table2">
+        <tr>
+    <th colspan="100" style="color:black;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><b>SERVICIOS Y PRODUCTOS SOLICITADOS</b></th>  
     </tr>
+    <thead>
+    <tr>
+      <th colspan="25" style="text-align: center;width: 25%;border: 1px solid :black;" bgcolor="#c5e2f6">CANTIDAD</th>
+      <th colspan="50" style="text-align: center;width: 50%;border: 1px solid :black;" bgcolor="#c5e2f6">DESCRIPCIÓN</th>
+      <th colspan="25" style="text-align: center;width: 25%;border: 1px solid :black;" bgcolor="#c5e2f6">PRECIO</th>
+    </tr>
+     </thead>
+    <tbody>
+      <?php 
+      $total = 0;
+       foreach ($detalle_orden_desc as $row) {
 
+         echo 
+           '<tr>'.
+             '<td colspan="25" style="text-align: center;width: 25%;border: 1px solid :black;">'.$row["cantidad_venta"].'</td>'.
+             '<td colspan="50" style="text-align: center;width: 50%;border: 1px solid :black;">'.strtoupper($row["producto"]).'</td>'.
+             '<td colspan="25" style="text-align: center;width: 25%;border: 1px solid :black;">'."$".number_format($row["precio_final"],2,".",",").'</td>'.
+           '</tr>';
+
+           $total = $total+number_format($row["precio_final"],2,".",",");
+       }
+      ?>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="75" style="text-align: center;width: 25%;border: 1px solid :black;">TOTAL</td>
+        <td colspan="25" style="text-align: center;width: 25%;border: 1px solid :black;"><b><?php echo "$".number_format($total,2,".",",")?></b></td>
+      </tr>
+    </tfoot>
   </table>
 <br><br><br><br>    
 <table width="100%">
@@ -202,11 +240,35 @@ for ($i=0; $i <sizeof($data_orden_desc) ; $i++) {
 </table>  
 <!--FIN INICIO GET DATA PACIENTES-->
 <?php }?>
- <br>
- <br>
- <br> 
- 
+ <br><br><br>
+
+ <div style="border: solid 1px black; ">
+ <h3 style="text-align: center;">AREA DE PAGADURÍA <?php echo strtoupper($empresa_pac)?></h3>
+ <div style="margin: 8px">
+ <b style="font-size: 13px">Presente.</b><br> 
+ <span style="font-size: 14px;text-align: justify;text-justify:inter-word;">Al tomar nota de la carta anterior nos comprometemos con optica AV Plus a descontar del sueldo mensual de Sr.(a) con nombre <u><?php echo strtoupper($nombre_pac)?>.</u> Las cuotas de <b><?php echo "$".number_format($cuotas_creditos,2,".",","); ?></b>, durante un período de tiempo que consta de <?php echo $plazo_credito." meses "?>para remitirlas a su cuenta con forma de pago: ____Mensual ___Quincenal. Cada Fecha:_______________________</span>
+ <br><br><br>
+ <table width="100%">
+  <tr>
+    <td colspan="50"style="text-align: center"><u>____________________________________________</u></td>
+    <td colspan="50"style="text-align: center"><u>______________________________________</u></td>
+  </tr>
+  <tr>
+    <td colspan="50"style="text-align: center">Firma y nombre de tesorero o pagador</td>
+    <td colspan="50"style="text-align: center">Sello de Aprobación</td>
+  </tr>
+  <tr>
+    <td colspan="100" style="color: white">H</td>
+  </tr>
+  <tr>
+    <td colspan="100"style="text-align: center">Telefonos: _____________________________</td>
+  </tr>
+</table>
+</div>
+</div>
 </div><!--Fin primera parte-->
+
+<p style="text-align: right;font-size: 9px" align="right">Este documento ha sido emitido por el departamento Empresarial de Óptica AV Plus y creado por: <?php echo $_SESSION["nombres"]."&nbsp;-&nbsp;".$hoy;?></p>
 </body>
 </html>
 <?php
@@ -227,4 +289,10 @@ $dompdf->render();
 // Output the generated PDF to Browser
 //$dompdf->stream();
 $dompdf->stream('document', array('Attachment'=>'0'));
+
+
 ?>
+<?php  } else{
+
+     header("Location: index.php");
+  }?>
