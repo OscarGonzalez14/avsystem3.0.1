@@ -1,4 +1,4 @@
-
+ 
  <?php
 require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){ 
@@ -203,8 +203,8 @@ require_once("modals/modal_oid.php");
             </div>
             <!-- /.card -->
           </div> <!--Fin trable--> 
-              <div class="col-sm-4" id="print_factura">
-                  <button class="btn btn-info btn-block" style="border-radius:2px" data-toggle="modal" data-target="#oid"><i class="fas fa-print"></i> OID</button>
+              <div class="col-sm-4" id="print_manual_oid">
+                  <button class="btn btn-dark btn-block" style="border-radius:2px" data-toggle="modal" data-target="#oid"><i class="fas fa-print"></i> OID</button>
                 </div>
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <ul class="navbar-nav">

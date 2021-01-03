@@ -4,7 +4,9 @@ function init() {
   get_correlativo_orden();
     //get_correlativo_venta();btn_print_recibos
   document.getElementById("print_orden_descplanilla").style.display = "none";
-  document.getElementById("btn_print_recibos").style.display = "none";
+  document.getElementById("print_pagare").style.display = "none";
+  document.getElementById("print_manual_oid").style.display = "none";
+  //document.getElementById("btn_print_recibos").style.display = "none";
   document.getElementById("print_factura").style.display = "none";
   document.getElementById("credito_fiscal_print").style.display = "none";
 
@@ -622,7 +624,8 @@ function guardar_oid(){
     data_oid.push(obj);
     console.log(data_oid);
     document.getElementById("btn_reg_orden").style.display = "none";
-    document.getElementById("print_orden_descplanilla").href='imprimir_oid_pdf.php?n_orden='+codigo+'&'+'n_venta='+numero_venta+'&'+'id_paciente='+id_paciente+'&'+'sucursal='+sucursal;;
+    document.getElementById("print_orden_descplanilla").href='imprimir_oid_pdf.php?n_orden='+codigo+'&'+'n_venta='+numero_venta+'&'+'id_paciente='+id_paciente+'&'+'sucursal='+sucursal;
+     document.getElementById("print_pagare").href='imprimir_pagare_pdf.php?n_orden='+codigo+'&'+'n_venta='+numero_venta+'&'+'id_paciente='+id_paciente+'&'+'sucursal='+sucursal;
     setTimeout("show_btn_print_oid();",1500);
 
     
@@ -639,6 +642,8 @@ $(document).on('keyup', '#tel_ref2', function(){
 
 function show_btn_print_oid(){
   document.getElementById("print_orden_descplanilla").style.display = "block";
+  document.getElementById("print_pagare").style.display = "block";
+  document.getElementById("print_manual_oid").style.display = "block";
 }
 function get_correlativo_orden(){
   let sucursal = $("#sucursal").val();

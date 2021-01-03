@@ -50,7 +50,7 @@
 
     <div class="form-group col-md-2">
       <label for="inputCity">Finaliza</span></label>
-      <input type="text" class="form-control" id="end_credito">
+      <input type="text" class="form-control" id="end_credito" readonly="">
     </div>
 
     <div class="input-group col-md-12">
@@ -122,7 +122,9 @@
 
   </div> 
  <button class="btn btn-outline-primary btn-block" type="button" id="btn_reg_orden" onClick="guardar_oid();"><i class="fas fa-save"> Registrar Orden</i></button>
- <a class="btn btn-primary" style="color:white;border-radius:1px;" href="" id="print_orden_descplanilla" target="_blank"><i class="fas fa-print"></i> Imprimir</a>
+ <a class="btn btn-primary" style="color:white;border-radius:1px;" href="" id="print_orden_descplanilla" target="_blank"><i class="fas fa-print"></i> IMPRIMIR ORDEN DE DESCUENTO</a>
+ <a class="btn btn-success" style="color:white;border-radius:1px;" href="" id="print_pagare" target="_blank"><i class="fas fa-print"></i> IMPRIMIR PAGARÉ</a>
+
 
  
 </div><!--Fin Card-->
