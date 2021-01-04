@@ -200,6 +200,7 @@ public function get_ordenes_descuento_pendientes($sucursal){
 
 }
 
+
 }/////FIN CLASS
 
 ?>

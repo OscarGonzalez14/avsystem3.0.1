@@ -838,4 +838,12 @@ function get_finaliza(){
 
 }
 
+var detalle_orden_oid = [];
+function acciones_oid(numero_orden,id_paciente,estado){
+
+  let categoria_usuario = $('#cat_user').val();
+  console.log(`cat ${categoria_usuario} orden ${numero_orden} id_paciente ${id_paciente} estado ${estado}`)
+  $("#detalle_oid").modal("show");
+}
+
 init();

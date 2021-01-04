@@ -2,11 +2,11 @@
 require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){ 
 require_once('header_dos.php');
-require_once('modals/nueva_requisicion.php');
+require_once('modals/modal_detalle_orden.php');
 
 $cat_user = $_SESSION["categoria"];
 require_once("modelos/Reporteria.php");
-$alerts = new Reporteria();
+$reporteria = new Reporteria();
 ?>
 
  <style type="text/css">
@@ -24,12 +24,12 @@ $alerts = new Reporteria();
 
           <div class="card" style="margin: 1px">
               <div class="card-body">
-                <h4 align="center">DESCUENTOS EN PLANILLA</h4>
+                <h4 align="center">&nbsp;DESCUENTOS EN PLANILLA</h4>
 
                 <?php if($cat_user=="administrador"){
                   echo '
                 <a class="btn btn-app" onClick="listar_requicisiones_pendientes();">
-                  <span class="badge bg-danger"><i class=" fas fa-bell"></i>';?> <?php echo $alerts->count_req_pendientes()?> <?php echo '</span>
+                  <span class="badge bg-danger"><i class=" fas fa-bell"></i>';?> <?php echo $reporteria->count_req_pendientes()?> <?php echo '</span>
                   <i class="fas fa-clipboard-check" style="color:#00407e"></i> ORDENES DE DESCUENTO PENDIENTES
                 </a>';
               }
@@ -39,19 +39,19 @@ $alerts = new Reporteria();
     <!--ESTE DATATABLE SE RECARGA DESDE  credit-->
     <table id="ordenes_desc_pendientes" width="100%" style="text-align: center;text-align:center" data-order='[[ 0, "desc" ]]' class="table-hover table-bordered display nowrap">
       <thead style="color:black;min-height:10px;border-radius: 2px;font-style: normal;font-size: 15px" class="bg-info">
-          <tr style="min-height:10px;border-radius: 3px;font-style: normal;font-size: 11px">
+          <tr style="min-height:10px;border-radius: 3px;font-style: normal;font-size: 12px;text-align: center">
 
             <td  style="text-align:center;"># Orden</td>
             <td  style="text-align:center;">Paciente</td>
             <td  style="text-align:center;">Empresa</td>
             <td  style="text-align:center;">Fecha creación</td>
             <td  style="text-align:center;">Estado</td>
-            <td style="text-align:center;">Detalles</td>
+            <td style="text-align:center;">Acciones</td>
             <td style="text-align:center;">Editar</td>
             <td style="text-align:center;">Eliminar</td>
          </tr>
         </thead>
-        <tbody style="text-align:center;color: black;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center">                                        
+        <tbody style="text-align:center;color: black;font-family: Helvetica, Arial, sans-serif;font-size: 12px;text-align: center">                                        
         </tbody>
       </table>
     </div>

@@ -376,7 +376,7 @@ switch ($_GET["op"]){
         $sub_array[] = $row["empresas"];
         $sub_array[] = $row["fecha_registro"];
         $sub_array[] = $row["estado"];  
-        $sub_array[] = '<i class="fas fa-eye" style="border-radius:0px;color:blue" data-toggle="modal" data-target="#detalle_ventas" onClick="detalleVentas(\''.$row["numero_orden"].'\','.$row["id_paciente"].')"></i>';
+        $sub_array[] = '<i class="fas fa-cog" style="border-radius:0px;color:blue" onClick="acciones_oid(\''.$row["numero_orden"].'\','.$row["id_paciente"].','.$row["estado"].')"></i>';
         $sub_array[] = '<i class="fas fa-edit" style="border-radius:0px;color:green" data-toggle="modal" data-target="#detalle_ventas" onClick="detalleVentas(\''.$row["numero_orden"].'\','.$row["id_paciente"].')"></i>';
         $sub_array[] = '<i class="fas fa-trash" style="border-radius:0px;color:red" data-toggle="modal" data-target="#detalle_ventas" onClick="detalleVentas(\''.$row["numero_orden"].'\','.$row["id_paciente"].')"></i>';
         $data[] = $sub_array;
