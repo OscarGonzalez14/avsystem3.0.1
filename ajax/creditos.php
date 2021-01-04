@@ -357,8 +357,37 @@ switch ($_GET["op"]){
       $plazo_credito = $_POST["plazo_credito"];
       $finalizacion = date("d-m-Y",strtotime($inicio."+ $plazo_credito month"));
       echo json_encode($finalizacion);
-
       break;
 
-    }
+
+    /************************************************************
+    *****************ORDENES DE DESCUENTO EN PLANILLA************
+    *************************************************************/
+    case 'listar_oid_pendientes':
+    $datos=$creditos->get_ordenes_descuento_pendientes($_POST["sucursal"]);
+    //Vamos a declarar un array
+    $data= Array();
+
+    foreach($datos as $row)
+      {
+        $sub_array = array();
+        $sub_array[] = $row["numero_orden"];
+        $sub_array[] = $row["nombres"];
+        $sub_array[] = $row["empresas"];
+        $sub_array[] = $row["fecha_registro"];
+        $sub_array[] = $row["estado"];  
+        $sub_array[] = '<i class="fas fa-eye" style="border-radius:0px;color:blue" data-toggle="modal" data-target="#detalle_ventas" onClick="detalleVentas(\''.$row["numero_orden"].'\','.$row["id_paciente"].')"></i>';
+        $sub_array[] = '<i class="fas fa-edit" style="border-radius:0px;color:green" data-toggle="modal" data-target="#detalle_ventas" onClick="detalleVentas(\''.$row["numero_orden"].'\','.$row["id_paciente"].')"></i>';
+        $sub_array[] = '<i class="fas fa-trash" style="border-radius:0px;color:red" data-toggle="modal" data-target="#detalle_ventas" onClick="detalleVentas(\''.$row["numero_orden"].'\','.$row["id_paciente"].')"></i>';
+        $data[] = $sub_array;
+      }
+
+      $results = array(
+      "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+      echo json_encode($results);      
+    break;
+}
  ?>

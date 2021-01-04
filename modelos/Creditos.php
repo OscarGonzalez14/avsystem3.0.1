@@ -185,6 +185,21 @@ public function registrar_impresion_factura($sucursal,$numero_venta,$id_usuario,
 
 }
 
+/************************************************************
+*****************ORDENES DE DESCUENTO EN PLANILLA************
+*************************************************************/
+public function get_ordenes_descuento_pendientes($sucursal){
+    $conectar=parent::conexion();
+    parent::set_names();
+
+    $sql="select o.numero_orden,p.nombres,p.empresas,p.id_paciente,o.fecha_registro,o.estado from orden_credito as o inner join pacientes as p on o.id_paciente = p.id_paciente where o.sucursal=? and estado='0' order by o.id_orden DESC;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $sucursal);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
 }/////FIN CLASS
 
 ?>

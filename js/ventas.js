@@ -559,6 +559,8 @@ function saveVenta(){
     //setTimeout ("mostrar_recibo_inicial();", 2000);
   }else if(tipo_venta=="Credito" && tipo_pago=="Descuento en Planilla"){
     $("#oid").modal("show");
+    console.log("FFFFFFFF000000")
+    document.getElementById("print_manual_oid").style.display = "block";
     let id_paciente = $("#id_paciente").val();
     $.ajax({
     url:"ajax/ventas.php?op=show_datos_paciente",

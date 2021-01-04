@@ -94,7 +94,7 @@ require_once("modals/modal_consultas.php");
 <script type="text/javascript" src="js/cleave.js"></script>
 <script type="text/javascript" src="js/pacientes.js"></script>
 <script type="text/javascript" src="js/consultas.js"></script>
-<script type="text/javascript" src="js/empresas.js"></script>
+
 <script type="text/javascript" src="js/bootbox.min.js"></script>
   <script type="text/javascript">
     var title = document.getElementById("name_pag").value;

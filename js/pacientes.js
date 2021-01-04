@@ -1,7 +1,7 @@
 $(document).ready(ocultar_btns_creditos);
 
   function ocultar_btns_creditos(){
-  document.getElementById("btns_credito").style.display = "none";
+  //document.getElementById("btns_credito").style.display = "none";
   get_correlativo_paciente();
   listar_pacientes();
   //tabla_pacientes();

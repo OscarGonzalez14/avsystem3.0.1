@@ -30,8 +30,7 @@
                 <div class="col-sm-3">
                   <label>Tipo Paciente</label>
                   <select name="tipo_paciente" class="form-control" id="tipo_paciente">
-                    <option value="">Seleccione...</option>
-                    <option value="Sucursal">Sucursal</option>
+                    <option value="Sucursal" selected="true">Sucursal</option>
                     <option value="Desc_planilla">Desc. Planilla</option>
                     <option value="Cargo_a">Cargo A.</option>
                     <option value="C_personal">Crédito Personal</option>                
@@ -73,7 +72,7 @@
               <div class="dropdown-divider"></div>
               <div id="btns_credito">
                 
-                <div class="form-group row">
+                <div class="form-group row" style="display: none">
                   <div class="col-sm-5">
                   <label>Empresa<span style="visibility: hidden;color: red" id="label_empresa">*</span></label>
                     <div class="input-group">
@@ -103,7 +102,7 @@
               </div>
             </div>
             <input id="id_paciente" type="hidden">
-            <div class="modal-footer justify-content-between">
+            <div class="modal-footer">
               <button class="btn btn-primary btn-block" onClick="guardarPaciente();" id="save_paciente"><span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>Guardar</button>
               <button class="btn btn-primary btn-block" onClick="guardarPaciente();" id="edit_paci">Editar</button>
             </div>
