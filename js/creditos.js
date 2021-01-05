@@ -838,12 +838,101 @@ function get_finaliza(){
 
 }
 
-var detalle_orden_oid = [];
+var detalle_venta_flotante = [];
+var venta_flotante = [];
 function acciones_oid(numero_orden,id_paciente,estado){
-
+detalle_venta_flotante = [];
   let categoria_usuario = $('#cat_user').val();
   console.log(`cat ${categoria_usuario} orden ${numero_orden} id_paciente ${id_paciente} estado ${estado}`)
   $("#detalle_oid").modal("show");
+  if (categoria_usuario != "administrador") {
+    document.getElementById("btns_orden").style.display = "none";
+  }
+  /////////////ajax data detalles del  orden
+    $.ajax({
+    url:"ajax/creditos.php?op=get_detalles_orden_oid",
+    method:"POST",
+    data:{id_paciente:id_paciente,numero_orden:numero_orden},
+    cache:false,
+    dataType:"json",
+    success:function(data){ 
+      console.log(data);  
+      $("#monto_orden").html(data.monto);
+      $("#plazo_orden").html(data.plazo);
+      $("#cuota_orden").html(data.cuota);
+      $("#ref1_orden").html(data.referencia_uno);
+      $("#ref2_orden").html(data.referencia_dos);
+    }
+  })
+
+
+  $.ajax({
+  url:"ajax/creditos.php?op=get_detalles_orden_paciente",
+  method:"POST",
+  data:{id_paciente:id_paciente},
+  cache:false,
+  dataType:"json",
+  success:function(data){ 
+    console.log(data);  
+    $("#paciente_orden").html(data.nombres);
+    $("#funcion_pac_orden").html(data.ocupacion);
+    $("#dui_pac_orden").html(data.dui);
+    $("#edad_pac_orden").html(data.edad);
+    $("#nit_pac_orden").html(data.nit);
+    $("#tel_pac_orden").html(data.telefono);
+    $("#tel_of_pac_orden").html(data.telefono_oficina);
+    $("#correo_pac_orden").html(data.correo);
+    $("#dir_pac_orden").html(data.direccion);
+  }
+})
+var total = 0
+  ////////////////GET DETALLE PRODUCTOS ORDEN
+  $.ajax({
+    url : "ajax/creditos.php?op=get_detalle_productos_orden",
+    method : "POST",
+    data: {id_paciente:id_paciente,numero_orden:numero_orden},
+    cache : false,
+    dataType : "json",
+    success:function(data){
+    console.log(data);
+    
+    for(var i in data){
+     //var total = parseInt(total) + parseInt(data[i].precio_final);
+      var obj = {
+        id_producto : data[i].id_producto,
+        cantidad : data[i].cantidad,
+        producto : data[i].producto,
+        precio_venta : data[i].precio_venta,
+        descuento : data[i].descuento,
+        precio_final : data[i].precio_final,
+        descuento : data[i].descuento,
+        fecha_venta : data[i].fecha_venta,
+        id_usuario : data[i].id_usuario,
+        id_paciente : data[i].id_paciente,
+        beneficiario : data[i].beneficiario,
+        categoria_ub : data[i].categoria_ub
+              
+      };//FIN OBJ
+      detalle_venta_flotante.push(obj);
+      detalle_productos_flotantes();
+
+    }
+
+    }
+  })
+
+}
+
+function detalle_productos_flotantes(){ 
+    $('#detalle_productos_orden').html('');
+    var filas = "";
+    for(var i=0; i<detalle_venta_flotante.length; i++){
+      var filas = filas +"<tr id='fila"+i+"'><td style='text-align:center;width: 25% !important' colspan='25'>"+detalle_venta_flotante[i].cantidad+"</td>"+
+        "<td style='text-align:ce nter;width: 50% !important' colspan='50'>"+detalle_venta_flotante[i].producto+"</td>"+
+      "<td style='text-align:center;width: 25%' colspan='25'>"+detalle_venta_flotante[i].precio_final+"</td>"+"</tr>";
+    }
+
+    $('#detalle_productos_orden').html(filas);
 }
 
 init();

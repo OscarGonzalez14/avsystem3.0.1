@@ -389,5 +389,75 @@ switch ($_GET["op"]){
       "aaData"=>$data);
       echo json_encode($results);      
     break;
-}
+
+
+case 'get_detalles_orden_oid':
+  
+  $datos=$creditos->get_data_orden_credito($_POST["id_paciente"],$_POST["numero_orden"]);
+
+    if(is_array($datos)==true and count($datos)>0){
+      foreach($datos as $row){         
+        $output["monto"] = "$".number_format($row["monto"],2,".",",");
+        $output["plazo"] = $row["plazo"]." cuotas";
+        $output["cuota"] = "$".number_format(($row["monto"]/$row["plazo"]),2,".",",");
+        $output["referencia_uno"] = $row["ref_uno"]." Tel.:".$row["tel_ref_uno"];
+        $output["referencia_dos"] = $row["ref_dos"]." Tel.:".$row["tel_ref_dos"];
+              }       
+    echo json_encode($output);
+    } 
+  break;
+
+case 'get_detalles_orden_paciente':
+  
+$datos=$creditos->get_paciente_id($_POST["id_paciente"]);
+
+    if(is_array($datos)==true and count($datos)>0){
+      foreach($datos as $row){         
+        $output["nombres"] = $row["nombres"];
+        $output["ocupacion"] = $row["ocupacion"];
+        $output["dui"] = $row["dui"];
+        $output["edad"] = $row["edad"];
+        $output["nit"] = $row["nit"];
+        $output["telefono"] = $row["telefono"];
+        $output["telefono_oficina"] = $row["telefono_oficina"];
+        $output["correo"] = $row["correo"];
+        $output["direccion"] = $row["direccion"];
+
+       
+      }       
+    echo json_encode($output);
+    } 
+  break;
+
+ case 'get_detalle_productos_orden':
+
+    $datos= $creditos->get_detalle_orden_credito($_POST["id_paciente"],$_POST["numero_orden"]);
+
+    if(is_array($datos)==true and count($datos)>0){
+      $data = Array();
+
+      foreach($datos as $row){
+        $output = array();
+        $output["id_producto"] = $row["id_producto"];
+        $output["cantidad"] = $row["cantidad_venta"];
+        $output["producto"] = strtoupper($row["producto"]);
+        $output["precio_venta"] = strtoupper($row["precio_venta"]);
+        $output["descuento"] = strtoupper($row["descuento"]);
+        $output["precio_final"] = "$".number_format($row["precio_final"],2,".",",");
+        $output["descuento"] = $row["descuento"];
+        $output["fecha_venta"] = $row["fecha_venta"];
+        $output["id_usuario"] = $row["id_usuario"];
+        $output["id_paciente"] = $row["id_paciente"];
+        $output["beneficiario"] = $row["beneficiario"];
+        $output["categoria_ub"] = $row["categoria_ub"];
+        $data[] = $output;                    
+      }      
+
+    } 
+  echo json_encode($data);
+   break;
+
+
+
+}//Fin case
  ?>

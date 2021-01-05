@@ -22,20 +22,10 @@ $reporteria = new Reporteria();
       <div class="container-fluid">
     <div class="col-md-12">
 
-          <div class="card" style="margin: 1px">
-              <div class="card-body">
-                <h4 align="center">&nbsp;DESCUENTOS EN PLANILLA</h4>
-
-                <?php if($cat_user=="administrador"){
-                  echo '
-                <a class="btn btn-app" onClick="listar_requicisiones_pendientes();">
-                  <span class="badge bg-danger"><i class=" fas fa-bell"></i>';?> <?php echo $reporteria->count_req_pendientes()?> <?php echo '</span>
-                  <i class="fas fa-clipboard-check" style="color:#00407e"></i> ORDENES DE DESCUENTO PENDIENTES
-                </a>';
-              }
-                ?>
-
-              </div>
+    <div class="card" style="margin: 1px">
+      <div class="card-body">
+      <h4 align="center">&nbsp;DESCUENTOS EN PLANILLA</h4>
+    </div>
     <!--ESTE DATATABLE SE RECARGA DESDE  credit-->
     <table id="ordenes_desc_pendientes" width="100%" style="text-align: center;text-align:center" data-order='[[ 0, "desc" ]]' class="table-hover table-bordered display nowrap">
       <thead style="color:black;min-height:10px;border-radius: 2px;font-style: normal;font-size: 15px" class="bg-info">
