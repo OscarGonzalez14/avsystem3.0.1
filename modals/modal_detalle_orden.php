@@ -58,13 +58,15 @@
     <th colspan="100" style="color:white;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><b>DATOS GENERALES DEL PACIENTE</b></th>  
     </tr>
     <tr class="bg-light">
-      <th colspan="45" style="text-align:center;font-size: 12px;width:45%;font-family: Helvetica, Arial, sans-serif"><b>NOMBRE COMPLETO</b></th>
-      <th colspan="30" style="text-align:center;font-size: 12px;width:30%;font-family: Helvetica, Arial, sans-serif"><b>FUNCIÓN LABORAL</b></th>
+      <th colspan="25" style="text-align:center;font-size: 12px;width:25%;font-family: Helvetica, Arial, sans-serif"><b>NOMBRE COMPLETO</b></th>
+      <th colspan="30" style="text-align:center;font-size: 12px;width:30%;font-family: Helvetica, Arial, sans-serif"><b>EMPRESA</b></th>
+      <th colspan="20" style="text-align:center;font-size: 12px;width:20%;font-family: Helvetica, Arial, sans-serif"><b>FUNCIÓN LABORAL</b></th>
       <th colspan="25" style="text-align:center;font-size: 12px;width:25%;font-family: Helvetica, Arial, sans-serif"><b>DUI</b></th>
     </tr>
     <tr>
-      <td colspan="45" style="text-align:center;font-size: 14px;width:45%;text-align: center"><span id="paciente_orden"></span></td>
-      <td colspan="30" style="text-align:center;font-size: 14px;width:30%;text-align: center"><span id="funcion_pac_orden"></span></td>
+      <td colspan="25" style="text-align:center;font-size: 14px;width:25%;text-align: center"><span id="paciente_orden"></span></td>
+      <td colspan="30" style="text-align:center;font-size: 14px;width:30%;text-align: center"><span id="empresa_pac_orden"></span></td>
+      <td colspan="20" style="text-align:center;font-size: 14px;width:20%;text-align: center"><span id="funcion_pac_orden"></span></td>
       <td colspan="25" style="text-align:center;font-size: 14px;width:25%;text-align: center"><span id="dui_pac_orden"></span></td>
     </tr>
 

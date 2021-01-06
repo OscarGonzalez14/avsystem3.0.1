@@ -886,6 +886,7 @@ venta_flotante = [];
     $("#tel_of_pac_orden").html(data.telefono_oficina);
     $("#correo_pac_orden").html(data.correo);
     $("#dir_pac_orden").html(data.direccion);
+    $("#empresa_pac_orden").html(data.empresas);
   }
 })
 var total = 0

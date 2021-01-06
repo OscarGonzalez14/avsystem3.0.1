@@ -423,6 +423,7 @@ $datos=$creditos->get_paciente_id($_POST["id_paciente"]);
         $output["telefono_oficina"] = $row["telefono_oficina"];
         $output["correo"] = $row["correo"];
         $output["direccion"] = $row["direccion"];
+        $output["empresas"] = $row["empresas"];
 
        
       }       
