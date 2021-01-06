@@ -432,7 +432,7 @@ function show_det_venta(id_paciente){
 }
 ultima_venta = [];
 function listar_det_ventas(id_paciente){
-	    ultima_venta = [];
+	ultima_venta = [];
 	//var id_paciente = document.getElementById("id_paciente_consulta").value;
 	var numero_venta = document.getElementById("numero_venta_cons").value;
 	//console.log(id_paciente+numero_venta+"**********");

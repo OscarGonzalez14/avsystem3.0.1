@@ -842,6 +842,7 @@ var detalle_venta_flotante = [];
 var venta_flotante = [];
 function acciones_oid(numero_orden,id_paciente,estado){
 detalle_venta_flotante = [];
+venta_flotante = [];
   let categoria_usuario = $('#cat_user').val();
   console.log(`cat ${categoria_usuario} orden ${numero_orden} id_paciente ${id_paciente} estado ${estado}`)
   $("#detalle_oid").modal("show");
@@ -858,10 +859,12 @@ detalle_venta_flotante = [];
     success:function(data){ 
       console.log(data);  
       $("#monto_orden").html(data.monto);
-      $("#plazo_orden").html(data.plazo);
+      $("#plazo_orden").html(`${data.plazo} cuotas`);
       $("#cuota_orden").html(data.cuota);
       $("#ref1_orden").html(data.referencia_uno);
       $("#ref2_orden").html(data.referencia_dos);
+      $("#total_orden_t").html(data.monto);
+      $("#plazo_orden_desc").val(data.plazo);
     }
   })
 
@@ -877,7 +880,7 @@ detalle_venta_flotante = [];
     $("#paciente_orden").html(data.nombres);
     $("#funcion_pac_orden").html(data.ocupacion);
     $("#dui_pac_orden").html(data.dui);
-    $("#edad_pac_orden").html(data.edad);
+    $("#edad_pac_orden").html(`${data.edad} años`);
     $("#nit_pac_orden").html(data.nit);
     $("#tel_pac_orden").html(data.telefono);
     $("#tel_of_pac_orden").html(data.telefono_oficina);
@@ -921,6 +924,34 @@ var total = 0
     }
   })
 
+  $.ajax({
+    url: "ajax/creditos.php?op=get_detalle_venta_flotante",
+    method : "POST",
+    data: {id_paciente:id_paciente,numero_orden:numero_orden},
+    cache : false,
+    dataType : "json",
+    success:function(data){
+    console.log(data);
+    for(var i in data){
+      var obj_dos = {
+       fecha_venta : data[i].fecha_venta,
+       paciente: data[i].paciente,
+       vendedor: data[i].vendedor,
+       monto_total: data[i].monto_total,
+       tipo_pago: data[i].tipo_pago,
+       tipo_venta: data[i].tipo_venta,
+       id_usuario: data[i].id_usuario,
+       id_paciente: data[i].id_paciente,
+       sucursal: data[i].sucursal,
+       evaluado: data[i].evaluado,
+       optometra: data[i].optometra
+      }; //Fin obj_dos
+      venta_flotante.push(obj_dos);
+    }
+
+  }
+  })
+
 }
 
 function detalle_productos_flotantes(){ 
@@ -928,11 +959,31 @@ function detalle_productos_flotantes(){
     var filas = "";
     for(var i=0; i<detalle_venta_flotante.length; i++){
       var filas = filas +"<tr id='fila"+i+"'><td style='text-align:center;width: 25% !important' colspan='25'>"+detalle_venta_flotante[i].cantidad+"</td>"+
-        "<td style='text-align:ce nter;width: 50% !important' colspan='50'>"+detalle_venta_flotante[i].producto+"</td>"+
+        "<td style='text-align:center;width: 50% !important' colspan='50'>"+detalle_venta_flotante[i].producto+"</td>"+
       "<td style='text-align:center;width: 25%' colspan='25'>"+detalle_venta_flotante[i].precio_final+"</td>"+"</tr>";
     }
 
     $('#detalle_productos_orden').html(filas);
+}
+
+function aprobar_od_planilla(){
+ let plazo = $("#plazo_orden_desc").val();
+ $.ajax({
+    url:"ajax/creditos.php?op=aprobar_orden_planilla",
+    method: "POST",
+    data: {'detOrden':JSON.stringify(detalle_venta_flotante),'arrayVenta':JSON.stringify(venta_flotante),'plazo':plazo},
+    cache: false,
+    dataType:"json",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+    },     
+    success:function(data){
+    }
+ })
+ Swal.fire('Orden de descuento registrado!','','success');
+ $("#detalle_oid").modal('hide');
 }
 
 init();

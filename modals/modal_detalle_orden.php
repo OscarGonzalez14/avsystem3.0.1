@@ -52,7 +52,7 @@
     <div class="modal-body">
     
     <div class="card-body p-0" style="margin:7px">
-  
+  <input type="hidden" id="plazo_orden_desc">
   <table width="100%" class="table-hover table-bordered display nowrap">
     <tr class="bg-info">
     <th colspan="100" style="color:white;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><b>DATOS GENERALES DEL PACIENTE</b></th>  
@@ -122,8 +122,14 @@
         <th colspan="25" style="text-align:center;font-size: 12px;width: 25%">PRECIO</th>
       </tr>
       </thead>
-      <tbody style="text-align:center" id="detalle_productos_orden">
+      <tbody style="text-align:center;font-size:12px" id="detalle_productos_orden">
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="75" style="text-align:center;"><b>Total</b></td>
+          <td colspan="25" style="text-align:center;"><b><span id="total_orden_t"></span></b></td>
+        </tr>
+      </tfoot>
     </table><br>
 </div>
 
@@ -134,8 +140,8 @@
 </div>
 </div><!--Fin Card-->
 </div>
-  </div><!-- /.card-body -->  
-  </div><!--Fin modal Content-->
+</div><!-- /.card-body -->  
+</div><!--Fin modal Content-->
 
 
 <script type="text/javascript" src="js/cleave.js"></script>

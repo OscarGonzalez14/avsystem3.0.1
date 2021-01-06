@@ -398,11 +398,12 @@ case 'get_detalles_orden_oid':
     if(is_array($datos)==true and count($datos)>0){
       foreach($datos as $row){         
         $output["monto"] = "$".number_format($row["monto"],2,".",",");
-        $output["plazo"] = $row["plazo"]." cuotas";
+        $output["plazo"] = $row["plazo"];
         $output["cuota"] = "$".number_format(($row["monto"]/$row["plazo"]),2,".",",");
         $output["referencia_uno"] = $row["ref_uno"]." Tel.:".$row["tel_ref_uno"];
         $output["referencia_dos"] = $row["ref_dos"]." Tel.:".$row["tel_ref_dos"];
-              }       
+        //$output["plazo_orden"] = $row["plazo"];
+      }       
     echo json_encode($output);
     } 
   break;
@@ -457,7 +458,36 @@ $datos=$creditos->get_paciente_id($_POST["id_paciente"]);
   echo json_encode($data);
    break;
 
+ case 'get_detalle_venta_flotante':
+   $datos = $creditos->get_detalle_venta_flotante($_POST["id_paciente"],$_POST["numero_orden"]);
+   if (is_array($datos)==true and count($datos)>0) {
+      $data = Array();
 
+      foreach($datos as $row){
+        $output = array();
+        $output["fecha_venta"] = $row["fecha_venta"];
+        $output["paciente"] = $row["paciente"];
+        $output["vendedor"] = $row["vendedor"];
+        $output["monto_total"] = $row["monto_total"];
+        $output["tipo_pago"] = $row["tipo_pago"];
+        $output["tipo_venta"] = $row["tipo_venta"];
+        $output["id_usuario"] = $row["id_usuario"];
+        $output["id_paciente"] = $row["id_paciente"];
+        $output["sucursal"] = $row["sucursal"];
+        $output["evaluado"] = $row["evaluado"];
+        $output["optometra"] = $row["optometra"];
+
+        $data[]= $output;
+      }
+   }
+   echo json_encode($data);
+  break;
+  
+  case 'aprobar_orden_planilla':
+
+    $creditos->aprobar_orden();
+    
+    break;
 
 }//Fin case
  ?>

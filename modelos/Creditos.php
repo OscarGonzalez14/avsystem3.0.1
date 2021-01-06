@@ -233,6 +233,166 @@ public function get_detalle_orden_credito($id_paciente,$n_orden){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+public function get_detalle_venta_flotante($id_paciente,$n_orden){
+    $conectar= parent::conexion();
+    parent::set_names(); 
+    $sql="select*from ventas_flotantes where id_paciente=? and numero_orden=?;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$id_paciente);
+    $sql->bindValue(2,$n_orden);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+///////////APROBAR ORDEN
+public function aprobar_orden(){
+
+ $conectar = parent::conexion();
+///////detalle productos venta flotante
+ $detalle_orden = array();
+ $detalle_orden = json_decode($_POST["detOrden"]);
+ //////////////////detalle venta flotante
+ $detalle_venta = array();
+ $detalle_venta = json_decode($_POST["arrayVenta"]);
+ $plazo = $_POST["plazo"];
+ date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y");
+
+foreach ($detalle_venta as $k => $v) {
+    $evaluado = $v->evaluado;
+    $fecha_venta = $v->fecha_venta;
+    $id_paciente = $v->id_paciente;
+    $id_usuario = $v->id_usuario;
+    $monto_total = $v->monto_total;
+    $optometra = $v->optometra;
+    $paciente = $v->paciente;
+    $sucursal = $v->sucursal;
+    $tipo_pago = $v->tipo_pago;
+    $tipo_venta = $v->tipo_venta;
+    $vendedor = $v->vendedor;
+}
+require_once("Ventas.php");
+$ventas = new Ventas();
+$correlativo = $ventas->get_numero_venta($sucursal);
+  
+  $prefijo = "";
+  if ($sucursal=="Metrocentro") {
+    $prefijo="ME";
+  }elseif ($sucursal=="Santa Ana") {
+    $prefijo="SA";
+  }elseif ($sucursal=="San Miguel") {
+    $prefijo="SM";
+  }
+    if(is_array($correlativo)==true and count($correlativo)>0){
+    foreach($correlativo as $row){                  
+      $codigo=$row["numero_venta"];
+      $cod=(substr($codigo,5,11))+1;
+      $num_venta ="AV".$prefijo."-".$cod;
+    }             
+  }else{
+      $num_venta = "AV".$prefijo."-1";
+  }
+
+////////////////RECORRER ARRAR PARA EXTAER VALORES E INSERTAR DETALLE DE VENTA
+ foreach ($detalle_orden as $item => $valor) {
+    $beneficiario = $valor->beneficiario;
+    $cantidad = $valor->cantidad;
+    $categoria_ub = $valor->categoria_ub;
+    $descuento = $valor->descuento;
+    $fecha_venta = $valor->fecha_venta;
+    $id_paciente = $valor->id_paciente;
+    $id_producto = $valor->id_producto;
+    $id_usuario = $valor->id_usuario;
+    $precio_final = $valor->precio_final;
+    $precio_venta = $valor->precio_venta;
+    $producto = $valor->producto;
+
+    $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,?,?,?,?);";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$num_venta);
+    $sql->bindValue(2,$id_producto);
+    $sql->bindValue(3,$producto);
+    $sql->bindValue(4,$precio_venta);
+    $sql->bindValue(5,$cantidad);
+    $sql->bindValue(6,$descuento);
+    $sql->bindValue(7,$precio_final);
+    $sql->bindValue(8,$hoy);
+    $sql->bindValue(9,$id_usuario);
+    $sql->bindValue(10,$id_paciente);
+    $sql->bindValue(11,$beneficiario);
+     // $sql->bindValue(12,$precio_compra);
+    $sql->execute();
+
+ }
+
+//////////////GET NUMERO VENTA
+
+ ///////////////REGISTRAR VENTA
+ $sql2="insert into ventas values(null,?,?,?,?,?,?,?,?,?,?,?,?);";
+    $sql2=$conectar->prepare($sql2);
+          
+    $sql2->bindValue(1,$hoy);
+    $sql2->bindValue(2,$num_venta);
+    $sql2->bindValue(3,$paciente);
+    $sql2->bindValue(4,$vendedor);       
+    $sql2->bindValue(5,$monto_total);
+    $sql2->bindValue(6,$tipo_pago);
+    $sql2->bindValue(7,$tipo_venta);          
+    $sql2->bindValue(8,$id_usuario);
+    $sql2->bindValue(9,$id_paciente);
+    $sql2->bindValue(10,$sucursal);
+    $sql2->bindValue(11,$evaluado);
+    $sql2->bindValue(12,$optometra);
+    $sql2->execute();
+
+    ///////////////////////INSERTAR CREDITOS
+    $sql1="insert into creditos values(null,?,?,?,?,?,?,?,?,?);";
+    $sql1=$conectar->prepare($sql1);          
+    $sql1->bindValue(1,$tipo_venta);
+    $sql1->bindValue(2,$monto_total);
+    $sql1->bindValue(3,$plazo);
+    $sql1->bindValue(4,$monto_total);
+    $sql1->bindValue(5,$tipo_pago);
+    $sql1->bindValue(6,$num_venta);
+    $sql1->bindValue(7,$id_paciente);
+    $sql1->bindValue(8,$id_usuario);
+    $sql1->bindValue(9,$hoy);
+    $sql1->execute();
+
+    $n_recibo="";
+    $n_factura="";
+    $forma_cobro="";
+    $monto_cobrado="";
+    $abono_anterior="0";
+    $abonos_realizados="0";
+    $sucursal_cobro="";
+    $tipo_ingreso = "Venta";
+
+    $sql2="insert into corte_diario values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    $sql2=$conectar->prepare($sql2);          
+    $sql2->bindValue(1,$hoy);
+    $sql2->bindValue(2,$n_recibo);
+    $sql2->bindValue(3,$num_venta);
+    $sql2->bindValue(4,$n_factura);
+    $sql2->bindValue(5,$paciente);
+    $sql2->bindValue(6,$vendedor);
+    $sql2->bindValue(7,$monto_total);
+    $sql2->bindValue(8,$forma_cobro);
+    $sql2->bindValue(9,$monto_cobrado);
+    $sql2->bindValue(10,$monto_total);
+    $sql2->bindValue(11,$tipo_venta);
+    $sql2->bindValue(12,$tipo_pago);
+    $sql2->bindValue(13,$id_usuario);
+    $sql2->bindValue(14,$abono_anterior);
+    $sql2->bindValue(15,$abonos_realizados);
+    $sql2->bindValue(16,$id_paciente);
+    $sql2->bindValue(17,$sucursal);
+    $sql2->bindValue(18,$sucursal_cobro);
+    $sql2->bindValue(19,$tipo_ingreso);
+
+    $sql2->execute();
+
+
+}
+
 }/////FIN CLASS
 
 ?>
