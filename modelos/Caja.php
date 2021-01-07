@@ -213,16 +213,10 @@ class Caja extends Conectar{
     $tipo_movimiento = "Egreso";
     date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y");
 
-    $nuevo_saldo = $row["saldo"] - $monto;
+    $nuevo_saldo = $saldo_act - $monto;
 
-    $sql3 = "update caja_chica set saldo=? where sucursal=?;";
-    $sql3 = $conectar->prepare($sql3);
-    $sql3->bindValue(1,$nuevo_saldo);
-    $sql3->bindValue(2,$sucursal);
-    $sql3->execute();
-
-    $sql4 = "insert into movimientos_caja values(null,?,?,?,?,?,?,?,?);";
-    $sql4 = $conectar->prepare($sql4);
+    $sql4="insert into movimientos_caja values(null,?,?,?,?,?,?,?,?);";
+    $sql4=$conectar->prepare($sql4);
     $sql4->bindValue(1,$tipo_movimiento);
     $sql4->bindValue(2,$usuario);
     $sql4->bindValue(3,$monto);
@@ -232,6 +226,16 @@ class Caja extends Conectar{
     $sql4->bindValue(7,$sobrante);
     $sql4->bindValue(8,$sucursal);
     $sql4->execute();
+
+    $sql3 = "update caja_chica set saldo=? where sucursal=?;";
+    $sql3 = $conectar->prepare($sql3);
+    $sql3->bindValue(1,$nuevo_saldo);
+    $sql3->bindValue(2,$sucursal);
+    $sql3->execute();
+
+    //print_r($saldo_act);
+
+
     
 
   }

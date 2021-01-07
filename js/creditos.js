@@ -960,8 +960,8 @@ function detalle_productos_flotantes(){
     $('#detalle_productos_orden').html('');
     var filas = "";
     for(var i=0; i<detalle_venta_flotante.length; i++){
-      var filas = filas +"<tr id='fila"+i+"'><td style='text-align:center;width: 25% !important' colspan='25'>"+detalle_venta_flotante[i].cantidad+"</td>"+
-        "<td style='text-align:center;width: 50% !important' colspan='50'>"+detalle_venta_flotante[i].producto+"</td>"+
+      var filas = filas +"<tr id='fila"+i+"'><td style='text-align:center;width: 25% !important' colspan='25'>"+detalle_venta_flotante[i].cantidad+
+      "</td>"+"<td style='text-align:center;width: 50% !important' colspan='50'>"+detalle_venta_flotante[i].producto+"</td>"+
       "<td style='text-align:center;width: 25%' colspan='25'>"+detalle_venta_flotante[i].precio_final+"</td>"+"</tr>";
     }
 
