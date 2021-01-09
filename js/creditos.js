@@ -991,4 +991,30 @@ function aprobar_od_planilla(){
  $("#detalle_oid").modal('hide');
 }
 
+
+function denegar_od_planilla(){
+  let numero_orden = $("#n_orden_des").val();
+
+  bootbox.confirm("¿Está Seguro de denegar esta orden?", function(result){
+    if(result){
+
+  $.ajax({
+    url:"ajax/creditos.php?op=denegar_orden",
+    method:"POST",
+    data:{numero_orden:numero_orden},
+    dataType:"json",
+    success:function(data)
+    {
+      console.log(data);
+      if(data=="ok"){
+        setTimeout ("Swal.fire('La orden ha sido denegada','','warning')", 100);
+      }          //alert(data);
+      $("#data_pacientes").DataTable().ajax.reload();
+    }
+  });
+
+}
+});//bootbox
+
+}
 init();

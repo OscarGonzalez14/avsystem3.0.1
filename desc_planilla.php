@@ -55,6 +55,7 @@ $reporteria = new Reporteria();
  <?php require_once("footer.php"); ?>
  <input type="hidden" id="name_pag" value="MODULO CAJA CHICA">
  <script type="text/javascript" src="js/creditos.js"></script>
+ <script type="text/javascript" src="js/bootbox.min.js"></script>
    <script type="text/javascript">
     var title = document.getElementById("name_pag").value;
     document.getElementById("title_mod").innerHTML=" "+ title;

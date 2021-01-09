@@ -17,10 +17,14 @@
     .obs{
       color: red;
     }
+    .modal-body{
+      max-height: calc(100vh-200px);
+      overflow-y: auto;
+    }
 </style>
 
 <div class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="oid" style="border-radius:0px !important;">
-  <div class="modal-dialog" role="document" id="tamModal_orden_desc">
+  <div class="modal-dialog modal-dialog-scrollable" role="document" id="tamModal_orden_desc">
 
   <div class="modal-content">
   <div class="modal-header" id="head_oid" style="justify-content:space-between">

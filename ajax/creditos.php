@@ -499,5 +499,23 @@ $datos=$creditos->get_paciente_id($_POST["id_paciente"]);
     
     break;
 
+     case "denegar_orden":
+
+    $creditos->denegar_orden($_POST["numero_orden"]);
+    $messages[]="ok";
+  
+    if (isset($messages)){
+     ?>
+       <?php
+         foreach ($messages as $message) {
+             echo json_encode($message);
+           }
+         ?>
+   <?php
+ }
+    //mensaje error
+
+  break;
+
 }//Fin case
  ?>

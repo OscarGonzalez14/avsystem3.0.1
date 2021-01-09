@@ -399,6 +399,15 @@ $correlativo = $ventas->get_numero_venta($sucursal);
     $sql3->execute();
 }
 
+public function denegar_orden($numero_orden){
+    $conectar = parent::conexion();
+    $sql3 = "update orden_credito set estado='2' where numero_orden=?;";
+    $sql3 = $conectar->prepare($sql3);
+    $sql3->bindValue(1,$numero_orden);
+   
+    $sql3->execute();
+    
+}
 }/////FIN CLASS
 
 ?>

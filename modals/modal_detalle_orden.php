@@ -139,7 +139,7 @@
 
 
 <div class="modal-footer justify-content-between" id="btns_orden">
-  <button type="button" class="btn btn-danger" data-dismiss="modal" onClick="aprobar_od_planilla();"><i class="fas fa-thumbs-o-down" aria-hidden="true"></i> DENEGAR</button>
+  <button type="button" class="btn btn-danger" onClick="denegar_od_planilla();"><i class="fas fa-thumbs-o-down" aria-hidden="true"></i> DENEGAR</button>
   <button type="button" class="btn btn-success" onClick="aprobar_od_planilla();"><i class="fas fa-thumbs-o-up" aria-hidden="true"></i> APROBAR</button>
 </div>
 </div><!--Fin Card-->

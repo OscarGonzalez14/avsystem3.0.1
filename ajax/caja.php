@@ -196,9 +196,7 @@ case "listar_requisiciones":
   echo json_encode($data);
 
   break;
-
-  /////////////////APROBAR REQUICISION
-
+  /////////////////   APROBAR REQUICISION  /////////////////
   case 'aprueba_requisicion':
 
   $datos = $caja->valida_existe_requisicion($_POST["n_requisicion"]);
@@ -224,9 +222,8 @@ case "listar_requisiciones":
       if (isset($errors)){
 
    ?>
-
-         <?php
-           foreach ($errors as $error) {
+    <?php
+          foreach ($errors as $error) {
                echo json_encode($error);
              }
            ?>
