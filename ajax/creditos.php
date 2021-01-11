@@ -518,4 +518,5 @@ $datos=$creditos->get_paciente_id($_POST["id_paciente"]);
   break;
 
 }//Fin case
+
  ?>

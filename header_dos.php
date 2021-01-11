@@ -148,7 +148,7 @@
           <?php if ($_SESSION["EnviosLab"]) {
            echo '
           <li class="nav-item">
-            <a href="envios_lab.php" class="nav-link">
+            <a href="laboratorios.php" class="nav-link">
               <i class="fas fa-exchange-alt"></i>
               <p>
                 Envios a Lab.

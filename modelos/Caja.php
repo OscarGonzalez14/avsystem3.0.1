@@ -233,12 +233,7 @@ class Caja extends Conectar{
     $sql3->bindValue(2,$sucursal);
     $sql3->execute();
 
-    //print_r($saldo_act);
-
-
-    
-
-  }
+}
 
 
 public function get_id_caja_chica($sucursal){
@@ -293,6 +288,7 @@ $conectar= parent::conexion();
   }
 
 }
+
 
 //////GET SALDO CAJA CHICA
 public function saldo_caja_chica($sucursal){
