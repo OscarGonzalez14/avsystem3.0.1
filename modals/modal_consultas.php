@@ -45,7 +45,7 @@ body.modal-open {
 
             <div class="col-sm-3">
               <label for="ex3">P. Evaluado&nbsp;&nbsp;&nbsp;<input class="quimica" type="checkbox" name="check_box" id="editar_eval" onClick="habilita_edit_eval();"></label>
-              <input class="form-control" id="p_evaluado" type="text" name="p_evaluado" onkeyup="mayus(this);"readonly>
+              <input class="form-control" id="p_evaluado" type="text" name="p_evaluado" onkeyup="mayus(this);">
             </div>
 
             <div class="col-sm-2">

@@ -285,7 +285,7 @@ $(document).on('click', '.info_pac', function(){
 		$("#codigop").val(data.id_paciente);
 		$("#tel_evaluado").val(data.telefono);
 		$("#p_evaluado").val(data.nombres);
-		$("#p_evaluado").attr('disabled', 'disabled');
+		//$("#p_evaluado").attr('disabled', 'disabled');
         }
 	})
 

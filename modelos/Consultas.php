@@ -354,8 +354,6 @@ public function get_ultima_venta($id_paciente){
 }
 
 public function buscar_venta_consulta($id_paciente,$numero_venta){
-  //$id_paciente = 127;
-  //$numero_venta ="AVME-18";
   $conectar= parent::conexion();
   parent::set_names();
   $sql="select*from detalle_ventas where id_paciente=? and numero_venta=?;";
@@ -365,7 +363,7 @@ public function buscar_venta_consulta($id_paciente,$numero_venta){
   $sql->execute();
   //return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
-  //print_r($_POST);
+
 }
 
 
