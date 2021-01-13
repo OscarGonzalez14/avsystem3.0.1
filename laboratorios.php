@@ -66,17 +66,18 @@ $alerts = new Reporteria();
       <div class="modal-content">      
         <!-- Modal body -->
         <div class="modal-body">
-          <table id="data_consultas_orden" width="100%" style="text-align: center;text-align:center" data-order='[[ 0, "desc" ]]' class="table-hover table-bordered display nowrap">
+          <table id="data_consultas_orden" width="100%" style="text-align: center;text-align:center" class="table-hover table-bordered display nowrap">
           <thead style="color:white;min-height:10px;border-radius: 2px;font-style: normal;font-size: 15px" class="bg-dark">
-          <tr style="min-height:10px;border-radius: 3px;font-style: normal;font-size: 15px">
-            <td style="text-align:center;width: 15%">Fecha Consulta</td>
-            <td style="text-align:center;width: 25%">Titular</td>
+          <tr style="min-height:10px;border-radius: 3px;font-style: normal;font-size: 12px">
+            <td style="text-align:center;width: 5%">ID</td>
+            <td style="text-align:center;width: 20%">Titular</td>
             <td style="text-align:center;width: 25%">Evaluado</td>
             <td style="text-align:center;width: 25%">Empresa</td>
-            <td style="text-align:center;width: 10%">Agregar</td>
+            <td style="text-align:center;width: 15%">Fecha Consulta</td>
+            <td style="text-align:center;width: 10%">Acciones</td>
          </tr>
         </thead>
-        <tbody style="text-align:center;color: black">                                        
+        <tbody style="font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;">                                        
         </tbody>
       </table>
         </div>
@@ -93,6 +94,7 @@ $alerts = new Reporteria();
 </div>
 
  <script type="text/javascript" src="js/laboratorios.js"></script>
+ <script type="text/javascript" src="js/consultas.js"></script>
    <script type="text/javascript">
     var title = document.getElementById("name_pag").value;
     document.getElementById("title_mod").innerHTML=" "+ title;
