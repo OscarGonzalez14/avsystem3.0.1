@@ -319,9 +319,8 @@ $correlativo = $ventas->get_numero_venta($sucursal);
     $sql->bindValue(9,$id_usuario);
     $sql->bindValue(10,$id_paciente);
     $sql->bindValue(11,$beneficiario);
-     // $sql->bindValue(12,$precio_compra);
+    // $sql->bindValue(12,$precio_compra);
     $sql->execute();
-
  }
 
 //////////////GET NUMERO VENTA
@@ -408,6 +407,7 @@ public function denegar_orden($numero_orden){
     $sql3->execute();
     
 }
+
 }/////FIN CLASS
 
 ?>

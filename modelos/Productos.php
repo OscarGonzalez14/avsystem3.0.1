@@ -260,6 +260,14 @@ public function show_datos_aros($id_producto){
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
   }
+public function show_datos_producto_id($id_producto){
+    $conectar= parent::conexion();
+    $sql="select*from productos where id_producto=?;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $id_producto);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+  }
 
 //////FUNCION EDITAR PRODUCTO
 public function editar_aro($marca_aros,$modelo_aro,$color_aro,$medidas_aro,$diseno_aro,$materiales_aro,$cat_venta_aros,$categoria_producto,$id_producto){
@@ -322,12 +330,11 @@ public function eliminar_accesorio($id_producto){
     $sql->execute();
     return $resultado=$sql->fetch(PDO::FETCH_ASSOC);
   }
-/////////////////get producto para traslados
+///////////////// 
 public function get_productos_traslados($sucursal){
   $conectar=parent::conexion();
   parent::set_names();
-  $sql="select p.desc_producto,e.id_producto,e.bodega,e.categoria_ub from productos as p inner join existencias as e on p.id_producto=e.id_producto where e.bodega=? and e.stock>0;
-";
+  $sql="select p.desc_producto,e.id_producto,e.bodega,e.categoria_ub from productos as p inner join existencias as e on p.id_producto=e.id_producto where e.bodega=? and e.stock>0;";
 
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1, $sucursal);

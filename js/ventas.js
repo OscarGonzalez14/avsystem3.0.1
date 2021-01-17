@@ -242,7 +242,7 @@ function setDescuento(event, obj, idx){
       Swal.fire('Error!, Ha excedido el limite de descuento autorizado','','error')
       document.getElementById("descuento"+idx).value="";
       document.getElementById("descuento"+idx).style.border='solid 1px red';
-     }else if(desc_n<=50){
+     }else if(desc_n<=200){
     detalles[idx].descuento = parseFloat(obj.value);
     document.getElementById("descuento"+idx).style.border='solid 1px green';
     recalcular(idx);

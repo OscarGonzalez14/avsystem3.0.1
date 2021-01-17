@@ -46,7 +46,7 @@
 
   <div class="modal-content">
   <div class="modal-header bg-info" id="head_oid" style="justify-content:space-between">
-    <span><i class="far fa-file-alt"></i> ORDEN DE LABORATORIO</span><span id="correlativo_orden"></span>
+    <span><i class="far fa-file-alt"></i> ORDEN DE LABORATORIO</span>&nbsp;&nbsp;<span id="correlativo_orden"></span>
     <button type="button" class="close" data-dismiss="modal" style="color:white">&times;</button>
   </div>
     <div class="modal-body">
@@ -56,25 +56,18 @@
     <strong><h1>DATOS GENERALES</h1></strong>
   <div class="form-row align-items-center row" style="margin: 4px">
 
-    <div class="form-group col-sm-2">
-      <label for="inputPassword4">Tipo Venta</label>
-      <select class="form-control" id="tipo_venta_orden" required>
-        <option value="">Seleccionar Tipo Venta...</option>
-        <option value="Contado">Contado</option>
-        <option value="Descuento en Planilla">Descuento en Planilla</option>
-        <option value="Cargo Automatico">Cargo Automatico</option>
-      </select>
-    </div>
+    
 
-    <div class="form-group col-sm-2">
-      <label for="inputPassword4">Sucursal</label>
-      <select class="form-control" id="sucursal_orden" required>
-        <option value="">Seleccionar sucursal...</option>
-        <option value="Metrocentro">Metrocentro</option>
-        <option value="Arce">Arce</option>
-        <option value="Santa Ana">Santa Ana</option>
-        <option value="San Miguel">San Miguel</option>
-     </select>
+
+
+    <div class="form-group col-sm-5">
+      <label for="inlineFormInputGroup">Paciente</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="paciente_orden" placeholder="Buscar Paciente --> " readonly>
+          <div class="input-group-prepend" onClick="get_data_orden();">
+            <div class="input-group-text"><i class="fas fa-search" style="color: blue"></i></div>
+          </div>
+      </div>
     </div>
 
     <div class="form-group col-sm-3">
@@ -88,22 +81,15 @@
     </select>
     </div>
 
-    <div class="form-group col-sm-5">
-      <label for="inlineFormInputGroup">Paciente</label>
-      <div class="input-group">
-        <input type="text" class="form-control" id="paciente_orden" placeholder="Buscar Paciente --> ">
-          <div class="input-group-prepend" onClick="get_data_orden();">
-            <div class="input-group-text"><i class="fas fa-search" style="color: blue"></i></div>
-          </div>
-      </div>
-    </div>
     <input type="hidden" id="id_pac_orden">
-
+    <input type="hidden" id="id_consulta_orden">
 </div>
 </div><!--fin eigth #1-->
 
 <div class="eight">
-  <strong><h1 style="color: #034f84">GRADUACIÓN</h1></strong>
+  <strong><h1 style="color: #034f84">GRADUACIÓN Y MEDIDAS</h1></strong>
+  <div class="row">
+  <div class="col-sm-6">
   <table style="margin:0px;width:100%">
     <thead class="thead-light" style="color: black;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;background: #f8f8f8">
       <tr>
@@ -132,7 +118,35 @@
         <td> <input type="text" class="form-control"  id="oiadicionf_orden" readonly="" style="text-align: center"></td>
         <td> <input type="text" class="form-control"  id="oiprismaf_orden" readonly="" style="text-align: center"></td>     
       </tr>
+     </tbody>
   </table>
+  </div>
+
+  <div class="col-sm-6" style="margin-left: 0px">
+      <table width="100%">
+      <thead class="thead-light" style="color: black;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;background: #f8f8f8">
+        <th colspan="5" style="width: 5%"></th>
+        <th colspan="5" style="width: 5%;text-align: center">DIP</th>
+        <th colspan="5" style="width: 5%;text-align: center">AP</th>
+        <th colspan="5" style="width: 5%;text-align: center">AO</th>
+      </thead>
+      <tr>
+        <td colspan="5" style="text-align:right;">OD</td>
+        <td colspan="5"><input style="text-align: center" readonly id="dip_od" class="form-control"></td>
+        <td colspan="5"><input style="text-align: center" readonly id="ap_od" class="form-control"></td>
+        <td colspan="5"><input style="text-align: center" readonly id="ao_od" class="form-control"></td>
+      </tr>
+      <tr>
+        <td colspan="5" style="text-align:right;">OI</td>
+        <td colspan="5"><input style="text-align: center" readonly id="dip_oi" class="form-control"></td>
+        <td colspan="5"><input style="text-align: center" readonly id="ap_oi" class="form-control"></td>
+        <td colspan="5"><input style="text-align: center" readonly id="ao_oi" class="form-control"></td>
+      </tr>
+    </table>
+  </div>
+
+</div>
+
 </div>
 
 <div class="eight">
@@ -151,73 +165,35 @@
     <div class="form-group col-sm-7">
       <div class="input-group">
         <div class="input-group-prepend">
-          <div class="input-group-text">TRATAMIENTO</i></div>
+          <div class="input-group-text">TRATAMIENTOS</i></div>
         </div>
         <input type="text" class="form-control" id="tratamiento_orden">
       </div>
     </div>
   </div>
-
-
 </div>
-
-<div class="eight">
-  <h1>MEDIDAS</h1>
-    <table width="100%">
-      <thead>
-        <th colspan="20" style="width: 20%"></th>
-        <th colspan="20" style="width: 20%"></th>
-        <th colspan="5" style="width: 5%"></th>
-        <th colspan="5" style="width: 5%;text-align: center">DIP</th>
-        <th colspan="5" style="width: 5%;text-align: center">AP</th>
-        <th colspan="5" style="width: 5%;text-align: center">AO</th>
-        <th colspan="20" style="width: 20%"></th>
-        <th colspan="20" style="width: 20%"></th>
-      </thead>
-      <tr>
-        <td colspan="20"></td>
-        <td colspan="20"></td>
-        <td colspan="5" style="border-bottom: solid 2px black;text-align:center">OD</td>
-        <td colspan="5" style="border-bottom: solid 2px black;border-left: solid 1px black;text-align:center"><span id="dip_od"></span></td>
-        <td colspan="5" style="border-bottom: solid 2px black;border-left: solid 1px black;text-align:center"><span id="ap_od"></span></td>
-        <td colspan="5" style="border-bottom: solid 2px black;border-left: solid 1px black;text-align:center"><span id="ao_od"></span></td>
-        <td colspan="20"></td>
-        <td colspan="20"></td>
-      </tr>
-      <tr>
-        <td colspan="20"></td>
-        <td colspan="20"></td>
-        <td colspan="5" style="text-align:center">OI</td>
-        <td colspan="5" style="border-left: solid 1px black;text-align:center"><span id="dip_oi"></span></td>
-        <td colspan="5" style="border-left: solid 1px black;text-align:center"><span id="ap_oi"></span></td>
-        <td colspan="5" style="border-left: solid 1px black;text-align:center"><span id="ao_oi"></span></td>
-        <td colspan="20"></td>
-        <td colspan="20"></td>
-      </tr>
-    </table><br>
-</div>  
 
 <div class="eight">
   <h1>ARO</h1>
   <div class="form-row align-items-center row" style="margin: 4px">
     <div class="form-group col-sm-3">
       <label for="">Modelo</label>
-      <input type="text" class="form-control" id="modelo_aro_orden">
+      <input type="text" class="form-control" id="modelo_aro_orden" readonly="">
     </div>
 
     <div class="form-group col-sm-3">
       <label for="">Marca</label>
-      <input type="text" class="form-control" id="marca_aro_orden">
+      <input type="text" class="form-control" id="marca_aro_orden" readonly="">
     </div>
 
       <div class="form-group col-sm-3">
       <label for="">Color</label>
-      <input type="text" class="form-control" id="color_aro_orden">
+      <input type="text" class="form-control" id="color_aro_orden" readonly="">
     </div>
 
     <div class="form-group col-sm-3">
       <label for="">Diseño</label>
-      <input type="text" class="form-control" id="diseno_aro_orden">
+      <input type="text" class="form-control" id="diseno_aro_orden" readonly="">
     </div>
   </div>
 
@@ -232,10 +208,10 @@
     </thead>
     <tbody>
       <tr>
-        <td colspan="25" style="width: 25%"> <input type="text" class="form-control" placeholder="---" name="odesferasf" id="horizontal"></td>
-        <td colspan="25" style="width: 25%"> <input type="text" class="form-control" placeholder="---" name="odcilindrosf" id="diagonal"></td>
-        <td colspan="25" style="width: 25%"> <input type="text" class="form-control" placeholder="---" name="odejesf" id="vertical"></td>     
-        <td colspan="25" style="width: 25%"> <input type="text" class="form-control" placeholder="---" name="oddicionf" id="puente"></td>                
+        <td colspan="25" style="width: 25%"> <input type="text" class="form-control" placeholder="---" id="med_a" onClick="get_correlativo_orden();"></td>
+        <td colspan="25" style="width: 25%"> <input type="text" class="form-control" placeholder="---" id="med_b" onClick="get_correlativo_orden();"></td>
+        <td colspan="25" style="width: 25%"> <input type="text" class="form-control" placeholder="---" id="med_c" onClick="get_correlativo_orden();"></td>     
+        <td colspan="25" style="width: 25%"> <input type="text" class="form-control" placeholder="---" id="med_d" onClick="get_correlativo_orden();"></td>                
       </tr>
   </table>
 
@@ -245,15 +221,12 @@
   </div>
 
 </div>
-<button type="button" class="btn btn-primary btn-block btn-flat">CREAR ORDEN</button>
+<button type="button" class="btn btn-primary btn-block btn-flat" onClick="registrarEnvio();">CREAR ORDEN</button>
 </div><!--Fin Card-->
 </div>
   </div><!-- /.card-body -->  
   </div><!--Fin modal Content-->
 </div>
-
-
-
 
 <script type="text/javascript" src="js/cleave.js"></script>
 <script>
