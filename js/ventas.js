@@ -638,6 +638,8 @@ function guardar_oid(){
     return false;
   }
 }
+
+
 $(document).on('keyup', '#tel_ref2', function(){
   get_correlativo_orden();
 });

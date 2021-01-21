@@ -389,6 +389,33 @@ function listado_general_envios(){
   }).DataTable();
 }
 
+function acciones_envios_lab(id_paciente,numero_orden,evaluado,estado,laboratorio){
+	console.log(`id paciente ${id_paciente} numero_orden: ${numero_orden} evaluado: ${evaluado} estado ${estado} laboratorio ${laboratorio}`)
+	if (estado==0) {
+		let tipo_accion = "Envio a Laboratorio";
+        let sucursal = $("#sucursal").val();
+        let id_usuario	= $("#id_usuario").val();
+        bootbox.confirm("Confirmar envio a laboratorios "+laboratorio+", la orden de: "+evaluado, function(result){
+            if(result){
+             // console.log("Holaaaaaa");
+              $.ajax({
+                url:"ajax/ordenes.php?op=registrar_envio_lab",
+                method:"POST",
+                data:{id_paciente:id_paciente,numero_orden:numero_orden,evaluado:evaluado,estado:estado,laboratorio:laboratorio,tipo_accion:tipo_accion,sucursal:sucursal,id_usuario:id_usuario},
+                dataType:"json",
+                success:function(data){
+                console.log(data);//return false;
+                $('#data_envios_lab').DataTable().ajax.reload();       
+        
+                }
+             })
+            }///fin result
+        });//bootbox
+	}
+
+
+}
+
 init();
 
 

@@ -12,7 +12,13 @@ date_default_timezone_set('America/El_Salvador');$fecha = date("d-m-Y");
 $fecha_imp = date("d-m-Y H:i:s a");
 $reporteria=new Reporteria();
 
-$sucursal = $_POST["sucursal_user"];
+if ($categoria == "administrador") {
+  $sucursal = $_SESSION["sucursal"];
+}else{
+  $sucursal = $_SESSION["sucursal_usuario"];
+}
+
+//$sucursal = $_POST["sucursal_user"];
 $usuario = $_POST["usuario"];
 $fecha =  date("d-m-Y",strtotime($_POST["fecha_corte"]));
 

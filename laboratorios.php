@@ -105,7 +105,8 @@ $alerts = new Reporteria();
 
  <script type="text/javascript" src="js/laboratorios.js"></script>
  <script type="text/javascript" src="js/consultas.js"></script>
-   <script type="text/javascript">
+ <script type="text/javascript" src="js/bootbox.min.js"></script>
+ <script type="text/javascript">
     var title = document.getElementById("name_pag").value;
     document.getElementById("title_mod").innerHTML=" "+ title;
   </script>

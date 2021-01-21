@@ -22,7 +22,7 @@ return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
 public function get_productos_ingresar_bodega($id_producto,$numero_compra){
-$conectar= parent::conexion();         
+$conectar = parent::conexion();         
 $sql= "select*from detalle_compras where id_producto=? and numero_compra=? and cant_ingreso>0;";
 $sql=$conectar->prepare($sql);
 $sql->bindValue(1,$id_producto);
