@@ -1,7 +1,8 @@
 
 function init(){
 	get_correlativo_orden();
-	listado_general_envios();	
+	listado_general_envios();
+	document.getElementById("btn_recibir_lab").style.display = "none";	
 }
 //GET DATA NUEVA ORDEN
 
@@ -388,13 +389,14 @@ function listado_general_envios(){
 
   }).DataTable();
 }
+////////////// ACCIONES ORDENES DE LABORATORIOS //////////////////////////
 
 function acciones_envios_lab(id_paciente,numero_orden,evaluado,estado,laboratorio){
 	console.log(`id paciente ${id_paciente} numero_orden: ${numero_orden} evaluado: ${evaluado} estado ${estado} laboratorio ${laboratorio}`)
-	if (estado==0) {
-		let tipo_accion = "Envio a Laboratorio";
-        let sucursal = $("#sucursal").val();
-        let id_usuario	= $("#id_usuario").val();
+	let tipo_accion = "Envio a Laboratorio";
+    let sucursal = $("#sucursal").val();
+    let id_usuario	= $("#id_usuario").val();
+	if (estado==0) {		
         bootbox.confirm("Confirmar envio a laboratorios "+laboratorio+", la orden de: "+evaluado, function(result){
             if(result){
              // console.log("Holaaaaaa");
@@ -411,18 +413,60 @@ function acciones_envios_lab(id_paciente,numero_orden,evaluado,estado,laboratori
              })
             }///fin result
         });//bootbox
+	}else if(estado == 1){
+		////////////LANZAR VENTANA DE CONTROL DE CALIDAD
 	}
 
 
 }
+var items_envios = [];
 
+$(document).on('click', '.send_orden', function(){
+  console.log("hola Mundo");
+  var id_pac = $(this).attr("value");
+  var orden = $(this).attr("name");
+  let id_item = $(this).attr("id");
+
+  var checkbox = document.getElementById(id_item);
+  let check_state = checkbox.checked;
+  console.log(check_state);
+
+  if (check_state == true) {
+  	    let obj = {
+       	id_paciente : id_pac,
+       	numero_orden : orden
+       }
+       items_envios.push(obj);
+  }else if(check_state == false){
+	let index = items_envios.findIndex(x => x.numero_orden==orden)
+	console.log(index)
+	items_envios.splice(index, 1)
+  }
+  
+});
+
+function send_orden_lab(){
+   let  tipo_accion = "Envio a laboratorio";
+   let  id_usuario = $("#id_usuario").val();
+   let  sucursal = $("#sucursal").val();
+
+   $.ajax({
+   	url:"ajax/ordenes.php?op=registrar_envio_lab",
+    method:"POST",
+    data:{'arrayEnvio':JSON.stringify(items_envios),'tipo_accion':tipo_accion,'id_usuario':id_usuario,'sucursal':sucursal},
+    cache: false,
+    dataType:"json",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+      },
+      success:function(data){
+      console.log(data)
+       $('#data_envios_lab').DataTable().ajax.reload();
+      }     
+ 
+  });
+
+}
 init();
-
-
-
-
-
-
-
-
-

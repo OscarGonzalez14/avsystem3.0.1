@@ -33,32 +33,56 @@ $alerts = new Reporteria();
 
                 <a class="btn btn-app">
                   <span class="badge bg-warning">3</span>
-                  <i class="fas fa-history"></i> PENDIENTES DE ENVIO
+                  <i class="fas fa-history"></i> PENDIENTES
+                </a>
+
+                <a class="btn btn-app">
+                  <span class="badge bg-info">3</span>
+                  <i class="fas fa-share"></i> ENVIADOS
+                </a>
+
+                <a class="btn btn-app">
+                  <span class="badge bg-success">3</span>
+                  <i class="fas fa-file-import"></i> RECIBIDOS
                 </a>
 
                 <a class="btn btn-app">
                   <span class="badge bg-danger">3</span>
-                  <i class="fas fa-times-circle"></i> RETRASOS DE LABORATORIO
+                  <i class="far fa-frown"></i> RETRASOS
                 </a>
 
-                </div>
+                <a class="btn btn-app">
+                  <span class="badge bg-primary">3</span>
+                  <i class="far fa-thumbs-up"></i> ENTREGADOS
+                </a>
 
+            </div>
+    <section>
     <table id="data_envios_lab" width="100%" style="text-align: center;text-align:center" data-order='[[ 0, "desc" ]]' class="table-hover table-bordered display nowrap">
       <thead style="color:black;min-height:10px;border-radius: 2px;font-style: normal;font-size: 15px" class="bg-info">
           <tr style="min-height:10px;border-radius: 3px;font-style: normal;font-size: 15px">
             <td style="text-align:center;width: 5%">ID</td>
-            <td style="text-align:center;width: 10%">#Orden</td>
-            <td style="text-align:center;width: 25%">Paciente</td>
+            <td style="text-align:center;width: 10%"></td>
+            <td style="text-align:center;width: 10%">Paciente</td>
+            <td style="text-align:center;width: 25%">#Orden</td>
             <td style="text-align:center;width: 15%">Creación</td>
             <td style="text-align:center;width: 15%">Usuario</td>
             <td style="text-align:center;width: 10%">Estado</td>
             <td style="text-align:center;width: 10%">Detalles</td>
-            <td style="text-align:center;width: 10%">Acciones</td>
+            <!--<td style="text-align:center;width: 10%">Acciones</td>-->
          </tr>
         </thead>
-        <tbody style="text-align:center;color: black">                                        
+        <tbody style="text-align:center;color: black;">                                        
         </tbody>
+        <!--<tfoot>
+          <tr>
+            <td colspan="100">Hola</td>
+          </tr>
+        </tfoot>-->
       </table>
+    </section>
+       <button type="button" class="btn btn-outline-dark btn-block send_orden" onClick="send_orden_lab();"><i class="fas fa-share-square"></i> ENVIAR LABORATORIO</button>
+     <button type="button" class="btn btn-outline-primary btn-block send_orden" onClick="send_orden_lab();" id="btn_recibir_lab"><i class="fas fa-share-square"></i> RECIBIR</button>
     </div>
     </div>
           <input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>"/>

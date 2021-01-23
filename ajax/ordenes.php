@@ -155,6 +155,7 @@ switch($_GET["op"]){
        $datos = $ordenes->listar_ordenes($_POST["sucursal"]);
 
        $data = Array();
+       $i=0;
        foreach ($datos as $row) {
 
           if ($row["estado"]==0) {
@@ -169,14 +170,16 @@ switch($_GET["op"]){
 
           $sub_array = array();
           $sub_array[] = $row["id_envio"];
-          $sub_array[] = $row["numero_orden"];
+          $sub_array[] = '<input type="checkbox" class="form-check-input send_orden" value="'.$row["id_paciente"].'" name="'.$row["numero_orden"].'" id="send_lab'.$i.'">Enviar';          
           $sub_array[] = $row["evaluado"];
+          $sub_array[] = $row["numero_orden"];
           $sub_array[] = $row["fecha_creacion"];
           $sub_array[] = ucfirst($row["usuario"]);
           $sub_array[] = '<span class="right badge badge-'.$badge.'"><i class=" fas '.$icon.'" style="color:'.$badge.'"></i><span> '.$estado.'</span>';
           $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm"><i class="fas fa-eye" aria-hidden="true" style="color:blue"></i></button>';
-           $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="acciones_envios_lab('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\',\''.$row["estado"].'\',\''.$row["laboratorio"].'\')"><i class="fas fa-cog" aria-hidden="true" style="color:black"></i></button>';
+          //$sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="acciones_envios_lab('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\',\''.$row["estado"].'\',\''.$row["laboratorio"].'\')"><i class="fas fa-cog" aria-hidden="true" style="color:black"></i></button>';
         $data[] = $sub_array;
+        $i++;
        }
       // $data[] = $sub_array;
       $results = array(
@@ -188,18 +191,18 @@ switch($_GET["op"]){
        break;
      
       case 'registrar_envio_lab':
-         $ordenes->enviar_orden_lab($_POST["id_paciente"],$_POST["numero_orden"],$_POST["evaluado"],$_POST["estado"],$_POST["laboratorio"],$_POST["tipo_accion"],$_POST["sucursal"],$_POST["id_usuario"]);
-      $messages[]="ok";
+         $ordenes->enviar_orden_lab();
+         $messages[]="ok";
 
-    if (isset($messages)){
-     ?>
+      if (isset($messages)){
+      ?>
        <?php
          foreach ($messages as $message) {
              echo json_encode($message);
            }
          ?>
-   <?php
- }
+      <?php
+    }
 
       break;
 }

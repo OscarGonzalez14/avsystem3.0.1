@@ -95,24 +95,58 @@ public function registrar_orden($paciente_orden,$laboratorio_orden,$id_pac_orden
 /////////////DATATABLE ORDENES
 public function listar_ordenes($sucursal){
     $conectar = parent::conexion();
-    $sql = "select e.id_envio,e.numero_orden,e.laboratorio,e.evaluado,e.fecha_creacion,u.usuario,e.estado,id_paciente,e.sucursal from envios_lab as e inner join usuarios as u on e.id_usuario=u.id_usuario where e.sucursal=?;";
+    $sql = "select e.id_envio,e.numero_orden,e.laboratorio,e.evaluado,e.fecha_creacion,u.usuario,e.estado,id_paciente,e.sucursal from envios_lab as e inner join usuarios as u on e.id_usuario=u.id_usuario where e.sucursal=? and e.estado='0';";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1,$sucursal);
+    $sql->execute();    
+    return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+   ####ordenes Enviadas
+public function listar_ordenes_enviadas($sucursal){
+    $conectar = parent::conexion();
+    $sql = "select e.id_envio,e.numero_orden,e.laboratorio,e.evaluado,e.fecha_creacion,u.usuario,e.estado,id_paciente,e.sucursal from envios_lab as e inner join usuarios as u on e.id_usuario=u.id_usuario where e.sucursal=? and e.estado='0';";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1,$sucursal);
     $sql->execute();    
     return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
-
-public function enviar_orden_lab($id_paciente,$numero_orden,$evaluado,$estado,$laboratorio,$tipo_accion,$sucursal,$id_usuario){
+public function enviar_orden_lab(){
 
 $conectar = parent::conexion();
+parent::set_names();
 ////UPDATE ESTADO DE ORDEN
-$sql1="update envios_lab set estado='1' where numero_orden=? and id_paciente=? and evaluado=?;";
-$sql1=$conectar->prepare($sql1);          
-$sql1->bindValue(1,$numero_orden);
-$sql1->bindValue(2,$id_paciente);
-$sql1->bindValue(3,$evaluado);
-$sql1->execute();
+$detalles_envio = array();
+$detalles_envio = json_decode($_POST["arrayEnvio"]);
+$tipo_accion = $_POST["tipo_accion"];
+$id_usuario = $_POST["id_usuario"];
+$sucursal = $_POST["sucursal"];
+
+foreach($detalles_envio as $k => $v){
+    $id_paciente = $v->id_paciente;
+    $numero_orden = $v->numero_orden;
+
+//////////////GET DETALLES DE LA ORDEN/////////////
+   $sql3 = "select*from envios_lab where id_paciente=? and numero_orden=?";
+   $sql3=$conectar->prepare($sql3);
+   $sql3->bindValue(1,$id_paciente);
+   $sql3->bindValue(2,$numero_orden);
+   $sql3->execute();
+   $resultados = $sql3->fetchAll(PDO::FETCH_ASSOC);
+   
+   foreach ($resultados as $row) {
+       $evaluado = $row["evaluado"];
+       $laboratorio = $row["laboratorio"];
+   }
+
+   $sql1="update envios_lab set estado='1' where numero_orden=? and id_paciente=? and evaluado=?;";
+    $sql1=$conectar->prepare($sql1);          
+    $sql1->bindValue(1,$numero_orden);
+    $sql1->bindValue(2,$id_paciente);
+    $sql1->bindValue(3,$evaluado);
+    $sql1->execute();
+
+
 ///////INSERT INTO ACCIONES LAB
 date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
 $sql="insert into acciones_ordenes_lab values(null,?,?,?,?,?,?,?,?);";
@@ -126,6 +160,8 @@ $sql->bindValue(6,$id_paciente);
 $sql->bindValue(7,$evaluado);
 $sql->bindValue(8,$sucursal);
 $sql->execute();
+
+}//Fin Foreach
 }
 
 
