@@ -271,14 +271,16 @@ function registrarEnvio(){
     let  fecha = $("#fecha").val();
     let  sucursal = $("#sucursal").val();
     let  numero_orden = $("#correlativo_orden").html();
-    if(paciente_orden !="" && laboratorio_orden !=""){
+    let  prioridad_orden = $("#prioridad_orden").val();
+
+    if(paciente_orden !="" && laboratorio_orden !="" && prioridad_orden !=""){
     $.ajax({
  	   url: "ajax/ordenes.php?op=registrarEnvio",
  	   method: "POST",
  	   data: {paciente_orden:paciente_orden,laboratorio_orden:laboratorio_orden,id_pac_orden:id_pac_orden,id_consulta_orden:id_consulta_orden,
  	   lente_orden:lente_orden,tratamiento_orden:tratamiento_orden,modelo_aro_orden:modelo_aro_orden,marca_aro_orden:marca_aro_orden,
  	   color_aro_orden:color_aro_orden,diseno_aro_orden:diseno_aro_orden,med_a:med_a,med_b:med_b,med_c:med_c,med_d:med_d,observaciones_orden:observaciones_orden,
- 	   id_usuario:id_usuario,fecha:fecha,sucursal:sucursal,numero_orden:numero_orden},
+ 	   id_usuario:id_usuario,fecha:fecha,sucursal:sucursal,numero_orden:numero_orden,prioridad_orden:prioridad_orden},
  	   cache:false,
  	   dataType: "json",
  	   success:function(data){
@@ -286,6 +288,7 @@ function registrarEnvio(){
  	   if (data == "ok") {
  	   	Swal.fire('Envio a laboratorio registrado exitosamente!','','success');
  	   	$("#nueva_orden_lab").modal('hide');
+ 	   	$('#data_envios_lab').DataTable().ajax.reload();
  	   }else{
  	   	Swal.fire('Correlativo ya Existe,  actualizar navegador!','','error');
  	   }
@@ -314,6 +317,10 @@ function get_correlativo_orden(){
 
 ////////////////////LISTADO GENERAL DE ENVIOS A LABORATORIO
 function listado_general_envios(){
+	document.getElementById("btn_recibir_lab").style.display = "none";
+    document.getElementById("btn_enviar_lab").style.display = "block";
+    document.getElementById("fecha_ord").innerHTML = "Fecha Creación";
+    document.getElementById("dias_orden").innerHTML = "Dias transcurridos";
   var sucursal = $("#sucursal").val();
   tabla_envios_gral=$('#data_envios_lab').dataTable(
   {
@@ -329,6 +336,89 @@ function listado_general_envios(){
           type : "post",
           dataType : "json",
           data:{sucursal:sucursal},
+          error: function(e){
+            console.log(e.responseText);
+          }
+        },
+    "bDestroy": true,
+    "responsive": true,
+    "bInfo":true,
+    "iDisplayLength": 25,//Por cada 10 registros hace una paginación
+      "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+
+      "language": {
+
+          "sProcessing":     "Procesando...",
+
+          "sLengthMenu":     "Mostrar _MENU_ registros",
+
+          "sZeroRecords":    "No se encontraron resultados",
+
+          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+
+          "sInfo":           "Mostrando un total de _TOTAL_ registros",
+
+          "sInfoEmpty":      "Mostrando un total de 0 registros",
+
+          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+
+          "sInfoPostFix":    "",
+
+          "sSearch":         "Buscar:",
+
+          "sUrl":            "",
+
+          "sInfoThousands":  ",",
+
+          "sLoadingRecords": "Cargando...",
+
+          "oPaginate": {
+
+              "sFirst":    "Primero",
+
+              "sLast":     "Último",
+
+              "sNext":     "Siguiente",
+
+              "sPrevious": "Anterior"
+
+          },
+
+          "oAria": {
+
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+
+          }
+
+         }//cerrando language
+
+  }).DataTable();
+}
+
+////////////////////LISTADO ORDENES ENVIADAS
+function listado_ordenes_enviadas(){
+  document.getElementById("btn_recibir_lab").style.display = "block";
+  document.getElementById("btn_enviar_lab").style.display = "none";
+  document.getElementById("fecha_ord").innerHTML = "Fecha Envío";
+  document.getElementById("dias_orden").innerHTML = "Dias transcurridos";
+  var sucursal = $("#sucursal").val();
+  let peticion = "envios";
+  tabla_envios_gral=$('#data_envios_lab').dataTable(
+  {
+    "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+            buttons: [
+                'excelHtml5'
+            ],
+    "ajax":
+        {
+          url: 'ajax/ordenes.php?op=listar_ordenes_enviadas',
+          type : "post",
+          dataType : "json",
+          data:{sucursal:sucursal,peticion:peticion},
           error: function(e){
             console.log(e.responseText);
           }

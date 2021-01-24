@@ -31,12 +31,12 @@ $alerts = new Reporteria();
                   <i class="fas fa-plus" style="color:#008080"></i> CREAR ORDEN
                 </a>
 
-                <a class="btn btn-app">
+                <a class="btn btn-app" onClick="listado_general_envios();">
                   <span class="badge bg-warning">3</span>
                   <i class="fas fa-history"></i> PENDIENTES
                 </a>
 
-                <a class="btn btn-app">
+                <a class="btn btn-app" onClick="listado_ordenes_enviadas();">
                   <span class="badge bg-info">3</span>
                   <i class="fas fa-share"></i> ENVIADOS
                 </a>
@@ -65,8 +65,8 @@ $alerts = new Reporteria();
             <td style="text-align:center;width: 10%"></td>
             <td style="text-align:center;width: 10%">Paciente</td>
             <td style="text-align:center;width: 25%">#Orden</td>
-            <td style="text-align:center;width: 15%">Creación</td>
-            <td style="text-align:center;width: 15%">Usuario</td>
+            <td style="text-align:center;width: 15%"><span id="fecha_ord">Creación</span></td>
+            <td style="text-align:center;width: 15%"><span id="dias_orden">Dias transcurridos</span></td>
             <td style="text-align:center;width: 10%">Estado</td>
             <td style="text-align:center;width: 10%">Detalles</td>
             <!--<td style="text-align:center;width: 10%">Acciones</td>-->
@@ -81,8 +81,8 @@ $alerts = new Reporteria();
         </tfoot>-->
       </table>
     </section>
-       <button type="button" class="btn btn-outline-dark btn-block send_orden" onClick="send_orden_lab();"><i class="fas fa-share-square"></i> ENVIAR LABORATORIO</button>
-     <button type="button" class="btn btn-outline-primary btn-block send_orden" onClick="send_orden_lab();" id="btn_recibir_lab"><i class="fas fa-share-square"></i> RECIBIR</button>
+       <button type="button" class="btn btn-outline-dark btn-block send_orden" onClick="send_orden_lab();" id="btn_enviar_lab"><i class="fas fa-share-square"></i> ENVIAR LABORATORIO</button>
+     <button type="button" class="btn btn-outline-primary btn-block send_orden" id="btn_recibir_lab"><i class="fas fa-share-square"></i> RECIBIR</button>
     </div>
     </div>
           <input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>"/>
@@ -113,9 +113,8 @@ $alerts = new Reporteria();
         </thead>
         <tbody style="font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;">                                        
         </tbody>
-      </table>
-        </div>
-        
+        </table>
+        </div>        
         <!-- Modal footer -->
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>

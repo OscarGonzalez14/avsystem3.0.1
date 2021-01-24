@@ -54,9 +54,7 @@
 
 <div class="eight" style="">
     <strong><h1>DATOS GENERALES</h1></strong>
-  <div class="form-row align-items-center row" style="margin: 4px">
-
-    
+  <div class="form-row align-items-center row" style="margin: 4px"> 
 
 
 
@@ -78,6 +76,17 @@
         <option value="Lenti">Lenti</option>
         <option value="Opti Procesos">Opti Procesos</option>
         <option value="PrismaLab">PrismaLab</option>
+    </select>
+    </div>
+
+    <div class="form-group col-sm-4">
+      <label for="inputPassword4">Proridad</label>
+      <select class="form-control" id="prioridad_orden" required>
+        <option value="">Seleccionar Prioridad...</option>
+        <option value="5">5 dia (Urgente)</option>
+        <option value="3">3 dias (Intermedio)</option>
+        <option value="2">2 dias (Intermedio)</option>
+        <option value="1">1 dias(Normal)</option>
     </select>
     </div>
 

@@ -123,7 +123,7 @@ switch($_GET["op"]){
   case 'registrarEnvio':
       $datos = $ordenes->buscar_existe_orden($_POST["numero_orden"]);
       if(is_array($datos)==true and count($datos)==0){
-      $ordenes->registrar_orden($_POST["paciente_orden"],$_POST["laboratorio_orden"],$_POST["id_pac_orden"],$_POST["id_consulta_orden"],$_POST["lente_orden"],$_POST["tratamiento_orden"],$_POST["modelo_aro_orden"],$_POST["marca_aro_orden"],$_POST["color_aro_orden"],$_POST["diseno_aro_orden"],$_POST["med_a"],$_POST["med_b"],$_POST["med_c"],$_POST["med_d"],$_POST["observaciones_orden"],$_POST["id_usuario"],$_POST["fecha"],$_POST["sucursal"],$_POST["numero_orden"]);
+      $ordenes->registrar_orden($_POST["paciente_orden"],$_POST["laboratorio_orden"],$_POST["id_pac_orden"],$_POST["id_consulta_orden"],$_POST["lente_orden"],$_POST["tratamiento_orden"],$_POST["modelo_aro_orden"],$_POST["marca_aro_orden"],$_POST["color_aro_orden"],$_POST["diseno_aro_orden"],$_POST["med_a"],$_POST["med_b"],$_POST["med_c"],$_POST["med_d"],$_POST["observaciones_orden"],$_POST["id_usuario"],$_POST["fecha"],$_POST["sucursal"],$_POST["numero_orden"],$_POST["prioridad_orden"]);
         $messages[]="ok";
       }else{
         $errors[]="existe";
@@ -188,6 +188,59 @@ switch($_GET["op"]){
       "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
       "aaData"=>$data);
        echo json_encode($results); 
+       break;
+
+///////////////ORDENES RECIBIDAS
+    case 'listar_ordenes_enviadas':
+    $peticion = $_POST["peticion"];
+    if($peticion == "envios"){
+       $datos = $ordenes->listar_ordenes_enviadas($_POST["sucursal"]);
+
+       $data = Array();
+       $i=0;
+       foreach ($datos as $row) {
+
+          if ($row["estado"]==0) {
+            $badge="warning";
+            $icon="fa-clock";
+            $estado="Pendiente";
+          }elseif($row["estado"]==1){
+            $badge="success";
+            $icon="fa-share-square";
+            $estado="Enviado";
+          }
+
+        date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");  
+        $fecha = $row["fecha"];//strtotime($row["fecha"]);
+        $fecha_actual = $hoy;//strtotime($hoy);
+        $fecha_ini = new DateTime($fecha);
+        $fecha_act = new DateTime($fecha_actual);
+        $transcurridos = $fecha_ini->diff($fecha_act);
+        $dias_transcurridos=$transcurridos->format('%d Dias');
+
+          $sub_array = array();
+          $sub_array[] = $row["id_envio"];
+          $sub_array[] = '<input type="checkbox" class="form-check-input send_orden" value="'.$row["id_paciente"].'" name="'.$row["numero_orden"].'" id="send_lab'.$i.'">Recibir';          
+          $sub_array[] = $row["evaluado"];
+          $sub_array[] = $row["numero_orden"];
+          $sub_array[] = $row["fecha"];
+          $sub_array[] = $dias_transcurridos;
+          $sub_array[] = '<span class="right badge badge-'.$badge.'"><i class=" fas '.$icon.'" style="color:'.$badge.'"></i><span> '.$estado.'</span>';
+          $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm"><i class="fas fa-eye" aria-hidden="true" style="color:blue"></i></button>';
+          //$sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="acciones_envios_lab('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\',\''.$row["estado"].'\',\''.$row["laboratorio"].'\')"><i class="fas fa-cog" aria-hidden="true" style="color:black"></i></button>';
+        $data[] = $sub_array;
+        $i++;
+       }
+      // $data[] = $sub_array;
+      $results = array(
+      "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+       echo json_encode($results);
+       }elseif ($peticion == "creadas") {
+         # code...
+       } 
        break;
      
       case 'registrar_envio_lab':
