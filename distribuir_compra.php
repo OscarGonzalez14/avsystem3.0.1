@@ -2,7 +2,7 @@
  
 require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){ 
-require_once('header.php');
+require_once('header_dos.php');
 $n_compra =$_GET["numero_compra"];
 require_once('modals/modal_ingreso_bodega.php');
 require_once('modals/reporte_det_ingreso.php');

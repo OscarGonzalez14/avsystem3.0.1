@@ -244,7 +244,7 @@ if(categoria_ubicacion != ""){
     }
 
   });
-    setTimeout ("Swal.fire('Se ha registrado Exitosamente el ingreso a Bodega','','success')", 100)
+    setTimeout ("Swal.fire('El ingreso a bodega ha sido exitoso','','success')", 100)
     //setTimeout ("explode();", 2000);
     mostrar_btn_post_ingreso();
     ocultar_btn_de_ingreso();
@@ -828,7 +828,7 @@ var test_array = detalles_traslado.length;
 
   });
     $('#listar_det_traslados').html('');
-    setTimeout ("Swal.fire('Se ha registrado Exitosamente el traslado','','success')", 100);
+    setTimeout ("Swal.fire('El traslado fué exitoso','','success')", 100);
 
 }
 

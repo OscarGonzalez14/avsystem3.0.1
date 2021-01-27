@@ -1,3 +1,7 @@
+function init(){
+	cargar_marca();
+}
+
 function guardarMarca(){
 	var nom_marca=$("#marca").val();
 	
@@ -15,16 +19,35 @@ function guardarMarca(){
 		},
 		success:function(data){
          if (data=='ok') {
-	      setTimeout ("Swal.fire('Se ha registrado una nueva marca','','success')", 100)
-	      setTimeout ("explode();", 2000);
+	      setTimeout ("Swal.fire('Se ha registrado una nueva marca','','success')", 1000);
+	      setTimeout ("cargar_marca();", 2000);
 	    }else{
-          setTimeout ("Swal.fire('Esta marca ya se encuetra registrada','','error')", 100);
+          setTimeout ("Swal.fire('Esta marca ya se encuetra registrada','','error')", 1000);
           return false;
   		}
         }
 
      });
 	}
-
-  
 }
+
+function cargar_marca(){
+	$.ajax({
+		url:"ajax/marca.php?op=get_marcas",
+      	method:"POST",
+      	cache:false,
+      	dataType:"json",
+      	success:function(data)
+      	{
+         console.log(data);
+         for(var i in data)
+            { 
+              document.getElementById("marca_aros").innerHTML += "<option value='"+data[i]+"'>"+data[i]+"</option>"; 
+              document.getElementById("marca_accesorio").innerHTML += "<option value='"+data[i]+"'>"+data[i]+"</option>";
+
+            }
+      }
+	}); 
+}
+
+init();

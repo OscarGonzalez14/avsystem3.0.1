@@ -10,7 +10,7 @@
     switch($_GET["op"]){
 
     case "guardar_aros":
-    $datos = $productos->valida_existencia_aros($_POST["marca_aros"],$_POST["modelo_aro"],$_POST["color_aro"],$_POST["medidas_aro"]);
+    $datos = $productos->valida_existencia_aros($_POST["marca_aros"],$_POST["modelo_aro"],$_POST["color_aro"],$_POST["medidas_aro"],$_POST["diseno_aro"],$_POST["materiales_aro"],$_POST["cat_venta_aros"]);
 		if(is_array($datos)==true and count($datos)==0){
 		    $productos->registrar_aro($_POST["marca_aros"],$_POST["modelo_aro"],$_POST["color_aro"],$_POST["medidas_aro"],$_POST["diseno_aro"],$_POST["materiales_aro"],$_POST["cat_venta_aros"],$_POST["categoria_producto"]);
         $messages[]="ok";
@@ -86,7 +86,7 @@ break;
         $sub_array[] = $row["modelo"];
         $sub_array[] = $row["color"];
         $sub_array[] = $row["medidas"];
-        $sub_array[] = '<button type="button" class="btn btn-dark agrega_aro"  style="border-radius:0px" onClick="agregar_aro('.$row["id_producto"].')">Seleccionar</button>';
+        $sub_array[] = '<button type="button" class="btn btn-dark agrega_aro"  style="border-radius:0px; btn-sm" onClick="agregar_aro('.$row["id_producto"].')">Seleccionar</button>';
         $data[] = $sub_array;
       }
 

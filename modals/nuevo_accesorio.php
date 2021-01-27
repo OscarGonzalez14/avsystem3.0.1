@@ -28,6 +28,14 @@ $marcas=$marca->get_marca();
 		<section style="margin:15px">
 			<div class="form-row">
 
+		       <div class="form-group  col-md-6">
+      				<button class="btn btn-success" style="color:white; margin:solid black 1px" data-toggle="modal" data-target="#newMarca" onClick="limpiar_input();"><i class="fas fa-plus-square"></i> Crear Marca</button>
+    			</div>
+
+    			<div class="form-group col-md-6">
+      				<input type="hidden">
+   				</div>
+
 				<div class="form-group col-md-2">
 					<label>Cod. Acc.</label>
 					<input type="text" class="form-control" name="" id="cod_acc" onkeyup="mayus(this)">
@@ -45,15 +53,8 @@ $marcas=$marca->get_marca();
 					</select>
 				</div>
 				<div class="form-group col-md-5">
-					<label>Marca</label>
-					<select class="form-control" id="marca_accesorio">
-						<option value="">Seleccione marca</option>
-        				<?php 
-      						for ($i=0; $i < sizeof($marcas); $i++) {  ?>
-       						 <option value="<?php echo($marcas[$i]["marca"]) ?>"><?php echo $marcas[$i]["marca"]?></option>
-        				<?php } ?>
-     
-					</select>
+					<label for="sel1">Seleccione marca:</label>
+      				<select class="form-control" name="" id="marca_accesorio"></select>
 				</div>
 				<div class="form-group col-md-12">
 					<label>Descripción</label>
@@ -75,4 +76,9 @@ $marcas=$marca->get_marca();
 	function mayus(e) {
     e.value = e.value.toUpperCase();
 }
+
+function limpiar_input() {
+	document.getElementById("marca").value = "";	
+}
+
 </script>

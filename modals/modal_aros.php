@@ -1,6 +1,7 @@
 <style>
-    #tamModal{
-      width: 90% !important;
+    #tamModal_aros{
+      width: 60% !important;
+      margin:15;
     }
      #head{
         background-color: black;
@@ -17,7 +18,7 @@
 </style>
 
 <div class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="modalAros" style="border-radius:0px !important;">
-  <div class="modal-dialog modal-lg" role="document" id="tamModal">
+  <div class="modal-dialog modal-lg" role="document" id="tamModal_aros">
 
     <div class="modal-content">
      <div class="modal-header" id="head" style="justify-content:space-between">
@@ -26,7 +27,7 @@
      </div>
 
               <div class="card-body p-0" style="margin:7px">
-                <table class="table display nowrap" id="data_aros" style="cursor:pointer;" width="100%" cellspacing="0">
+                <table class="table-hover table-bordered display nowrap" id="data_aros" style="cursor:pointer;" width="100%" cellspacing="0">
                   <thead style="background:#034f84;color:white">
                     <tr>
                       <th style="text-align:center">Marca</th>
@@ -47,9 +48,3 @@
 
   </div>
 </div>
-<script type="">
-  $(function() {
-    $("div.dataTables_filter input").focus();
-});
-
-</script>

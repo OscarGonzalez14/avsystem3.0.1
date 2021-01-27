@@ -26,7 +26,7 @@
      </div>
 
               <div class="card-body p-0" style="margin:7px">
-                <table class="table-hover" id="data_acc_compras" width="100%" cellspacing="0">
+                <table class="table-hover table-bordered" id="data_acc_compras" width="100%" cellspacing="0">
                   <thead style="background:#034f84;color:white">
                     <tr>
                       <th style="text-align:center">Marca</th>
@@ -36,7 +36,7 @@
                       <th style="text-align:center">Agregar</th>
                     </tr>
                   </thead>
-                  <tbody style="text-align:center">
+                  <tbody style="text-align:center;">
                                         
                   </tbody>
                 </table>

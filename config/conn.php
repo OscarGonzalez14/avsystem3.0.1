@@ -4,8 +4,8 @@
 		
 		private $host = "localhost";
 		private $dbname = "avplu3";
-		private $user = "root";
-		private $password = "";
+		private $user = "jackeline";
+		private $password = "jack93";
 		private $conexion = null;
 		public function getConexion(){
 			try{

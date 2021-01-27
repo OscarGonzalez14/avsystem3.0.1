@@ -6,9 +6,9 @@ var tabla_lentes_tratamientos;
 var tabla_traslados;
 
 function init(){
-  listar_aros();
+  //listar_aros();
   listar_aros_creados();
-  listar_acc_compras();
+  //listar_acc_compras();
   listar_accesorios_creados();
   listar_lentes_tratamientos();
   //listar_prod_traslados();
@@ -149,8 +149,8 @@ if(marca_aros != "" && modelo_aro != "" && color_aro != "" && medidas_aro != "" 
         Swal.fire('Producto ya Existe!','','error')
         return false;
       }else if (data=="ok") {
-        Swal.fire('Se creado un nuevo Producto!','','success')
-        setTimeout ("explode();", 2000);
+        Swal.fire('Se Creado un Nuevo Aro!','','success')
+        $("#nuevo_aro").modal('hide');
       }
 
     }
@@ -193,14 +193,14 @@ function guardar_accesorios(){
         return false;
       }else if (data=="ok") {
         Swal.fire('Se creado un nuevo Accesorio!','','success')
-        setTimeout ("explode();", 2000);
+        
       }
 
     }
 
 });
 Swal.fire('Se creado un nuevo Accesorio!','','success')
-setTimeout ("explode();", 2000);
+$("#accesorios_save").modal('hide');
 
 
 } 

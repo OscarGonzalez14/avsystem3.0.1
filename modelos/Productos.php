@@ -6,15 +6,18 @@ require_once("../config/conexion.php");
 class Productos extends Conectar
 { //////inicio de la clase
 
-public function valida_existencia_aros($marca_aros,$modelo_aro,$color_aro,$medidas_aro){
+public function valida_existencia_aros($marca_aros,$modelo_aro,$color_aro,$medidas_aro,$diseno_aro,$materiales_aro,$cat_venta_aros){
   $conectar= parent::conexion();
   parent::set_names();
-  $sql="select*from productos where marca=? and modelo=? and color=? and medidas=?";
+  $sql="select*from productos where marca=? and modelo=? and color=? and medidas=? and diseno=? and materiales=? and categoria=?";
   $sql= $conectar->prepare($sql);
   $sql->bindValue(1, $marca_aros);
   $sql->bindValue(2, $modelo_aro);
   $sql->bindValue(3, $color_aro);
   $sql->bindValue(4, $medidas_aro);
+  $sql->bindValue(5, $diseno_aro);
+  $sql->bindValue(6, $materiales_aro);
+  $sql->bindValue(7, $cat_venta_aros);
   $sql->execute();
   return $resultado=$sql->fetchAll();
 }
@@ -39,17 +42,7 @@ public function registrar_aro($marca_aros,$modelo_aro,$color_aro,$medidas_aro,$d
     $sql->execute();
 
 }
-//////VALIDAR EXISTEN CIA DE ACCESORIOS
-/*public function valida_existencia_acc($categoria){
-  $conectar= parent::conexion();
-  parent::set_names();
-  $sql="select*from productos where categoria_producto=?  and modelo=?";
-  $sql= $conectar->prepare($sql);
-  $sql->bindValue(1, $categoria);
-  $sql->bindValue(2, $codigo);
-  $sql->execute();
-  return $resultado=$sql->fetchAll();
-}*/
+
 
 public function registrar_accesorios($tipo_accesorio,$marca_accesorio,$desc_accesorio,$categoria,$codigo){
 
