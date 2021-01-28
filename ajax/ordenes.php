@@ -190,7 +190,7 @@ switch($_GET["op"]){
        echo json_encode($results); 
        break;
 
-///////////////ORDENES RECIBIDAS
+///////////////ORDENES ENVIADAS
     case 'listar_ordenes_enviadas':
     $peticion = $_POST["peticion"];
     if($peticion == "envios"){
@@ -210,6 +210,8 @@ switch($_GET["op"]){
             $estado="Enviado";
           }
 
+        $prioridad = $row["prioridad"];
+
         date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");  
         $fecha = $row["fecha"];//strtotime($row["fecha"]);
         $fecha_actual = $hoy;//strtotime($hoy);
@@ -217,14 +219,58 @@ switch($_GET["op"]){
         $fecha_act = new DateTime($fecha_actual);
         $transcurridos = $fecha_ini->diff($fecha_act);
         $dias_transcurridos=$transcurridos->format('%d Dias');
+        $transc = $transcurridos->format('%d'); 
+        if ($transc > $prioridad) {
+          $badge_transc="danger";
+        }else{
+          $badge_transc="info";
+        }
 
           $sub_array = array();
           $sub_array[] = $row["id_envio"];
-          $sub_array[] = '<input type="checkbox" class="form-check-input send_orden" value="'.$row["id_paciente"].'" name="'.$row["numero_orden"].'" id="send_lab'.$i.'">Recibir';          
+          $sub_array[] = '<input type="checkbox" class="form-check-input recibir_orden" value="'.$row["id_paciente"].'" name="'.$row["numero_orden"].'" id="env_lab'.$i.'">Recibir';          
           $sub_array[] = $row["evaluado"];
           $sub_array[] = $row["numero_orden"];
           $sub_array[] = $row["fecha"];
-          $sub_array[] = $dias_transcurridos;
+          $sub_array[] = '<span class="right badge badge-'.$badge_transc.'">'.$dias_transcurridos.'</span>';
+          $sub_array[] = '<span class="right badge badge-'.$badge.'"><i class=" fas '.$icon.'" style="color:'.$badge.'"></i><span> '.$estado.'</span>';
+          $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm"><i class="fas fa-eye" aria-hidden="true" style="color:blue"></i></button>';
+          //$sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="acciones_envios_lab('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\',\''.$row["estado"].'\',\''.$row["laboratorio"].'\')"><i class="fas fa-cog" aria-hidden="true" style="color:black"></i></button>';
+        $data[] = $sub_array;
+        $i++;
+       }
+      // $data[] = $sub_array;
+      $results = array(
+      "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+      echo json_encode($results);
+      //////////////////ORDENES RECIBIDAS
+      }elseif ($peticion == "creadas") {
+       $datos = $ordenes->listar_ordenes($_POST["sucursal"]);
+
+       $data = Array();
+       $i=0;
+       foreach ($datos as $row) {
+
+          if ($row["estado"]==0) {
+            $badge="warning";
+            $icon="fa-clock";
+            $estado="Pendiente";
+          }elseif($row["estado"]==1){
+            $badge="success";
+            $icon="fa-share-square";
+            $estado="Enviado";
+          }
+
+          $sub_array = array();
+          $sub_array[] = $row["id_envio"];
+          $sub_array[] = '<input type="checkbox" class="form-check-input send_orden" value="'.$row["id_paciente"].'" name="'.$row["numero_orden"].'" id="send_lab'.$i.'">Enviar';          
+          $sub_array[] = $row["evaluado"];
+          $sub_array[] = $row["numero_orden"];
+          $sub_array[] = $row["fecha_creacion"];
+          $sub_array[] = ucfirst($row["usuario"]);
           $sub_array[] = '<span class="right badge badge-'.$badge.'"><i class=" fas '.$icon.'" style="color:'.$badge.'"></i><span> '.$estado.'</span>';
           $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm"><i class="fas fa-eye" aria-hidden="true" style="color:blue"></i></button>';
           //$sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="acciones_envios_lab('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\',\''.$row["estado"].'\',\''.$row["laboratorio"].'\')"><i class="fas fa-cog" aria-hidden="true" style="color:black"></i></button>';
@@ -238,8 +284,6 @@ switch($_GET["op"]){
       "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
       "aaData"=>$data);
        echo json_encode($results);
-       }elseif ($peticion == "creadas") {
-         # code...
        } 
        break;
      
@@ -255,7 +299,21 @@ switch($_GET["op"]){
            }
          ?>
       <?php
-    }
+      }
+      break;
 
+      case 'registrar_entrega_lab':
+         $ordenes->recibir_orden_lab();
+         $messages[]="ok";
+
+      if (isset($messages)){
+      ?>
+       <?php
+         foreach ($messages as $message) {
+             echo json_encode($message);
+           }
+         ?>
+      <?php
+      }
       break;
 }

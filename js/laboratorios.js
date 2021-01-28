@@ -322,6 +322,7 @@ function listado_general_envios(){
     document.getElementById("fecha_ord").innerHTML = "Fecha Creación";
     document.getElementById("dias_orden").innerHTML = "Dias transcurridos";
   var sucursal = $("#sucursal").val();
+  let peticion = "creadas";
   tabla_envios_gral=$('#data_envios_lab').dataTable(
   {
     "aProcessing": true,//Activamos el procesamiento del datatables
@@ -332,10 +333,10 @@ function listado_general_envios(){
             ],
     "ajax":
         {
-          url: 'ajax/ordenes.php?op=listar_ordenes',
+          url: 'ajax/ordenes.php?op=listar_ordenes_enviadas',
           type : "post",
           dataType : "json",
-          data:{sucursal:sucursal},
+          data:{sucursal:sucursal,peticion:peticion},
           error: function(e){
             console.log(e.responseText);
           }
@@ -509,6 +510,7 @@ function acciones_envios_lab(id_paciente,numero_orden,evaluado,estado,laboratori
 
 
 }
+//****ENVIAR ORDENES******////
 var items_envios = [];
 
 $(document).on('click', '.send_orden', function(){
@@ -557,6 +559,54 @@ function send_orden_lab(){
       }     
  
   });
+}
 
+////////////////////RECIBIR TRABAJOS /////////////////
+var items_recibidos = [];
+$(document).on('click','.recibir_orden',function(){
+	 console.log("holarec Mundo");
+  var id_pac = $(this).attr("value");
+  var orden = $(this).attr("name");
+  let id_item = $(this).attr("id");
+  //console.log(`id ${id_pac} orden ${orden} item ${id_item}`)
+  var checkbox = document.getElementById(id_item);
+  let check_state = checkbox.checked;
+  console.log(check_state);
+
+  if (check_state == true) {
+  	    let obj = {
+       	id_paciente : id_pac,
+       	numero_orden : orden
+       }
+       items_recibidos.push(obj);
+  }else if(check_state == false){
+	let index = items_recibidos.findIndex(x => x.numero_orden==orden)
+	console.log(index)
+	items_recibidos.splice(index, 1)
+  }
+});
+
+function recibir_orden_lab(){
+   let  tipo_accion = "Recibir de laboratorio";
+   let  id_usuario = $("#id_usuario").val();
+   let  sucursal = $("#sucursal").val();
+
+   $.ajax({
+   	url:"ajax/ordenes.php?op=registrar_entrega_lab",
+    method:"POST",
+    data:{'arrayRecibir':JSON.stringify(items_recibidos),'tipo_accion':tipo_accion,'id_usuario':id_usuario,'sucursal':sucursal},
+    cache: false,
+    dataType:"json",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+      },
+      success:function(data){
+      console.log(data)
+       $('#data_envios_lab').DataTable().ajax.reload();
+      }     
+ 
+  });
 }
 init();
