@@ -105,12 +105,23 @@ public function listar_ordenes($sucursal){
    ####ordenes Enviadas
 public function listar_ordenes_enviadas($sucursal){
     $conectar = parent::conexion();
-    $sql = "select e.id_envio,e.numero_orden,e.evaluado,e.estado,e.prioridad,p.nombres,p.id_paciente,a.tipo_accion,a.fecha,e.prioridad from envios_lab as e inner join pacientes as p on e.id_paciente=p.id_paciente join acciones_ordenes_lab as a where e.numero_orden=a.n_orden and a.tipo_accion='Envio a laboratorio' and e.sucursal='Metrocentro' and e.estado='1'order by id_envio DESC;";
+    $sql = "select e.id_envio,e.numero_orden,e.evaluado,e.estado,e.prioridad,p.nombres,p.id_paciente,a.tipo_accion,a.fecha,e.prioridad from envios_lab as e inner join pacientes as p on e.id_paciente=p.id_paciente join acciones_ordenes_lab as a where e.numero_orden=a.n_orden and a.tipo_accion='Envio a laboratorio' and e.sucursal=? and e.estado='1'order by e.id_envio DESC;";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1,$sucursal);
     $sql->execute();    
     return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
 }
+######### Ordenes recibidas
+public function listar_ordenes_recibidas($sucursal){
+    $conectar = parent::conexion();
+    $sql = "select e.id_envio,e.numero_orden,e.evaluado,e.estado,e.prioridad,p.nombres,p.id_paciente,a.tipo_accion,a.fecha,u.usuario from envios_lab as e inner join pacientes as p on e.id_paciente=p.id_paciente join acciones_ordenes_lab as a
+    inner join usuarios as u on a.id_usuario=u.id_usuario where e.numero_orden=a.n_orden and a.tipo_accion='Recibir de laboratorio' and e.sucursal=? and e.estado='2'order by e.id_envio DESC;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1,$sucursal);
+    $sql->execute();    
+    return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
 //////////////ENVIAR ORDEN DE LABORATORIO
 public function enviar_orden_lab(){
 

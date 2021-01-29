@@ -3,7 +3,7 @@ require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){ 
 require_once('header_dos.php');
 require_once('modals/laboratorios/nueva_orden_lab.php');
-
+require_once('modals/laboratorios/control_calidad.php');
 $cat_user = $_SESSION["categoria"];
 require_once("modelos/Reporteria.php");
 $alerts = new Reporteria();
@@ -41,7 +41,7 @@ $alerts = new Reporteria();
                   <i class="fas fa-share"></i> ENVIADOS
                 </a>
 
-                <a class="btn btn-app">
+                <a class="btn btn-app" onClick="listado_ordenes_recibidas();">
                   <span class="badge bg-success">3</span>
                   <i class="fas fa-file-import"></i> RECIBIDOS
                 </a>
@@ -62,7 +62,7 @@ $alerts = new Reporteria();
       <thead style="color:black;min-height:10px;border-radius: 2px;font-style: normal;font-size: 15px" class="bg-info">
           <tr style="min-height:10px;border-radius: 3px;font-style: normal;font-size: 15px">
             <td style="text-align:center;width: 5%">ID</td>
-            <td style="text-align:center;width: 10%"></td>
+            <td style="text-align:center;width: 10%"><span id="acciones_orden"></span></td>
             <td style="text-align:center;width: 10%">Paciente</td>
             <td style="text-align:center;width: 25%">#Orden</td>
             <td style="text-align:center;width: 15%"><span id="fecha_ord">Creación</span></td>

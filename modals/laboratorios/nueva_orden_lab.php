@@ -34,7 +34,7 @@
   }
 
   .eight h1:after,.eight h1:before {
-   content: " ";
+   content: "";
    display: block;
    border-bottom: 2px solid #ccc;
    background-color:#f8f8f8;

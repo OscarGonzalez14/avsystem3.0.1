@@ -2,7 +2,8 @@
 function init(){
 	get_correlativo_orden();
 	listado_general_envios();
-	document.getElementById("btn_recibir_lab").style.display = "none";	
+	document.getElementById("btn_recibir_lab").style.display = "none";
+  //document.getElementById("observaciones_ca").style.display = "none";	
 }
 //GET DATA NUEVA ORDEN
 
@@ -480,6 +481,92 @@ function listado_ordenes_enviadas(){
 
   }).DataTable();
 }
+
+///////////////////LISTADO ORDENES RECIBIDAS
+function listado_ordenes_recibidas(){
+  document.getElementById("btn_recibir_lab").style.display = "none";
+  document.getElementById("btn_enviar_lab").style.display = "none";
+  document.getElementById("fecha_ord").innerHTML = "Fecha Recibido";
+  document.getElementById("acciones_orden").innerHTML = "Revisión";
+  
+  var sucursal = $("#sucursal").val();
+  let peticion = "recibidas";
+
+  tabla_envios_gral=$('#data_envios_lab').dataTable(
+  {
+    "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+            buttons: [
+                'excelHtml5'
+            ],
+    "ajax":
+        {
+          url: 'ajax/ordenes.php?op=listar_ordenes_enviadas',
+          type : "post",
+          dataType : "json",
+          data:{sucursal:sucursal,peticion:peticion},
+          error: function(e){
+            console.log(e.responseText);
+          }
+        },
+    "bDestroy": true,
+    "responsive": true,
+    "bInfo":true,
+    "iDisplayLength": 25,//Por cada 10 registros hace una paginación
+      "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+
+      "language": {
+
+          "sProcessing":     "Procesando...",
+
+          "sLengthMenu":     "Mostrar _MENU_ registros",
+
+          "sZeroRecords":    "No se encontraron resultados",
+
+          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+
+          "sInfo":           "Mostrando un total de _TOTAL_ registros",
+
+          "sInfoEmpty":      "Mostrando un total de 0 registros",
+
+          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+
+          "sInfoPostFix":    "",
+
+          "sSearch":         "Buscar:",
+
+          "sUrl":            "",
+
+          "sInfoThousands":  ",",
+
+          "sLoadingRecords": "Cargando...",
+
+          "oPaginate": {
+
+              "sFirst":    "Primero",
+
+              "sLast":     "Último",
+
+              "sNext":     "Siguiente",
+
+              "sPrevious": "Anterior"
+
+          },
+
+          "oAria": {
+
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+
+          }
+
+         }//cerrando language
+
+  }).DataTable();
+}
+
 ////////////// ACCIONES ORDENES DE LABORATORIOS //////////////////////////
 
 function acciones_envios_lab(id_paciente,numero_orden,evaluado,estado,laboratorio){
@@ -507,8 +594,6 @@ function acciones_envios_lab(id_paciente,numero_orden,evaluado,estado,laboratori
 	}else if(estado == 1){
 		////////////LANZAR VENTANA DE CONTROL DE CALIDAD
 	}
-
-
 }
 //****ENVIAR ORDENES******////
 var items_envios = [];
@@ -609,4 +694,75 @@ function recibir_orden_lab(){
  
   });
 }
+
+function aprobar_orden_laboratorio(){
+  var estado_varilla = [];
+  var estado_frente = [];
+  var codos_flex = [];
+  var graduaciones = [];
+  var productos = [];
+  var items_malos = [];
+  var observaciones = $("#observaciones_control_ca").val();
+  $.each($("input[name='estado_var']:checked"), function(){
+    estado_varilla.push($(this).val());
+  });
+  $.each($("input[name='estado_frente']:checked"), function(){
+    estado_frente.push($(this).val());
+  });
+  $.each($("input[name='estado_codos']:checked"), function(){
+    codos_flex.push($(this).val());
+  });
+  $.each($("input[name='estado_graduaciones']:checked"), function(){
+    graduaciones.push($(this).val());
+  });
+  $.each($("input[name='productos_orden']:checked"), function(){
+    productos.push($(this).val());
+  });
+  //console.log(`Estado Varilla ${estado_varilla} Estado frente ${estado_frente} Estado frente ${codos_flex} Estado frente ${graduaciones}`);  
+  let estado_varilla_f = estado_varilla.toString();
+  let estado_frente_f = estado_frente.toString();
+  let codos_flex_f = codos_flex.toString();
+  let graduaciones_f = graduaciones.toString();
+  
+  for(var i=0;i < estado_varilla.length;i++){
+    if(estado_varilla[i]=="Malo"){
+      items_malos.push("1");
+    }
+  }
+  for(var i=0;i < estado_frente.length;i++){
+    if(estado_frente[i]=="Malo"){
+      items_malos.push("1");
+    }
+  }
+    for(var i=0;i < codos_flex.length;i++){
+    if(codos_flex[i]=="Malo"){
+      items_malos.push("1");
+    }
+  }
+    for(var i=0;i < graduaciones.length;i++){
+    if(graduaciones[i]=="Malo"){
+      items_malos.push("1");
+    }
+  }
+  if (items_malos.length>0 && observaciones == "") {
+    setTimeout ("Swal.fire('Debe colocar una observacion','','warning')", 100);
+  }
+  
+  /*var estado_varilla_f = estado_varilla.toString();//.join(", "));
+  if (estado_varilla_f != "") {
+    console.log("Variable inicializado")
+    console.log(estado_varilla_f)
+  }else{
+   console.log("Variable sin inicializar") 
+  }*/
+}
+
+function control_calidad_orden(id_paciente,numero_orden){
+  $("#cantrol_calidad_ord").modal('show');
+  $("#id_paciente_ca").val(id_paciente);
+  $("#numero_orden_ca").val(numero_orden);
+
+}
+;
+
 init();

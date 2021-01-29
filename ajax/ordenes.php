@@ -200,14 +200,18 @@ switch($_GET["op"]){
        $i=0;
        foreach ($datos as $row) {
 
-          if ($row["estado"]==0) {
-            $badge="warning";
+        if ($row["estado"]==0) {
+            $badge="secondary";
             $icon="fa-clock";
             $estado="Pendiente";
           }elseif($row["estado"]==1){
-            $badge="success";
+            $badge="warning";
             $icon="fa-share-square";
             $estado="Enviado";
+          }elseif($row["estado"]==2){
+            $badge="success";
+            $icon="fa-share-square";
+            $estado="Recibido";
           }
 
         $prioridad = $row["prioridad"];
@@ -246,7 +250,7 @@ switch($_GET["op"]){
       "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
       "aaData"=>$data);
       echo json_encode($results);
-      //////////////////ORDENES RECIBIDAS
+      //////////////////ORDENES CREADAS
       }elseif ($peticion == "creadas") {
        $datos = $ordenes->listar_ordenes($_POST["sucursal"]);
 
@@ -254,14 +258,18 @@ switch($_GET["op"]){
        $i=0;
        foreach ($datos as $row) {
 
-          if ($row["estado"]==0) {
-            $badge="warning";
+        if ($row["estado"]==0) {
+            $badge="secondary";
             $icon="fa-clock";
             $estado="Pendiente";
           }elseif($row["estado"]==1){
-            $badge="success";
+            $badge="warning";
             $icon="fa-share-square";
             $estado="Enviado";
+          }elseif($row["estado"]==2){
+            $badge="success";
+            $icon="fa-share-square";
+            $estado="Recibido";
           }
 
           $sub_array = array();
@@ -284,7 +292,59 @@ switch($_GET["op"]){
       "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
       "aaData"=>$data);
        echo json_encode($results);
-       } 
+      //////////////////ORDENES RECIBIDAS
+      }elseif($peticion == "recibidas") {
+       $datos = $ordenes->listar_ordenes_recibidas($_POST["sucursal"]);
+
+       $data = Array();
+       $i=0;
+       foreach ($datos as $row) {
+
+        if ($row["estado"]==0) {
+            $badge="secondary";
+            $icon="fa-clock";
+            $estado="Pendiente";
+          }elseif($row["estado"]==1){
+            $badge="warning";
+            $icon="fa-share-square";
+            $estado="Enviado";
+          }elseif($row["estado"]==2){
+            $badge="success";
+            $icon="fas fa-clipboard-check";
+            $estado="Recibido";
+          }
+
+        date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");  
+        $fecha = $row["fecha"];//strtotime($row["fecha"]);
+        $fecha_actual = $hoy;//strtotime($hoy);
+        $fecha_ini = new DateTime($fecha);
+        $fecha_act = new DateTime($fecha_actual);
+        $transcurridos = $fecha_ini->diff($fecha_act);
+        $dias_transcurridos=$transcurridos->format('%d Dias');
+        $transc = $transcurridos->format('%d'); 
+
+
+          $sub_array = array();
+          $sub_array[] = $row["id_envio"];
+          $sub_array[] = '<button type="button"  class="btn btn-edit btn-md bg-light" onClick="control_calidad_orden('.$row["id_paciente"].',\''.$row["numero_orden"].'\');"><i class="fa fa-cog" aria-hidden="true" style="color:blue"></i></button>';         
+          $sub_array[] = $row["evaluado"];
+          $sub_array[] = $row["numero_orden"];
+          $sub_array[] = $row["fecha"];
+          $sub_array[] =  ucfirst($row["usuario"]);
+          $sub_array[] = '<span class="right badge badge-'.$badge.'"><i class=" fas '.$icon.'" style="color:'.$badge.'"></i><span> '.$estado.'</span>';
+          $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm"><i class="fas fa-eye" aria-hidden="true" style="color:blue"></i></button>';
+          //$sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="acciones_envios_lab('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\',\''.$row["estado"].'\',\''.$row["laboratorio"].'\')"><i class="fas fa-cog" aria-hidden="true" style="color:black"></i></button>';
+        $data[] = $sub_array;
+        $i++;
+       }
+      // $data[] = $sub_array;
+      $results = array(
+      "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+       echo json_encode($results);
+       }  
        break;
      
       case 'registrar_envio_lab':
