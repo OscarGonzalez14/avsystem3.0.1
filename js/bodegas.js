@@ -19,9 +19,9 @@ function init(){
   get_correlativo_traslado();
 }
  function ingresar_compras_bodega() {
- 	$('#modal_ingreso_bodega').modal('show');
- 	var numero_compra = $("#numero_compra_bod").val();
- 	tablas_compras_ingreso_bodegas=$('#data_productos_ingresos_bodega').dataTable(
+  $('#modal_ingreso_bodega').modal('show');
+  var numero_compra = $("#numero_compra_bod").val();
+  tablas_compras_ingreso_bodegas=$('#data_productos_ingresos_bodega').dataTable(
 
   {
 
@@ -154,14 +154,14 @@ function listarDetallesIngresos(){
 }
  
 function setUbicacion(event, obj, idx){
-  	event.preventDefault();
-  	detalles[idx].ubicacion = String(obj.value);
-  	//recalcular(idx);
+    event.preventDefault();
+    detalles[idx].ubicacion = String(obj.value);
+    //recalcular(idx);
 }
 
 function setCant(event, obj, idx){
-  	event.preventDefault();
-  	detalles[idx].cantidad = String(obj.value);
+    event.preventDefault();
+    detalles[idx].cantidad = String(obj.value);
     setCantidadAjax(event, obj, idx);
 }
 
@@ -244,12 +244,12 @@ if(categoria_ubicacion != ""){
     }
 
   });
-    setTimeout ("Swal.fire('El ingreso a bodega ha sido exitoso','','success')", 100)
+    setTimeout ("Swal.fire('Se ha registrado Exitosamente el ingreso a Bodega','','success')", 100)
     //setTimeout ("explode();", 2000);
     mostrar_btn_post_ingreso();
     ocultar_btn_de_ingreso();
   }else{
-  	setTimeout ("Swal.fire('Seleccione el destino de Ingreso','','error')", 100)
+    setTimeout ("Swal.fire('Seleccione el destino de Ingreso','','error')", 100)
   }
 
 }
@@ -828,7 +828,7 @@ var test_array = detalles_traslado.length;
 
   });
     $('#listar_det_traslados').html('');
-    setTimeout ("Swal.fire('El traslado fué exitoso','','success')", 100);
+    setTimeout ("Swal.fire('Se ha registrado Exitosamente el traslado','','success')", 100);
 
 }
 

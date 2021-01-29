@@ -67,7 +67,7 @@ $marcas=$marca->get_marca();
       <label for="inputPassword4">Diseño</label>
       <select class="form-control" id="diseno_aro" required="">
         <option value="">Seleccionar Diseño</option>
-        <option value="Completo">Completo</option>
+        <option value="Completo">Cerrado</option>
         <option value="Semi-Aereo">Semi Aereo</option>
         <option value="Aereo">Aereo</option>
       </select>
