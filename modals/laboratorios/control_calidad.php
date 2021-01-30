@@ -2,10 +2,7 @@
     #c_calidad_tam{
       max-width: 60% !important;
     }
-    #c_calidad_tam{
-      /*/color: white;*/
-      text-align: center;
-    }
+
     .ord_1{
       width: 25%;
       color: white;font-family: Helvetica, Arial, sans-serif;font-size: 11px;

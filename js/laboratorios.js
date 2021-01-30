@@ -696,13 +696,21 @@ function recibir_orden_lab(){
 }
 
 function aprobar_orden_laboratorio(){
+
+  var numero_orden = $("#numero_orden_ca").val();
+  var id_paciente =$("#id_paciente_ca").val();
   var estado_varilla = [];
   var estado_frente = [];
   var codos_flex = [];
   var graduaciones = [];
   var productos = [];
-  var items_malos = [];
+  var items_malos = [];  
   var observaciones = $("#observaciones_control_ca").val();
+  var id_usuario = $("#id_usuario").val();
+  let  tipo_accion = "Control de calidad";
+  let  sucursal = $("#sucursal").val();
+  //let  id_usuario = $("#id_usuario").val();
+
   $.each($("input[name='estado_var']:checked"), function(){
     estado_varilla.push($(this).val());
   });
@@ -723,7 +731,9 @@ function aprobar_orden_laboratorio(){
   let estado_frente_f = estado_frente.toString();
   let codos_flex_f = codos_flex.toString();
   let graduaciones_f = graduaciones.toString();
+  let productos_f = productos.toString();
   
+
   for(var i=0;i < estado_varilla.length;i++){
     if(estado_varilla[i]=="Malo"){
       items_malos.push("1");
@@ -739,22 +749,41 @@ function aprobar_orden_laboratorio(){
       items_malos.push("1");
     }
   }
-    for(var i=0;i < graduaciones.length;i++){
+  for(var i=0;i < graduaciones.length;i++){
     if(graduaciones[i]=="Malo"){
       items_malos.push("1");
     }
   }
+
+if (productos.length == 0) {
+  setTimeout ("Swal.fire('Verificar la entrega de Accesorios','','warning')", 100);
+  return false; 
+}
+
+
   if (items_malos.length>0 && observaciones == "") {
-    setTimeout ("Swal.fire('Debe colocar una observacion','','warning')", 100);
-  }
-  
-  /*var estado_varilla_f = estado_varilla.toString();//.join(", "));
-  if (estado_varilla_f != "") {
-    console.log("Variable inicializado")
-    console.log(estado_varilla_f)
+    setTimeout ("Swal.fire('Debe colocar una observacion','','error')", 100);
   }else{
-   console.log("Variable sin inicializar") 
-  }*/
+    $.ajax({
+    url:"ajax/ordenes.php?op=registrar_control_calidad",
+    method:"POST",
+    data:{numero_orden:numero_orden,id_paciente:id_paciente,estado_varilla_f:estado_varilla_f,estado_frente_f:estado_frente_f,
+    codos_flex_f:codos_flex_f,graduaciones_f:graduaciones_f,productos_f:productos_f,observaciones:observaciones,id_usuario:id_usuario,tipo_accion:tipo_accion,sucursal:sucursal},
+    cache: false,
+    dataType:"json",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+      },
+      success:function(data){
+      console.log(data)
+       $('#data_envios_lab').DataTable().ajax.reload();
+      }     
+ 
+  });
+  }
+
 }
 
 function control_calidad_orden(id_paciente,numero_orden){
@@ -763,6 +792,35 @@ function control_calidad_orden(id_paciente,numero_orden){
   $("#numero_orden_ca").val(numero_orden);
 
 }
-;
+
+
+function contacto_paciente(id_paciente,numero_orden){
+ $("#contactos_pac_orden").modal('show');
+ $("#id_pac_contact").val(id_paciente);
+ $("#n_orden_contact").val(numero_orden);
+
+}
+
+function registrar_contacto(){
+ let id_paciente = $("#id_pac_contact").val();
+ let numero_orden = $("#n_orden_contact").val();
+ let observaciones = $("#observaciones_contacto").val();
+ let tipo_accion = "LLamada";
+ let id_usuario = $("#id_usuario").val();
+ let sucursal = $("#sucursal").val(); 
+  
+    $.ajax({
+      url:"ajax/ordenes.php?op=registrar_contacto",
+      method:"POST",
+      data:{id_paciente:id_paciente,numero_orden:numero_orden,observaciones:observaciones,tipo_accion:tipo_accion,id_usuario:id_usuario,sucursal:sucursal},
+      dataType:"json",
+      success:function(data){
+      console.log(data);//return false;
+      $('#data_envios_lab').DataTable().ajax.reload();       
+        
+      }
+    }) 
+
+}
 
 init();

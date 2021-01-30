@@ -309,9 +309,19 @@ switch($_GET["op"]){
             $icon="fa-share-square";
             $estado="Enviado";
           }elseif($row["estado"]==2){
-            $badge="success";
+            $badge="dark";
             $icon="fas fa-clipboard-check";
             $estado="Recibido";
+            $evento = "control_calidad_orden";
+            $icono_recibidos = "fa fa-cog";
+            $color = "black";
+          }elseif($row["estado"]==3){
+            $badge="primary";
+            $icon="fas fa-clipboard-check";
+            $estado="Revisado";
+            $evento = "contacto_paciente";
+            $icono_recibidos = "fas fa-mobile-alt";
+            $color = "blue";
           }
 
         date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");  
@@ -326,7 +336,7 @@ switch($_GET["op"]){
 
           $sub_array = array();
           $sub_array[] = $row["id_envio"];
-          $sub_array[] = '<button type="button"  class="btn btn-edit btn-md bg-light" onClick="control_calidad_orden('.$row["id_paciente"].',\''.$row["numero_orden"].'\');"><i class="fa fa-cog" aria-hidden="true" style="color:blue"></i></button>';         
+          $sub_array[] = '<button type="button"  class="btn btn-edit btn-md bg-light" onClick="'.$evento.'('.$row["id_paciente"].',\''.$row["numero_orden"].'\');"><i class="'.$icono_recibidos.'" aria-hidden="true" style="color:'.$color.'"></i></button>';         
           $sub_array[] = $row["evaluado"];
           $sub_array[] = $row["numero_orden"];
           $sub_array[] = $row["fecha"];
@@ -376,4 +386,35 @@ switch($_GET["op"]){
       <?php
       }
       break;
+
+      case 'registrar_control_calidad':
+         $ordenes->registrar_control_calidad($_POST["numero_orden"],$_POST["id_paciente"],$_POST["estado_varilla_f"],$_POST["estado_frente_f"],$_POST["codos_flex_f"],$_POST["graduaciones_f"],$_POST["productos_f"],$_POST["observaciones"],$_POST["id_usuario"],$_POST["tipo_accion"],$_POST["sucursal"]);
+         $messages[]="ok";
+
+      if (isset($messages)){
+      ?>
+       <?php
+         foreach ($messages as $message) {
+             echo json_encode($message);
+           }
+         ?>
+      <?php
+      }
+      break;
+
+      case 'registrar_contacto':
+         $ordenes->registrar_contacto($_POST["id_paciente"],$_POST["numero_orden"],$_POST["observaciones"],$_POST["tipo_accion"],$_POST["id_usuario"],$_POST["sucursal"]);
+         $messages[]="ok";
+
+      if (isset($messages)){
+      ?>
+       <?php
+         foreach ($messages as $message) {
+             echo json_encode($message);
+           }
+         ?>
+      <?php
+      }
+      break;
+
 }
