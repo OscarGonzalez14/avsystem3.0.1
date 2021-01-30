@@ -6,11 +6,15 @@ function init(){
  get_numero_recibo();
  ingresar_compras_inventario();
  reporte_compras_admin();
+ ocultar_btn_post_compra();
 }
 
 //$(document).ready(ocultar_btn_post_compra);
 
- /* function ocultar_btn_post_compra(){
+function hola_mundo(){
+  console.log("probando esto")
+}
+ function ocultar_btn_post_compra(){
   document.getElementById("post_compra").style.display = "none";
 }
 
@@ -20,8 +24,7 @@ function init(){
   function ocultar_btn_de_compra(){
   document.getElementById("btn_de_compra").style.display = "none";
   document.getElementById("tabla_det_compras").style.display = "none";
-
-}*/
+}
 function clear_c_compra() {
     $("#n_compra").val("");
     $("#tipo_compra").val("");
@@ -442,6 +445,7 @@ function ingresar_compras_inventario()
 function reporte_compras_admin()
 {
   var numero_compra = $("#n_compra").val();
+  $("#modal_print_admin").modal("show");
   //alert(numero_compra);
   //return false;
   tabla_compras_admin_report=$('#reporte_compra_admin').dataTable(

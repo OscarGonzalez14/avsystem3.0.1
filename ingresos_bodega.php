@@ -23,6 +23,7 @@ require_once('modals/modal_ingreso_bodega.php');
       </table>   <!-- /.content -->
 </div>
 </div>
+<?php require_once("footer.php"); ?>
 <script src='js/compras.js'></script>
 <script src='js/bodegas.js'></script>
 <?php } else{

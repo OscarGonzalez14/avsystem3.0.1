@@ -54,9 +54,9 @@ div .post_compra{
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#" style="text-decoration: none;color:black">Reporte mensual de Compras</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#" style="text-decoration: none;color:black">Reporte anual compras</a>
+        <a class="dropdown-item"  style="text-decoration: none;color:black">Reporte anual compras</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Por Rango de Fechas</a>
+        <a class="dropdown-item" style="border-radius:2px" onClick="reporte_compras_admin();">Descargar/imprimir compras admin</a>
       </div>
   </button> 
   </div>    
@@ -208,22 +208,25 @@ div .post_compra{
             <div class="row post_compra" id="post_compra" style="display: flex;justify-content: space-between !important; margin-top:5px;">
                 
 
-                <div class="col-sm-4 post_compra">
+               <!-- <div class="col-sm-4 post_compra">
                   <button class="btn btn-primary btn-block" style="border-radius:2px" data-toggle="modal" data-target="#modal_print_admin" data-backdrop="static" data-keyboard="false" onClick="reporte_compras_admin();";><i class="fas fa-print"></i> Descargar/Imprimir compra(Admin)&nbsp;<i class="fas fa-lock"></i></button>
-                </div>
+                </div>-->
                 <div class="col-sm-4 post_compra">
                   <button class="btn btn-info btn-block" style="border-radius:2px" onClick='explode();'><i class="fas fa-plus"></i> Nueva Compra</button>
                 </div>
                 <div class="col-sm-4 post_compra">
+                  <input type="hidden" name="">
+                </div>
+                <div class="col-sm-4 post_compra">
                   <a href="ingresos_bodega.php" class="btn btn-block" style="color:white;border-radius:2px; background:#001a33;margin:solid #000066 1px"data-backdrop="static" data-keyboard="false"><i class="fas fa-boxes"></i>  Ingresar Compra a Bodega</a>
                 </div>
-                <div class="col-sm-4 post_compra" style="margin-top: 10px">
+                <!--<div class="col-sm-4 post_compra" style="margin-top: 10px">
                   <button class="btn btn-success btn-block" style="border-radius:2px"><i class="fas fa-print"></i> Descargar/Imprimir compra(Bodega)&nbsp;<i class="fas fa-unlock"></i></button>
                 </div>
                 <br>
                 <div class="col-sm-7 post_compra">
                   <input type="hidden" name="">
-                </div>
+                </div>-->
 
               </div>
             

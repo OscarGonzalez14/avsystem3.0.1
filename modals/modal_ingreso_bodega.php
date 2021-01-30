@@ -1,5 +1,5 @@
 <style>
-    .fullscreen-modal .modal-dialog {
+  .fullscreen-modal .modal-dialog {
   margin: 0;
   margin-right: auto;
   margin-left: auto;
@@ -56,7 +56,7 @@
                   <tbody style="text-align:center">
                                         
                   </tbody>
-                </table>
+          </table>
         </div>
         
         <!-- Modal footer -->
@@ -67,5 +67,3 @@
       </div>
     </div>
   </div>
-  
-</div>
