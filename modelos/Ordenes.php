@@ -284,20 +284,12 @@ $sql4->bindValue(9,$id_usuario);
 $sql4->execute();
 }
 
-public function registrar_contacto($numero_orden,$id_paciente,$observaciones,$id_usuario,$tipo_accion,$sucursal){
+public function registrar_contacto($id_paciente,$numero_orden,$observaciones,$tipo_accion,$id_usuario,$sucursal){
 
     $conectar = parent::conexion();
     parent::set_names();
+
 //////////////GET DETALLES DE LA ORDEN/////////////
-
-       $sql1="update envios_lab set estado='4' where numero_orden=? and id_paciente=? and evaluado=?;";
-    $sql1=$conectar->prepare($sql1);          
-    $sql1->bindValue(1,$numero_orden);
-    $sql1->bindValue(2,$id_paciente);
-    $sql1->bindValue(3,$evaluado);
-    $sql1->execute();
-
-    
    $sql3 = "select*from envios_lab where id_paciente=? and numero_orden=?";
    $sql3=$conectar->prepare($sql3);
    $sql3->bindValue(1,$id_paciente);
@@ -310,8 +302,12 @@ public function registrar_contacto($numero_orden,$id_paciente,$observaciones,$id
        $laboratorio = $row["laboratorio"];
    }
 
-
-
+   $sql1="update envios_lab set estado='4' where numero_orden=? and id_paciente=? and evaluado=?;";
+    $sql1=$conectar->prepare($sql1);          
+    $sql1->bindValue(1,$numero_orden);
+    $sql1->bindValue(2,$id_paciente);
+    $sql1->bindValue(3,$evaluado);
+    $sql1->execute();
 
 ///////INSERT INTO ACCIONES LAB
 date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
@@ -332,7 +328,7 @@ $estado_frente_f="0";
 $codos_flex_f="0";
 $graduaciones_f="0";
 $productos_f="0";
-$sql4 = "insert into control_calidad_orden values(null,?,?,?,?,?,?,?,?,?);";
+$sql4 = "insert into control_calidad_orden values(null,?,?,?,?,?,?,?,?,?,?);";
 $sql4=$conectar->prepare($sql4);
 $sql4->bindValue(1,$numero_orden);
 $sql4->bindValue(2,$id_paciente);
@@ -343,7 +339,33 @@ $sql4->bindValue(6,$graduaciones_f);
 $sql4->bindValue(7,$observaciones);
 $sql4->bindValue(8,$productos_f);
 $sql4->bindValue(9,$id_usuario);
+$sql4->bindValue(10,$hoy);
 $sql4->execute();
 }
+
+
+/////////////// GET DATA PACIENTES EN CONTACTO
+public function get_data_contacto($id_paciente,$numero_orden){
+    $conectar=parent::conexion();
+    parent::set_names();
+    $sql="select p.nombres,p.empresas,p.id_paciente,p.telefono,p.telefono_oficina,p.correo,e.evaluado,e.numero_orden from pacientes as p inner join envios_lab as e on e.id_paciente=p.id_paciente where p.id_paciente = ? and e.numero_orden = ?;";
+        $sql=$conectar->prepare($sql);
+        $sql->bindValue(1, $id_paciente);
+        $sql->bindValue(2, $numero_orden);
+        $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function get_data_consulta($id_paciente,$numero_orden){
+    $conectar=parent::conexion();
+    parent::set_names();
+    $sql="select u.usuario,c.fecha,c.observaciones,a.tipo_accion from control_calidad_orden as c inner join usuarios as u on c.id_usuario=u.id_usuario inner join acciones_ordenes_lab as a on a.n_orden = c.numero_orden where c.id_paciente=? and numero_orden=? and a.tipo_accion='LLamada' group by c.fecha order by c.id_revision DESC;";
+        $sql=$conectar->prepare($sql);
+        $sql->bindValue(1, $id_paciente);
+        $sql->bindValue(2, $numero_orden);
+        $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
 }

@@ -300,7 +300,7 @@ switch($_GET["op"]){
        $i=0;
        foreach ($datos as $row) {
 
-        if ($row["estado"]==0) {
+        if($row["estado"]==0) {
             $badge="secondary";
             $icon="fa-clock";
             $estado="Pendiente";
@@ -309,19 +309,27 @@ switch($_GET["op"]){
             $icon="fa-share-square";
             $estado="Enviado";
           }elseif($row["estado"]==2){
-            $badge="dark";
+            $badge="danger";
             $icon="fas fa-clipboard-check";
             $estado="Recibido";
             $evento = "control_calidad_orden";
             $icono_recibidos = "fa fa-cog";
-            $color = "black";
+            $color = "red";
           }elseif($row["estado"]==3){
-            $badge="primary";
+            $badge="warning";
             $icon="fas fa-clipboard-check";
             $estado="Revisado";
             $evento = "contacto_paciente";
             $icono_recibidos = "fas fa-mobile-alt";
-            $color = "blue";
+            $color = "orange";
+          }
+          elseif($row["estado"]==4){
+            $badge="success";
+            $icon="fas fa-clock";
+            $estado="Contactado";
+            $evento = "contacto_paciente";
+            $icono_recibidos = "fas fa-clock";
+            $color = "green";
           }
 
         date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");  
@@ -329,10 +337,10 @@ switch($_GET["op"]){
         $fecha_actual = $hoy;//strtotime($hoy);
         $fecha_ini = new DateTime($fecha);
         $fecha_act = new DateTime($fecha_actual);
+
         $transcurridos = $fecha_ini->diff($fecha_act);
         $dias_transcurridos=$transcurridos->format('%d Dias');
-        $transc = $transcurridos->format('%d'); 
-
+        $transc = $transcurridos->format('%d');
 
           $sub_array = array();
           $sub_array[] = $row["id_envio"];
@@ -354,8 +362,8 @@ switch($_GET["op"]){
       "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
       "aaData"=>$data);
        echo json_encode($results);
-       }  
-       break;
+    }  
+  break;
      
       case 'registrar_envio_lab':
          $ordenes->enviar_orden_lab();
@@ -416,5 +424,41 @@ switch($_GET["op"]){
       <?php
       }
       break;
+
+      case 'get_datos_contacto':
+       $datos = $ordenes->get_data_contacto($_POST["id_paciente"],$_POST["numero_orden"]);
+        if (is_array($datos)==true and count($datos)>0) {
+        foreach($datos as $row){
+         $output["nombres"] = $row["nombres"];
+         $output["empresas"] = $row["empresas"];
+         $output["id_paciente"] = $row["id_paciente"];
+         $output["telefono"] = $row["telefono"];
+         $output["evaluado"] = $row["evaluado"];
+         $output["numero_orden"] = $row["numero_orden"];
+         $output["telefono_oficina"] = $row["telefono_oficina"];
+         $output["correo"] = $row["correo"];
+        }
+        echo json_encode($output);
+        }else{
+          json_encode("Hola");
+        }
+      break;
+
+    case 'get_notas_contacto':
+        $datos = $ordenes->get_data_consulta($_POST["id_paciente"],$_POST["numero_orden"]);
+        if(is_array($datos)==true and count($datos)>0){
+        $data= Array();
+        foreach($datos as $row){
+          $output["usuario"] = $row["usuario"];
+          $output["fecha"] = $row["fecha"];
+          $output["observaciones"] = $row["observaciones"];
+
+          $data[] = $output;
+      }
+    }
+
+      echo json_encode($data);     
+      
+    break;
 
 }

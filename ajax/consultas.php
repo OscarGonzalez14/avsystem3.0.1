@@ -220,7 +220,6 @@ case 'get_ventas_consultas':
             $output["numero_venta"] = $row["numero_venta"];            
           }       
         echo json_encode($output);
-
         } 
     break;
 

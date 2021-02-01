@@ -48,9 +48,9 @@
                         <th bgcolor="#0061a9" colspan="32" style="color:white;font-size:12px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:32%" class="stilot1">Empresa</th>
                       </thead>
                       <tr>
-                        <td colspan="34" style="width: 34%" class="stilot1">Oscar Antonio Gonzalez</td>
-                        <td colspan="34" style="width: 34%" class="stilot1">Rosario Guadalupe Rojas</td>
-                        <td colspan="32" style="width: 32%" class="stilot1">Prado El Slavador</td>
+                        <td colspan="34" style="width: 34%" class="stilot1"><span id="evaluado_cont"></span></td>
+                        <td colspan="34" style="width: 34%" class="stilot1"><span id="titular_cont"></span></td>
+                        <td colspan="32" style="width: 32%" class="stilot1"><span id="empresa_cont"></span></td>
                       </tr>
 
                       <thead>
@@ -59,9 +59,9 @@
                         <th bgcolor="#0061a9" colspan="32" style="color:white;font-size:12px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:32%" class="stilot1">Correo</th>
                       </thead>
                       <tr>
-                        <td colspan="34" style="width: 34%" class="stilot1">Oscar Antonio Gonzalez</td>
-                        <td colspan="34" style="width: 34%" class="stilot1">Rosario Guadalupe Rojas</td>
-                        <td colspan="32" style="width: 32%" class="stilot1">Prado El Slavador</td>
+                        <td colspan="34" style="width: 34%" class="stilot1"><span id="cel_cont"></span></td>
+                        <td colspan="34" style="width: 34%" class="stilot1"><span id="tel_ofi_c"></span></td>
+                        <td colspan="32" style="width: 32%" class="stilot1"><span id="correo_cont"></span></td>
                       </tr>
                     </table>
                   </li>
@@ -72,12 +72,20 @@
                       </div>
                   </li>
                   <li class="list-group-item">
-                    Notas:
+                    <table class="table-striped" id="notas_contacto" width="100%">
+
+                      <thead style="text-align: center;">
+                        <th colspan="15" style="width: 15%;text-align: center">Fecha</th>
+                        <th colspan="15" style="width: 15%;text-align: center">usuario</th>
+                        <th colspan="70" style="width: 70%;text-align: center">Observacion</th>
+                      </thead>
+                      <tbody id="listar_notas_contacto" style="text-align: center"></tbody>
+                    </table>
                   </li>
                 </ul>
                  <input type="hidden" id="id_pac_contact">
                  <input type="hidden" id="n_orden_contact">
-                <a class="btn btn-dark btn-block" onClick="registrar_contacto();"><b>REGISTRAR ACCIÓN</b></a>
+                <button class="btn btn-dark btn-block" onClick="registrar_contacto();"><b>REGISTRAR ACCIÓN</b></button>
               </div>
               <!-- /.card-body -->
             </div>

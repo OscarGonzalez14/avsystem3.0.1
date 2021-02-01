@@ -73,7 +73,7 @@ $alerts = new Reporteria();
             <!--<td style="text-align:center;width: 10%">Acciones</td>-->
          </tr>
         </thead>
-        <tbody style="text-align:center;color: black;">                                        
+        <tbody style="font-family: Helvetica, Arial, sans-serif;font-size: 12px;text-align: center;">                                        
         </tbody>
         <!--<tfoot>
           <tr>

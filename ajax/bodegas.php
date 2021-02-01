@@ -127,7 +127,7 @@ case "reporte_ingresos_bodega":
     break;
 
     ////////////////GET PRODUCTOS TRASLADO
-        case "get_productos_traslados":
+    case "get_productos_traslados":
         $datos=$bodegas->get_productos_traslados($_POST["id_producto"],$_POST["categoria_ub"]);
 
         if(is_array($datos)==true and count($datos)>0){
@@ -141,9 +141,9 @@ case "reporte_ingresos_bodega":
           $output["precio_venta"] = $row["precio_venta"];
                        
         }      
-
        } 
   echo json_encode($output);
+
 break;
 
 case "get_numero_traslado":

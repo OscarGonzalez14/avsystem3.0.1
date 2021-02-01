@@ -51,4 +51,5 @@ require_once('modals/modal_ingreso_bodega.php');
 <script src='js/bodegas.js'></script>
 <?php } else{
 echo "Acceso no permitido";
-  } ?>
+}
+?>

@@ -793,12 +793,67 @@ function control_calidad_orden(id_paciente,numero_orden){
 
 }
 
-
+var notas = [];
 function contacto_paciente(id_paciente,numero_orden){
+  notas = [];
  $("#contactos_pac_orden").modal('show');
  $("#id_pac_contact").val(id_paciente);
  $("#n_orden_contact").val(numero_orden);
 
+ $.ajax({
+    url:"ajax/ordenes.php?op=get_datos_contacto",
+    method:"POST",
+    data:{id_paciente:id_paciente,numero_orden:numero_orden},
+    cache: false,
+    dataType:"json",
+      success:function(data){
+      $("#evaluado_cont").html(data.evaluado);
+      $("#titular_cont").html(data.nombres);
+      $("#empresa_cont").html(data.empresas);
+      $("#cel_cont").html(data.telefono);
+      $("#tel_ofi_c").html(data.telefono_oficina);
+      $("#correo_cont").html(data.correo);
+      $('#data_envios_lab').DataTable().ajax.reload();
+    }     
+ 
+  });
+
+ $.ajax({
+    url:"ajax/ordenes.php?op=get_notas_contacto",
+    method:"POST",
+    data:{id_paciente:id_paciente,numero_orden:numero_orden},
+    cache: false,
+    dataType:"json",
+      success:function(data){
+      console.log(data);
+      for( var i in data){
+        var obj = {
+          fecha : data[i].fecha,
+          usuario : data[i].usuario,
+          observaciones : data[i].observaciones
+        };
+       notas.push(obj);
+      }
+      listar_notas_de_contacto();
+      $('#data_envios_lab').DataTable().ajax.reload();
+    }     
+
+  });
+
+
+}
+
+function listar_notas_de_contacto(){
+    $('#listar_notas_contacto').html('');
+    var filas = "";
+
+    for(var i=0; i<notas.length; i++){
+      var filas = filas + "<tr id='fila"+i+"'><td colspan='15' style='width: 15%'>"+notas[i].fecha+"</td>"+
+       "<td colspan='15' style='width: 15%'>"+notas[i].usuario+"</td>"+
+      "<td colspan='70' style='width: 70%'>"+notas[i].observaciones+"</td>"+"</tr>";
+    }
+
+    $('#listar_notas_contacto').html(filas);
 }
 
 function registrar_contacto(){
@@ -809,17 +864,19 @@ function registrar_contacto(){
  let id_usuario = $("#id_usuario").val();
  let sucursal = $("#sucursal").val(); 
   
-    $.ajax({
-      url:"ajax/ordenes.php?op=registrar_contacto",
-      method:"POST",
-      data:{id_paciente:id_paciente,numero_orden:numero_orden,observaciones:observaciones,tipo_accion:tipo_accion,id_usuario:id_usuario,sucursal:sucursal},
-      dataType:"json",
-      success:function(data){
-      console.log(data);//return false;
-      $('#data_envios_lab').DataTable().ajax.reload();       
-        
-      }
-    }) 
+  $.ajax({
+    url:"ajax/ordenes.php?op=registrar_contacto",
+    method:"POST",
+    data:{id_paciente:id_paciente,numero_orden:numero_orden,observaciones:observaciones,tipo_accion:tipo_accion,id_usuario:id_usuario,sucursal:sucursal},
+    dataType:"json",
+    success:function(data){
+    console.log(data);//return false;
+    if(data=="ok"){
+    setTimeout ("Swal.fire('Se ha registrado un intento de contacto','','info')", 100);
+    $('#data_envios_lab').DataTable().ajax.reload();       
+    } 
+    }
+  }) 
 
 }
 
