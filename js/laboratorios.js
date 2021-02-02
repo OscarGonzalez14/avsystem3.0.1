@@ -274,7 +274,7 @@ function registrarEnvio(){
     let  numero_orden = $("#correlativo_orden").html();
     let  prioridad_orden = $("#prioridad_orden").val();
 
-    if(paciente_orden !="" && laboratorio_orden !="" && prioridad_orden !=""){
+    if(paciente_orden !="" && laboratorio_orden !="" && prioridad_orden !="" && lente_orden !=""){
     $.ajax({
  	   url: "ajax/ordenes.php?op=registrarEnvio",
  	   method: "POST",
@@ -778,6 +778,7 @@ if (productos.length == 0) {
       },
       success:function(data){
       console.log(data)
+      $("#cantrol_calidad_ord").modal('hide');
        $('#data_envios_lab').DataTable().ajax.reload();
       }     
  
@@ -796,6 +797,7 @@ function control_calidad_orden(id_paciente,numero_orden){
 var notas = [];
 function contacto_paciente(id_paciente,numero_orden){
   notas = [];
+  $("#observaciones_contacto").val("");
  $("#contactos_pac_orden").modal('show');
  $("#id_pac_contact").val(id_paciente);
  $("#n_orden_contact").val(numero_orden);
@@ -873,6 +875,7 @@ function registrar_contacto(){
     console.log(data);//return false;
     if(data=="ok"){
     setTimeout ("Swal.fire('Se ha registrado un intento de contacto','','info')", 100);
+    $("#contactos_pac_orden").modal('hide');
     $('#data_envios_lab').DataTable().ajax.reload();       
     } 
     }

@@ -279,6 +279,7 @@ $(document).on("click","#select_paciente_venta", function(){
     setTimeout ("Swal.fire('Hay campos sin seleccionar','','error')", 100);
     document.getElementById("consulta_ex").style.border='solid 1px red';
   }else if(consulta=='Si'){
+    console.log("Esta funcio si se jecuta");
     $("#modal_pacientes_consulta").modal("show");
     listar_pacientes_consultas_ventas();
   }else if(consulta=='No'){

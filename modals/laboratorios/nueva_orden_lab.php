@@ -83,10 +83,10 @@
       <label for="inputPassword4">Proridad</label>
       <select class="form-control" id="prioridad_orden" required>
         <option value="">Seleccionar Prioridad...</option>
-        <option value="5">5 dia (Urgente)</option>
+        <option value="5">5 dia (Normal)</option>
         <option value="3">3 dias (Intermedio)</option>
         <option value="2">2 dias (Intermedio)</option>
-        <option value="1">1 dias(Normal)</option>
+        <option value="1">1 dias(Urgente)</option>
     </select>
     </div>
 
