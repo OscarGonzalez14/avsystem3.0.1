@@ -98,7 +98,7 @@
 <div class="eight">
   <strong><h1 style="color: #034f84">GRADUACIÓN Y MEDIDAS</h1></strong>
   <div class="row">
-  <div class="col-sm-6">
+  <div class="col-sm-6">    
   <table style="margin:0px;width:100%">
     <thead class="thead-light" style="color: black;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;background: #f8f8f8">
       <tr>
@@ -129,8 +129,7 @@
       </tr>
      </tbody>
   </table>
-  </div>
-
+  </div>  
   <div class="col-sm-6" style="margin-left: 0px">
       <table width="100%">
       <thead class="thead-light" style="color: black;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;background: #f8f8f8">
@@ -153,9 +152,7 @@
       </tr>
     </table>
   </div>
-
 </div>
-
 </div>
 
 <div class="eight">

@@ -71,13 +71,15 @@
             <th colspan="100" class="ord_1">KIT DE LIMPIEZA Y ACCESORIOS</th>
           </thead>
            <td colspan="100">
-              <input type="checkbox" name="productos_orden" value="Estuche" class="checks">
+              <input type="checkbox" name="productos_orden" value="Estuche" class="check_producto">
               <label for="male">Estuche</label>
-              <input type="checkbox" name="productos_orden" value="Spray" class="checks">
+              <input type="checkbox" name="productos_orden" value="Spray" class="check_producto">
               <label for="male">Spray</label>
-              <input type="checkbox" name="productos_orden" value="Franela" class="checks">
+              <input type="checkbox" name="productos_orden" value="Franela" class="check_producto">
               <label for="male">Franela</label>
-              <input type="checkbox" name="productos_orden" value="Regalía" class="checks">
+              <input type="checkbox" name="productos_orden" value="Bolsita" class="check_producto">
+              <label for="male">Bolsita</label>
+              <input type="checkbox" name="productos_orden" value="Regalía" class="check_producto">
               <label for="male">Regalias</label>
            </td>
          </tr>

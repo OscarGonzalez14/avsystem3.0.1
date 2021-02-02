@@ -270,7 +270,7 @@ $sql->bindValue(7,$evaluado);
 $sql->bindValue(8,$sucursal);
 $sql->execute();
 
-$sql4 = "insert into control_calidad_orden values(null,?,?,?,?,?,?,?,?,?);";
+$sql4 = "insert into control_calidad_orden values(null,?,?,?,?,?,?,?,?,?,?);";
 $sql4=$conectar->prepare($sql4);
 $sql4->bindValue(1,$numero_orden);
 $sql4->bindValue(2,$id_paciente);
@@ -281,6 +281,7 @@ $sql4->bindValue(6,$graduaciones_f);
 $sql4->bindValue(7,$observaciones);
 $sql4->bindValue(8,$productos_f);
 $sql4->bindValue(9,$id_usuario);
+$sql4->bindValue(10,$hoy);
 $sql4->execute();
 }
 

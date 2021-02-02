@@ -792,17 +792,24 @@ function control_calidad_orden(id_paciente,numero_orden){
   $("#id_paciente_ca").val(id_paciente);
   $("#numero_orden_ca").val(numero_orden);
 
+  var elements=document.getElementsByClassName('check_producto');
+
+    Array.prototype.forEach.call(elements, function(element) {
+       element.checked = false;
+    });
+
 }
 
 var notas = [];
 function contacto_paciente(id_paciente,numero_orden){
   notas = [];
   $("#observaciones_contacto").val("");
- $("#contactos_pac_orden").modal('show');
- $("#id_pac_contact").val(id_paciente);
- $("#n_orden_contact").val(numero_orden);
+  $("#contactos_pac_orden").modal('show');
+  $("#id_pac_contact").val(id_paciente);
+  $("#n_orden_contact").val(numero_orden);
 
- $.ajax({
+
+  $.ajax({
     url:"ajax/ordenes.php?op=get_datos_contacto",
     method:"POST",
     data:{id_paciente:id_paciente,numero_orden:numero_orden},
@@ -816,7 +823,7 @@ function contacto_paciente(id_paciente,numero_orden){
       $("#tel_ofi_c").html(data.telefono_oficina);
       $("#correo_cont").html(data.correo);
       $('#data_envios_lab').DataTable().ajax.reload();
-    }     
+    } 
  
   });
 
@@ -846,6 +853,7 @@ function contacto_paciente(id_paciente,numero_orden){
 }
 
 function listar_notas_de_contacto(){
+
     $('#listar_notas_contacto').html('');
     var filas = "";
 
@@ -854,8 +862,7 @@ function listar_notas_de_contacto(){
        "<td colspan='15' style='width: 15%'>"+notas[i].usuario+"</td>"+
       "<td colspan='70' style='width: 70%'>"+notas[i].observaciones+"</td>"+"</tr>";
     }
-
-    $('#listar_notas_contacto').html(filas);
+  $('#listar_notas_contacto').html(filas);
 }
 
 function registrar_contacto(){
