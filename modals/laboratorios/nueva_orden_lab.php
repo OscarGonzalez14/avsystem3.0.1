@@ -61,7 +61,7 @@
     <div class="form-group col-sm-5">
       <label for="inlineFormInputGroup">Paciente</label>
       <div class="input-group">
-        <input type="text" class="form-control" id="paciente_orden" placeholder="Buscar Paciente --> " readonly>
+        <input type="text" class="form-control clear_orden_i" id="paciente_orden" placeholder="Buscar Paciente --> " readonly>
           <div class="input-group-prepend" onClick="get_data_orden();">
             <div class="input-group-text"><i class="fas fa-search" style="color: blue"></i></div>
           </div>
@@ -70,7 +70,7 @@
 
     <div class="form-group col-sm-3">
       <label for="inputPassword4">Laboratorio</label>
-      <select class="form-control" id="laboratorio_orden" required>
+      <select class="form-control clear_orden_i" id="laboratorio_orden" required>
         <option value="">Seleccionar Laboratorio...</option>
         <option value="Lomed">Lomed</option>
         <option value="Lenti">Lenti</option>
@@ -81,7 +81,7 @@
 
     <div class="form-group col-sm-4">
       <label for="inputPassword4">Proridad</label>
-      <select class="form-control" id="prioridad_orden" required>
+      <select class="form-control clear_orden_i" id="prioridad_orden" required>
         <option value="">Seleccionar Prioridad...</option>
         <option value="5">5 dia (Normal)</option>
         <option value="3">3 dias (Intermedio)</option>
@@ -113,19 +113,19 @@
     <tbody>
       <tr>
         <td>OD</td>
-        <td> <input type="text" class="form-control"  id="odesferasf_orden" readonly="" style="text-align: center"></td>
-        <td> <input type="text" class="form-control"  id="odcilindrosf_orden" readonly="" style="text-align: center"></td>
-        <td> <input type="text" class="form-control"  id="odejesf_orden" readonly="" style="text-align: center"></td>             
-        <td> <input type="text" class="form-control"  id="oddicionf_orden" readonly="" style="text-align: center"></td>
-        <td> <input type="text" class="form-control"  id="odprismaf_orden" readonly="" style="text-align: center"></td>                
+        <td> <input type="text" class="form-control clear_orden_i"  id="odesferasf_orden" readonly="" style="text-align: center"></td>
+        <td> <input type="text" class="form-control clear_orden_i"  id="odcilindrosf_orden" readonly="" style="text-align: center"></td>
+        <td> <input type="text" class="form-control clear_orden_i"  id="odejesf_orden" readonly="" style="text-align: center"></td>             
+        <td> <input type="text" class="form-control clear_orden_i"  id="oddicionf_orden" readonly="" style="text-align: center"></td>
+        <td> <input type="text" class="form-control clear_orden_i"  id="odprismaf_orden" readonly="" style="text-align: center"></td>                
       </tr>
       <tr>
         <td>OI</td>
-        <td> <input type="text" class="form-control"  id="oiesferasf_orden"  readonly="" style="text-align: center"></td>
-        <td> <input type="text" class="form-control"  id="oicolindrosf_orden"  readonly="" style="text-align: center"></td>
-        <td> <input type="text" class="form-control"  id="oiejesf_orden"  readonly="" style="text-align: center"></td>              
-        <td> <input type="text" class="form-control"  id="oiadicionf_orden" readonly="" style="text-align: center"></td>
-        <td> <input type="text" class="form-control"  id="oiprismaf_orden" readonly="" style="text-align: center"></td>     
+        <td> <input type="text" class="form-control clear_orden_i"  id="oiesferasf_orden"  readonly="" style="text-align: center"></td>
+        <td> <input type="text" class="form-control clear_orden_i"  id="oicolindrosf_orden"  readonly="" style="text-align: center"></td>
+        <td> <input type="text" class="form-control clear_orden_i"  id="oiejesf_orden"  readonly="" style="text-align: center"></td>              
+        <td> <input type="text" class="form-control clear_orden_i"  id="oiadicionf_orden" readonly="" style="text-align: center"></td>
+        <td> <input type="text" class="form-control clear_orden_i"  id="oiprismaf_orden" readonly="" style="text-align: center"></td>     
       </tr>
      </tbody>
   </table>
@@ -140,15 +140,15 @@
       </thead>
       <tr>
         <td colspan="5" style="text-align:right;">OD</td>
-        <td colspan="5"><input style="text-align: center" readonly id="dip_od" class="form-control"></td>
-        <td colspan="5"><input style="text-align: center" readonly id="ap_od" class="form-control"></td>
-        <td colspan="5"><input style="text-align: center" readonly id="ao_od" class="form-control"></td>
+        <td colspan="5"><input style="text-align: center" readonly id="dip_od" class="form-control clear_orden_i"></td>
+        <td colspan="5"><input style="text-align: center" readonly id="ap_od" class="form-control clear_orden_i"></td>
+        <td colspan="5"><input style="text-align: center" readonly id="ao_od" class="form-control clear_orden_i"></td>
       </tr>
       <tr>
         <td colspan="5" style="text-align:right;">OI</td>
-        <td colspan="5"><input style="text-align: center" readonly id="dip_oi" class="form-control"></td>
-        <td colspan="5"><input style="text-align: center" readonly id="ap_oi" class="form-control"></td>
-        <td colspan="5"><input style="text-align: center" readonly id="ao_oi" class="form-control"></td>
+        <td colspan="5"><input style="text-align: center" readonly id="dip_oi" class="form-control clear_orden_i"></td>
+        <td colspan="5"><input style="text-align: center" readonly id="ap_oi" class="form-control clear_orden_i"></td>
+        <td colspan="5"><input style="text-align: center" readonly id="ao_oi" class="form-control clear_orden_i"></td>
       </tr>
     </table>
   </div>
@@ -164,7 +164,7 @@
         <div class="input-group-prepend">
           <div class="input-group-text">LENTE</i></div>
         </div>
-        <input type="text" class="form-control" id="lente_orden">
+        <input type="text" class="form-control clear_orden_i" id="lente_orden">
       </div>
     </div>
 
@@ -173,7 +173,7 @@
         <div class="input-group-prepend">
           <div class="input-group-text">TRATAMIENTOS</i></div>
         </div>
-        <input type="text" class="form-control" id="tratamiento_orden">
+        <input type="text" class="form-control clear_orden_i" id="tratamiento_orden">
       </div>
     </div>
   </div>
@@ -184,22 +184,22 @@
   <div class="form-row align-items-center row" style="margin: 4px">
     <div class="form-group col-sm-3">
       <label for="">Modelo</label>
-      <input type="text" class="form-control" id="modelo_aro_orden" readonly="">
+      <input type="text" class="form-control clear_orden_i" id="modelo_aro_orden" readonly="">
     </div>
 
     <div class="form-group col-sm-3">
       <label for="">Marca</label>
-      <input type="text" class="form-control" id="marca_aro_orden" readonly="">
+      <input type="text" class="form-control clear_orden_i" id="marca_aro_orden" readonly="">
     </div>
 
       <div class="form-group col-sm-3">
       <label for="">Color</label>
-      <input type="text" class="form-control" id="color_aro_orden" readonly="">
+      <input type="text" class="form-control clear_orden_i" id="color_aro_orden" readonly="">
     </div>
 
     <div class="form-group col-sm-3">
       <label for="">Diseño</label>
-      <input type="text" class="form-control" id="diseno_aro_orden" readonly="">
+      <input type="text" class="form-control clear_orden_i" id="diseno_aro_orden" readonly="">
     </div>
   </div>
 
@@ -214,16 +214,16 @@
     </thead>
     <tbody>
       <tr>
-        <td colspan="25" style="width: 25%"> <input type="text" class="form-control" placeholder="---" id="med_a" onClick="get_correlativo_orden();"></td>
-        <td colspan="25" style="width: 25%"> <input type="text" class="form-control" placeholder="---" id="med_b" onClick="get_correlativo_orden();"></td>
-        <td colspan="25" style="width: 25%"> <input type="text" class="form-control" placeholder="---" id="med_c" onClick="get_correlativo_orden();"></td>     
-        <td colspan="25" style="width: 25%"> <input type="text" class="form-control" placeholder="---" id="med_d" onClick="get_correlativo_orden();"></td>                
+        <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_a" onClick="get_correlativo_orden();"></td>
+        <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_b" onClick="get_correlativo_orden();"></td>
+        <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_c" onClick="get_correlativo_orden();"></td>     
+        <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" placeholder="---" id="med_d" onClick="get_correlativo_orden();"></td>                
       </tr>
   </table>
 
   <div class="form-group col-sm-12">
     <label for="">Observaciones</label>
-    <input type="text" class="form-control" id="observaciones_orden">
+    <input type="text" class="form-control clear_orden_i" id="observaciones_orden">
   </div>
 
 </div>

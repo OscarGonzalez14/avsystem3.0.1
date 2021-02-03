@@ -234,12 +234,10 @@
   $data= Array();
   foreach($datos as $row){
     $sub_array = array();
-    $sub_array[] = $row["id_paciente"];
-    //$sub_array[] = $row["codigo"];
+    $sub_array[] = $row["id_consulta"];
     $sub_array[] = $row["nombres"];    
-    //$sub_array[] = $row["id_consulta"];
     $sub_array[] = $row["fecha_consulta"]; 
-    $sub_array[] = $row["p_evaluado"];        
+    $sub_array[] = $row["p_evaluado"];    
 
     $sub_array[] = '<button type="button" onClick="pacienteConsultaData('.$row["id_paciente"].','.$row["id_consulta"].');" id="'.$row["id_paciente"].'" class="btn btn-md bg-success"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>';            
                                                 

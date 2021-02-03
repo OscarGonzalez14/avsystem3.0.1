@@ -114,10 +114,10 @@ function agregaConsultaOrden(id_paciente,id_consulta,evaluado){
 	    $("#oiprismaf_orden").val(data.oiprismaf);
 	    $("#oiadicionf_orden").val(data.oiadicionf);
 	    //////////////////////////rx final oD
-		$("#odesferasf_orden").val(data.odesferasf);
-		$("#odcilindrosf_orden").val(data.odcilindrosf);
-		$("#odejesf_orden").val(data.odejesf);
-		$("#odprismaf_orden").val(data.dprismaf);
+		  $("#odesferasf_orden").val(data.odesferasf);
+		  $("#odcilindrosf_orden").val(data.odcilindrosf);
+		  $("#odejesf_orden").val(data.odejesf);
+		  $("#odprismaf_orden").val(data.dprismaf);
 	    $("#oddicionf_orden").val(data.oddicionf);
 	    ////////DISTANCIAS INTERPUPILARES
 	    $("#dip_od").val(data.oddip);
@@ -148,6 +148,7 @@ function agregaConsultaOrden(id_paciente,id_consulta,evaluado){
 }
 
 function get_items_venta(numero_ventas,id_paciente){
+  tratamientos = [];
 	console.log("PPPP"+numero_ventas+"Pac"+id_paciente);
 	let numero_venta = numero_ventas;
 	console.log(numero_venta)
@@ -164,7 +165,7 @@ function get_items_venta(numero_ventas,id_paciente){
  			let codProd = (data[i]).toString();
  			console.log(codProd);
  			//////////get categoria del producto
- 			 $.ajax({
+ 			$.ajax({
  	         url: "ajax/ordenes.php?op=get_categoria_producto",
  	         method: "POST",
  	         data: {codProd:codProd},
@@ -175,11 +176,12 @@ function get_items_venta(numero_ventas,id_paciente){
  		       for(var i in data){//GET CATEGORIA AROS
  			   console.log(data[i]);
  			   let catProd = (data[i]).toString();
+         console.log(catProd);
  			   if (catProd=="aros") {
  			   	get_data_aros(codProd);
- 		       }else if(catProd=="lentes"){
+ 		       }else if(catProd=="Lentes"){
  		       	get_data_lentes(codProd);
- 		       }else if(catProd=="photosensible"){
+ 		       }else if(catProd=="Photosensible"){
  		       	get_data_tratamientos(codProd)
  		       }
  		    }//FIN GET CATEGORIA AROS
@@ -187,7 +189,7 @@ function get_items_venta(numero_ventas,id_paciente){
         })//FIN AJAX GET CATEGORIA LENTES
  		} 		
  	}
-   })//////////FIN GET ITEMS VENTAS
+})//////////FIN GET ITEMS VENTAS
 
 }
 
@@ -889,5 +891,12 @@ function registrar_contacto(){
   }) 
 
 }
+
+///////////LIMPIAR CAMPOS DE MODAL ORDEN
+$(document).on('click', '.clear_orden', function(){    
+  $(".clear_orden_i").val("")
+});
+
+
 
 init();

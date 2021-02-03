@@ -28,7 +28,7 @@ $alerts = new Reporteria();
             <div class="card" style="margin: 1px">
               <div class="card-body">
 
-                <a class="btn btn-app"  data-toggle="modal" data-target="#nueva_orden_lab" data-backdrop="static" data-keyboard="false">
+                <a class="btn btn-app clear_orden"  data-toggle="modal" data-target="#nueva_orden_lab" data-backdrop="static" data-keyboard="false">
                   <i class="fas fa-plus" style="color:#008080"></i> CREAR ORDEN
                 </a>
 
