@@ -11,7 +11,7 @@ if(isset($_SESSION["usuario"])){
  require_once('modals/modal_proveedores.php');
  require_once('modals/modal_aros.php');
  require_once('modals/modal_accesorios.php');
- require_once('modals/modal_reporte_ultima_compra_admin.php');
+ //require_once('modals/modal_reporte_ultima_compra_admin.php');
 
 ?>
 <style type="text/css">
@@ -56,7 +56,7 @@ div .post_compra{
         <div class="dropdown-divider"></div>
         <a class="dropdown-item"  style="text-decoration: none;color:black">Reporte anual compras</a>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" style="border-radius:2px" onClick="reporte_compras_admin();">Descargar/imprimir compras admin</a>
+        <!--<a class="dropdown-item" style="border-radius:2px" onClick="reporte_compras_admin();">Descargar/imprimir compras admin</a>-->
       </div>
   </button> 
   </div>    
