@@ -96,7 +96,7 @@ public function registrar_orden($paciente_orden,$laboratorio_orden,$id_pac_orden
 /////////////DATATABLE ORDENES
 public function listar_ordenes($sucursal){
     $conectar = parent::conexion();
-    $sql = "select e.id_envio,e.numero_orden,e.laboratorio,e.evaluado,e.fecha_creacion,u.usuario,e.estado,id_paciente,e.sucursal from envios_lab as e inner join usuarios as u on e.id_usuario=u.id_usuario where e.sucursal=? and e.estado='0';";
+    $sql = "select e.id_envio,e.numero_orden,e.laboratorio,e.evaluado,e.fecha_creacion,u.usuario,e.estado,id_paciente,e.sucursal from envios_lab as e inner join usuarios as u on e.id_usuario=u.id_usuario where e.sucursal=? and (e.estado='0' or e.estado='5');";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1,$sucursal);
     $sql->execute();    
@@ -115,7 +115,7 @@ public function listar_ordenes_enviadas($sucursal){
 public function listar_ordenes_recibidas($sucursal){
     $conectar = parent::conexion();
     $sql = "select e.id_envio,e.numero_orden,e.evaluado,e.estado,e.prioridad,p.nombres,p.id_paciente,a.tipo_accion,a.fecha,u.usuario from envios_lab as e inner join pacientes as p on e.id_paciente=p.id_paciente join acciones_ordenes_lab as a
-    inner join usuarios as u on a.id_usuario=u.id_usuario where e.numero_orden=a.n_orden and a.tipo_accion='Recibir de laboratorio' and e.sucursal=? and e.estado>=2 group by e.id_envio order by e.id_envio DESC;";
+    inner join usuarios as u on a.id_usuario=u.id_usuario where e.numero_orden=a.n_orden and a.tipo_accion='Recibir de laboratorio' and e.sucursal=? and e.estado>=2 and e.estado<5 group by e.id_envio order by e.id_envio DESC;";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1,$sucursal);
     $sql->execute();    
@@ -285,6 +285,64 @@ $sql4->bindValue(10,$hoy);
 $sql4->execute();
 }
 
+public function rechazar_orden_lab($numero_orden,$id_paciente,$observaciones,$id_usuario,$tipo_accion,$sucursal){
+
+  $conectar = parent::conexion();
+  parent::set_names();
+
+  $sql3 = "select*from envios_lab where id_paciente=? and numero_orden=?";
+  $sql3=$conectar->prepare($sql3);
+  $sql3->bindValue(1,$id_paciente);
+  $sql3->bindValue(2,$numero_orden);
+  $sql3->execute();
+  $resultados = $sql3->fetchAll(PDO::FETCH_ASSOC);
+   
+   foreach ($resultados as $row) {
+       $evaluado = $row["evaluado"];
+       $laboratorio = $row["laboratorio"];
+   }
+
+   $sql1="update envios_lab set estado='5' where numero_orden=? and id_paciente=? and evaluado=?;";
+    $sql1=$conectar->prepare($sql1);          
+    $sql1->bindValue(1,$numero_orden);
+    $sql1->bindValue(2,$id_paciente);
+    $sql1->bindValue(3,$evaluado);
+    $sql1->execute();
+  
+  date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
+  $sql="insert into acciones_ordenes_lab values(null,?,?,?,?,?,?,?,?);";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$tipo_accion);
+  $sql->bindValue(2,$hoy);
+  $sql->bindValue(3,$id_usuario);
+  $sql->bindValue(4,$numero_orden);
+  $sql->bindValue(5,$laboratorio);
+  $sql->bindValue(6,$id_paciente);
+  $sql->bindValue(7,$evaluado);
+  $sql->bindValue(8,$sucursal);
+  $sql->execute();
+
+  $estado_varilla_f="0";
+  $estado_frente_f="0";
+  $codos_flex_f="0";
+  $graduaciones_f="0";
+  $productos_f="0";
+  $sql4 = "insert into control_calidad_orden values(null,?,?,?,?,?,?,?,?,?,?);";
+  $sql4=$conectar->prepare($sql4);
+  $sql4->bindValue(1,$numero_orden);
+  $sql4->bindValue(2,$id_paciente);
+  $sql4->bindValue(3,$estado_varilla_f);
+  $sql4->bindValue(4,$estado_frente_f);
+  $sql4->bindValue(5,$codos_flex_f);
+  $sql4->bindValue(6,$graduaciones_f);
+  $sql4->bindValue(7,"RECHAZO".$observaciones);
+  $sql4->bindValue(8,$productos_f);
+  $sql4->bindValue(9,$id_usuario);
+  $sql4->bindValue(10,$hoy);
+  $sql4->execute();
+
+}
+
 public function registrar_contacto($id_paciente,$numero_orden,$observaciones,$tipo_accion,$id_usuario,$sucursal){
 
     $conectar = parent::conexion();
@@ -337,7 +395,7 @@ $sql4->bindValue(3,$estado_varilla_f);
 $sql4->bindValue(4,$estado_frente_f);
 $sql4->bindValue(5,$codos_flex_f);
 $sql4->bindValue(6,$graduaciones_f);
-$sql4->bindValue(7,$observaciones);
+$sql4->bindValue(7,"LLAMADA".$observaciones);
 $sql4->bindValue(8,$productos_f);
 $sql4->bindValue(9,$id_usuario);
 $sql4->bindValue(10,$hoy);
@@ -360,7 +418,7 @@ public function get_data_contacto($id_paciente,$numero_orden){
 public function get_data_consulta($id_paciente,$numero_orden){
     $conectar=parent::conexion();
     parent::set_names();
-    $sql="select u.usuario,c.fecha,c.observaciones,a.tipo_accion from control_calidad_orden as c inner join usuarios as u on c.id_usuario=u.id_usuario inner join acciones_ordenes_lab as a on a.n_orden = c.numero_orden where c.id_paciente=? and numero_orden=? and a.tipo_accion='LLamada' group by c.fecha order by c.id_revision DESC;";
+    $sql="select u.usuario,c.fecha,substring(c.observaciones,8) as observaciones from usuarios as u inner join control_calidad_orden as c on c.id_usuario=u.id_usuario where c.id_paciente=? and c.numero_orden=? and c.observaciones like 'LLAMADA%' order by c.id_revision DESC;";
         $sql=$conectar->prepare($sql);
         $sql->bindValue(1, $id_paciente);
         $sql->bindValue(2, $numero_orden);

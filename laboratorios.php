@@ -67,7 +67,7 @@ $alerts = new Reporteria();
             <td style="text-align:center;width: 10%">Paciente</td>
             <td style="text-align:center;width: 25%">#Orden</td>
             <td style="text-align:center;width: 15%"><span id="fecha_ord">Creación</span></td>
-            <td style="text-align:center;width: 15%"><span id="dias_orden">Dias transcurridos</span></td>
+            <td style="text-align:center;width: 15%"><span id="dias_orden">Usuario</span></td>
             <td style="text-align:center;width: 10%">Estado</td>
             <td style="text-align:center;width: 10%">Detalles</td>
             <!--<td style="text-align:center;width: 10%">Acciones</td>-->

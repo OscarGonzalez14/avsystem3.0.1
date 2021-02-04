@@ -41,26 +41,26 @@
          
          <tr>
            <td colspan="25" style="text-align: left;margin-left: 8px" class="ord_2 checks"> 
-              <input type="radio" id="estado_var" name="estado_var" value="Bueno" class="checks" checked>
+              <input type="radio" id="estado_var" name="estado_var" value="Bueno" class="checks checkados" checked>
               <label for="male">Bueno</label><br>
               <input type="radio" name="estado_var" value="Malo" class="checks estados_malo_ord" >
               <label for="female">Malo</label><br>
             </td>
            <td colspan="25" class="ord_2 checks">
-             <input type="radio" name="estado_frente" value="Bueno" class="checks" checked>
+             <input type="radio" name="estado_frente" value="Bueno" class="checks checkados" checked>
               <label for="male">Bueno</label><br>
               <input type="radio" name="estado_frente" value="Malo" class="checks" class="estados_malo_ord">
               <label for="female">Malo</label><br>
            </td>
 
            <td colspan="25" class="ord_2 checks">
-             <input type="radio" name="estado_codos" value="Bueno" class="checks" checked>
+             <input type="radio" name="estado_codos" value="Bueno" class="checks checkados" checked>
               <label for="male">Bueno</label><br>
               <input type="radio" name="estado_codos" value="Malo" class="checks" class="estados_malo_ord">
               <label for="female">Malo</label><br>
            </td>
            <td colspan="25" class="ord_2 checks">
-             <input type="radio" name="estado_graduaciones" value="Correctas" class="checks" checked>
+             <input type="radio" name="estado_graduaciones" value="Correctas" class="checks checkados" checked>
               <label for="male">Bueno</label><br>
               <input type="radio" name="estado_graduaciones" value="Incorrectas" class="checks" class="estados_malo_ord">
               <label for="female">Malo</label><br>
@@ -86,13 +86,13 @@
        </table>
        <div style="margin:5px" id="observaciones_ca">
           <label for="exampleFormControlTextarea1">OBSERVACIONES</label>
-           <textarea class="form-control" id="observaciones_control_ca" rows="3"></textarea>
+           <textarea class="form-control control_c_clear" id="observaciones_control_ca" rows="3"></textarea>
        </div>
       </div><!--Fin Modal body-->
       <input type="hidden" id="id_paciente_ca">
       <input type="hidden" id="numero_orden_ca">
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Rechazar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" onClick="rechazar_orden();">Rechazar</button>
         <button type="button" class="btn btn-primary" onClick="aprobar_orden_laboratorio();">Aprobar</button>
       </div>
     </div>

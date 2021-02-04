@@ -323,7 +323,7 @@ function listado_general_envios(){
 	document.getElementById("btn_recibir_lab").style.display = "none";
     document.getElementById("btn_enviar_lab").style.display = "block";
     document.getElementById("fecha_ord").innerHTML = "Fecha Creación";
-    document.getElementById("dias_orden").innerHTML = "Dias transcurridos";
+    document.getElementById("dias_orden").innerHTML = "Usuario";
   var sucursal = $("#sucursal").val();
   let peticion = "creadas";
   tabla_envios_gral=$('#data_envios_lab').dataTable(
@@ -490,6 +490,7 @@ function listado_ordenes_recibidas(){
   document.getElementById("btn_enviar_lab").style.display = "none";
   document.getElementById("fecha_ord").innerHTML = "Fecha Recibido";
   document.getElementById("acciones_orden").innerHTML = "Revisión";
+  document.getElementById("dias_orden").innerHTML = "Recibido por";
   
   var sucursal = $("#sucursal").val();
   let peticion = "recibidas";
@@ -789,16 +790,51 @@ if (productos.length == 0) {
 
 }
 
+function rechazar_orden(){
+  let numero_orden = $("#numero_orden_ca").val();
+  let id_paciente =$("#id_paciente_ca").val();
+  let observaciones = $("#observaciones_control_ca").val();
+  let id_usuario = $("#id_usuario").val();
+  let tipo_accion = "Rechazar";
+  let sucursal = $("#sucursal").val();
+
+  bootbox.confirm("¿Está eguro de rechazar estar orden?", function(result){
+    if(result){
+  $.ajax({
+    url:"ajax/ordenes.php?op=rechazar_orden_lab",
+    method:"POST",
+    data: {numero_orden:numero_orden,id_paciente:id_paciente,observaciones:observaciones,id_usuario:id_usuario,tipo_accion:tipo_accion,sucursal:sucursal},
+    cache: false,
+    dataType:"json",
+      success:function(data){
+        console.log(data);
+      setTimeout ("Swal.fire('Se ha rechazado la orden','','warning')", 100);
+      $('#data_envios_lab').DataTable().ajax.reload();
+    } 
+ 
+  });
+}
+});//bootbox
+
+}
+
 function control_calidad_orden(id_paciente,numero_orden){
   $("#cantrol_calidad_ord").modal('show');
   $("#id_paciente_ca").val(id_paciente);
   $("#numero_orden_ca").val(numero_orden);
 
   var elements=document.getElementsByClassName('check_producto');
+  var elements_checkados=document.getElementsByClassName('checkados');
 
     Array.prototype.forEach.call(elements, function(element) {
        element.checked = false;
     });
+
+    Array.prototype.forEach.call(elements_checkados, function(element) {
+       element.checked = true;
+    });
+
+    $(".control_c_clear").val("");
 
 }
 
@@ -867,6 +903,12 @@ function listar_notas_de_contacto(){
   $('#listar_notas_contacto').html(filas);
 }
 
+$(document).keypress(function(e) {
+    if(e.which == 13) {
+        registrar_contacto();
+    }
+});
+
 function registrar_contacto(){
  let id_paciente = $("#id_pac_contact").val();
  let numero_orden = $("#n_orden_contact").val();
@@ -896,6 +938,7 @@ function registrar_contacto(){
 $(document).on('click', '.clear_orden', function(){    
   $(".clear_orden_i").val("")
 });
+
 
 
 

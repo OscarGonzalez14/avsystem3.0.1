@@ -166,6 +166,10 @@ switch($_GET["op"]){
             $badge="success";
             $icon="fa-share-square";
             $estado="Enviado";
+          }elseif ($row["estado"]==5) {
+            $badge="danger";
+            $icon="fa-share-square";
+            $estado="Rechazado";
           }
 
           $sub_array = array();
@@ -270,6 +274,10 @@ switch($_GET["op"]){
             $badge="success";
             $icon="fa-share-square";
             $estado="Recibido";
+          }elseif ($row["estado"]==5) {
+            $badge="danger";
+            $icon="fa-share-square";
+            $estado="Rechazado";
           }
 
           $sub_array = array();
@@ -410,6 +418,21 @@ switch($_GET["op"]){
       }
       break;
 
+      case 'rechazar_orden_lab':
+         $ordenes->rechazar_orden_lab($_POST["numero_orden"],$_POST["id_paciente"],$_POST["observaciones"],$_POST["id_usuario"],$_POST["tipo_accion"],$_POST["sucursal"]);
+         $messages[]="ok";
+
+      if (isset($messages)){
+      ?>
+       <?php
+         foreach ($messages as $message) {
+             echo json_encode($message);
+           }
+         ?>
+      <?php
+      }
+      break;
+
       case 'registrar_contacto':
          $ordenes->registrar_contacto($_POST["id_paciente"],$_POST["numero_orden"],$_POST["observaciones"],$_POST["tipo_accion"],$_POST["id_usuario"],$_POST["sucursal"]);
          $messages[]="ok";
@@ -449,9 +472,9 @@ switch($_GET["op"]){
         if(is_array($datos)==true and count($datos)>0){
         $data= Array();
         foreach($datos as $row){
-          $output["usuario"] = $row["usuario"];
+          $output["usuario"] = strtoupper($row["usuario"]);
           $output["fecha"] = $row["fecha"];
-          $output["observaciones"] = $row["observaciones"];
+          $output["observaciones"] = strtoupper($row["observaciones"]);
 
           $data[] = $output;
       }
