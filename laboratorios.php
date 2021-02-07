@@ -5,6 +5,7 @@ require_once('header_dos.php');
 require_once('modals/laboratorios/nueva_orden_lab.php');
 require_once('modals/laboratorios/control_calidad.php');
 require_once('modals/laboratorios/contactar_paciente.php');
+require_once('modals/laboratorios/detalles_orden.php');
 $cat_user = $_SESSION["categoria"];
 require_once("modelos/Reporteria.php");
 $alerts = new Reporteria();

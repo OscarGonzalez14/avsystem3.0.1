@@ -105,7 +105,7 @@ public function listar_ordenes($sucursal){
    ####ordenes Enviadas
 public function listar_ordenes_enviadas($sucursal){
     $conectar = parent::conexion();
-    $sql = "select e.id_envio,e.numero_orden,e.evaluado,e.estado,e.prioridad,p.nombres,p.id_paciente,a.tipo_accion,a.fecha,e.prioridad from envios_lab as e inner join pacientes as p on e.id_paciente=p.id_paciente join acciones_ordenes_lab as a where e.numero_orden=a.n_orden and a.tipo_accion='Envio a laboratorio' and e.sucursal=? and e.estado='1' group by e.id_envio order by e.id_envio DESC;";
+    $sql = "select e.id_envio,e.numero_orden,e.evaluado,e.estado,e.prioridad,p.nombres,p.id_paciente,a.tipo_accion,a.fecha,e.prioridad,e.id_consulta from envios_lab as e inner join pacientes as p on e.id_paciente=p.id_paciente join acciones_ordenes_lab as a where e.numero_orden=a.n_orden and a.tipo_accion='Envio a laboratorio' and e.sucursal=? and e.estado='1' group by e.id_envio order by e.id_envio DESC;";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1,$sucursal);
     $sql->execute();    
@@ -426,5 +426,18 @@ public function get_data_consulta($id_paciente,$numero_orden){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
+public function get_detalle_orden($id_paciente,$numero_orden,$evaluado){
+
+    $conectar=parent::conexion();
+    parent::set_names();
+    $sql="select p.nombres,e.evaluado,e.numero_orden,e.laboratorio,e.id_paciente,e.laboratorio from pacientes as p inner join envios_lab as e on p.id_paciente=e.id_paciente where e.numero_orden=? and e.id_paciente=? and e.evaluado=?;";
+        $sql=$conectar->prepare($sql);
+        $sql->bindValue(1, $numero_orden);
+        $sql->bindValue(2, $id_paciente);
+        $sql->bindValue(3, $evaluado);
+        $sql->execute();
+  return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
 
 }

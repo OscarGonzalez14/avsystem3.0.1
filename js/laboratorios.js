@@ -996,8 +996,60 @@ function listar_estado_ordenes(){
     }     
   });
 
-
 }
 
+function detalles_orden(id_paciente,numero_orden,evaluado,id_consulta){
+
+  $("#detalles_orden_lab").modal("show");
+
+    $.ajax({
+    url:"ajax/ordenes.php?op=get_detalles_orden",
+    method:"POST",
+    data:{id_paciente:id_paciente,numero_orden:numero_orden,evaluado:evaluado},
+    dataType:"json",
+    success:function(data){
+    console.log(data);//return false;
+      $("#n_orden_det").val(data.numero_orden);
+      $("#titular_det").val(data.nombres);
+      $("#evaluado_det").val(data.evaluado);
+      $("#laboratorio_det").val(data.laboratorio);
+    }     
+  });
+
+ $.ajax({
+  url:"ajax/consultas.php?op=ver_consultas",
+  method:"POST",
+    data:{id_consulta:id_consulta},
+  cache:false,
+  dataType:"json",
+  success:function(data){
+    console.log(data);
+     $("#paciente_orden_det").val(data.p_evaluado);
+     $("#id_consulta_orden_det").val(id_consulta);
+     $("#id_pac_orden_det").val(id_paciente);
+   //////////////////////////rx final oI
+      $("#oiesferasf_orden_det").val(data.oiesferasf);
+      $("#oicolindrosf_orden_det").val(data.oicolindrosf);
+      $("#oiejesf_orden_det").val(data.oiejesf);
+      $("#oiprismaf_orden_det").val(data.oiprismaf);
+      $("#oiadicionf_orden_det").val(data.oiadicionf);
+      //////////////////////////rx final oD
+      $("#odesferasf_orden_det").val(data.odesferasf);
+      $("#odcilindrosf_orden_det").val(data.odcilindrosf);
+      $("#odejesf_orden_det").val(data.odejesf);
+      $("#odprismaf_orden_det").val(data.dprismaf);
+      $("#oddicionf_orden_det").val(data.oddicionf);
+      ////////DISTANCIAS INTERPUPILARES
+      $("#dip_od_det").val(data.oddip);
+      $("#dip_oi_det").val(data.oidip);
+      $("#ao_od_det").val(data.aood);
+      $("#ao_oi_det").val(data.aooi);
+      $("#ap_od_det").val(data.apod);
+      $("#ap_oi_det").val(data.opoi);
+      
+  }
+});
+
+}
 
 init();
