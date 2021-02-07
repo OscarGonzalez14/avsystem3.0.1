@@ -168,9 +168,10 @@
       
       break;
 
-  case "editar_consulta":
+case "editar_consulta":
+
   $consultas->editar_consultas($_POST['mot_consulta'],$_POST['patologias_c'],$_POST['id_consulta_e'],$_POST['oiesfreasl_e'],$_POST['oicilindrosl_e'],$_POST['oiejesl_e'],$_POST['oiprismal_e'],$_POST['oiadicionl_e'],$_POST['odesferasl_e'],$_POST['odcilndrosl_e'],$_POST['odejesl_e'],$_POST['odprismal_e'],$_POST['odadicionl_e'],$_POST['oiesferasa_e'],$_POST['oicolindrosa_e'],$_POST['oiejesa_e'],$_POST['oiprismaa_e'],$_POST['oiadiciona_e'],$_POST['odesferasa_e'],$_POST['odcilindrosa_e'],$_POST['odejesa_e'],$_POST['dprismaa_e'],$_POST['oddiciona_e'],$_POST['odavsclejos_e'],$_POST['odavphlejos_e'],$_POST['odavcclejos_e'],$_POST['odavsccerca_e'],$_POST['odavcccerca_e'],$_POST['oiavesferasf_e'],$_POST['oiavcolindrosf_e'],$_POST['oiavejesf_e'],$_POST['oiavprismaf_e'],$_POST['oiavadicionf_e'],$_POST["odesferasf_e"],$_POST["odcilindrosf_e"],$_POST["odejesf_e"],$_POST["dprismaf_e"],$_POST["prisodcorrige_e"],$_POST["oddicionf_e"],$_POST["addodcorrige_e"],$_POST["oiesferasf_e"],$_POST["oicolindrosf_e"],$_POST["oiejesf_e"],$_POST["oiprismaf_e"],$_POST["prisoicorrige_e"],$_POST["oiadicionf_e"],$_POST["addoicorrige_e"],$_POST["oddip_e"],$_POST["oidip_e"],$_POST["aood_e"],$_POST["aooi_e"],$_POST["apod_e"],$_POST["opoi_e"],$_POST["ishihara_e"],$_POST["amsler_e"],$_POST["anexos_e"],$_POST["sugeridos_e"],$_POST["diagnostico_e"],$_POST["medicamento_e"],$_POST["observaciones_e"]);
-break;
+  break;
 
 case 'get_ventas_consultas':
   $datos= $consultas->get_ventas_consulta($_POST["id_paciente"]); 
@@ -179,14 +180,13 @@ case 'get_ventas_consultas':
         foreach($datos as $row){         
           $output["fecha_venta"] = $row["fecha_venta"];
           $output["numero_venta"] = $row["numero_venta"];
-          $output["paciente"] = $row["paciente"];
-              
+          $output["paciente"] = $row["paciente"];              
         }       
       echo json_encode($output);
-      } 
+  } 
     break;
 
-    case 'guardar_consulta':
+  case 'guardar_consulta':
       $consultas->agrega_consulta();
       $messages[]="ok";
       if (isset($messages)){
@@ -197,17 +197,16 @@ case 'get_ventas_consultas':
          }
          ?>
    <?php
- }
-    //mensaje error
-      if (isset($errors)){
+  }
+  //mensaje error
+    if (isset($errors)){
 
    ?>
-
-         <?php
-           foreach ($errors as $error) {
-               echo json_encode($error);
-             }
-           ?>
+    <?php
+        foreach ($errors as $error) {
+          echo json_encode($error);
+        }
+    ?>
    <?php
    } 
       break;

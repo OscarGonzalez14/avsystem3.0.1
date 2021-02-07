@@ -3,6 +3,7 @@ function init(){
 	get_correlativo_orden();
 	listado_general_envios();
 	document.getElementById("btn_recibir_lab").style.display = "none";
+  listar_estado_ordenes();
   //document.getElementById("observaciones_ca").style.display = "none";	
 }
 //GET DATA NUEVA ORDEN
@@ -292,6 +293,7 @@ function registrarEnvio(){
  	   	Swal.fire('Envio a laboratorio registrado exitosamente!','','success');
  	   	$("#nueva_orden_lab").modal('hide');
  	   	$('#data_envios_lab').DataTable().ajax.reload();
+      listar_estado_ordenes();
  	   }else{
  	   	Swal.fire('Correlativo ya Existe,  actualizar navegador!','','error');
  	   }
@@ -602,7 +604,7 @@ function acciones_envios_lab(id_paciente,numero_orden,evaluado,estado,laboratori
 var items_envios = [];
 
 $(document).on('click', '.send_orden', function(){
-  console.log("hola Mundo");
+  listar_estado_ordenes();
   var id_pac = $(this).attr("value");
   var orden = $(this).attr("name");
   let id_item = $(this).attr("id");
@@ -693,6 +695,7 @@ function recibir_orden_lab(){
       success:function(data){
       console.log(data)
        $('#data_envios_lab').DataTable().ajax.reload();
+       listar_estado_ordenes();
       }     
  
   });
@@ -797,7 +800,7 @@ function rechazar_orden(){
   let id_usuario = $("#id_usuario").val();
   let tipo_accion = "Rechazar";
   let sucursal = $("#sucursal").val();
-
+  if(observaciones != ""){
   bootbox.confirm("¿Está eguro de rechazar estar orden?", function(result){
     if(result){
   $.ajax({
@@ -810,12 +813,16 @@ function rechazar_orden(){
         console.log(data);
       setTimeout ("Swal.fire('Se ha rechazado la orden','','warning')", 100);
       $('#data_envios_lab').DataTable().ajax.reload();
+      listar_estado_ordenes();
     } 
  
   });
 }
 });//bootbox
-
+}else{
+  setTimeout ("Swal.fire('Especifique el motivo de rechazo','','info')", 100);
+  return false;
+}
 }
 
 function control_calidad_orden(id_paciente,numero_orden){
@@ -865,7 +872,7 @@ function contacto_paciente(id_paciente,numero_orden){
  
   });
 
- $.ajax({
+  $.ajax({
     url:"ajax/ordenes.php?op=get_notas_contacto",
     method:"POST",
     data:{id_paciente:id_paciente,numero_orden:numero_orden},
@@ -939,7 +946,58 @@ $(document).on('click', '.clear_orden', function(){
   $(".clear_orden_i").val("")
 });
 
+////////// LISTAR ORDENES RETRASADAS  ///////////
+function listar_estado_ordenes(){
+  let sucursal = $("#sucursal").val();
+    $.ajax({
+    url:"ajax/ordenes.php?op=get_ordenes_retrasadas",
+    method:"POST",
+    data:{sucursal:sucursal},
+    dataType:"json",
+    success:function(data){
+    console.log(data);//return false;
+    $("#alert_retrasados").html(data);    
+    }     
+  });
 
+  ///////////LISTAR ORDENES RECIBIDAS  //////////
+  $.ajax({
+    url:"ajax/ordenes.php?op=get_ordenes_recibidas",
+    method:"POST",
+    data:{sucursal:sucursal},
+    dataType:"json",
+    success:function(data){
+    console.log(data);//return false;
+    $("#alert_recibidos").html(data);    
+    }     
+  });
+
+  /////////////////LISTAR ORDENES ENVIADAS /////////
+  $.ajax({
+    url:"ajax/ordenes.php?op=get_ordenes_enviadas",
+    method:"POST",
+    data:{sucursal:sucursal},
+    dataType:"json",
+    success:function(data){
+    console.log(data);//return false;
+    $("#alert_enviadas").html(data);    
+    }     
+  });
+
+  ///////////LISTAR ORDENES CREADAS ///////////////
+    $.ajax({
+    url:"ajax/ordenes.php?op=get_ordenes_creadas",
+    method:"POST",
+    data:{sucursal:sucursal},
+    dataType:"json",
+    success:function(data){
+    console.log(data);//return false;
+    $("#alert_creadas").html(data);    
+    }     
+  });
+
+
+}
 
 
 init();

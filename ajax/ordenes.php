@@ -194,6 +194,55 @@ switch($_GET["op"]){
        echo json_encode($results); 
        break;
 
+case 'get_ordenes_retrasadas':
+  $datos = $ordenes->listar_ordenes_enviadas($_POST["sucursal"]);
+  $data = Array();
+  $i=0;
+  foreach ($datos as $row) {
+    $prioridad = $row["prioridad"];
+    date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");  
+    $fecha = $row["fecha"];//strtotime($row["fecha"]);
+    $fecha_actual = $hoy;//strtotime($hoy);
+    $fecha_ini = new DateTime($fecha);
+    $fecha_act = new DateTime($fecha_actual);
+    $transcurridos = $fecha_ini->diff($fecha_act);
+    $dias_transcurridos=$transcurridos->format('%d Dias');
+    $transc = $transcurridos->format('%d');
+
+    if ($transc > $prioridad) {
+        $i = $i+1;
+    } 
+  }
+  echo json_encode($i);
+  break;
+
+  case 'get_ordenes_recibidas':
+    $datos = $ordenes->listar_ordenes_recibidas($_POST["sucursal"]);
+    $recibidos=0;
+    foreach ($datos as $row) {
+      $recibidos = $recibidos+1;
+    }
+    echo json_encode($recibidos);
+    break;
+  
+  case 'get_ordenes_enviadas':
+    $datos = $ordenes->listar_ordenes_enviadas($_POST["sucursal"]);
+    $enviadas=0;
+    foreach ($datos as $row) {
+      $enviadas = $enviadas+1;
+    }
+    echo json_encode($enviadas);
+    break;
+
+    case 'get_ordenes_creadas':
+    $datos = $ordenes->listar_ordenes($_POST["sucursal"]);
+    $creadas=0;
+    foreach ($datos as $row) {
+      $creadas = $creadas+1;
+    }
+    echo json_encode($creadas);
+    break;  
+
 ///////////////ORDENES ENVIADAS
     case 'listar_ordenes_enviadas':
     $peticion = $_POST["peticion"];
@@ -254,6 +303,7 @@ switch($_GET["op"]){
       "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
       "aaData"=>$data);
       echo json_encode($results);
+      //echo json_encode($i);
       //////////////////ORDENES CREADAS
       }elseif ($peticion == "creadas") {
        $datos = $ordenes->listar_ordenes($_POST["sucursal"]);

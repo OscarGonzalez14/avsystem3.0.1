@@ -92,7 +92,7 @@
       <input type="hidden" id="id_paciente_ca">
       <input type="hidden" id="numero_orden_ca">
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal" onClick="rechazar_orden();">Rechazar</button>
+        <button type="button" class="btn btn-danger"  onClick="rechazar_orden();">Rechazar</button>
         <button type="button" class="btn btn-primary" onClick="aprobar_orden_laboratorio();">Aprobar</button>
       </div>
     </div>

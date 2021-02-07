@@ -33,27 +33,27 @@ $alerts = new Reporteria();
                 </a>
 
                 <a class="btn btn-app" onClick="listado_general_envios();">
-                  <span class="badge bg-warning">3</span>
+                  <span class="badge bg-warning" id="alert_creadas"></span>
                   <i class="fas fa-history"></i> PENDIENTES
                 </a>
 
                 <a class="btn btn-app" onClick="listado_ordenes_enviadas();">
-                  <span class="badge bg-info">3</span>
+                  <span class="badge bg-info" id="alert_enviadas"></span>
                   <i class="fas fa-share"></i> ENVIADOS
                 </a>
 
                 <a class="btn btn-app" onClick="listado_ordenes_recibidas();">
-                  <span class="badge bg-success">3</span>
+                  <span class="badge bg-success" id="alert_recibidos"></span>
                   <i class="fas fa-file-import"></i> RECIBIDOS
                 </a>
 
-                <a class="btn btn-app">
-                  <span class="badge bg-danger">3</span>
+                <a class="btn btn-app" onClick="listado_ordenes_enviadas();">
+                  <span class="badge bg-danger" id="alert_retrasados"></span>
                   <i class="far fa-frown"></i> RETRASOS
                 </a>
 
                 <a class="btn btn-app">
-                  <span class="badge bg-primary">3</span>
+                  <span class="badge bg-primary">0</span>
                   <i class="far fa-thumbs-up"></i> ENTREGADOS
                 </a>
 
@@ -82,7 +82,7 @@ $alerts = new Reporteria();
         </tfoot>-->
       </table>
     </section>
-       <button type="button" class="btn btn-outline-dark btn-block send_orden" onClick="send_orden_lab();" id="btn_enviar_lab"><i class="fas fa-share-square"></i> ENVIAR LABORATORIO</button>
+       <button type="button" class="btn btn-primary btn-block send_orden" onClick="send_orden_lab();" id="btn_enviar_lab"><i class="fas fa-share-square"></i> ENVIAR LABORATORIO</button>
      <button type="button" class="btn btn-outline-primary btn-block" id="btn_recibir_lab" onClick="recibir_orden_lab();"><i class="fas fa-share-square"></i> RECIBIR</button>
     </div>
     </div>
