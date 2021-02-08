@@ -548,4 +548,24 @@ case 'get_ordenes_retrasadas':
   echo json_encode($output);
   break;
 
+  case 'get_data_envios':  
+  $datos= $ordenes->get_data_envios($_POST["id_consulta"],$_POST["id_paciente"],$_POST["numero_orden"],$_POST["evaluado"]);
+      if(is_array($datos)==true and count($datos)>0){
+         foreach($datos as $row){         
+          $output["lente"] = $row["lente"];
+          $output["tratamientos"] = $row["tratamientos"];
+          $output["modelo_aro"] = $row["modelo_aro"];
+          $output["color_aro"] = $row["color_aro"];
+          $output["marca_aro"] = $row["marca_aro"];
+          $output["diseno"] = $row["diseno"];
+          $output["med_a"] = $row["med_a"];
+          $output["med_b"] = $row["med_b"];
+          $output["med_c"] = $row["med_c"];
+          $output["med_d"] = $row["med_d"];
+          $output["observaciones"] = strtoupper($row["observaciones"]);
+        }        
+      }
+  echo json_encode($output);
+  break;
+
 }

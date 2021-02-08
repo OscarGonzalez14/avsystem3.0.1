@@ -1019,7 +1019,7 @@ function detalles_orden(id_paciente,numero_orden,evaluado,id_consulta){
  $.ajax({
   url:"ajax/consultas.php?op=ver_consultas",
   method:"POST",
-    data:{id_consulta:id_consulta},
+  data:{id_consulta:id_consulta},
   cache:false,
   dataType:"json",
   success:function(data){
@@ -1045,10 +1045,34 @@ function detalles_orden(id_paciente,numero_orden,evaluado,id_consulta){
       $("#ao_od_det").val(data.aood);
       $("#ao_oi_det").val(data.aooi);
       $("#ap_od_det").val(data.apod);
-      $("#ap_oi_det").val(data.opoi);
-      
+      $("#ap_oi_det").val(data.opoi);      
+    }
+  });
+
+  $.ajax({
+  url:"ajax/ordenes.php?op=get_data_envios",
+  method:"POST",
+  data:{id_consulta:id_consulta,id_paciente:id_paciente,numero_orden:numero_orden,evaluado:evaluado},
+  cache:false,
+  dataType:"json",
+  success:function(data){
+  console.log(data);
+    $("#lente_orden_det").val(data.lente);
+    $("#tratamiento_orden_det").val(data.tratamientos);
+    $("#lente_orden_det").val(data.lente);
+    $("#modelo_aro_orden_det").val(data.modelo_aro);
+    $("#marca_aro_orden_det").val(data.marca_aro);
+    $("#color_aro_orden_det").val(data.color_aro);
+    $("#diseno_aro_orden_det").val(data.diseno);    
+    $("#med_a_det").val(data.med_a);
+    $("#med_b_det").val(data.med_b);
+    $("#med_c_det").val(data.med_c);
+    $("#med_d_det").val(data.med_d);
+    $("#observaciones_orden_det").val(data.observaciones);
+
   }
 });
+
 
 }
 

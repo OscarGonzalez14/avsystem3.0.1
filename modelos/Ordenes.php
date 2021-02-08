@@ -426,7 +426,6 @@ public function get_data_consulta($id_paciente,$numero_orden){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
-
 public function get_detalle_orden($id_paciente,$numero_orden,$evaluado){
 
     $conectar=parent::conexion();
@@ -436,6 +435,19 @@ public function get_detalle_orden($id_paciente,$numero_orden,$evaluado){
         $sql->bindValue(1, $numero_orden);
         $sql->bindValue(2, $id_paciente);
         $sql->bindValue(3, $evaluado);
+        $sql->execute();
+  return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+public function get_data_envios($id_consulta,$id_paciente,$numero_orden,$evaluado){
+
+    $conectar=parent::conexion();
+    parent::set_names();
+    $sql="select*from envios_lab where id_consulta=? and id_paciente=? and numero_orden=? and evaluado=?;";
+        $sql=$conectar->prepare($sql);
+        $sql->bindValue(1, $id_consulta);
+        $sql->bindValue(2, $id_paciente);
+        $sql->bindValue(3, $numero_orden);
+        $sql->bindValue(4, $evaluado);
         $sql->execute();
   return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }

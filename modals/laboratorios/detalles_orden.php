@@ -98,13 +98,78 @@
 </div>
 </div>
 
-      <div class="eight">
-         <h1>DETALLE DE VENTA</h1>
-      </div>
+<div class="eight">
+  <h1>TIPO DE LENTE + TRATAMIENTO</h1>
+  <div class="form-row align-items-center row" style="margin: 4px">
 
-      <div class="eight">
-         <h1>HISTORIAL</h1>
+    <div class="form-group col-sm-5">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">LENTE</i></div>
+        </div>
+        <input type="text" class="form-control clear_orden_i" id="lente_orden_det" readonly="">
       </div>
+    </div>
+
+    <div class="form-group col-sm-7">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">TRATAMIENTOS</i></div>
+        </div>
+        <input type="text" class="form-control clear_orden_i" id="tratamiento_orden_det" readonly="">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="eight">
+  <h1>ARO</h1>
+  <div class="form-row align-items-center row" style="margin: 4px">
+    <div class="form-group col-sm-3">
+      <label for="">Modelo</label>
+      <input type="text" class="form-control clear_orden_i" id="modelo_aro_orden_det" readonly="">
+    </div>
+
+    <div class="form-group col-sm-3">
+      <label for="">Marca</label>
+      <input type="text" class="form-control clear_orden_i" id="marca_aro_orden_det" readonly="">
+    </div>
+
+      <div class="form-group col-sm-3">
+      <label for="">Color</label>
+      <input type="text" class="form-control clear_orden_i" id="color_aro_orden_det" readonly="">
+    </div>
+
+    <div class="form-group col-sm-3">
+      <label for="">Diseño</label>
+      <input type="text" class="form-control clear_orden_i" id="diseno_aro_orden_det" readonly="">
+    </div>
+  </div>
+
+ <table style="margin:0px;width:100%">
+    <thead class="thead-light" style="color: black;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;background: #f8f8f8">
+      <tr>
+        <th  colspan="25" style="text-align:center;width:25%">HORIZONTAL</th>
+        <th  colspan="25" style="text-align:center;width:25%">DIAGONAL</th>
+        <th  colspan="25" style="text-align:center;width:25%">VERTICAL</th>
+        <th  colspan="25" style="text-align:center;width:25%">PUENTE</th>        
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" id="med_a_det" readonly=""></td>
+        <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" id="med_b_det" readonly=""></td>
+        <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" id="med_c_det" readonly=""></td>     
+        <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" id="med_d_det" readonly=""></td>                
+      </tr>
+  </table>
+
+  <div class="form-group col-sm-12">
+    <label for="">Observaciones</label>
+    <input type="text" class="form-control clear_orden_i" id="observaciones_orden_det" readonly>
+  </div>
+
+</div>
 
       </div><!--Fin de Body-->
 
