@@ -1122,9 +1122,10 @@ function listar_historial_orden(){
     
     $('#historial_orden_detalles').html(filas);
 }
+var items_ccf = [];
 
 function get_data_ccf(id_envio){
-  //console.log(`Este es el id de envio ${id_envio}`);
+  $("#ingreso_ccf_lab").modal('show');
   $.ajax({
   url:"ajax/ordenes.php?op=get_data_ccf",
   method:"POST",
@@ -1133,8 +1134,32 @@ function get_data_ccf(id_envio){
   dataType:"json",
   success:function(data){
   console.log(data);
-      
-  }     
+  $("#laboratorio_ccf").val(data.laboratorio);
+  $("#evaluado_cff").val(data.evaluado);
+
+  var tratamientos_lentes = data.lente+","+data.tratamientos;
+  var elementos_ccf = tratamientos_lentes.split(",");
+  console.log(elementos_ccf);
+
+  for (i = 0; i < elementos_ccf.length; i++){
+
+     var obj = {
+      tratamiento : elementos_ccf[i],
+      cantidad : 0,
+      subtotal : 0
+     }
+
+     items_ccf.push(obj);
+  }
+
+  /*for (i = 0; i < elementos_ccf.length; i++) {
+      console.log(elementos_ccf[i]);
+       var filas = filas + "<tr id='fila"+i+"'><td colspan='15' style='width: 15%'>"+elementos_ccf[i]+"</td>"+
+       "<td colspan='15' style='width: 20%'>"+elementos_ccf[i]+"</td>"+
+      "<td colspan='65' style='width: 65%'>"+elementos_ccf[i]+"</td>"+"</tr>";
+  }*/
+
+  }
 
   });
 }

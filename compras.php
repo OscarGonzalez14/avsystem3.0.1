@@ -4,7 +4,7 @@ require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){   
     
 
- require_once('header.php');
+ require_once('header_dos.php');
  require_once('modals/modal_proveedores.php');
  require_once('modals/modal_aros.php');
  require_once('modals/modal_accesorios.php');
@@ -173,15 +173,25 @@ if(isset($_SESSION["usuario"])){
               </div>
               <br>
               <div class="row post_compra" id="post_compra" style="display: flex;justify-content: space-between !important;">
+                
+
                 <div class="col-sm-4 post_compra">
                   <button class="btn btn-primary btn-block" style="border-radius:2px" data-toggle="modal" data-target="#modal_print_admin" data-backdrop="static" data-keyboard="false" onClick="reporte_compras_admin();";><i class="fas fa-print"></i> Descargar/Imprimir compra(Admin)&nbsp;<i class="fas fa-lock"></i></button>
                 </div>
                 <div class="col-sm-4 post_compra">
-                  <button class="btn btn-success btn-block" style="border-radius:2px"><i class="fas fa-print"></i> Descargar/Imprimir compra(Bodega)&nbsp;<i class="fas fa-unlock"></i></button>
-                </div>
-                <div class="col-sm-4 post_compra">
                   <button class="btn btn-info btn-block" style="border-radius:2px" onClick='explode();'><i class="fas fa-plus"></i> Nueva Compra</button>
                 </div>
+                <div class="col-sm-4 post_compra">
+                  <a href="ingresos_bodega.php" class="btn btn-info" style="color:white;border-radius:2px; background:#001a33;margin:solid #000066 1px"data-backdrop="static" data-keyboard="false"><i class="fas fa-boxes"></i>  Ingresar Compra a Bodega</a>
+                </div>
+                <div class="col-sm-4 post_compra" style="margin-top: 10px">
+                  <button class="btn btn-success btn-block" style="border-radius:2px"><i class="fas fa-print"></i> Descargar/Imprimir compra(Bodega)&nbsp;<i class="fas fa-unlock"></i></button>
+                </div>
+                <br>
+                <div class="col-sm-7 post_compra">
+                  <input type="hidden" name="">
+                </div>
+
               </div>
               <!-- /.card-body -->
             </div>

@@ -1,7 +1,7 @@
 <?php
 require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){
-require_once('header.php');
+require_once('header_dos.php');
 require_once('modals/modal_ingreso_bodega.php');
 ?>
 <div class="content-wrapper">
@@ -47,6 +47,8 @@ require_once('modals/modal_ingreso_bodega.php');
       </table>   <!-- /.content -->
 </div>
 </div>
+
+<?php require_once("footer.php"); ?>
 <script src='js/compras.js'></script>
 <script src='js/bodegas.js'></script>
 <?php } else{

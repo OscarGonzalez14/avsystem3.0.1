@@ -115,10 +115,10 @@
               <i class="nav-icon fas fa-building"></i>
               <p>Empresas</p>
             </a>
-          </li>       
-           <?php if ($_SESSION["Compras"]) {
-           echo '
-          <li class="nav-item">
+          </li>  
+
+         
+        <!--  <li class="nav-item">
             <a href="compras.php" class="nav-link">
               <i class="nav-icon fas fa-cart-plus"></i>
               <p>
@@ -126,10 +126,21 @@
                 <span class="right badge badge-danger" style="visibility:hidden">New</span>
               </p>
             </a>
-          </li>';
-        }?>
+          </li>-->
+      
+              
           <li class="nav-item">
-            <a href="inventarios.php" class="nav-link">
+            <a href="adquisiciones.php" class="nav-link">
+              <i class="nav-icon fas fa-cart-plus"></i>
+              <p>
+                Adquisiciones
+                <span class="right badge badge-danger" style="visibility:hidden">New</span>
+              </p>
+            </a>
+          </li>
+       
+          <li class="nav-item">
+            <a href="inventario.php" class="nav-link">
               <i class="nav-icon fas fa-boxes"></i>
               <p>
                 Inventarios

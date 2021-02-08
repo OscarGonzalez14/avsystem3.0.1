@@ -1,7 +1,7 @@
 <?php
  require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){ 
-require_once('header.php');
+require_once('header_dos.php');
 require_once('modals/nuevo_accesorio.php'); 
 require_once('modals/nueva_marca.php');
 require_once('modals/editar_accesorio.php');

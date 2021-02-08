@@ -40,10 +40,10 @@
   <div class="card" style="border-radius: 5px">
     <div class="card-body register-card-body" style="border-radius: 7px">
         <div class="register-logo">
-          <a href="#" style="font-size:18px !important; color:#383838"><strong>Avsys 2020</strong></a>
+          <a href="#" style="font-size:18px !important; color:#383838"><strong>Avsys 2021</strong></a>
       </div>
         <div class="register-logo">
-    <img src="images/Logo.png" width="160" height="80"  />
+    <img src="images/logooficial.jpg" width="160" height="80"  />
   </div>
       <form method="post" class="login" autocomplete="off">
         <div class="input-group mb-3">

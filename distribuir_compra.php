@@ -2,7 +2,7 @@
  
 require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){ 
-require_once('header.php');
+require_once('header_dos.php');
 $n_compra =$_GET["numero_compra"];
 require_once('modals/modal_ingreso_bodega.php');
 require_once('modals/reporte_det_ingreso.php');
@@ -18,7 +18,7 @@ $cats=$categorias->get_categorias($sucursal);
 <div style="margin: 5px">
     <h5 align="center"><strong>DISTRIBUIR COMPRAS A BODEGA</strong></h5>
     <div class="callout callout-dark">
-	<div class="row" style="margin: 0px;padding: 0px">
+	  <div class="row" style="margin: 0px;padding: 0px">
         <div class="callout callout-warning col-sm-2">
           <span><strong>#INGRESO:</strong></span><span id="id_ingreso_c"></span>
         </div>&nbsp;
@@ -32,8 +32,8 @@ $cats=$categorias->get_categorias($sucursal);
         <div class="callout callout-info col-sm-3">
             <span><strong>Sucursal: </strong> </span><span id="sucursal_i"><?php echo $_SESSION["sucursal"];?></span>
         </div>
-	</div>
-	</div>
+	  </div>
+	  </div>
 
 	 <div style="margin:2px;" class="row">
       <div class="col-sm-5">
@@ -49,7 +49,7 @@ $cats=$categorias->get_categorias($sucursal);
          <?php  } ?>
 
        </select>
-       </div>
+      </div>
        <div class="col-sm-3">
          <a href="stock.php"><button type="button" class="btn btn-info btn-flat"><i class="fas fas fa-clipboard-list"></i> INVENTARIO GENERAL</button></a>
        </div>
@@ -91,6 +91,7 @@ $cats=$categorias->get_categorias($sucursal);
 
 </div>
 </div>
+<?php require_once("footer.php"); ?>
 <script src='js/compras.js'></script>
 <script src='js/bodegas.js'></script>
 <script src='js/categorias.js'></script>

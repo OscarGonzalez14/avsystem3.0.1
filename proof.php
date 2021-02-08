@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,4 +26,5 @@ console.log(arreglo);
 
 </body>
 </html>
+
 

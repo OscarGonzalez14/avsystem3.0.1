@@ -3,74 +3,71 @@ require_once('modelos/Externos.php');
 $marca = new Externos();
 $marcas=$marca->get_marca();
 ?>
- <style>
-    #tamModal{
-      width: 75% !important;
-    }
-     #head{
-        background-color: black;
-        color: white;
-        text-align: center;
-    }
-
-    .input-dark{
-      border: solid 1px black;
-      border-radius: 0px;
-    }
-
-    .input-dark{
-      border: solid 1px black;
-    }
-
-    .modal-dialog {
-      height: 75vh;
-      display: flex;
-      align-items: center;
+<style>
+  #new_aro{
+    width: 70% !important;
+    position: fixed;
+    display: flex;
+  }
+  #head{
+    background-color: black;
+    color: white;
+    text-align: center;
+  }
+.modal-dialog {
+  margin: 0;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
 }
+
 </style>
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="new_aro" style="border-radius:0px !important;">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="nuevo_aro" style="border-radius:0px !important;margin-top: 30px;" >
   <div class="modal-dialog modal-lg" role="document" id="tamModal">
 
     <div class="modal-content">
      <div class="modal-header" id="head" style="justify-content:space-between">
-       <span><i class="fas fa-plus-square"></i> EDITAR ARO</span>
+       <span><i class="fas fa-plus-square"></i>CREAR ARO</span>
         <button type="button" class="close" data-dismiss="modal" style="color:white">&times;</button>
      </div>
      <div id="resultados_ajax"></div>
 <section style="margin:15px">
   <div class="form-row" autocomplete="on">
+    <div class="form-group  col-md-6">
+      <button class="btn btn-success" style="color:white; margin:solid black 1px" data-toggle="modal" data-target="#newMarca" onClick="limpiar_input();"><i class="fas fa-plus-square"></i> Crear Marca</button>
+    </div>
+    
+   <div class="form-group col-md-6">
+      <input type="hidden">
+   </div>
+  
 
     <div class="form-group col-md-4">
-      <label for="exampleFormControlSelect2">Marca</label>
-      <select class="form-control input-dark gui-input" id="marca_aros">
-       <option value="">Seleccione marca</option>
-      <?php 
-      for ($i=0; $i < sizeof($marcas); $i++) {  ?>
-        <option value="<?php echo($marcas[$i]["marca"]) ?>"><?php echo $marcas[$i]["marca"]?></option>
-        <?php } ?>
-     </select>
-      </div>
+       <label for="sel1">Seleccione marca:</label>
+      <select class="form-control" name="" id="marca_aros"></select>
+    </div>
+    
     <div class="form-group col-md-4">
       <label for="inputPassword4">Modelo</label>
-      <input type="text" class="form-control input-dark" id="modelo_aro" placeholder="Escriba el Modelo" required="" onkeyup="mayus(this);" >
+      <input type="text" class="form-control" id="modelo_aro" placeholder="Escriba el Modelo" required="" onkeyup="mayus(this);" >
     </div>
 
     <div class="form-group col-md-4">
       <label for="inputPassword4">Color</label>
-      <input type="text" class="form-control input-dark" id="color_aro" placeholder="Escriba el color" required="" onkeyup="mayus(this);" >
+      <input type="text" class="form-control" id="color_aro" placeholder="Escriba el color" required="" onkeyup="mayus(this);" >
     </div>
 
     <div class="form-group col-md-3">
       <label for="inputEmail4">Medidas</label>
-      <input type="text" class="form-control input-dark" id="medidas_aro" placeholder="Medidas" required="" onkeyup="mayus(this);" >
+      <input type="text" class="form-control" id="medidas_aro" placeholder="Medidas" required="" onkeyup="mayus(this);" >
     </div>
 
     <div class="form-group col-md-3">
       <label for="inputPassword4">Diseño</label>
-      <select class="form-control input-dark" id="diseno_aro" required="">
+      <select class="form-control" id="diseno_aro" required="">
         <option value="">Seleccionar Diseño</option>
-        <option value="Completo">Completo</option>
+        <option value="Completo">Cerrado</option>
         <option value="Semi-Aereo">Semi Aereo</option>
         <option value="Aereo">Aereo</option>
       </select>
@@ -78,7 +75,7 @@ $marcas=$marca->get_marca();
 
     <div class="form-group col-md-3">
       <label for="inputPassword4">Materiales</label>
-      <select class="form-control input-dark" id="materiales_aro" required="">
+      <select class="form-control" id="materiales_aro" required="">
         <option value="">Seleccionar Material</option>
         <option value="Metal">Metal</option>
         <option value="Acetato">Acetato</option>
@@ -91,7 +88,7 @@ $marcas=$marca->get_marca();
 
     <div class="form-group col-md-3">
       <label for="exampleFormControlSelect2">Categoría</label>
-      <select id="cat_venta_aros" class="form-control input-dark" required="">
+      <select id="cat_venta_aros" class="form-control" required="">
         <option value='Básico'>Básico</option>
         <option value='Intermedio'>Intermedio</option>
         <option value='Premium'>Premium</option>
@@ -117,10 +114,7 @@ $marcas=$marca->get_marca();
 });
 
 
- jQuery(function($) {
-    $('#new_aro').on('shown.bs.modal', function() {
-        $('select[id="marca_aros"]').focus();
-    });
-});
-
+function limpiar_input() {
+    document.getElementById("marca").value = "";
+  }
 </script>

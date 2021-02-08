@@ -1,7 +1,7 @@
 <?php
 require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){ 
-require_once('header.php');
+require_once('header_dos.php');
 require_once('modals/modal_detalle_ventas.php');
 date_default_timezone_set('America/El_Salvador'); $hoy = date("Y-m-d");;
 ?>

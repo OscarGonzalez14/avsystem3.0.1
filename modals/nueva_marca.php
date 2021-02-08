@@ -1,6 +1,6 @@
   <style >
     #tanModal{
-      max-width: 30% !important;
+      max-width: 50% !important;
     }
     #head{
       background-color: black;
@@ -46,10 +46,3 @@
       </div>
     </div>
   </div>
-<script type="">
- jQuery(function($) {
-    $('#newMarca').on('shown.bs.modal', function() {
-        $('input[id="marca"]').focus();
-    });
-});
-</script>

@@ -5,12 +5,16 @@ function init(){
  clear_c_compra();
  get_numero_recibo();
  ingresar_compras_inventario();
- //reporte_compras_admin();
+ reporte_compras_admin();
+ ocultar_btn_post_compra();
 }
 
-$(document).ready(ocultar_btn_post_compra);
+//$(document).ready(ocultar_btn_post_compra);
 
-  function ocultar_btn_post_compra(){
+function hola_mundo(){
+  console.log("probando esto")
+}
+ function ocultar_btn_post_compra(){
   document.getElementById("post_compra").style.display = "none";
 }
 
@@ -250,7 +254,7 @@ if(tipo_compra=='Credito' && plazo=='contado'){
     if (data=='ok') {
     detalles = [];
     $('#listar_det_compras').html('');
-    setTimeout ("Swal.fire('Se ha registrado Exitosamente la compra','','success')", 100);
+    setTimeout ("Swal.fire('La Compra ha sido Exitosa!','','success')", 100);
     ocultar_btn_de_compra();
     setTimeout ("mostrar_btn_post_compra()", 2000);
   }else{
@@ -441,6 +445,7 @@ function ingresar_compras_inventario()
 function reporte_compras_admin()
 {
   var numero_compra = $("#n_compra").val();
+  $("#modal_print_admin").modal("show");
   //alert(numero_compra);
   //return false;
   tabla_compras_admin_report=$('#reporte_compra_admin').dataTable(
