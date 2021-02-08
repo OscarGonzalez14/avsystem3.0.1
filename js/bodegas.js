@@ -244,7 +244,7 @@ if(categoria_ubicacion != ""){
     }
 
   });
-    setTimeout ("Swal.fire('Se ha registrado Exitosamente el ingreso a Bodega','','success')", 100)
+    setTimeout ("Swal.fire('El ingreso a Bodega ha sido Exitoso','','success')", 100)
     //setTimeout ("explode();", 2000);
     mostrar_btn_post_ingreso();
     ocultar_btn_de_ingreso();
