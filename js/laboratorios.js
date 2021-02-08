@@ -1119,11 +1119,24 @@ function listar_historial_orden(){
        "<td colspan='20' style='width: 20%'>"+historial_orden[i].usuario+"</td>"+
       "<td colspan='65' style='width: 65%'>"+historial_orden[i].tipo_accion+"</td>"+"</tr>";
     }
-  $('#historial_orden_detalles').html(filas);
+    
+    $('#historial_orden_detalles').html(filas);
 }
 
 function get_data_ccf(id_envio){
-  console.log(`Este es el id de envio ${id_envio}`);
+  //console.log(`Este es el id de envio ${id_envio}`);
+  $.ajax({
+  url:"ajax/ordenes.php?op=get_data_ccf",
+  method:"POST",
+  data:{id_envio:id_envio},
+  cache: false,
+  dataType:"json",
+  success:function(data){
+  console.log(data);
+      
+  }     
+
+  });
 }
 
 init();

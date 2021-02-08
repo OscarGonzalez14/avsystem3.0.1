@@ -423,41 +423,42 @@ case 'get_ordenes_retrasadas':
     }  
   break;
      
-      case 'registrar_envio_lab':
-         $ordenes->enviar_orden_lab();
-         $messages[]="ok";
+  case 'registrar_envio_lab':
+      $ordenes->enviar_orden_lab();
+      $messages[]="ok";
 
-      if (isset($messages)){
+  if (isset($messages)){
+  ?>
+    <?php
+      foreach ($messages as $message) {
+          echo json_encode($message);
+        }
       ?>
-       <?php
-         foreach ($messages as $message) {
-             echo json_encode($message);
-           }
-         ?>
-      <?php
+  <?php
+  }
+
+break;
+
+case 'registrar_entrega_lab':
+    $ordenes->recibir_orden_lab();
+    $messages[]="ok";
+
+if (isset($messages)){
+?>
+  <?php
+   foreach ($messages as $message) {
+        echo json_encode($message);
       }
-      break;
+    ?>
+<?php
+}
+break;
 
-      case 'registrar_entrega_lab':
-         $ordenes->recibir_orden_lab();
-         $messages[]="ok";
+case 'registrar_control_calidad':
+  $ordenes->registrar_control_calidad($_POST["numero_orden"],$_POST["id_paciente"],$_POST["estado_varilla_f"],$_POST["estado_frente_f"],$_POST["codos_flex_f"],$_POST["graduaciones_f"],$_POST["productos_f"],$_POST["observaciones"],$_POST["id_usuario"],$_POST["tipo_accion"],$_POST["sucursal"]);
+  $messages[]="ok";
 
-      if (isset($messages)){
-      ?>
-       <?php
-         foreach ($messages as $message) {
-             echo json_encode($message);
-           }
-         ?>
-      <?php
-      }
-      break;
-
-      case 'registrar_control_calidad':
-         $ordenes->registrar_control_calidad($_POST["numero_orden"],$_POST["id_paciente"],$_POST["estado_varilla_f"],$_POST["estado_frente_f"],$_POST["codos_flex_f"],$_POST["graduaciones_f"],$_POST["productos_f"],$_POST["observaciones"],$_POST["id_usuario"],$_POST["tipo_accion"],$_POST["sucursal"]);
-         $messages[]="ok";
-
-      if (isset($messages)){
+  if (isset($messages)){
       ?>
        <?php
          foreach ($messages as $message) {
@@ -609,5 +610,18 @@ case 'get_ordenes_retrasadas':
   }
 echo json_encode($data);          
     break;
+
+case 'get_data_ccf':  
+  $datos= $ordenes->get_data_ccf($_POST["id_envio"]);
+    if(is_array($datos)==true and count($datos)>0){
+        foreach($datos as $row){         
+        $output["laboratorio"] = strtoupper($row["laboratorio"]);
+        $output["evaluado"] = $row["evaluado"];
+        $output["lente"] = $row["lente"];
+        $output["tratamientos"] = $row["tratamientos"];
+    }
+  }
+  echo json_encode($output);
+  break;
 
 }

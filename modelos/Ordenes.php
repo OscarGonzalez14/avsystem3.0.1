@@ -476,4 +476,15 @@ public function get_historial_orden($id_paciente,$numero_orden){
   return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+public function get_data_ccf($id_envio){
+    $conectar=parent::conexion();
+    parent::set_names();
+    $sql="select*from envios_lab where id_envio=?";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $id_envio);
+    $sql->execute();
+
+  return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
 }
