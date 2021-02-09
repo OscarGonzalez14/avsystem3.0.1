@@ -1,38 +1,14 @@
-<?php
-require_once('modelos/Externos.php');
-$marca = new Externos();
-$marcas=$marca->get_marca();
-?>
-<style>
-  #new_aro{
-    width: 70% !important;
-    position: fixed;
-    display: flex;
-  }
-  #head{
-    background-color: black;
-    color: white;
-    text-align: center;
-  }
-.modal-dialog {
-  margin: 0;
-  margin-right: auto;
-  margin-left: auto;
-  width: 100%;
-}
-
-</style>
-
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="nuevo_aro" style="border-radius:0px !important;margin-top: 30px;" >
-  <div class="modal-dialog modal-lg" role="document" id="tamModal">
-
+<!-- Modal -->
+<div class="modal fade" id="nuevo_aro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
     <div class="modal-content">
-     <div class="modal-header" id="head" style="justify-content:space-between">
-       <span><i class="fas fa-plus-square"></i>CREAR ARO</span>
-        <button type="button" class="close" data-dismiss="modal" style="color:white">&times;</button>
-     </div>
-     <div id="resultados_ajax"></div>
-<section style="margin:15px">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">NUEVO ARO</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
   <div class="form-row" autocomplete="on">
     <div class="form-group  col-md-6">
       <button class="btn btn-success" style="color:white; margin:solid black 1px" data-toggle="modal" data-target="#newMarca" onClick="limpiar_input();"><i class="fas fa-plus-square"></i> Crear Marca</button>
@@ -95,26 +71,12 @@ $marcas=$marca->get_marca();
       </select>
     </div>
   </div>
-<input type="hidden" id="categoria_producto" value="aros"/>
-<button class="btn btn-primary btn-block" style="border-radius:0px" onClick="guardarAro();"><i class="fas fa-save"></i> Guardar</button>
-</section>
+      </div>
+      <input type="hidden" id="categoria_producto" value="aros"/>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-primary" onClick="guardarAro();"><i class="fas fa-save"></i>GUARDAR</button>
+      </div>
     </div>
   </div>
 </div>
-<script type="text/javascript" src="js/cleave.js"></script>
-<script type="text/javascript">
-  function mayus(e) {
-       e.value = e.value.toUpperCase();
-  }
-
-  var medidas = new Cleave('#medidas_aro', {
-    delimiter: '-',
-    blocks: [2,2,3],
-    uppercase: true
-});
-
-
-function limpiar_input() {
-    document.getElementById("marca").value = "";
-  }
-</script>

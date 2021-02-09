@@ -224,15 +224,15 @@ function recalcular(idx){
 
     console.log(detalles[idx].cantidad);
     console.log((detalles[idx].cantidad * detalles[idx].precio_venta));
-    var subtotal =detalles[idx].subtotal = detalles[idx].cantidad * detalles[idx].precio_venta;
+    var subtotal = detalles[idx].subtotal = detalles[idx].cantidad * detalles[idx].precio_venta;
     console.log(subtotal.toFixed(2));
     subtotal = detalles[idx].subtotal = (detalles[idx].subtotal - detalles[idx].descuento);
 
     subtotalFinal = subtotal.toFixed(2);
     $('#subtotal'+idx).html(subtotalFinal);
 
-  calcularTotales();
-  }
+    calcularTotales();
+}
 
 function setDescuento(event, obj, idx){
     event.preventDefault();

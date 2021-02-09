@@ -1125,6 +1125,7 @@ function listar_historial_orden(){
 var items_ccf = [];
 
 function get_data_ccf(id_envio){
+  items_ccf = [];
   $("#ingreso_ccf_lab").modal('show');
   $.ajax({
   url:"ajax/ordenes.php?op=get_data_ccf",
@@ -1145,23 +1146,59 @@ function get_data_ccf(id_envio){
 
      var obj = {
       tratamiento : elementos_ccf[i],
-      cantidad : 0,
-      subtotal : 0
+      cantidad : 1,
+      p_unit : 0,
+      subtotal : 0,
+      ventas_afectas : 0,
+      iva : 0
      }
 
      items_ccf.push(obj);
   }
-
-  /*for (i = 0; i < elementos_ccf.length; i++) {
-      console.log(elementos_ccf[i]);
-       var filas = filas + "<tr id='fila"+i+"'><td colspan='15' style='width: 15%'>"+elementos_ccf[i]+"</td>"+
-       "<td colspan='15' style='width: 20%'>"+elementos_ccf[i]+"</td>"+
-      "<td colspan='65' style='width: 65%'>"+elementos_ccf[i]+"</td>"+"</tr>";
-  }*/
+  
+  $('#listar_items_ccf').html(""); 
+  var filas = "";   
+  for (i = 0; i < items_ccf.length; i++){
+       var filas = filas + "<tr id='fila"+i+"'><td colspan='45' style='width: 45%'>"+items_ccf[i].tratamiento+"</td>"+
+       "<td colspan='15' style='width: 15%'><input type='number' class='form-control cantidad' style='text-align: right' value='"+items_ccf[i].cantidad+"' onKeyUp='setCantidad_ccf(event, this, "+(i)+");' onClick='setCantidad_ccf(event, this, "+(i)+");'></td>"+
+       "<td colspan='10' style='width: 10%'><input type='number' class='form-control p_unit' style='text-align: right' value='"+items_ccf[i].p_unit+"' onKeyUp='setP_unit(event, this, "+(i)+");' onClick='setP_unit(event, this, "+(i)+");'></td>"+
+       "<td colspan='10' style='width: 10%'><input type='text' class='form-control gravadas' style='text-align: right' value='"+items_ccf[i].subtotal+"' readonly id='subtotal"+i+"'></td>"+
+      "<td colspan='20' style='width: 20%'><input type='text' class='form-control iva' style='text-align: right' value='' readonly id='afectas"+i+"'></td>"+"</tr>";
+  }
+  
+  $('#listar_items_ccf').html(filas);
 
   }
 
   });
+}
+
+function setCantidad_ccf(event, obj, idx){
+  console.log("change");
+    event.preventDefault();
+    items_ccf[idx].cantidad = parseFloat(obj.value);
+    recalcular_ccf(idx);
+}
+
+function setP_unit(event, obj, idx){
+  event.preventDefault();
+  items_ccf[idx].p_unit = parseFloat(obj.value);
+  recalcular_ccf(idx);
+  
+}
+
+function recalcular_ccf(idx){
+  var subtotal = items_ccf[idx].subtotal = items_ccf[idx].cantidad * items_ccf[idx].p_unit;
+  console.log(subtotal);
+  subtotalFinal = subtotal.toFixed(2);
+  $('#subtotal'+idx).val(subtotalFinal);
+
+  var afectas = subtotalFinal*0.13;
+  var total_afectas_item = parseFloat(subtotalFinal)+parseFloat(afectas);
+  items_ccf[idx].ventas_afectas = parseFloat(total_afectas_item.toFixed(2))
+  $('#afectas'+idx).val(`IVA: $ (${afectas.toFixed(2)}) || +IVA($${total_afectas_item.toFixed(2)})`);
+  items_ccf[idx].iva = afectas.toFixed(2);////////  IVA 
+
 }
 
 init();

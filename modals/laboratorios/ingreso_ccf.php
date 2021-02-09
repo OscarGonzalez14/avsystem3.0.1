@@ -1,6 +1,6 @@
 <style>
     #ccf_tamano{
-      max-width: 65% !important;
+      max-width: 85% !important;
     }
 
     .ord_1{
@@ -15,6 +15,16 @@
       color: black;font-family: Helvetica, Arial, sans-serif;font-size: 11px;
       text-align: center;
       width: 25%;
+    }     
+    .table2 {
+       border-collapse: collapse;
+    }
+    .stilot1{
+       border: 1px solid black;
+       padding: 5px;
+       font-size: 12px;
+       font-family: Helvetica, Arial, sans-serif;
+       text-align: center;
     }
 </style>
 
@@ -52,11 +62,14 @@
 
       </div><!--Fin Form Row-->
 
-      <table class="table-striped" id="notas_contacto" width="100%">
+      <table class="table-bordered table-hover table2" id="notas_contacto" width="100%">
         <thead style="text-align: center;">
-          <th colspan="15" style="width: 15%;text-align: center">Fecha</th>
-          <th colspan="15" style="width: 15%;text-align: center">usuario</th>
-          <th colspan="70" style="width: 70%;text-align: center">Observacion</th>
+          <th colspan="45" style="width: 45%;text-align: center" class="stilot1">Descripción</th>
+          <th colspan="15" style="width: 15%;text-align: center" class="stilot1">Cantidad</th>
+          <th colspan="10" style="width: 10%;text-align: center" class="stilot1">P.Unit.</th>
+          <th colspan="10" style="width: 10%;text-align: center" class="stilot1">V. Gravadas</th>
+         <th colspan="20" style="width: 20%;text-align: center" class="stilot1">13% IVA</th>
+
         </thead>
          <tbody id="listar_items_ccf" style="text-align: center"></tbody>
       </table>
