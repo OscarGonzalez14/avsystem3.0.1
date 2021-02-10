@@ -1191,14 +1191,38 @@ function recalcular_ccf(idx){
   var subtotal = items_ccf[idx].subtotal = items_ccf[idx].cantidad * items_ccf[idx].p_unit;
   console.log(subtotal);
   subtotalFinal = subtotal.toFixed(2);
-  $('#subtotal'+idx).val(subtotalFinal);
+  $('#subtotal'+idx).val("$"+subtotalFinal);
 
   var afectas = subtotalFinal*0.13;
   var total_afectas_item = parseFloat(subtotalFinal)+parseFloat(afectas);
   items_ccf[idx].ventas_afectas = parseFloat(total_afectas_item.toFixed(2))
   $('#afectas'+idx).val(`IVA: $ (${afectas.toFixed(2)}) || +IVA($${total_afectas_item.toFixed(2)})`);
-  items_ccf[idx].iva = afectas.toFixed(2);////////  IVA 
-
+  items_ccf[idx].iva = afectas.toFixed(2);  ////////  IVA 
+  calcularTotalesccf();
 }
+
+function calcularTotalesccf(){
+  var total_items = items_ccf.length;
+  let totales_p_unit =0;
+  let subtotales = 0;
+  for(var i=0; i<items_ccf.length;i++){
+    totales_p_unit = totales_p_unit + items_ccf[i].p_unit;
+    subtotales = subtotales + items_ccf[i].subtotal;
+  
+  }
+  let total_iva = subtotales*0.13;
+  let total_ventas_orden = total_iva+subtotales;
+  $("#tot_p_unit").html("$"+totales_p_unit.toFixed(2));
+  $("#tot_gravadas_ccf").html("$"+subtotales.toFixed(2));
+  $("#tot_iva").html("$"+total_iva.toFixed(2));
+  $("#subtotales_ccf").html("$"+subtotales.toFixed(2));
+  $("#totales_ccf_orden").html("$"+total_ventas_orden.toFixed(2));
+
+
+  }
+
+  ///////////////  GUARDAR CCF LABORATORIOS  /////
+
+  
 
 init();

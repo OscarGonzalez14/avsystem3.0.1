@@ -52,7 +52,7 @@
 
       <div class="form-group col-md-2">
         <label>Fecha</label>
-        <input type="text" class="form-control" id="evaluado_det">
+        <input type="date" class="form-control" id="evaluado_det">
       </div>
 
       <div class="form-group col-md-2">
@@ -68,15 +68,39 @@
           <th colspan="15" style="width: 15%;text-align: center" class="stilot1">Cantidad</th>
           <th colspan="10" style="width: 10%;text-align: center" class="stilot1">P.Unit.</th>
           <th colspan="10" style="width: 10%;text-align: center" class="stilot1">V. Gravadas</th>
-         <th colspan="20" style="width: 20%;text-align: center" class="stilot1">13% IVA</th>
+          <th colspan="20" style="width: 20%;text-align: center" class="stilot1">13% IVA</th>
 
         </thead>
          <tbody id="listar_items_ccf" style="text-align: center"></tbody>
+         <tfoot>
+           <!--<tr>
+             <td colspan="45" style="width: 45%;text-align: right;" class="stilot1"><b><span id=""></span></b></td>
+             <td colspan="15" style="width: 15%;text-align: right;" class="stilot1"><b><span id="tot_items_ccf"></span></span></td>
+             <td colspan="10" style="width: 10%;text-align: right;" class="stilot1"><b><span id="tot_p_unit"></span></b></td>
+             <td colspan="10" style="width: 10%;text-align: right;color: blue" class="stilot1"><b><span id="tot_gravadas_ccf"></span></b></td>
+             <td colspan="20" style="width: 20%;text-align: center;font-size: 15px;color: red" class="stilot1"></td>
+           </tr>-->
+           <tr>
+             <td colspan="70" style="width: 70%"></td>
+             <td colspan="10" style="width: 10%"><b>13% IVA</b></td>
+             <td colspan="20" style="width: 20%;text-align: center;"><b><span id="tot_iva"></span></b></td>
+           </tr>
+           <tr>
+             <td colspan="70" style="width: 70%"></td>
+             <td colspan="10" style="width: 10%"><b>SUBTOTAL</b></td>
+             <td colspan="20" style="width: 20%;text-align: center;"><b><span id="subtotales_ccf"></span></b></td>
+           </tr>
+           <tr>
+             <td colspan="70" style="width: 70%"></td>
+             <td colspan="10" style="width: 10%"><b>TOTAL VENTA</b></td>
+             <td colspan="20" style="width: 20%;text-align: center;"><b><span id="totales_ccf_orden"></span></b></td>
+           </tr>
+         </tfoot>
       </table>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-dark" style="margin: border-radius:0px">Ingresar CCF</button>
+        <button type="button" class="btn btn-primary btn-block" style="margin: border-radius:0px">Ingresar CCF</button>
       </div>
     </div>
   </div>

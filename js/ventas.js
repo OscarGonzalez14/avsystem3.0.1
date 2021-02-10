@@ -249,6 +249,7 @@ function setDescuento(event, obj, idx){
   }
 }
 
+
 function calcularTotales() {
   var total_final=0;
   for(var i=0;i<detalles.length;i++){
