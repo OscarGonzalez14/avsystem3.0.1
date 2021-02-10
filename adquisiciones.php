@@ -249,8 +249,8 @@ div .post_compra{
 <script src='js/proveedores.js'></script>
 <script src='js/productos.js'></script>
 <script src='js/marca.js'></script>
+
 <script>
-  
   function campos_modal_aros(){
     document.getElementById("marca_aros").value = "";
     document.getElementById("modelo_aros").value = "";

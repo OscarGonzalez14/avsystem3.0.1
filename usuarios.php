@@ -34,7 +34,7 @@ require_once("modals/modal_nuevo_usuario.php")
 </section>
 </div>
 
-
+<?php require_once("footer.php"); ?>
 <script src="js/usuarios.js"></script>
 <script src="js/cleave.js"></script>
  <script>

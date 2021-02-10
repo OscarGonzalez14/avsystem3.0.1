@@ -56,7 +56,7 @@ function guardarUsuario(){
         setTimeout ("Swal.fire('Se ha registrado un nuevo usuario','','success')", 100)
         setTimeout ("explode();", 2000);
       }else{
-        setTimeout ("Swal.fire('Se ha editado el usuario','','info')", 100)
+        setTimeout ("Swal.fire('El usuario ha sido editado','','info')", 100)
       }
 		}
 

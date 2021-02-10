@@ -74,7 +74,7 @@ switch ($_GET["op"]){
         $sub_array[] = $row["correo"];
         $sub_array[] = $row["direccion"];
         $sub_array[] = '<button type="button" class="btn btn-edit btn-md bg-light" style="text-align:center" onClick="show_datos_paciente('.$row["id_usuario"].');" data-toggle="modal" data-target="#nuevo_usuario"><i class="fa fa-edit" aria-hidden="true" style="color:#006600"></i></button>';
-        $sub_array[] = '<button type="button"  id="'.$row["id_usuario"].'" class="btn btn-power-off btn-md activa_desactiva_usuario bg-light" style="text-align:center" onClick=estado_usuario('.$row["id_usuario"].',\''.$row["estado"].'\');" data-toggle="modal" data-target="#nuevo_usuario" data-backdrop="static" data-keyboard="false"><i class="fa fa-power-off" aria-hidden="true" style="color:#006600"></i></button>';
+        $sub_array[] = '<button type="button"  id="'.$row["id_usuario"].'" class="btn btn-power-off btn-md activa_desactiva_usuario bg-light" style="text-align:center" onClick=estado_usuario('.$row["id_usuario"].',\''.$row["estado"].'\');" data-toggle="modal" data-target="#" data-backdrop="static" data-keyboard="false"><i class="fa fa-power-off" aria-hidden="true" style="color:#006600"></i></button>';
         $data[] = $sub_array;
       }
 
