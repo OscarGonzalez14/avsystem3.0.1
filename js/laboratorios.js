@@ -1143,6 +1143,9 @@ function get_data_ccf(id_envio){
   console.log(elementos_ccf);
 
   for (i = 0; i < elementos_ccf.length; i++){
+    
+    
+
 
      var obj = {
       tratamiento : elementos_ccf[i],
@@ -1223,6 +1226,6 @@ function calcularTotalesccf(){
 
   ///////////////  GUARDAR CCF LABORATORIOS  /////
 
-  
+
 
 init();

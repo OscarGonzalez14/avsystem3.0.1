@@ -26,7 +26,7 @@ public function login(){
       exit();
     }else {
       
-      $sql= "select * from usuarios where usuario=? and password=?";
+    $sql= "select * from usuarios where usuario=? and password=?";
         $sql=$conectar->prepare($sql);
         $sql->bindValue(1, $usuario);
         $sql->bindValue(2, $password);
