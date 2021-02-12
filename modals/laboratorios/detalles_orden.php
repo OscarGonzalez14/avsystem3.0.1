@@ -193,12 +193,12 @@
       <th colspan="20" class="ord_1" style="width:20%">USUARIO</th>
       <th colspan="65" class="ord_1" style="width:65%">ACCIÓN</th>
     </thead>
-    <tr>
+   <tr>
       <td colspan="15" style="width:15%" class="ord_2"><span id="fecha_acc_ord"></span></td>
       <td colspan="20" style="width:20%" class="ord_2"><span id="usuario_acc_ord"></span></td>
       <td colspan="65" style="width:65%" class="ord_2"><span id="acc_orden"></span></td>
     </tr>
-    <tbody id="historial_orden"></tbody>
+    <tbody id="historial_orden_detalles" class="ord_2"></tbody>
   </table>
 </div>
 

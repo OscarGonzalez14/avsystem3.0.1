@@ -1110,14 +1110,14 @@ function detalles_orden(id_paciente,numero_orden,evaluado,id_consulta){
 
 function listar_historial_orden(){
 
-    $('#historial_orden').html('');
+    $('#historial_orden_detalles').html('');
     var filas = "";
 
-    for(var i=0; i<notas.length; i++){
-      var filas = filas + "<tr id='fila"+i+"'><td colspan='15' style='width: 15%'>"+listar_historial_orden[i].fecha+"</td>"+
-       "<td colspan='20' style='width: 20%'>"+listar_historial_orden[i].usuario+"</td>"+
-      "<td colspan='65' style='width: 65%'>"+listar_historial_orden[i].tipo_accion+"</td>"+"</tr>";
+    for(var i=0; i<historial_orden.length; i++){
+      var filas = filas + "<tr id='fila"+i+"'><td colspan='15' style='width: 15%'>"+historial_orden[i].fecha+"</td>"+
+       "<td colspan='20' style='width: 20%'>"+historial_orden[i].usuario+"</td>"+
+      "<td colspan='65' style='width: 65%'>"+historial_orden[i].tipo_accion+"</td>"+"</tr>";
     }
-  $('#historial_orden').html(filas);
+  $('#historial_orden_detalles').html(filas);
 }
 init();
