@@ -2,6 +2,19 @@
     #envio_tam{
       max-width: 70% !important;
     }
+    . style=""{
+      width: 25%;
+      color: white;font-family: Helvetica, Arial, sans-serif;font-size: 12px;
+      text-align: center;
+      background: #004080;
+      width: 25%;
+    }
+    .ord_2{
+      width: 25%;
+      color: black;font-family: Helvetica, Arial, sans-serif;font-size: 12px;
+      text-align: center;
+      width: 25%;
+    }
 </style>    
 <div class="modal fade" id="detalles_orden_lab" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" id="envio_tam">
@@ -169,6 +182,24 @@
     <input type="text" class="form-control clear_orden_i" id="observaciones_orden_det" readonly>
   </div>
 
+</div>
+
+
+<div class="eight">
+  <h1>HISTORIAL</h1>
+  <table width="100%" class="table-hover table-bordered display nowrap">
+    <thead>
+      <th colspan="15" class="ord_1" style="width:15%">FECHA</th>
+      <th colspan="20" class="ord_1" style="width:20%">USUARIO</th>
+      <th colspan="65" class="ord_1" style="width:65%">ACCIÓN</th>
+    </thead>
+    <tr>
+      <td colspan="15" style="width:15%" class="ord_2"><span id="fecha_acc_ord"></span></td>
+      <td colspan="20" style="width:20%" class="ord_2"><span id="usuario_acc_ord"></span></td>
+      <td colspan="65" style="width:65%" class="ord_2"><span id="acc_orden"></span></td>
+    </tr>
+    <tbody id="historial_orden"></tbody>
+  </table>
 </div>
 
       </div><!--Fin de Body-->

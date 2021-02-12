@@ -338,7 +338,7 @@ case 'get_ordenes_retrasadas':
           $sub_array[] = $row["fecha_creacion"];
           $sub_array[] = ucfirst($row["usuario"]);
           $sub_array[] = '<span class="right badge badge-'.$badge.'"><i class=" fas '.$icon.'" style="color:'.$badge.'"></i><span> '.$estado.'</span>';
-          $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="detalles_orden('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\');"><i class="fas fa-eye" aria-hidden="true" style="color:blue" ¿></i></button>';
+          $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="detalles_orden('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\','.$row["id_consulta"].');"><i class="fas fa-eye" aria-hidden="true" style="color:blue" ¿></i></button>';
           //$sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="acciones_envios_lab('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\',\''.$row["estado"].'\',\''.$row["laboratorio"].'\')"><i class="fas fa-cog" aria-hidden="true" style="color:black"></i></button>';
         $data[] = $sub_array;
         $i++;
@@ -408,7 +408,7 @@ case 'get_ordenes_retrasadas':
           $sub_array[] = $row["fecha"];
           $sub_array[] =  ucfirst($row["usuario"]);
           $sub_array[] = '<span class="right badge badge-'.$badge.'"><i class=" fas '.$icon.'" style="color:'.$badge.'"></i><span> '.$estado.'</span>';
-          $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="detalles_orden('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\');"><i class="fas fa-eye" aria-hidden="true" style="color:blue"></i></button>';
+          $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="detalles_orden('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\','.$row["id_consulta"].');"><i class="fas fa-eye" aria-hidden="true" style="color:blue"></i></button>';
           //$sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="acciones_envios_lab('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\',\''.$row["estado"].'\',\''.$row["laboratorio"].'\')"><i class="fas fa-cog" aria-hidden="true" style="color:black"></i></button>';
         $data[] = $sub_array;
         $i++;
@@ -567,5 +567,48 @@ case 'get_ordenes_retrasadas':
       }
   echo json_encode($output);
   break;
+  
+  case 'get_creacion_orden':  
+  $datos= $ordenes->get_creacion_orden($_POST["id_consulta"],$_POST["id_paciente"],$_POST["numero_orden"],$_POST["evaluado"]);
+      if(is_array($datos)==true and count($datos)>0){
+         foreach($datos as $row){         
+          $output["usuario"] = strtoupper($row["usuario"]);
+          $output["fecha_creacion"] = $row["fecha_creacion"];
+          $output["accion"] = $row["accion"];
+      }
+    }
+  echo json_encode($output);
+  break;
+    
+  case 'get_historial_orden':
+      $datos = $ordenes->get_historial_orden($_POST["id_paciente"],$_POST["numero_orden"]);
+      if(is_array($datos)==true and count($datos)>0){
+
+      $data= Array();
+      foreach($datos as $row){
+        $tipo_acc = $row["tipo_accion"];
+        if($tipo_acc == "Envio a laboratorio"){
+          $accion = "ENVIADO";
+        }elseif($tipo_acc == "Recibir de laboratorio"){
+          $accion = "RECIBIDO";
+        }elseif($tipo_acc == "Rechazar"){
+          $accion = "RECHAZADO";
+        }elseif($tipo_acc == "Control de calidad"){
+          $accion = "REVISADO";
+        }elseif($tipo_acc == "LLamada"){
+          $accion = "LLAMADA A PACIENTE";
+        }
+
+
+        $output["usuario"] = strtoupper($row["usuario"]);
+        $output["fecha"] = $row["fecha"];
+        $output["tipo_accion"] = strtoupper($accion);
+        $data[] = $output;
+    }
+  }
+
+echo json_encode($data);     
+      
+    break;
 
 }

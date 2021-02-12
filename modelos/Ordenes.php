@@ -96,7 +96,7 @@ public function registrar_orden($paciente_orden,$laboratorio_orden,$id_pac_orden
 /////////////DATATABLE ORDENES
 public function listar_ordenes($sucursal){
     $conectar = parent::conexion();
-    $sql = "select e.id_envio,e.numero_orden,e.laboratorio,e.evaluado,e.fecha_creacion,u.usuario,e.estado,id_paciente,e.sucursal from envios_lab as e inner join usuarios as u on e.id_usuario=u.id_usuario where e.sucursal=? and (e.estado='0' or e.estado='5');";
+    $sql = "select e.id_envio,e.numero_orden,e.laboratorio,e.evaluado,e.fecha_creacion,u.usuario,e.estado,id_paciente,e.sucursal,e.id_consulta from envios_lab as e inner join usuarios as u on e.id_usuario=u.id_usuario where e.sucursal=? and (e.estado='0' or e.estado='5');";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1,$sucursal);
     $sql->execute();    
@@ -114,7 +114,7 @@ public function listar_ordenes_enviadas($sucursal){
 ######### Ordenes recibidas
 public function listar_ordenes_recibidas($sucursal){
     $conectar = parent::conexion();
-    $sql = "select e.id_envio,e.numero_orden,e.evaluado,e.estado,e.prioridad,p.nombres,p.id_paciente,a.tipo_accion,a.fecha,u.usuario from envios_lab as e inner join pacientes as p on e.id_paciente=p.id_paciente join acciones_ordenes_lab as a
+    $sql = "select e.id_envio,e.numero_orden,e.evaluado,e.estado,e.prioridad,p.nombres,p.id_paciente,a.tipo_accion,a.fecha,u.usuario,e.id_consulta from envios_lab as e inner join pacientes as p on e.id_paciente=p.id_paciente join acciones_ordenes_lab as a
     inner join usuarios as u on a.id_usuario=u.id_usuario where e.numero_orden=a.n_orden and a.tipo_accion='Recibir de laboratorio' and e.sucursal=? and e.estado>=2 and e.estado<5 group by e.id_envio order by e.id_envio DESC;";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1,$sucursal);
@@ -448,6 +448,30 @@ public function get_data_envios($id_consulta,$id_paciente,$numero_orden,$evaluad
         $sql->bindValue(2, $id_paciente);
         $sql->bindValue(3, $numero_orden);
         $sql->bindValue(4, $evaluado);
+        $sql->execute();
+  return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function get_creacion_orden($id_consulta,$id_paciente,$numero_orden,$evaluado){
+    $conectar=parent::conexion();
+    parent::set_names();
+    $sql="select u.usuario,e.fecha_creacion,'CREACIÓN' as accion  from usuarios as u inner join envios_lab as e on u.id_usuario=e.id_usuario where e.id_consulta=? and e.id_paciente=? and e.numero_orden=? and e.evaluado=?";
+        $sql=$conectar->prepare($sql);
+        $sql->bindValue(1, $id_consulta);
+        $sql->bindValue(2, $id_paciente);
+        $sql->bindValue(3, $numero_orden);
+        $sql->bindValue(4, $evaluado);
+        $sql->execute();
+  return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function get_historial_orden($id_paciente,$numero_orden){
+    $conectar=parent::conexion();
+    parent::set_names();
+    $sql="select u.usuario,a.fecha,a.tipo_accion  from usuarios as u inner join acciones_ordenes_lab as a on u.id_usuario=a.id_usuario where a.id_paciente=? and a.n_orden=?;";
+        $sql=$conectar->prepare($sql);
+        $sql->bindValue(1, $id_paciente);
+        $sql->bindValue(2, $numero_orden);
         $sql->execute();
   return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }

@@ -893,8 +893,6 @@ function contacto_paciente(id_paciente,numero_orden){
     }     
 
   });
-
-
 }
 
 function listar_notas_de_contacto(){
@@ -997,7 +995,7 @@ function listar_estado_ordenes(){
   });
 
 }
-
+var historial_orden = [];
 function detalles_orden(id_paciente,numero_orden,evaluado,id_consulta){
 
   $("#detalles_orden_lab").modal("show");
@@ -1069,11 +1067,57 @@ function detalles_orden(id_paciente,numero_orden,evaluado,id_consulta){
     $("#med_c_det").val(data.med_c);
     $("#med_d_det").val(data.med_d);
     $("#observaciones_orden_det").val(data.observaciones);
+    }
+   });
 
-  }
-});
+    $.ajax({
+      url:"ajax/ordenes.php?op=get_creacion_orden",
+      method:"POST",
+      data:{id_consulta:id_consulta,id_paciente:id_paciente,numero_orden:numero_orden,evaluado:evaluado},
+      cache:false,
+      dataType:"json",
+      success:function(data){
+      console.log(data);
+      $("#fecha_acc_ord").html(data.fecha_creacion);
+      $("#usuario_acc_ord").html(data.usuario);
+      $("#acc_orden").html(data.accion);
+     }
+  });
 
+  historial_orden = [];
+  $.ajax({
+    url:"ajax/ordenes.php?op=get_historial_orden",
+    method:"POST",
+    data:{id_paciente:id_paciente,numero_orden:numero_orden},
+    cache: false,
+    dataType:"json",
+      success:function(data){
+      console.log(data);
+      for( var i in data){
+        var obj = {
+          fecha : data[i].fecha,
+          usuario : data[i].usuario,
+          tipo_accion : data[i].tipo_accion
+        };
+       historial_orden.push(obj);
+      }
+      listar_historial_orden();
+      //$('#data_envios_lab').DataTable().ajax.reload();
+    }     
 
+  });
 }
 
+function listar_historial_orden(){
+
+    $('#historial_orden').html('');
+    var filas = "";
+
+    for(var i=0; i<notas.length; i++){
+      var filas = filas + "<tr id='fila"+i+"'><td colspan='15' style='width: 15%'>"+listar_historial_orden[i].fecha+"</td>"+
+       "<td colspan='20' style='width: 20%'>"+listar_historial_orden[i].usuario+"</td>"+
+      "<td colspan='65' style='width: 65%'>"+listar_historial_orden[i].tipo_accion+"</td>"+"</tr>";
+    }
+  $('#historial_orden').html(filas);
+}
 init();
