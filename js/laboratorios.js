@@ -1254,11 +1254,34 @@ function calcularTotalesccf(){
   $("#subtotales_ccf").html("$"+subtotales.toFixed(2));
   $("#totales_ccf_orden").html("$"+total_ventas_orden.toFixed(2));
 
-
   }
 
   ///////////////  GUARDAR CCF LABORATORIOS  /////
+function registrar_ccf_laboratorio(){
 
+  let numero_comprobante = $("#numero_comprobante").val();
+  let laboratorio = $("#laboratorio_ccf").val();
+  let evaluado_cff = $("#evaluado_cff").val();
+  let fecha = $("#fecha_comproante").val();
+
+  var cantidad_empty = 0;
+
+  for(var i=0;i<items_ccf.length;i++){
+    
+    var current_cantidad = items_ccf[i].cantidad;
+    if (current_cantidad == 0) {
+      cantidad_empty = cantidad_empty+1;
+    }
+
+  }
+
+  if (cantidad_empty > 0){
+    Swal.fire('Especifique la cantidad de cada item!','','warning');
+    return false;
+  }
+
+  //if()
+}
 
 
 init();

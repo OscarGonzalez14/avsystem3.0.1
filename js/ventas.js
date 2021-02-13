@@ -18,7 +18,8 @@ $(document).ready(ocultar_btn_post_venta);
   document.getElementById("post_venta").style.display = "none";
 
 }
-  function mostrar_btn_post_venta(){
+
+function mostrar_btn_post_venta(){
   document.getElementById("post_venta").style.display = "flex";
 }
 
@@ -199,7 +200,6 @@ function listarDetallesVentas(){
     for(var i=0; i<detalles.length; i++){
 
       var subtotal = detalles[i].subtotal = detalles[i].cantidad * detalles[i].precio_venta;
-
       var filas = filas + "<tr id='fila"+i+"'><td>"+(i+1)+
       "</td><td style='text-align:center;'>"+detalles[i].descripcion+
       "</td><td style='text-align:center'><input style='text-align:right' type='number' class='cantidad form-control' name='cantidad[]' id='cantidad[]' onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidad(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'>"+

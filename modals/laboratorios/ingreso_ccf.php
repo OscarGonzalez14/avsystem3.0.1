@@ -52,12 +52,12 @@
 
       <div class="form-group col-md-2">
         <label>Fecha</label>
-        <input type="date" class="form-control" id="evaluado_det">
+        <input type="date" class="form-control" id="fecha_comproante">
       </div>
 
       <div class="form-group col-md-2">
         <label>CCF</label>
-        <input type="text" class="form-control" id="laboratorio_det">
+        <input type="text" class="form-control" id="numero_comprobante">
       </div>      
 
       </div><!--Fin Form Row-->
@@ -100,7 +100,7 @@
       <input type="hidden" id="precio_tratamiento">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-block" style="margin: border-radius:0px">Ingresar CCF</button>
+        <button type="button" class="btn btn-primary btn-block" style="margin: border-radius:0px" onClick="registrar_ccf_laboratorio();">Ingresar CCF</button>
       </div>
     </div>
   </div>
