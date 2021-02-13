@@ -152,7 +152,8 @@ function get_items_venta(numero_ventas,id_paciente){
   tratamientos = [];
 	console.log("PPPP"+numero_ventas+"Pac"+id_paciente);
 	let numero_venta = numero_ventas;
-	console.log(numero_venta)
+	console.log(numero_venta);
+  console.log(id_paciente);
 	$.ajax({
  	url: "ajax/ordenes.php?op=get_items_venta",
  	method: "POST",
@@ -182,7 +183,7 @@ function get_items_venta(numero_ventas,id_paciente){
  			   	get_data_aros(codProd);
  		       }else if(catProd=="Lentes"){
  		       	get_data_lentes(codProd);
- 		       }else if(catProd=="Photosensible"){
+ 		       }else if(catProd=="Photosensible" || catProd=="Antireflejante"){
  		       	get_data_tratamientos(codProd)
  		       }
  		    }//FIN GET CATEGORIA AROS
@@ -1134,46 +1135,78 @@ function get_data_ccf(id_envio){
   cache: false,
   dataType:"json",
   success:function(data){
-  console.log(data);
-  $("#laboratorio_ccf").val(data.laboratorio);
-  $("#evaluado_cff").val(data.evaluado);
+    console.log(data);
+    $("#laboratorio_ccf").val(data.laboratorio);
+    $("#evaluado_cff").val(data.evaluado);
 
-  var tratamientos_lentes = data.lente+","+data.tratamientos;
-  var elementos_ccf = tratamientos_lentes.split(",");
-  console.log(elementos_ccf);
+    var tratamientos_lentes = data.lente+","+data.tratamientos;
+    var elementos_ccf = tratamientos_lentes.split(",");
+    console.log(elementos_ccf);
 
-  for (i = 0; i < elementos_ccf.length; i++){
-    
-    
+    for (i = 0; i < elementos_ccf.length; i++){
+      var precio = 0;
+      var tratamiento_i =elementos_ccf[i];
+      let tratamiento_2= elementos_ccf[i];
+      let tratamiento_1 = tratamiento_2.trim();
+      console.log("Este es un item del tratamiento"+tratamiento_1);
+        $.ajax({//Ajax2
+        url:"ajax/ordenes.php?op=get_precio_tratamiento",
+        method:"POST",
+        data:{tratamiento_1:tratamiento_1},
+        cache:false,
+        dataType:"json",
+        success:function(data){ //1
+        console.log(data);  
+        precio = data.precio;
+        console.log("Estes el precio del tratamiento" + precio);
+        console.log(tratamiento_1);
+        create_object(precio,tratamiento_1);
+      }//Fin 1
+    });//Fin Ajax 2
+    //var precio = $("#precio_tratamiento").val();
+    /*var obj = {
+          tratamiento : tratamiento_i,
+          cantidad : 1,
+          p_unit : 0,
+          subtotal : 0,
+          ventas_afectas : 0,
+          iva : 0,
+          precio : precio
+        }
+       items_ccf.push(obj);*/
+  }/////Fin foreach
+  listar_items_cff();
+}///////Fin Success1
+  });
+ 
+}
 
-
-     var obj = {
-      tratamiento : elementos_ccf[i],
-      cantidad : 1,
-      p_unit : 0,
-      subtotal : 0,
-      ventas_afectas : 0,
-      iva : 0
-     }
-
-     items_ccf.push(obj);
+function create_object(precio,tratamiento_1){
+  var obj = {
+    tratamiento : tratamiento_1,
+    cantidad : 0,
+    p_unit : 0,
+    subtotal : 0,
+    ventas_afectas : 0,
+    iva : 0,
+    precio : precio
   }
-  
-  $('#listar_items_ccf').html(""); 
+  items_ccf.push(obj);
+  listar_items_cff();
+}
+
+function listar_items_cff(){
+    $('#listar_items_ccf').html(""); 
   var filas = "";   
   for (i = 0; i < items_ccf.length; i++){
        var filas = filas + "<tr id='fila"+i+"'><td colspan='45' style='width: 45%'>"+items_ccf[i].tratamiento+"</td>"+
        "<td colspan='15' style='width: 15%'><input type='number' class='form-control cantidad' style='text-align: right' value='"+items_ccf[i].cantidad+"' onKeyUp='setCantidad_ccf(event, this, "+(i)+");' onClick='setCantidad_ccf(event, this, "+(i)+");'></td>"+
-       "<td colspan='10' style='width: 10%'><input type='number' class='form-control p_unit' style='text-align: right' value='"+items_ccf[i].p_unit+"' onKeyUp='setP_unit(event, this, "+(i)+");' onClick='setP_unit(event, this, "+(i)+");'></td>"+
+       "<td colspan='10' style='width: 10%'><input type='number' class='form-control p_unit' style='text-align: right' value='"+items_ccf[i].precio+"' readonly></td>"+
        "<td colspan='10' style='width: 10%'><input type='text' class='form-control gravadas' style='text-align: right' value='"+items_ccf[i].subtotal+"' readonly id='subtotal"+i+"'></td>"+
       "<td colspan='20' style='width: 20%'><input type='text' class='form-control iva' style='text-align: right' value='' readonly id='afectas"+i+"'></td>"+"</tr>";
   }
   
   $('#listar_items_ccf').html(filas);
-
-  }
-
-  });
 }
 
 function setCantidad_ccf(event, obj, idx){
@@ -1185,13 +1218,13 @@ function setCantidad_ccf(event, obj, idx){
 
 function setP_unit(event, obj, idx){
   event.preventDefault();
-  items_ccf[idx].p_unit = parseFloat(obj.value);
+  items_ccf[idx].precio = parseFloat(obj.value);
   recalcular_ccf(idx);
   
 }
 
 function recalcular_ccf(idx){
-  var subtotal = items_ccf[idx].subtotal = items_ccf[idx].cantidad * items_ccf[idx].p_unit;
+  var subtotal = items_ccf[idx].subtotal = items_ccf[idx].cantidad * items_ccf[idx].precio;
   console.log(subtotal);
   subtotalFinal = subtotal.toFixed(2);
   $('#subtotal'+idx).val("$"+subtotalFinal);

@@ -97,7 +97,7 @@
            </tr>
          </tfoot>
       </table>
-
+      <input type="hidden" id="precio_tratamiento">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-block" style="margin: border-radius:0px">Ingresar CCF</button>

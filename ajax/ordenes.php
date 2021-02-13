@@ -624,4 +624,17 @@ case 'get_data_ccf':
   echo json_encode($output);
   break;
 
+  case 'get_precio_tratamiento':
+  $datos= $ordenes->get_precio_tratamiento($_POST["tratamiento_1"]); 
+
+    if(is_array($datos)==true and count($datos)>0){
+      foreach($datos as $row){         
+        $output["precio"] = $row["precio"];
+              
+      }       
+    
+
+    } 
+    echo json_encode($output);
+  break;
 }

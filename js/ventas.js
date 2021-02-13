@@ -224,15 +224,15 @@ function recalcular(idx){
 
     console.log(detalles[idx].cantidad);
     console.log((detalles[idx].cantidad * detalles[idx].precio_venta));
-    var subtotal = detalles[idx].subtotal = detalles[idx].cantidad * detalles[idx].precio_venta;
+    var subtotal =detalles[idx].subtotal = detalles[idx].cantidad * detalles[idx].precio_venta;
     console.log(subtotal.toFixed(2));
     subtotal = detalles[idx].subtotal = (detalles[idx].subtotal - detalles[idx].descuento);
 
     subtotalFinal = subtotal.toFixed(2);
     $('#subtotal'+idx).html(subtotalFinal);
 
-    calcularTotales();
-}
+  calcularTotales();
+  }
 
 function setDescuento(event, obj, idx){
     event.preventDefault();
@@ -248,7 +248,6 @@ function setDescuento(event, obj, idx){
     recalcular(idx);
   }
 }
-
 
 function calcularTotales() {
   var total_final=0;
@@ -584,9 +583,7 @@ function saveVenta(){
     Swal.fire('Cargo Automático Registrado!','','success');
   }
 }
-
 data_oid = [];
-
 function guardar_oid(){
     let id_paciente = $("#id_paciente").val();
     let fecha_inicio = $("#fecha_inicio").val();
@@ -637,6 +634,7 @@ function guardar_oid(){
      document.getElementById("print_pagare").href='imprimir_pagare_pdf.php?n_orden='+codigo+'&'+'n_venta='+numero_venta+'&'+'id_paciente='+id_paciente+'&'+'sucursal='+sucursal;
     setTimeout("show_btn_print_oid();",1500);
 
+    
     registrarVenta();
     //get_correlativo_orden();
   }else{
@@ -650,14 +648,11 @@ $(document).on('keyup', '#tel_ref2', function(){
   get_correlativo_orden();
 });
 
-
 function show_btn_print_oid(){
   document.getElementById("print_orden_descplanilla").style.display = "block";
   document.getElementById("print_pagare").style.display = "block";
   document.getElementById("print_manual_oid").style.display = "block";
 }
-
-
 function get_correlativo_orden(){
   let sucursal = $("#sucursal").val();
  
@@ -800,11 +795,12 @@ function reciboInicial(){
   data:{id_paciente:id_paciente,numero_venta:numero_venta},
   cache:false,
   dataType:"json",
-  success:function(data){ 
+  success:function(data)
+  { 
     console.log(data);  
     $("#photo_rec_ini").val(data.producto);
   }
-  });
+  })
 
     ////////////////antireflejante
   $.ajax({
@@ -848,6 +844,7 @@ function reciboInicial(){
     $("#empresa_ini").val(data.empresas);
   }
   })
+
   
 }///////////FIN FUNCION RECIBO INICIAL
 ///////////////////LISTADO GENERAL DE VENTAS

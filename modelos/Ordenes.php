@@ -487,4 +487,15 @@ public function get_data_ccf($id_envio){
   return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+public function get_precio_tratamiento($tratamiento_1){
+  $conectar=parent::conexion();
+  parent::set_names();
+  $sql="select categoria as precio from productos where desc_producto=?";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1,$tratamiento_1);
+  $sql->execute();
+
+  return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
 }

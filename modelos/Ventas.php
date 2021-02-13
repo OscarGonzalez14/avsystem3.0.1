@@ -36,7 +36,6 @@ where e.id_producto=? and e.id_ingreso=? and p.categoria_producto='accesorios';"
 public function buscar_lentes_ventas($id_producto){
   $conectar= parent::conexion();
   $sql="select categoria as precio_venta,categoria_producto,desc_producto,id_producto from productos where id_producto=?";
-
   $sql = $conectar->prepare($sql);
   $sql->bindValue(1,$id_producto);
   $sql->execute();
