@@ -1138,6 +1138,9 @@ function get_data_ccf(id_envio){
     console.log(data);
     $("#laboratorio_ccf").val(data.laboratorio);
     $("#evaluado_cff").val(data.evaluado);
+    $("#numero_de_orden").val(data.numero_orden);
+    $("#id_envio").val(id_envio);
+
 
     var tratamientos_lentes = data.lente+","+data.tratamientos;
     var elementos_ccf = tratamientos_lentes.split(",");
@@ -1263,6 +1266,13 @@ function registrar_ccf_laboratorio(){
   let laboratorio = $("#laboratorio_ccf").val();
   let evaluado_cff = $("#evaluado_cff").val();
   let fecha = $("#fecha_comproante").val();
+  let numero_orden = $("#numero_de_orden").val();
+  let id_usuario = $("#id_usuario").val();
+  let sucursal = $("#sucursal").val();
+  let id_envio = $("#id_envio").val();
+  let iva = $("#tot_iva").html();
+  let subtotal = $("#subtotales_ccf").html();
+  let total_venta = $("#totales_ccf_orden").html();
 
   var cantidad_empty = 0;
 
@@ -1280,7 +1290,30 @@ function registrar_ccf_laboratorio(){
     return false;
   }
 
-  //if()
+  if(numero_comprobante != "" && cantidad_empty == 0){
+    $.ajax({
+    url:"ajax/ordenes.php?op=registrar_ccf_labs",
+    method:"POST",
+    data:{'arrayCcf':JSON.stringify(items_ccf),'numero_comprobante':numero_comprobante,'laboratorio':laboratorio,'evaluado_cff':evaluado_cff,'fecha':fecha,'numero_orden':numero_orden,'id_usuario':id_usuario,'sucursal':sucursal,'id_envio':id_envio,'iva':iva,'subtotal':subtotal,'total_venta':total_venta},
+    cache: false,
+    dataType:"json",
+    error:function(x,y,z){
+      console.log(x);
+      console.log(y);
+      console.log(z);
+    },
+    success:function(data){
+    console.log(data);
+    if (data=='ok') {
+    Swal.fire('El credito fiscal ha sido registrado exitosamente!','','success');
+    $("#ingreso_ccf_lab").modal('hide');
+    $('#data_envios_lab').DataTable().ajax.reload();
+  }
+  }
+    });
+  }else{
+    Swal.fire('LLenar el formulario correctamente!','','error');
+  }
 }
 
 

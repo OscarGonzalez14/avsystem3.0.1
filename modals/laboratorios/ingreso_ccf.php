@@ -58,7 +58,7 @@
       <div class="form-group col-md-2">
         <label>CCF</label>
         <input type="text" class="form-control" id="numero_comprobante">
-      </div>      
+      </div>   
 
       </div><!--Fin Form Row-->
 
@@ -72,14 +72,7 @@
 
         </thead>
          <tbody id="listar_items_ccf" style="text-align: center"></tbody>
-         <tfoot>
-           <!--<tr>
-             <td colspan="45" style="width: 45%;text-align: right;" class="stilot1"><b><span id=""></span></b></td>
-             <td colspan="15" style="width: 15%;text-align: right;" class="stilot1"><b><span id="tot_items_ccf"></span></span></td>
-             <td colspan="10" style="width: 10%;text-align: right;" class="stilot1"><b><span id="tot_p_unit"></span></b></td>
-             <td colspan="10" style="width: 10%;text-align: right;color: blue" class="stilot1"><b><span id="tot_gravadas_ccf"></span></b></td>
-             <td colspan="20" style="width: 20%;text-align: center;font-size: 15px;color: red" class="stilot1"></td>
-           </tr>-->
+
            <tr>
              <td colspan="70" style="width: 70%"></td>
              <td colspan="10" style="width: 10%"><b>13% IVA</b></td>
@@ -98,6 +91,8 @@
          </tfoot>
       </table>
       <input type="hidden" id="precio_tratamiento">
+      <input type="hidden" id="numero_de_orden">
+      <input type="hidden" id="id_envio">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-block" style="margin: border-radius:0px" onClick="registrar_ccf_laboratorio();">Ingresar CCF</button>

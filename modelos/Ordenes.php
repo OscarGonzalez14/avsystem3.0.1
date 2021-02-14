@@ -494,8 +494,49 @@ public function get_precio_tratamiento($tratamiento_1){
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$tratamiento_1);
   $sql->execute();
-
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+public function registrar_ccf(){
+  $conectar=parent::conexion();
+  parent::set_names();
+  $detalles = array();
+  $detalles = json_decode($_POST["arrayCcf"]);
+
+  $numero_orden = $_POST["numero_orden"];
+  $laboratorio = $_POST["laboratorio"];
+  $ccf = $_POST["numero_comprobante"];
+  $evaluado = $_POST["evaluado_cff"];
+  $subtotal = substr($_POST["subtotal"],1);
+  $iva = substr($_POST["iva"],1);
+  $total_venta = substr($_POST["total_venta"],1);
+  $fecha = $_POST["fecha"];
+  $id_usuario = $_POST["id_usuario"];
+  $sucursal = $_POST["sucursal"];
+  $estado = "0";
+  $cancelado_por = "*";
+  $id_envio = $_POST["id_envio"];
+
+  $sql1="insert into detalle_ccf_laboratorios values(null,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+  $sql1=$conectar->prepare($sql1);          
+  $sql1->bindValue(1,$numero_orden);
+  $sql1->bindValue(2,$laboratorio);
+  $sql1->bindValue(3,$ccf);
+  $sql1->bindValue(4,$evaluado);
+  $sql1->bindValue(5,$subtotal);
+  $sql1->bindValue(6,$iva);
+  $sql1->bindValue(7,$total_venta);
+  $sql1->bindValue(8,$fecha);
+  $sql1->bindValue(9,$id_usuario);
+  $sql1->bindValue(10,$sucursal);
+  $sql1->bindValue(11,$estado);
+  $sql1->bindValue(12,$cancelado_por);
+  $sql1->bindValue(13,$id_envio);
+
+  $sql1->execute();
+
+
+
 }
 
 }

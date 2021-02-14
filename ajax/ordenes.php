@@ -619,6 +619,7 @@ case 'get_data_ccf':
         $output["evaluado"] = $row["evaluado"];
         $output["lente"] = $row["lente"];
         $output["tratamientos"] = $row["tratamientos"];
+        $output["numero_orden"] = $row["numero_orden"];
     }
   }
   echo json_encode($output);
@@ -636,5 +637,32 @@ case 'get_data_ccf':
 
     } 
     echo json_encode($output);
+  break;
+
+  case 'registrar_ccf_labs':
+   $ordenes->registrar_ccf();
+   $messages[]="ok";
+
+    if (isset($messages)){
+     ?>
+       <?php
+         foreach ($messages as $message) {
+            echo json_encode($message);
+         }
+         ?>
+   <?php
+ }
+    //mensaje error
+      if (isset($errors)){
+
+   ?>
+
+         <?php
+           foreach ($errors as $error) {
+               echo json_encode($error);
+             }
+           ?>
+   <?php
+   }
   break;
 }
