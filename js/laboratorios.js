@@ -1067,6 +1067,7 @@ function detalles_orden(id_paciente,numero_orden,evaluado,id_consulta){
     $("#med_c_det").val(data.med_c);
     $("#med_d_det").val(data.med_d);
     $("#observaciones_orden_det").val(data.observaciones);
+    $("#prioridad_orden_det").val(data.prioridad+" dias");
     }
    });
 

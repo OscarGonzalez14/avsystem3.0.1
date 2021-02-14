@@ -176,12 +176,17 @@
         <td colspan="25" style="width: 25%"> <input type="text" class="form-control clear_orden_i" id="med_d_det" readonly=""></td>                
       </tr>
   </table>
-
-  <div class="form-group col-sm-12">
+<div class="row">
+  <div class="form-group col-sm-10">
     <label for="">Observaciones</label>
     <input type="text" class="form-control clear_orden_i" id="observaciones_orden_det" readonly>
   </div>
 
+  <div class="form-group col-sm-2">
+    <label for="">Prioridad</label>
+    <input type="text" class="form-control clear_orden_i" id="prioridad_orden_det" readonly>
+  </div>
+</div>
 </div>
 
 

@@ -468,7 +468,7 @@ public function get_creacion_orden($id_consulta,$id_paciente,$numero_orden,$eval
 public function get_historial_orden($id_paciente,$numero_orden){
     $conectar=parent::conexion();
     parent::set_names();
-    $sql="select u.usuario,a.fecha,a.tipo_accion  from usuarios as u inner join acciones_ordenes_lab as a on u.id_usuario=a.id_usuario where a.id_paciente=? and a.n_orden=?;";
+    $sql="select u.usuario,a.fecha,a.tipo_accion  from usuarios as u inner join acciones_ordenes_lab as a on u.id_usuario=a.id_usuario where a.id_paciente=? and a.n_orden=? group by a.fecha;";
         $sql=$conectar->prepare($sql);
         $sql->bindValue(1, $id_paciente);
         $sql->bindValue(2, $numero_orden);

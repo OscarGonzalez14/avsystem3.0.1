@@ -1,6 +1,6 @@
 <style>
     #c_contact_tam{
-      max-width: 60% !important;
+      max-width: 80% !important;
     }
 
     .ord_1{

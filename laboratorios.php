@@ -83,8 +83,8 @@ $alerts = new Reporteria();
         </tfoot>-->
       </table>
     </section>
-       <button type="button" class="btn btn-primary btn-block send_orden" onClick="send_orden_lab();" id="btn_enviar_lab"><i class="fas fa-share-square"></i> ENVIAR LABORATORIO</button>
-     <button type="button" class="btn btn-outline-primary btn-block" id="btn_recibir_lab" onClick="recibir_orden_lab();"><i class="fas fa-share-square"></i> RECIBIR</button>
+    <button type="button" class="btn btn-dark btn-block send_orden" onClick="send_orden_lab();" id="btn_enviar_lab"><i class="fas fa-share-square"></i> ENVIAR A LABORATORIO</button>
+     <button type="button" class="btn btn-info btn-block" id="btn_recibir_lab" onClick="recibir_orden_lab();"><i class="fas fa-share-square"></i> RECIBIR</button>
     </div>
     </div>
           <input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>"/>

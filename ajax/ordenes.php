@@ -563,6 +563,7 @@ case 'get_ordenes_retrasadas':
           $output["med_c"] = $row["med_c"];
           $output["med_d"] = $row["med_d"];
           $output["observaciones"] = strtoupper($row["observaciones"]);
+          $output["prioridad"] = $row["prioridad"];
         }        
       }
   echo json_encode($output);
