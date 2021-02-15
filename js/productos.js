@@ -709,15 +709,16 @@ function listar_lentes_venta(){
 //////GUARDAR LENTE 
 function guardarLentes(){
   var describe =$("#describe").val();
+  var costo=$("#costo").val();
   var precio =$("#precio").val();
   var cat_prod =$("#cat_prod").val();
   
     //validamos, si los campos(lente) estan vacios entonces no se envia el formulario
-if( describe != "" && precio != "" && cat_prod != "" ){
+if( describe != "" && costo != "" && precio != "" && cat_prod != "" ){
     $.ajax({
     url:"ajax/productos.php?op=registrar_lentes",
     method:"POST",
-    data:{describe:describe,precio:precio,cat_prod:cat_prod},
+    data:{describe:describe,costo:costo,precio:precio,cat_prod:cat_prod},
     cache: false,
     //dataType:"json",
     error:function(x,y,z){
