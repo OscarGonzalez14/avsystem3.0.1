@@ -95,13 +95,35 @@ public function agrega_detalle_venta(){
       $categoria_prod = $v->categoria_prod;
       $categoria_ub = $v->categoria_ub;
       $codProd = $v->codProd;
-      $descripcion = $v->descripcion;
+     // $descripcion = $v->descripcion;
       $descuento = $v->descuento;
       $id_ingreso = $v->id_ingreso;
       $num_compra = $v->num_compra;
       $precio_venta = $v->precio_venta;
       $stock = $v->stock;
       $subtotal = $v->subtotal;
+
+      //////////OBETENER LA DESCRIPCION DEL PRODUCTO /////////////
+      $sqlp = "select*from productos where id_producto=?;";
+      $sqlp = $conectar->prepare($sqlp);
+      $sqlp->bindValue(1,$codProd);
+      $sqlp->execute();
+
+      $detalles_producto = $sqlp->fetchAll(PDO::FETCH_ASSOC);
+
+      foreach ($detalles_producto as $item){
+        $cat_prod = $item["categoria_producto"];
+        if ($cat_prod == "aros") {
+          $descripcion = "ARO: ".$item["marca"]." MOD.: ".$item["modelo"]." COLOR: ".$item["color"]." MED.".$item["medidas"]." ".$item["diseno"];
+        }elseif($cat_prod=="Lentes"){
+          $descripcion = "LENTE: ".$item["desc_producto"];
+        }elseif($cat_prod=="Antireflejante" or $cat_prod=="Photosensible"){
+          $descripcion = "TRATAMIENTOS: ".$item["desc_producto"];
+        }elseif($cat_prod=="accesorios"){
+          $descripcion = "ACC: ".$item["desc_producto"];
+        }
+      }
+
    
       $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,?,?,?,?);";
       $sql=$conectar->prepare($sql);

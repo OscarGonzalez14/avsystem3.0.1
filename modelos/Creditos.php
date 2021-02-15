@@ -306,11 +306,32 @@ $correlativo = $ventas->get_numero_venta($sucursal);
     $precio_venta = $valor->precio_venta;
     $producto = $valor->producto;
 
+      //////////OBETENER LA DESCRIPCION DEL PRODUCTO /////////////
+    $sqlp = "select*from productos where id_producto=?;";
+    $sqlp = $conectar->prepare($sqlp);
+    $sqlp->bindValue(1,$id_producto);
+    $sqlp->execute();
+
+    $detalles_producto = $sqlp->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($detalles_producto as $item){
+    $cat_prod = $item["categoria_producto"];
+    if ($cat_prod == "aros") {
+        $descripcion = "ARO: ".$item["marca"]." MOD.: ".$item["modelo"]." COLOR: ".$item["color"]." MED.".$item["medidas"]." ".$item["diseno"];
+    }elseif($cat_prod=="Lentes"){
+          $descripcion = "LENTE: ".$item["desc_producto"];
+    }elseif($cat_prod=="Antireflejante" or $cat_prod=="Photosensible"){
+          $descripcion = "TRATAMIENTOS: ".$item["desc_producto"];
+    }elseif($cat_prod=="accesorios"){
+          $descripcion = "ACC: ".$item["desc_producto"];
+    }
+    }
+
     $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,?,?,?,?);";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$num_venta);
     $sql->bindValue(2,$id_producto);
-    $sql->bindValue(3,$producto);
+    $sql->bindValue(3,$descripcion);
     $sql->bindValue(4,$precio_venta);
     $sql->bindValue(5,$cantidad);
     $sql->bindValue(6,$descuento);
