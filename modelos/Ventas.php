@@ -88,7 +88,7 @@ public function agrega_detalle_venta(){
   $conectar= parent::conexion();
   parent::set_names();
 
-  if($tipo_venta == "Contado"){ ////////////////////VALIDAR SI LA VENTA ES DE CONTADO  ///////////
+  if($tipo_venta == "Contado" or ($tipo_venta == "Credito" and $tipo_pago == "Cargo Automatico")){ ////////////////////VALIDAR SI LA VENTA ES DE CONTADO  ///////////
 
     foreach ($detalles as $k => $v) {
       $cantidad = $v->cantidad;

@@ -11,7 +11,8 @@ if(isset($_SESSION["usuario"])){
 date_default_timezone_set('America/El_Salvador');$fecha = date("d-m-Y");
 $fecha_imp = date("d-m-Y H:i:s a");
 $reporteria=new Reporteria();
-
+$categoria = $_SESSION["categoria"];
+//echo $categoria;
 if ($categoria == "administrador") {
   $sucursal = $_SESSION["sucursal"];
 }else{

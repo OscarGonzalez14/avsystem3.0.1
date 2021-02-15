@@ -1121,4 +1121,5 @@ function listar_historial_orden(){
     }
   $('#historial_orden_detalles').html(filas);
 }
+
 init();
