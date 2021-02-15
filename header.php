@@ -124,7 +124,7 @@
             <a href="laboratorios.php" class="nav-link">
               <i class="fas fa-exchange-alt"></i>
               <p>
-                Envios a Laboratorios
+                Envios a Lab.
                 <span class="fas fa-exchange-alt" style="visibility:hidden">New</span>
               </p>
             </a>
