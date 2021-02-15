@@ -683,6 +683,4 @@ function get_id_caja_chica(){
     
 }
 
-
-
 init();
