@@ -292,7 +292,7 @@ case 'get_ordenes_retrasadas':
           $sub_array[] = '<span class="right badge badge-'.$badge_transc.'">'.$dias_transcurridos.'</span>';
           $sub_array[] = '<span class="right badge badge-'.$badge.'"><i class=" fas '.$icon.'" style="color:'.$badge.'"></i><span> '.$estado.'</span>';
           $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="detalles_orden('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\','.$row["id_consulta"].');"><i class="fas fa-eye" aria-hidden="true" style="color:blue"></i></button>';
-          //$sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="acciones_envios_lab('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\',\''.$row["estado"].'\',\''.$row["laboratorio"].'\')"><i class="fas fa-cog" aria-hidden="true" style="color:black"></i></button>';
+          $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm"><i class="fas fa-cog" aria-hidden="true" style="color:black"></i></button>';
         $data[] = $sub_array;
         $i++;
        }
@@ -339,7 +339,7 @@ case 'get_ordenes_retrasadas':
           $sub_array[] = ucfirst($row["usuario"]);
           $sub_array[] = '<span class="right badge badge-'.$badge.'"><i class=" fas '.$icon.'" style="color:'.$badge.'"></i><span> '.$estado.'</span>';
           $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="detalles_orden('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\','.$row["id_consulta"].');"><i class="fas fa-eye" aria-hidden="true" style="color:blue" ¿></i></button>';
-          //$sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="acciones_envios_lab('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\',\''.$row["estado"].'\',\''.$row["laboratorio"].'\')"><i class="fas fa-cog" aria-hidden="true" style="color:black"></i></button>';
+          $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm"><i class="fas fa-cog" aria-hidden="true" style="color:black"></i></button>';
         $data[] = $sub_array;
         $i++;
        }
@@ -409,7 +409,7 @@ case 'get_ordenes_retrasadas':
           $sub_array[] =  ucfirst($row["usuario"]);
           $sub_array[] = '<span class="right badge badge-'.$badge.'"><i class=" fas '.$icon.'" style="color:'.$badge.'"></i><span> '.$estado.'</span>';
           $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="detalles_orden('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\','.$row["id_consulta"].');"><i class="fas fa-eye" aria-hidden="true" style="color:blue"></i></button>';
-          //$sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="acciones_envios_lab('.$row["id_paciente"].',\''.$row["numero_orden"].'\',\''.$row["evaluado"].'\',\''.$row["estado"].'\',\''.$row["laboratorio"].'\')"><i class="fas fa-cog" aria-hidden="true" style="color:black"></i></button>';
+          $sub_array[] = '<button type="button" class="btn btn-md btn-outline-secondary btn-sm" onClick="get_data_ccf('.$row["id_envio"].');"><i class="fas fa-cog" aria-hidden="true" style="color:black"></i></button>';
         $data[] = $sub_array;
         $i++;
        }
@@ -607,9 +607,7 @@ case 'get_ordenes_retrasadas':
         $data[] = $output;
     }
   }
-
-echo json_encode($data);     
-      
+echo json_encode($data);          
     break;
 
 }

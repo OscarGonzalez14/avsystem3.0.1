@@ -3,6 +3,7 @@ require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){ 
 require_once('header_dos.php');
 require_once('modals/modal_detalle_orden.php');
+require_once("modals/modal_correlativo_factura.php");
 
 $cat_user = $_SESSION["categoria"];
 require_once("modelos/Reporteria.php");

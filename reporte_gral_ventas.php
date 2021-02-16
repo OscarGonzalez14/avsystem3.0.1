@@ -80,9 +80,8 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("Y-m-d");;
   }
   get_date_corte();
 </script>
-
-   <?php } else{
-echo "Acceso no permitido";
+<?php } else{
+    echo "Acceso no permitido";
   } ?>
 
  

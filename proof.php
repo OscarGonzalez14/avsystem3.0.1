@@ -17,29 +17,12 @@
   </section><!--Fin botones de Venta-->
 
   <script>
-var array = [
-  {id: "6051", nombre: "T CC COMERCIAL", pendiente: "15 und", ejecutado: "50 M", fabrica: "35 und"},
-  {id: "6618", nombre: "T. OCCIDENTE", pendiente: "15 und", ejecutado: "50 M", fabrica: "35 und"},
-  {id: "6668", nombre: "T GENTE BBVA", pendiente: "15 und", ejecutado: "50 M", fabrica: "35 und"}
-];
-//let index = array.findIndex(function(el){
-//return el.id == 6618; 
-// or el.nombre=='T NORTE';
-//console.log(index);
-//var array = [3, 5, 9];
-//var index = array.indexOf(5);
-function delete_element() {
-  /*if (index > -1) {
-   array.splice(index, 1);
-}*/
-let index = array.findIndex(function(el){
-  return el.id == 6668; // or el.nombre=='T NORTE';
-});
-console.log(index);
-}
+cadena = "perro,gato,tucán";
+var arreglo =cadena.split(",");
+console.log(cadena);
+console.log(arreglo);
 </script>
 
 </body>
 </html>
 
-SELECT e.numero_orden,e.evaluado,e.estado,p.nombres,p.id_paciente,a.tipo_accion,a.fecha from envios_lab as e inner join pacientes as p on e.id_paciente=p.id_paciente join acciones_ordenes_lab as a where e.numero_orden=a.n_orden and a.tipo_accion="Envio a laboratorio"

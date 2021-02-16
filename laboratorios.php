@@ -66,12 +66,16 @@ $alerts = new Reporteria();
             <td style="text-align:center;width: 5%">ID</td>
             <td style="text-align:center;width: 10%"><span id="acciones_orden"></span></td>
             <td style="text-align:center;width: 10%">Paciente</td>
-            <td style="text-align:center;width: 25%">#Orden</td>
+            <td style="text-align:center;width: 15%">#Orden</td>
             <td style="text-align:center;width: 15%"><span id="fecha_ord">Creación</span></td>
             <td style="text-align:center;width: 15%"><span id="dias_orden">Usuario</span></td>
             <td style="text-align:center;width: 10%">Estado</td>
             <td style="text-align:center;width: 10%">Detalles</td>
-            <!--<td style="text-align:center;width: 10%">Acciones</td>-->
+            <?php if($cat_user=="administrador"){
+            echo '
+            <td style="text-align:center;width: 10%">Acciones</td>';
+          }
+            ?>
          </tr>
         </thead>
         <tbody style="font-family: Helvetica, Arial, sans-serif;font-size: 12px;text-align: center;">                                        

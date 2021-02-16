@@ -91,7 +91,7 @@
               <p>
                 Ordenes de Desc.
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-danger right">6</span>
+                <span class="badge badge-danger right">.</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
@@ -110,7 +110,7 @@
 
             </ul>
           </li>
-        <li class="nav-item">
+          <li class="nav-item">
             <a href="empresas.php" class="nav-link">
               <i class="nav-icon fas fa-building"></i>
               <p>Empresas</p>

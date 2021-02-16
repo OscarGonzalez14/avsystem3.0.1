@@ -1122,4 +1122,8 @@ function listar_historial_orden(){
   $('#historial_orden_detalles').html(filas);
 }
 
+function get_data_ccf(id_envio){
+  console.log(`Este es el id de envio ${id_envio}`);
+}
+
 init();

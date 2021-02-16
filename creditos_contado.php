@@ -20,8 +20,8 @@ require_once("modals/modal_correlativo_factura.php");
 
 <section class="content">
   <div class="container-fluid"><!--INICIO DE CONTENIDO-->
-<table id="creditos_de_contado" class="table-hover" width="100%" data-order='[[ 0, "desc" ]]'>
-     <thead style="background:#034f84;color:white;text-align: center;">
+<table id="creditos_de_contado" class="table-hover table-bordered" width="100%" data-order='[[ 0, "desc" ]]'>
+     <thead style="background:#034f84;color:white;text-align: center;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center">
        <tr>
 
         <th style='text-align: center;'>No. Venta</th>
@@ -34,7 +34,7 @@ require_once("modals/modal_correlativo_factura.php");
         <th style='text-align: center;'>Factura</th>
        </tr>
      </thead>
-     <tbody style="text-align: center">
+     <tbody style="text-align: center;font-family: Helvetica, Arial, sans-serif;font-size: 11px;">
    </table> 
   </div><!--FIN INICIO DE CONTENIDO-->
   </div>
