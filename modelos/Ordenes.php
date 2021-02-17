@@ -497,6 +497,17 @@ public function get_precio_tratamiento($tratamiento_1){
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+  //////////// VALIDAMOS SI EXISTE CCF /////////////
+  public function valida_existe_ccf($numero_comprobante){
+  $conectar = parent::conexion();
+    $sql= "select * from detalle_ccf_laboratorios where ccf=?;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$numero_comprobante);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+  }
+
 public function registrar_ccf(){
   $conectar=parent::conexion();
   parent::set_names();
@@ -534,9 +545,25 @@ public function registrar_ccf(){
   $sql1->bindValue(13,$id_envio);
 
   $sql1->execute();
+}
 
+public function listar_ccf_pagos($fin_fecha,$fecha_inicio,$laboratorio){
 
+    $conectar = parent::conexion();
 
+    $date_inicial = $_POST["fecha_inicio"];
+    $date_final = $_POST["fin_fecha"];
+    $fecha_inicial = date("Y-m-d", strtotime($date_inicial));
+    $fecha_final = date("Y-m-d", strtotime($date_final));
+    $sql = "select*from detalle_ccf_laboratorios where laboratorio=? AND fecha between ? AND ?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1,$laboratorio);
+    $sql->bindValue(2,$fecha_inicial);
+    $sql->bindValue(3,$fecha_final);
+    
+    $sql->execute();    
+    return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+    //echo $date_inicial;
 }
 
 }

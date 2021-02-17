@@ -11,12 +11,12 @@ function init(){
 function get_data_orden(){
  get_correlativo_orden();
  let tipo_venta_orden = $("#tipo_venta_orden").val();
- let sucursal_orden = $("#sucursal_orden").val();
+ let sucursal = $("#sucursal").val();
  let laboratorio_orden = $("#laboratorio_orden").val();
 
 
- 	$("#modal_consultas_orden").modal('show');
-	let sucursal="Metrocentro";
+$("#modal_consultas_orden").modal('show');
+
 	tabla = $('#data_consultas_orden').dataTable({
 		"aProcessing": true,//Activamos el procesamiento del datatables
 	    "aServerSide": true,//Paginación y filtrado realizados por el servidor
@@ -1308,6 +1308,8 @@ function registrar_ccf_laboratorio(){
     Swal.fire('El credito fiscal ha sido registrado exitosamente!','','success');
     $("#ingreso_ccf_lab").modal('hide');
     $('#data_envios_lab').DataTable().ajax.reload();
+  }else{
+    Swal.fire('Este comprobante ya ha sido ingresado!','','error');
   }
   }
     });
@@ -1316,5 +1318,88 @@ function registrar_ccf_laboratorio(){
   }
 }
 
+function show_ccf(){
 
+  let fecha_inicio = $("#fecha_inicio").val();
+  let fin_fecha = $("#fecha_fin").val();
+  let laboratorio = $("#lab_ccf").val();
+  let sucursal = $("#sucursal_pagos_cff").val();
+
+  console.log(`fecha_inicio: ${fecha_inicio}fin_fecha: ${fin_fecha}laboratorio: ${laboratorio}sucursal: ${sucursal}`)
+
+
+  tabla_envios_gral=$('#data_pagos_ccf').dataTable(
+  {
+    "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+            buttons: [
+                'excelHtml5'
+            ],
+    "ajax":
+        {
+          url: 'ajax/ordenes.php?op=listar_ccf_pagos',
+          type : "post",
+          dataType : "json",
+          data:{fin_fecha:fin_fecha,fecha_inicio:fecha_inicio,laboratorio:laboratorio},
+          error: function(e){
+            console.log(e.responseText);
+          }
+        },
+    "bDestroy": true,
+    "responsive": true,
+    "bInfo":true,
+    "iDisplayLength": 25,//Por cada 10 registros hace una paginación
+      "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+
+      "language": {
+
+          "sProcessing":     "Procesando...",
+
+          "sLengthMenu":     "Mostrar _MENU_ registros",
+
+          "sZeroRecords":    "No se encontraron resultados",
+
+          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+
+          "sInfo":           "Mostrando un total de _TOTAL_ registros",
+
+          "sInfoEmpty":      "Mostrando un total de 0 registros",
+
+          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+
+          "sInfoPostFix":    "",
+
+          "sSearch":         "Buscar:",
+
+          "sUrl":            "",
+
+          "sInfoThousands":  ",",
+
+          "sLoadingRecords": "Cargando...",
+
+          "oPaginate": {
+
+              "sFirst":    "Primero",
+
+              "sLast":     "Último",
+
+              "sNext":     "Siguiente",
+
+              "sPrevious": "Anterior"
+
+          },
+
+          "oAria": {
+
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+
+          }
+
+         }//cerrando language
+
+  }).DataTable();
+}
 init();

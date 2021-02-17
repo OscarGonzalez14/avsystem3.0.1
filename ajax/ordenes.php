@@ -640,9 +640,14 @@ case 'get_data_ccf':
   break;
 
   case 'registrar_ccf_labs':
+
+  $datos = $ordenes->valida_existe_ccf($_POST["numero_comprobante"]);
+  if(is_array($datos)==true and count($datos)==0){
    $ordenes->registrar_ccf();
    $messages[]="ok";
-
+  }else{
+    $errors[]="error";
+  }
     if (isset($messages)){
      ?>
        <?php
@@ -665,4 +670,30 @@ case 'get_data_ccf':
    <?php
    }
   break;
+
+ case "listar_ccf_pagos":
+
+  $datos=$ordenes->listar_ccf_pagos($_POST["fin_fecha"],$_POST["fecha_inicio"],$_POST["laboratorio"]);
+  $data= Array();
+  foreach($datos as $row){
+    $sub_array = array();
+    $sub_array[] = $row["id_ccf"];
+    $sub_array[] = date("d-m-Y",strtotime($row["fecha"]));    
+    $sub_array[] = $row["laboratorio"]; 
+    $sub_array[] = $row["evaluado"];
+    $sub_array[] = "$".number_format($row["subtotal"],2,".",",");
+    $sub_array[] = "$".number_format($row["iva"],2,".",",");
+    $sub_array[] = "$".number_format($row["total_venta"],2,".",",");
+
+                                                
+    $data[] = $sub_array;
+  }
+
+      $results = array(
+      "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+    echo json_encode($results);
+    break;
 }

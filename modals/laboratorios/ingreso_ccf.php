@@ -66,7 +66,7 @@
         <thead style="text-align: center;">
           <th colspan="45" style="width: 45%;text-align: center" class="stilot1">Descripción</th>
           <th colspan="15" style="width: 15%;text-align: center" class="stilot1">Cantidad</th>
-          <th colspan="10" style="width: 10%;text-align: center" class="stilot1">P.Unit.</th>
+          <th colspan="10" style="width: 10%;text-align: center" class="stilot1">Costo</th>
           <th colspan="10" style="width: 10%;text-align: center" class="stilot1">V. Gravadas</th>
           <th colspan="20" style="width: 20%;text-align: center" class="stilot1">13% IVA</th>
 

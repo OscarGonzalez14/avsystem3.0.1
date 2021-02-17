@@ -106,7 +106,7 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
 
     <?php 
     for ($i=0; $i < sizeof($datos_factura_precio_u); $i++) {
-     echo "$".number_format(($datos_factura_precio_u[$i]["precio_final"]),2,".",",");?><br>
+     echo "$".number_format($datos_factura_precio_u[$i]["precio_final"],2,".",",");?><br>
      <?php } ?> 
     
   </td>

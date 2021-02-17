@@ -335,7 +335,7 @@ $correlativo = $ventas->get_numero_venta($sucursal);
     $sql->bindValue(4,$precio_venta);
     $sql->bindValue(5,$cantidad);
     $sql->bindValue(6,$descuento);
-    $sql->bindValue(7,$precio_final);
+    $sql->bindValue(7,substr($precio_final,1,8));
     $sql->bindValue(8,$hoy);
     $sql->bindValue(9,$id_usuario);
     $sql->bindValue(10,$id_paciente);
