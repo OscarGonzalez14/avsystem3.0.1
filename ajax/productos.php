@@ -206,7 +206,7 @@ case "buscar_aros_venta":
 
   case "registrar_lentes"://registro de lente
 
-    $productos->guardar_lentes($_POST["describe"],$_POST["precio"],$_POST["cat_prod"]);    
+    $productos->guardar_lentes($_POST["describe"],$_POST["costo"],$_POST["precio"],$_POST["cat_prod"]);    
 //fin mensaje error
   break;
 

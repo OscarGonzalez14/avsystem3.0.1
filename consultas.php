@@ -1,10 +1,12 @@
 <?php 
 require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){ 
+
 require_once('header.php');
 
-require_once("modals/modal_consultas_edit.php");?>
-<div class="content-wrapper">
+
+  require_once("modals/modal_consultas_edit.php");?>
+  <div class="content-wrapper">
 
     <section class="content-header">
       <div class="container-fluid">
@@ -24,7 +26,7 @@ require_once("modals/modal_consultas_edit.php");?>
     <div style="margin:5px">
       <div class="dropdown-divider"></div>
       <table id="consultas_data" width="100%" style="text-align: center;text-align: center;margin:5px" data-order='[[ 0, "desc" ]]' class="table-hover table-bordered display nowrap">
-      <thead style="color:white;min-height:10px;border-radius: 2px;font-style: normal;font-size: 15px" class="bg-info" data-order='[[ 0, "desc" ]]'>
+        <thead style="color:white;min-height:10px;border-radius: 2px;font-style: normal;font-size: 15px" class="bg-info" data-order='[[ 0, "desc" ]]'>
           <tr style="min-height:10px;border-radius: 3px;font-style: normal;font-size: 15px">
             <th style="text-align:center">ID</th>
             <th style="text-align:center">Fecha Consulta</th>
@@ -38,9 +40,9 @@ require_once("modals/modal_consultas_edit.php");?>
         <tbody style="text-align:center">                                        
         </tbody>
       </table> 
-      </div> 
-     </div>     
-         
+    </div> 
+  </div>     
+  
 </div><!-- /.content-wrapper -->
 
 <?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>
@@ -52,7 +54,7 @@ require_once("modals/modal_consultas_edit.php");?>
 <script type="text/javascript" src="js/consultas.js"></script>
 
 <?php } else{
-echo "Acceso denegado";
-header("Location:index.php");
-        exit();
-  } ?>
+  echo "Acceso denegado";
+  header("Location:index.php");
+  exit();
+} ?>

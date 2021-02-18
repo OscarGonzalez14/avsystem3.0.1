@@ -42,9 +42,26 @@ class Usuarios extends conectar{  // inicio de la clase
 	//fin, función registrarUsuario
     }////// funcion listar usuarios
 
-    public function editarUsuario($nom_user,$tel_user,$correo_user,$dir_user,$user,$pass_user,$fecha_ingreso,$cat_user,$est_user,$suc_user,$cod_user,$id_usuario){
+    public function editarUsuario($nom_user,$tel_user,$correo_user,$dir_user,$user,$pass_user,$fecha_ingreso,$cat_user,$est_user,$suc_user,$id_usuario){
     	$conectar=parent::conexion();
-        parent::set_names();
+      parent::set_names();
+      $sql="update usuarios set nombres=?,telefono=?,correo=?,direccion=?,usuario=?,password=?,fecha_ingreso=?,categoria=?,estado=?,sucursal=? where id_usuario=?;";
+
+
+      $sql=$conectar->prepare($sql);
+      $sql->bindValue(1, $_POST["nom_user"]);
+      $sql->bindValue(2, $_POST["tel_user"]);
+      $sql->bindValue(3, $_POST["correo_user"]);
+      $sql->bindValue(4, $_POST["dir_user"]);
+      $sql->bindValue(5, $_POST["user"]);
+      $sql->bindValue(6, $_POST["pass_user"]);
+      $sql->bindValue(7, $_POST["fecha_ingreso"]);
+      $sql->bindValue(8, $_POST["cat_user"]);
+      $sql->bindValue(9, $_POST["est_user"]); 
+      $sql->bindValue(10, $_POST["suc_user"]);
+      $sql->bindValue(11, $_POST["id_usuario"]);
+
+      return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 
         //Eliminamos todos los permisos asignados para volverlos a registrar
         $sql_delete="delete from usuario_permiso where id_usuario=?";

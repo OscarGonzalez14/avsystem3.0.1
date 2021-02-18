@@ -56,8 +56,10 @@ function guardarUsuario(){
         setTimeout ("Swal.fire('Se ha registrado un nuevo usuario','','success')", 100)
         setTimeout ("explode();", 2000);
       }else{
-        setTimeout ("Swal.fire('Se ha editado el usuario','','info')", 100)
+        setTimeout ("Swal.fire('El usuario ha sido editado','','info')", 100)
+
       }
+      setTimeout ("explode();", 2000);
 		}
 
 		});
@@ -92,6 +94,7 @@ function show_datos_paciente(id_usuario){
             $("#nom_user").val(data.nombres);
             $('#tel_user').val(data.telefono);
             $("#correo_user").val(data.correo);
+            $('#dir_user').val(data.direccion);
             $('#user').val(data.usuario);
             $('#pass_user').val(data.password);
             $('#cat_user').val(data.categoria);
