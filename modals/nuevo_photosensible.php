@@ -19,20 +19,20 @@
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header bg-info" id="head" style="justify-content:space-between">
-       <span><i class="fas fa-plus-square"></i> CREAR NUEVO ANTIREFLEJANTE</span>
+       <span><i class="fas fa-plus-square"></i> CREAR NUEVO PHOTOSENSIBLE</span>
         <button type="button" class="close" data-dismiss="modal" style="color:white">&times;</button>
      </div>
       <!-- Modal body -->
       <div class="modal-body">
         <div class="form-row">
-          <div class="form-group col-md-9">
+          <div class="form-group col-md-6">
               <label>Descripción</label>
               <input type="text" class="form-control" name="" placeholder="Descripción del antireflejantes" id="describe_tres" onkeyup="mayus(this);">
           </div>
           <div class="form-group col-md-3">
             <label>Costo $</label>
               <div class="input-group">
-                <input type="number" class="form-control" name="precio" placeholder="" id="precio_photo" >
+                <input type="number" class="form-control" name="precio" placeholder="" id="costo_photo" >
               </div>
           </div>
           <div class="form-group col-md-3">

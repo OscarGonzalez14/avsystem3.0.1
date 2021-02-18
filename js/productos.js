@@ -753,7 +753,7 @@ if( describe != "" && costo_anti != "" && precio_anti != "" && cat_prod != "" ){
     $.ajax({
     url:"ajax/productos.php?op=registrar_antireflejantes",
     method:"POST",
-    data:{describe:describe,precio:precio,cat_prod:cat_prod},
+    data:{describe:describe,costo:costo,precio:precio,cat_prod:cat_prod},
     cache: false,
     //dataType:"json",
     error:function(x,y,z){
@@ -779,8 +779,8 @@ Swal.fire('Hay Campos que no han sido completados o Seleccionados!','','error')
 ////// GUARDAR NUEVO PHOTOSENSIBLE
 function guardarPhotosensible(){
   var describe =$("#describe_tres").val();
-  var costo =$("#costo_photo").val();
-  var precio =$("#precio_photo").val();
+  var costo_photo =$("#costo_photo").val();
+  var precio_photo =$("#precio_photo").val();
   var cat_prod =$("#cat_prod_tres").val();
   
     //validamos, si los campos(lente) estan vacios entonces no se envia el formulario
@@ -788,7 +788,7 @@ if( describe != "" && precio != "" && cat_prod != "" ){
     $.ajax({
     url:"ajax/productos.php?op=registrar_photosensibles",
     method:"POST",
-    data:{describe:describe,precio:precio,cat_prod:cat_prod},
+    data:{describe:describe,costo_photo:costo_photo,precio_photo:precio_photo,cat_prod:cat_prod},
     cache: false,
     //dataType:"json",
     error:function(x,y,z){

@@ -673,7 +673,7 @@ case 'get_data_ccf':
 
  case "listar_ccf_pagos":
 
-  $datos=$ordenes->listar_ccf_pagos($_POST["fin_fecha"],$_POST["fecha_inicio"],$_POST["laboratorio"]);
+  $datos=$ordenes->listar_ccf_pagos($_POST["fin_fecha"],$_POST["fecha_inicio"],$_POST["laboratorio"],$_POST["sucursal"]);
   $data= Array();
   foreach($datos as $row){
     $sub_array = array();

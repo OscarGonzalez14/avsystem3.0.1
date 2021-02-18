@@ -490,7 +490,7 @@ public function get_data_ccf($id_envio){
 public function get_precio_tratamiento($tratamiento_1){
   $conectar=parent::conexion();
   parent::set_names();
-  $sql="select categoria as precio from productos where desc_producto=?";
+  $sql="select materiales as precio from productos where desc_producto=?";
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$tratamiento_1);
   $sql->execute();
@@ -547,7 +547,7 @@ public function registrar_ccf(){
   $sql1->execute();
 }
 
-public function listar_ccf_pagos($fin_fecha,$fecha_inicio,$laboratorio){
+public function listar_ccf_pagos($fin_fecha,$fecha_inicio,$laboratorio,$sucursal){
 
     $conectar = parent::conexion();
 
@@ -555,11 +555,12 @@ public function listar_ccf_pagos($fin_fecha,$fecha_inicio,$laboratorio){
     $date_final = $_POST["fin_fecha"];
     $fecha_inicial = date("Y-m-d", strtotime($date_inicial));
     $fecha_final = date("Y-m-d", strtotime($date_final));
-    $sql = "select*from detalle_ccf_laboratorios where laboratorio=? AND fecha between ? AND ?;";
+    $sql = "select*from detalle_ccf_laboratorios where laboratorio=? AND fecha between ? AND ? AND sucursal=?;";
     $sql = $conectar->prepare($sql);
     $sql->bindValue(1,$laboratorio);
     $sql->bindValue(2,$fecha_inicial);
     $sql->bindValue(3,$fecha_final);
+    $sql->bindValue(4,$sucursal);
     
     $sql->execute();    
     return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);

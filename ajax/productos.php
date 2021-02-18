@@ -211,7 +211,7 @@ case "buscar_aros_venta":
   break;
 
   case "registrar_antireflejantes"://registro de antireflejante
-    $productos->guardar_antireflejante($_POST["describe"],$_POST["costo_anti"],$_POST["precio_anti"],$_POST["cat_prod"]);    
+    $productos->guardar_antireflejante($_POST["describe"],$_POST["costo"],$_POST["precio"],$_POST["cat_prod"]);    
       //fin mensaje error
   break;
 

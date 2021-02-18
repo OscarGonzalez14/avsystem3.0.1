@@ -1341,7 +1341,7 @@ function show_ccf(){
           url: 'ajax/ordenes.php?op=listar_ccf_pagos',
           type : "post",
           dataType : "json",
-          data:{fin_fecha:fin_fecha,fecha_inicio:fecha_inicio,laboratorio:laboratorio},
+          data:{fin_fecha:fin_fecha,fecha_inicio:fecha_inicio,laboratorio:laboratorio,sucursal:sucursal},
           error: function(e){
             console.log(e.responseText);
           }

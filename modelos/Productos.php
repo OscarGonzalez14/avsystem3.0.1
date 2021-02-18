@@ -165,7 +165,7 @@ public function guardar_lentes($describe,$costo,$precio,$cat_prod){
 
 
 //////////////////GUARDAR ANTIRREFLEJANTE
-public function guardar_antireflejante($describe,$costo_anti,$precio_anti,$cat_prod){    
+public function guardar_antireflejante($describe,$costo,$precio,$cat_prod){    
 
     $conectar= parent::conexion();
     parent::set_names();
@@ -207,8 +207,8 @@ public function guardar_photosensible($describe,$costo_photo,$precio_photo,$cat_
     $sql->bindValue(3, $color_aro);
     $sql->bindValue(4, $medidas_aro);
     $sql->bindValue(5, $diseno_aro);
-    $sql->bindValue(6, $costo_photo;
-    $sql->bindValue(7, $precio);
+    $sql->bindValue(6, $costo_photo);
+    $sql->bindValue(7, $precio_photo);
     $sql->bindValue(8, $cat_prod);
     $sql->bindValue(9, $describe);
     $sql->execute();
@@ -250,6 +250,7 @@ public function show_datos_aros($id_producto){
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
   }
+
 public function show_datos_producto_id($id_producto){
     $conectar= parent::conexion();
     $sql="select*from productos where id_producto=?;";
