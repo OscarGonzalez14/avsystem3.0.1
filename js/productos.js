@@ -744,11 +744,12 @@ Swal.fire('Hay Campos que no han sido completados o Seleccionados!','','error')
 ////// GUARDAR NUEVO ANTIREFLEJANTE
 function guardarAntireflejante(){
   var describe =$("#describe_dos").val();
-  var precio =$("#precio_dos").val();
+  var costo =$("#costo_anti").val();
+  var precio =$("#precio_anti").val();
   var cat_prod =$("#cat_prod_dos").val();
   
     //validamos, si los campos(lente) estan vacios entonces no se envia el formulario
-if( describe != "" && precio != "" && cat_prod != "" ){
+if( describe != "" && costo_anti != "" && precio_anti != "" && cat_prod != "" ){
     $.ajax({
     url:"ajax/productos.php?op=registrar_antireflejantes",
     method:"POST",
@@ -778,7 +779,8 @@ Swal.fire('Hay Campos que no han sido completados o Seleccionados!','','error')
 ////// GUARDAR NUEVO PHOTOSENSIBLE
 function guardarPhotosensible(){
   var describe =$("#describe_tres").val();
-  var precio =$("#precio_tres").val();
+  var costo =$("#costo_photo").val();
+  var precio =$("#precio_photo").val();
   var cat_prod =$("#cat_prod_tres").val();
   
     //validamos, si los campos(lente) estan vacios entonces no se envia el formulario

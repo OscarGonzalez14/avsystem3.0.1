@@ -1,6 +1,6 @@
 <style>
     #anti{
-      max-width: 65% !important;
+      max-width: 90% !important;
       margin: auto;
     }
     #head{
@@ -25,14 +25,20 @@
       <!-- Modal body -->
       <div class="modal-body">
         <div class="form-row">
-          <div class="form-group col-md-9">
+          <div class="form-group col-md-6">
               <label>Descripción</label>
               <input type="text" class="form-control" name="" placeholder="Descripción del antireflejantes" id="describe_dos" onkeyup="mayus(this);">
           </div>
           <div class="form-group col-md-3">
-              <label>Precio $</label>
+            <label>Costo $</label>
+              <div class="input-group">
+                <input type="number" class="form-control" name="precio" placeholder="" id="costo_anti" >
+              </div>
+          </div>
+          <div class="form-group col-md-3">
+              <label>P.V. $</label>
                 <div class="input-group">
-                  <input type="number" class="form-control" name="precio" placeholder="" id="precio_dos" >
+                  <input type="number" class="form-control" name="precio" placeholder="" id="precio_anti" >
                 </div>
           </div>
           <input type="hidden" name="" id="cat_prod_dos" value="Antireflejante">

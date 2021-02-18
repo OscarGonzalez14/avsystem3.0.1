@@ -165,7 +165,7 @@ public function guardar_lentes($describe,$costo,$precio,$cat_prod){
 
 
 //////////////////GUARDAR ANTIRREFLEJANTE
-public function guardar_antireflejante($describe,$precio,$cat_prod){    
+public function guardar_antireflejante($describe,$costo_anti,$precio_anti,$cat_prod){    
 
     $conectar= parent::conexion();
     parent::set_names();
@@ -174,7 +174,6 @@ public function guardar_antireflejante($describe,$precio,$cat_prod){
     $color_aro="0";
     $medidas_aro="0";
     $diseno_aro="0";
-    $materiales_aro="0";
 
     $sql="insert into productos values(null,?,?,?,?,?,?,?,?,?);";
     $sql=$conectar->prepare($sql);
@@ -183,7 +182,7 @@ public function guardar_antireflejante($describe,$precio,$cat_prod){
     $sql->bindValue(3, $color_aro);
     $sql->bindValue(4, $medidas_aro);
     $sql->bindValue(5, $diseno_aro);
-    $sql->bindValue(6, $materiales_aro);
+    $sql->bindValue(6, $costo);
     $sql->bindValue(7, $precio);
     $sql->bindValue(8, $cat_prod);
     $sql->bindValue(9, $describe);
@@ -191,7 +190,7 @@ public function guardar_antireflejante($describe,$precio,$cat_prod){
 }
 
 //////////////////GUARDAR ANTIRREFLEJANTE
-public function guardar_photosensible($describe,$precio,$cat_prod){    
+public function guardar_photosensible($describe,$costo_photo,$precio_photo,$cat_prod){    
 
     $conectar= parent::conexion();
     parent::set_names();
@@ -200,7 +199,6 @@ public function guardar_photosensible($describe,$precio,$cat_prod){
     $color_aro="0";
     $medidas_aro="0";
     $diseno_aro="0";
-    $materiales_aro="0";
 
     $sql="insert into productos values(null,?,?,?,?,?,?,?,?,?);";
     $sql=$conectar->prepare($sql);
@@ -209,7 +207,7 @@ public function guardar_photosensible($describe,$precio,$cat_prod){
     $sql->bindValue(3, $color_aro);
     $sql->bindValue(4, $medidas_aro);
     $sql->bindValue(5, $diseno_aro);
-    $sql->bindValue(6, $materiales_aro);
+    $sql->bindValue(6, $costo_photo;
     $sql->bindValue(7, $precio);
     $sql->bindValue(8, $cat_prod);
     $sql->bindValue(9, $describe);
