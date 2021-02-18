@@ -11,6 +11,15 @@ $n_venta =$_GET["n_venta"];
 $n_recibo =$_GET["n_recibo"];
 $sucursal = $_GET["sucursal"];
 
+/////////////DESCRIBE DETALLE DE RECIBO---FROM FACTURAS
+$datos_factura_cantidad = $reporteria->get_datos_factura_cantidad($_GET["n_venta"],$_GET["id_paciente"]);
+$datos_factura_producto = $reporteria->get_datos_factura($_GET["n_venta"],$_GET["id_paciente"]);
+$datos_factura_precio_u = $reporteria->get_datos_factura_p_unitario($_GET["n_venta"],$_GET["id_paciente"]);
+$datos_factura_subtotal = $reporteria->get_datos_factura_subtotal($_GET["n_venta"],$_GET["id_paciente"]);
+$datos_factura_paciente = $reporteria->get_datos_factura_paciente($_GET["id_paciente"]);
+$datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],$_GET["id_paciente"]);
+
+
 if ($sucursal == "Metrocentro") {
   $direccion = "Boulevard de los Heroes. Centro Comercial Metrocentro Local#7 San Salvador";
   $telefono = "2260-1653";
@@ -317,28 +326,40 @@ $datos_recibo = $reporteria->print_recibo_paciente($_GET["n_recibo"],$_GET["n_ve
     <td style="text-align: center;width: 20%" colspan="20" class="stilot1"><span class=""><?php echo "$ ".$datos_recibo[$i]["saldo"];?></span></td>
     <td style="text-align: center;width: 20%" colspan="20" class="stilot1"><span class=""><?php echo $datos_recibo[$i]["forma_pago"];?></span></td>
 </tr>
+    <?php
+  }
+?>
 </table><br>
 <table  width="100%" class="table2">
-  <tr>
-    <th bgcolor="#C8C8C8" colspan="34" style="font-size:12px;border:#0061a9 1px solid;color:black;font-family: Helvetica, Arial, sans-serif;width: 34%"><span class="Estilo11">MARCA ARO</span></th>
-    <th bgcolor="#C8C8C8" colspan="33" style="font-size:12px;border:#0061a9 1px solid;color:black;font-family: Helvetica, Arial, sans-serif;width: 33%"><span class="Estilo11">MODELO</span></th>
-    <th bgcolor="#C8C8C8" colspan="33" style="font-size:12px;border:#0061a9 1px solid;color:black;font-family: Helvetica, Arial, sans-serif;width: 33%"><span class="Estilo11">COLOR</span></th>
+<tr>
+    <th bgcolor="#0061a9" colspan="20" style="color:white;font-size:10px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width: 20%;text-align: center;"><span class="Estilo11">CANT.</span></th>
+    <th bgcolor="#0061a9" colspan="80" style="color:white;font-size:10px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width: 80%;text-align: center;"><span class="Estilo11">DESCRIPCIÓN</span></th>
 </tr>
-<tr style="font-size:10pt" class="even_row">
-    <td style="text-align: center" colspan="34" class="stilot1"><span class=""><span style="color:white">.</span><?php echo $datos_recibo[$i]["marca_aro"];?></span></td>
-    <td style="text-align: center" colspan="33" class="stilot1"><span class=""><span style="color:white">.</span><?php echo $datos_recibo[$i]["modelo_aro"];?></span></td>
-    <td style="text-align: center" colspan="33" class="stilot1"><span class=""><span style="color:white">.</span><?php echo $datos_recibo[$i]["color_aro"];?></span></td>
+
+
+<tr style="height:40px;">
+<td colspan="20" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;margin:20px;height: 95px;width: 20%;text-align: center;">
+   <?php 
+    for ($i=0; $i < sizeof($datos_factura_cantidad); $i++) {
+     ?><span style="margin-left: 0px !important"><?php echo $datos_factura_cantidad[$i]["cantidad_venta"]?></span><br>
+     <?php } ?>     
+  </td>
+ 
+  <td colspan="80" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: left;margin:20px;text-transform: uppercase;width: 80%;text-align: center;
+  ">
+     <?php 
+    for ($i=0; $i < sizeof($datos_factura_producto); $i++) {
+     echo "&nbsp;&nbsp;&nbsp;".$datos_factura_producto[$i]["producto"]?><br>
+     <?php } ?>    
+  </td>
+ 
+ 
 </tr>
- <tr>
-    <th bgcolor="#C8C8C8" colspan="34" style="font-size:12px;border:#0061a9 1px solid;color:black;font-family: Helvetica, Arial, sans-serif;width: 34%"><span class="Estilo11">LENTE</span></th>
-    <th bgcolor="#C8C8C8" colspan="33" style="font-size:12px;border:#0061a9 1px solid;color:black;font-family: Helvetica, Arial, sans-serif;width: 33%"><span class="Estilo11">AR</span></th>
-    <th bgcolor="#C8C8C8" colspan="33" style="font-size:12px;border:#0061a9 1px solid;color:black;font-family: Helvetica, Arial, sans-serif;width: 33%"><span class="Estilo11">PHOTOSENSIBLE</span></th>
-</tr>
-<tr style="font-size:10pt" class="even_row">
-    <td style="text-align: center" colspan="34" class="stilot1"><span class=""><span style="color:white">.</span><?php echo $datos_recibo[$i]["lente"];?></span></td>
-    <td style="text-align: center" colspan="33" class="stilot1"><span class=""><span style="color:white">.</span><?php echo $datos_recibo[$i]["anti_r"];?></span></td>
-    <td style="text-align: center" colspan="33" class="stilot1"><span class=""><span style="color:white">.</span><?php echo $datos_recibo[$i]["photo"];?></span></td>
-</tr>
+<?php
+
+  for($i=0;$i<sizeof($datos_recibo);$i++){
+
+?>
 <tr style="font-size:10pt" class="even_row">
     <td style="text-align: left;" colspan="100" class="stilot1"><span class="">OBSERVACIONES:&nbsp;<?php echo $datos_recibo[$i]["observaciones"];?></span></td>
     
