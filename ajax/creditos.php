@@ -240,10 +240,10 @@ switch ($_GET["op"]){
 
         if(is_array($datos)==true and count($datos)>0){
           foreach($datos as $row){         
-            $output["monto"] = $row["monto"];
-            $output["abonado"] = $row["abonado"];
+            $output["monto"] = number_format($row["monto"],2,".",",");
+            $output["abonado"] = number_format($row["abonado"],2,".",",");
             $output["nombres"] = $row["nombres"];
-            $output["saldo"] = $row["saldo"];                
+            $output["saldo"] = number_format($row["saldo"],2,".",",");                
           }       
         echo json_encode($output);
         } 
@@ -371,6 +371,7 @@ switch ($_GET["op"]){
     foreach($datos as $row)
       {
         $sub_array = array();
+        $sub_array[] = $row["id_orden"];
         $sub_array[] = $row["numero_orden"];
         $sub_array[] = $row["nombres"];
         $sub_array[] = $row["empresas"];

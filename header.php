@@ -36,7 +36,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
 
 </head>
-
+<?php $cat_user = $_SESSION["categoria"];?>
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-dark navbar-gray-dark">
     <!-- Left navbar links -->
@@ -72,26 +72,42 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+<nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+         <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Ordenes de Desc.
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-danger right">.</span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="desc_planilla.php" class="nav-link">
+                  <i class="far fa-file"></i>
+                  <p>Descuentos en Planilla</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cargos Automaticos</p>
+                </a>
+              </li>
 
-        <li class="nav-item">
+            </ul>
+          </li>
+          <li class="nav-item">
             <a href="empresas.php" class="nav-link">
               <i class="nav-icon fas fa-building"></i>
               <p>Empresas</p>
             </a>
-          </li>
+          </li>  
 
-        <li class="nav-item">
-            <a href="empresas.php" class="nav-link">
-              <i class="nav-icon fas fa-building"></i>
-              <p>Ordenes de Descuento</p>
-            </a>
-          </li>          
          
-         <?php if ($_SESSION["Compras"]) {
-           echo '
-          <li class="nav-item">
+        <!--  <li class="nav-item">
             <a href="compras.php" class="nav-link">
               <i class="nav-icon fas fa-cart-plus"></i>
               <p>
@@ -99,10 +115,21 @@
                 <span class="right badge badge-danger" style="visibility:hidden">New</span>
               </p>
             </a>
-          </li>';
-        }?>
+          </li>-->
+      
+              
           <li class="nav-item">
-            <a href="inventarios.php" class="nav-link">
+            <a href="adquisiciones.php" class="nav-link">
+              <i class="nav-icon fas fa-cart-plus"></i>
+              <p>
+                Adquisiciones
+                <span class="right badge badge-danger" style="visibility:hidden">New</span>
+              </p>
+            </a>
+          </li>
+       
+          <li class="nav-item">
+            <a href="inventario.php" class="nav-link">
               <i class="nav-icon fas fa-boxes"></i>
               <p>
                 Inventarios
@@ -119,33 +146,58 @@
           </li>
 
           <?php if ($_SESSION["EnviosLab"]) {
+
            echo '
-          <li class="nav-item">
+          <li class="nav-item has-treeview">
             <a href="laboratorios.php" class="nav-link">
               <i class="fas fa-exchange-alt"></i>
               <p>
                 Envios a Lab.
-                <span class="fas fa-exchange-alt" style="visibility:hidden">New</span>
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-          </li>';
-        }?>   
 
+            ';
+
+        if($cat_user=="administrador"){
+          echo //$cat_user;
+          '<ul class="nav nav-treeview">
+          <li class="nav-item has-treeview">
+            <a href="laboratorios.php" class="nav-link">
+              <i class="fas fa-exchange-alt"></i>
+              <p>
+                Envios a Lab.
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            </li>
+              <li class="nav-item">
+                <a href="pagos_ccf.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pagos CFF Lab.</p>
+                </a>
+              </li>
+          </ul>
+          </li>
+          ';
+        }
+        }?>   
+          
           <li class="nav-item">
             <a href="ventas.php" class="nav-link">
               <i class="nav-icon fas fa-chart-line"></i>
               <p>Ventas</p>
             </a>
           </li>
-
+ 
           <li class="nav-item">
             <a href="creditos.php" class="nav-link">
               <i class="nav-icon fas fa-cash-register"></i>
-              <p>Creditos & Cobros</p>
+              <p>Creditos y cobros</p>
             </a>
-          </li> 
+          </li>
 
-          <?php if ($_SESSION["Caja Chica"]) {
+        <?php if ($_SESSION["Caja Chica"]) {
            echo '
           <li class="nav-item">
             <a href="caja_chica.php" class="nav-link">
@@ -156,8 +208,8 @@
               </p>
             </a>
           </li>';
-        }?>          
-         
+        }?>  
+        
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

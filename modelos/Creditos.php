@@ -192,7 +192,7 @@ public function get_ordenes_descuento_pendientes($sucursal){
     $conectar=parent::conexion();
     parent::set_names();
 
-    $sql="select o.numero_orden,p.nombres,p.empresas,p.id_paciente,o.fecha_registro,o.estado from orden_credito as o inner join pacientes as p on o.id_paciente = p.id_paciente where o.sucursal=? and estado='0' order by o.id_orden DESC;";
+    $sql="select o.numero_orden,p.nombres,p.empresas,p.id_paciente,o.fecha_registro,o.estado,o.id_orden from orden_credito as o inner join pacientes as p on o.id_paciente = p.id_paciente where o.sucursal=? and estado='0' order by o.id_orden DESC;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1, $sucursal);
     $sql->execute();
@@ -270,7 +270,10 @@ foreach ($detalle_venta as $k => $v) {
     $tipo_venta = $v->tipo_venta;
     $vendedor = $v->vendedor;
 }
+
+
 require_once("Ventas.php");
+
 $ventas = new Ventas();
 $correlativo = $ventas->get_numero_venta($sucursal);
   
@@ -317,7 +320,7 @@ $correlativo = $ventas->get_numero_venta($sucursal);
     foreach ($detalles_producto as $item){
     $cat_prod = $item["categoria_producto"];
     if ($cat_prod == "aros") {
-        $descripcion = "ARO: ".$item["marca"]." MOD.: ".$item["modelo"]." COLOR: ".$item["color"]." MED.".$item["medidas"]." ".$item["diseno"];
+        $descripcion = "ARO.: ".$item["marca"]." MOD.:".$item["modelo"]." COLOR.:".$item["color"]." MED.:".$item["medidas"]." ".$item["diseno"];
     }elseif($cat_prod=="Lentes"){
           $descripcion = "LENTE: ".$item["desc_producto"];
     }elseif($cat_prod=="Antireflejante" or $cat_prod=="Photosensible"){
@@ -342,7 +345,37 @@ $correlativo = $ventas->get_numero_venta($sucursal);
     $sql->bindValue(11,$beneficiario);
     // $sql->bindValue(12,$precio_compra);
     $sql->execute();
+
+    if($cat_prod=="aros" or $cat_prod == "accesorios"){
+    ////////////////////ACTUALIZAR STOCK DE BODEGA SI PRODUCTO == aros o accesorios
+      $sql3="select * from existencias where id_producto=? and bodega=? and categoria_ub=?;";           
+      $sql3=$conectar->prepare($sql3);
+      $sql3->bindValue(1,$id_producto);
+      $sql3->bindValue(2,$sucursal);
+      $sql3->bindValue(3,$categoria_ub);
+      $sql3->execute();
+
+      $resultados = $sql3->fetchAll(PDO::FETCH_ASSOC);
+
+      foreach($resultados as $b=>$row){
+      $re["existencia"] = $row["stock"];
+    }            
+    
+    $cantidad_totales = $row["stock"] - $cantidad;
+
+    if(is_array($resultados)==true and count($resultados)>0) {                    
+
+      $sql12 = "update existencias set stock=? where id_producto=? and bodega=? and categoria_ub=?;";
+      $sql12 = $conectar->prepare($sql12);
+      $sql12->bindValue(1,$cantidad_totales);
+      $sql12->bindValue(2,$id_producto);
+      $sql12->bindValue(3,$sucursal);
+      $sql12->bindValue(4,$categoria_ub);
+
+      $sql12->execute();
+  } 
  }
+}
 
 //////////////GET NUMERO VENTA
 

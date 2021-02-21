@@ -251,9 +251,8 @@ function listar_creditos_oid(){
 //////////////RECIBOS Y ABONOS
 function realizarAbonos(id_paciente,id_credito,numero_venta){
   $("#modal_recibos_generico").modal("show");
-  //$("#numero").val("");
-   // document.getElementById("numero").focus();
-  ////////ajax datos de paciente
+  get_correlativo_recibo();
+
   $.ajax({
   url:"ajax/creditos.php?op=datos_paciente_abono",
   method:"POST",
@@ -351,6 +350,8 @@ function realizarAbonos(id_paciente,id_credito,numero_venta){
 
 ////////////////REGISTRAR ABONO
 function registra_abonos(){
+
+  console.log("ProoofV2")
   var fecha_rec_ini=$("#pr_abono").val();
   var saldo=$("#saldo").val();
   var monto = $("#numero").val();
@@ -417,8 +418,9 @@ function registrar_abono(){
         return false;
       }else if (data=="ok") {
         Swal.fire('Recibo registrado exitosamente!','','success')
-        //$('#recibo_inicial').modal('hide');
-        //setTimeout ("explode();", 2000);
+        $('#creditos_de_contado').DataTable().ajax.reload();
+        $('#creditos_oid').DataTable().ajax.reload();
+  
       }
       
     }
@@ -479,7 +481,7 @@ function registrar_abono(){
           "sEmptyTable":     "Ningún dato disponible en esta tabla",
 
           "sInfo":           "Mostrando un total de _TOTAL_ registros",
-
+          
           "sInfoEmpty":      "Mostrando un total de 0 registros",
 
           "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
@@ -528,14 +530,14 @@ function registrar_abono(){
   dataType:"json",
   success:function(data)
   { 
-    console.log(data);  
+    console.log(data);
+    let abonado_act = data.abonado; 
     $("#paciente_det_abono").html(data.nombres);
     $("#monto_det_abono").html(data.monto);
-    $("#total_abonado").html(data.abonado);
+    $("#total_abonado").html(abonado_act);
     $("#saldo_det_abono").html(data.saldo);
   }
   })
-
 }
 
 ////////////////GET CREDITOS POR CATEGORÍA

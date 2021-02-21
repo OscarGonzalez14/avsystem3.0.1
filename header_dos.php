@@ -38,7 +38,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css">
 
 <style type="text/css">
-
+<?php $cat_user = $_SESSION["categoria"];?>
 </style>
 </head>
 <body class="hold-transition sidebar-mini">
@@ -157,16 +157,41 @@
           </li>
 
           <?php if ($_SESSION["EnviosLab"]) {
+
            echo '
-          <li class="nav-item">
+          <li class="nav-item has-treeview">
             <a href="laboratorios.php" class="nav-link">
               <i class="fas fa-exchange-alt"></i>
               <p>
                 Envios a Lab.
-                <span style="visibility:hidden">New</span>
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-          </li>';
+
+            ';
+
+        if($cat_user=="administrador"){
+          echo //$cat_user;
+          '<ul class="nav nav-treeview">
+          <li class="nav-item has-treeview">
+            <a href="laboratorios.php" class="nav-link">
+              <i class="fas fa-exchange-alt"></i>
+              <p>
+                Envios a Lab.
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            </li>
+              <li class="nav-item">
+                <a href="pagos_ccf.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pagos CFF Lab.</p>
+                </a>
+              </li>
+          </ul>
+          </li>
+          ';
+        }
         }?>   
           
           <li class="nav-item">

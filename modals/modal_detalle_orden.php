@@ -65,7 +65,7 @@
       <th colspan="20" style="text-align:center;font-size: 12px;width:20%;font-family: Helvetica, Arial, sans-serif"><b>FUNCIÓN LABORAL</b></th>
       <th colspan="25" style="text-align:center;font-size: 12px;width:25%;font-family: Helvetica, Arial, sans-serif"><b>DUI</b></th>
     </tr>
-    <tr>
+    <tr class="bg-light">
       <td colspan="25" style="text-align:center;font-size: 14px;width:25%;text-align: center"><span id="paciente_orden"></span></td>
       <td colspan="30" style="text-align:center;font-size: 14px;width:30%;text-align: center"><span id="empresa_pac_orden"></span></td>
       <td colspan="20" style="text-align:center;font-size: 14px;width:20%;text-align: center"><span id="funcion_pac_orden"></span></td>

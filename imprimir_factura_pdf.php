@@ -56,8 +56,8 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
     }
    </style>
   </head>
-  <body>
 
+<body>
 <div style="margin-top: 130px;height:500px" >
   <table width="100%">
     <tr>
@@ -323,12 +323,13 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
 
 </body>
 </html>
+
 <?php
 $salida_html = ob_get_contents();
 
   //$user=$_SESSION["id_usuario"];
 
-  ob_end_clean();
+ob_end_clean();
 $dompdf = new Dompdf();
 $dompdf->loadHtml($salida_html);
 

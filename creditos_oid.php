@@ -91,8 +91,6 @@ require_once("modals/modal_correlativo_factura.php");
         </div>
 </div>
 <!--FIN MODAL PACIENTES-->
-
-
 <?php require_once("footer.php");?>
 <?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>
 <input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>

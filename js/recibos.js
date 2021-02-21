@@ -6,13 +6,8 @@ function init(){
 ////////OCULTAR BTN DE IMPRIMIR RECIBO AL INICIO
 $(document).ready(ocultar_btn_print_rec_ini);
 
-  function ocultar_btn_print_rec_ini(){
-  //get_correlativo_venta();
-  //document.getElementById("btn_print_recibo").style.display = "none";
-  //document.getElementById("print_factura").style.display = "none";
-  //document.getElementById("credito_fiscal_print").style.display = "none";
+function ocultar_btn_print_rec_ini(){
   document.getElementById("btn_print_recibos").style.display = "none";
-
 }
 
 function prueba(){
@@ -28,7 +23,8 @@ function get_correlativo_recibo(){
     cache:false,
     dataType:"json",
       success:function(data){
-      console.log(data);        
+      console.log(data); 
+      console.log("Este es el correlativo de REcibo"+data.correlativo)       
       $("#n_recibo").html(data.correlativo);             
       }
     })
@@ -53,8 +49,10 @@ function registra_abono_inicial(){
 }
 
 function save_abono_inicial(){
+
+   console.log("ProofV1")
     var pr_abono=$("#proxi_abono").val();
-    //alert(pr_abono);return false;
+
     var a_anteriores="0";
     var n_recibo = $("#n_recibo").html();
     var n_venta_recibo_ini =$("#n_venta_recibo_ini").val();
@@ -100,11 +98,9 @@ function save_abono_inicial(){
         Swal.fire('Este correlativo ya fué ingresado!','','error')
         return false;
       }else if (data=="ok") {
-        Swal.fire('Recibo registrado exitosamente!','','success')
-        //$('#recibo_inicial').modal('hide');
-        //setTimeout ("explode();", 2000);
-      }
-      
+        Swal.fire('Recibo registrado exitosamente!','','success');
+        $('#creditos_de_contado').DataTable().ajax.reload();
+      }      
     }
 
   });
@@ -141,11 +137,7 @@ if (tipo_venta=="Credito Fiscal"){
   document.getElementById("btn_print_recibo").style.display = "block";
   //document.getElementById("factura_contado").href='imprimir_factura_pdf.php?n_venta='+n_venta_recibo_ini+'&'+'id_paciente='+id_paciente;  
 
-
-
 });
-
-
 
 function comprobarSaldo(){
   var n_venta =$("#n_venta").val();
