@@ -38,7 +38,7 @@ $reporteria = new Reporteria();
             <td  style="text-align:center;">Fecha creación</td>
             <td  style="text-align:center;">Estado</td>
             <td style="text-align:center;">Acciones</td>
-            <td style="text-align:center;">Editar</td>
+            <td style="text-align:center;">Imprimir</td>
             <td style="text-align:center;">Eliminar</td>
          </tr>
         </thead>
@@ -54,7 +54,7 @@ $reporteria = new Reporteria();
            
  
  <?php require_once("footer.php"); ?>
- <input type="hidden" id="name_pag" value="MODULO CAJA CHICA">
+ <input type="hidden" id="name_pag" value="DESCUENTOS EN PLANILLA">
  <script type="text/javascript" src="js/creditos.js"></script>
  <script type="text/javascript" src="js/bootbox.min.js"></script>
    <script type="text/javascript">
