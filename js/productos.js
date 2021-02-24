@@ -11,6 +11,7 @@ function init(){
   //listar_acc_compras();
   listar_accesorios_creados();
   listar_lentes_tratamientos();
+  listar_servicios_venta();
   //listar_prod_traslados();
 }
     const Toast = Swal.mixin({
@@ -1262,4 +1263,119 @@ $("#modalTraslados").modal("show");
          
   }).DataTable();
 });
+
+function guardarServicio(){
+  var tipo_servicio =$("#tipo_servicio").val();
+  var des_servicio =$("#des_servicio").val();
+  var precio_servicio =$("#precio_servicio").val();
+  var cat_servicio =$("#cat_servicio").val();
+  
+    //validamos, si los campos(lente) estan vacios entonces no se envia el formulario
+if( tipo_servicio != "" && des_servicio != "" && precio_servicio != "" && cat_servicio != "" ){
+    $.ajax({
+    url:"ajax/productos.php?op=registrar_servicio",
+    method:"POST",
+    data:{tipo_servicio:tipo_servicio,des_servicio:des_servicio,precio_servicio:precio_servicio,cat_servicio:cat_servicio},
+    cache: false,
+    //dataType:"json",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+    },
+    success:function(data){
+        setTimeout ("Swal.fire('Se ha registrado un nuevo servicio','','success')", 100)
+        setTimeout ("explode();", 2000);
+    }
+});
+}else{
+    //bootbox.alert("Algun campo obligatorio no fue llenado correctamente");
+Swal.fire('Hay Campos que no han sido completados o Seleccionados!','','error')
+    return false;
+}
+} //cierre del condicional de validacion de los campos del paciente
+  function explode(){
+    location.reload();
+  }
+
+//modal listar servicios en venta;
+function listar_servicios_venta(){
+  tabla_servicios_venta=$('#lista_servicios_ventas_data').dataTable(
+  {
+    "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+      responsive: true,
+      buttons: [
+                'copyHtml5',
+                'excelHtml5',
+                'csvHtml5',
+                'pdf'
+            ],
+    "ajax":
+        {
+          url: 'ajax/productos.php?op=listar_servicios_venta',
+          type : "get",
+          dataType : "json",
+          error: function(e){
+            console.log(e.responseText);
+          }
+        },
+    "bDestroy": true,
+    "responsive": true,
+    "bInfo":true,
+    "iDisplayLength": 10,//Por cada 10 registros hace una paginación
+      "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+
+      "language": {
+
+          "sProcessing":     "Procesando...",
+
+          "sLengthMenu":     "Mostrar _MENU_ registros",
+
+          "sZeroRecords":    "No se encontraron resultados",
+
+          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+
+          "sInfo":           "Mostrando un total de _TOTAL_ registros",
+
+          "sInfoEmpty":      "Mostrando un total de 0 registros",
+
+          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+
+          "sInfoPostFix":    "",
+
+          "sSearch":         "Buscar:",
+
+          "sUrl":            "",
+
+          "sInfoThousands":  ",",
+
+          "sLoadingRecords": "Cargando...",
+
+          "oPaginate": {
+
+              "sFirst":    "Primero",
+
+              "sLast":     "Último",
+
+              "sNext":     "Siguiente",
+
+              "sPrevious": "Anterior"
+
+          },
+
+          "oAria": {
+
+              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+
+              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+
+          }
+
+         }//cerrando language
+
+  }).DataTable();
+}
+
 init();

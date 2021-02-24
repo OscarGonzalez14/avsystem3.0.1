@@ -81,11 +81,13 @@ break;
     foreach($datos as $row)
       {
         $sub_array = array();
-
+        $sub_array[] = $row["id_producto"];
         $sub_array[] = $row["marca"];
         $sub_array[] = $row["modelo"];
         $sub_array[] = $row["color"];
         $sub_array[] = $row["medidas"];
+        $sub_array[] = $row["diseno"];
+        $sub_array[] = $row["materiales"];
         $sub_array[] = '<button type="button" class="btn btn-dark agrega_aro"  style="border-radius:0px; btn-sm" onClick="agregar_aro('.$row["id_producto"].')">Seleccionar</button>';
         $data[] = $sub_array;
       }
@@ -288,7 +290,7 @@ case "buscar_aros_venta":
         $sub_array[] = $row["desc_producto"];
         $sub_array[] = "$".number_format($row["precio"],2,".",",");
 
-        $sub_array[] = '<button type="button" class="btn btn-dark agrega_antireflejante"  style="border-radius:0px" onClick="agregar_detalles_lente_venta('.$row["id_producto"].')">Seleccionar</button>';
+        $sub_array[] = '<button type="button" class="btn btn-dark agrega_antireflejante"  style="border-radius:0px" onClick="agregarServicioVenta('.$row["id_producto"].')">Seleccionar</button>';
         $data[] = $sub_array;
       }
 
@@ -434,6 +436,36 @@ case "listar_productos_traslado":
     echo json_encode($results);
 
  break;
+
+ case "registrar_servicio"://registro de un nuevo servicio
+    $productos->guardar_servicio($_POST["tipo_servicio"],$_POST["des_servicio"],$_POST["precio_servicio"],$_POST["cat_servicio"]);    
+  break;
+
+   /////////////DATA TABLE LENTES EN VENTAS
+    case "listar_servicios_venta":////////muestra lentes en modal de ventas
+    $datos=$productos->get_servicios_ventas();
+    //Vamos a declarar un array
+    $data= Array();
+
+    foreach($datos as $row){
+        $sub_array = array();
+        $sub_array[] = $row["id_producto"];
+        $sub_array[] = $row["modelo"];
+        $sub_array[] = "$".number_format($row["precio"],2,".",",");
+        $sub_array[] = '<button type="button" onClick="agregarServicioVenta('.$row["id_producto"].')" class="btn btn-sm bg-success"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>';          
+
+        $data[] = $sub_array;
+      }
+
+      $results = array(
+      "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+      echo json_encode($results);
+
+    break;
+
 
   
 }

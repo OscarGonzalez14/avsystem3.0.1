@@ -335,4 +335,40 @@ public function get_productos_traslados($sucursal){
   return $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+//////////////////GUARDAR LENTE
+public function guardar_servicio($tipo_servicio,$des_servicio,$precio_servicio,$cat_servicio){    
+
+    $conectar= parent::conexion();
+    parent::set_names();
+    $marca_aros="0";
+    $color_aro="0";
+    $medidas_aro="0";
+    $diseno_aro="0";
+    $materiales_aro="0";
+
+    $sql="insert into productos values(null,?,?,?,?,?,?,?,?,?);";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $marca_aros);
+    $sql->bindValue(2, $tipo_servicio);
+    $sql->bindValue(3, $color_aro);
+    $sql->bindValue(4, $medidas_aro);
+    $sql->bindValue(5, $diseno_aro);
+    $sql->bindValue(6, $materiales_aro);
+    $sql->bindValue(7, $precio_servicio);
+    $sql->bindValue(8, $cat_servicio);
+    $sql->bindValue(9, $des_servicio);
+    $sql->execute();
+
+}
+
+public function get_servicios_ventas(){
+  $conectar= parent::conexion();
+
+  $sql="select id_producto, modelo, categoria as precio, categoria_producto, desc_producto from productos where categoria_producto='servicio'";
+  $sql = $conectar->prepare($sql);
+  $sql->execute();
+  return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
 }//////Fin de la clase

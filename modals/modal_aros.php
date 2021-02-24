@@ -1,6 +1,6 @@
 <style>
     #tamModal_aros{
-      width: 60% !important;
+      width:85% !important;
       margin:15;
     }
      #head{
@@ -27,13 +27,16 @@
      </div>
 
               <div class="card-body p-0" style="margin:7px">
-                <table class="table-hover table-bordered display nowrap" id="data_aros" style="cursor:pointer;" width="100%" cellspacing="0">
+                <table class="table-hover table-bordered display nowrap" id="data_aros" style="cursor:pointer;" width="100%" cellspacing="0" data-order='[[0,"desc"]]'>
                   <thead style="background:#034f84;color:white">
                     <tr>
+                      <th style="text-align:center">ID</th>
                       <th style="text-align:center">Marca</th>
                       <th style="text-align:center">Modelo</th>
                       <th style="text-align:center">Color</th>
                       <th style="text-align:center">Medidas</th>
+                      <th style="text-align:center">Diseño</th>
+                      <th style="text-align:center">Materiales</th>
                       <th style="text-align:center">Agregar</th>
                     </tr>
                   </thead>
