@@ -516,36 +516,7 @@ $(document).on("click","#categoria_ubicaciones", function(){
       
   "aProcessing": true,//Activamos el procesamiento del datatables
          "aServerSide": true,//Paginación y filtrado realizados por el servidor
-        dom: 'Bfrtip',//Definimos los elementos del control de tabla
-        /*  buttons: [{
-          extend: 'excelHtml5',
-          download: 'open',
-          text: 'Descargar Ingreso',
-          filename: function() {
-              var date_edition = 'Ingresos a Bodega '+moment().format("DD-MM-YYYY HH[h]mm")
-              var selected_machine_name = $("#output_select_machine select option:selected").text()
-              return date_edition + ' - ' + selected_machine_name
-           },
-           sheetName: 'Ingresos',
-           title : null
-       },
-            {
-              extend: 'pdfHtml5',
-              download: 'open',
-              text: 'Imprimir',
-              orientation: 'portrait',
-              pageSize: 'letter',
-              customize : function(doc) {doc.pageMargins = [10, 10, 10,10 ]; },
-              filename: function() {
-              var fecha = 'Ingreso '+moment().format("DD-MM-YYYY HH[h]mm")
-              var selected_machine_name = $("#output_select_machine select option:selected").text()
-              return fecha + ' - ' + selected_machine_name
-              
-            },
-            title : 'Ingreso a Bodega'
-        }   
-       ],*/
-
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
       buttons: [
                 'excelHtml5'
             ],
@@ -558,9 +529,8 @@ $(document).on("click","#categoria_ubicaciones", function(){
         error: function(e){
         console.log(e.responseText);
         },
-
             
-            },
+      },
 
               "bDestroy": true,
         "responsive": true,
@@ -667,8 +637,7 @@ function listarDetallesTraslado(){
         var filas = filas + "<tr id='fila_t"+i+"'><td>"+(i+1)+
         "</td><td style='text-align:center;'>"+detalles_traslado[i].descripcion+
         "<td style='text-align:center'><input style='text-align:right' type='number' class='cantidad form-control' onClick='setCantidad_traslado(event, this, "+(i)+");' onKeyUp='setCantidad_traslado(event, this, "+(i)+");' value='"+detalles_traslado[i].cantidad+"'><td style='text-align:center'><input style='text-align:right' type='text' class='cantidad form-control'  value='"+detalles_traslado[i].origen+"' readonly ></td><td style='text-align:center'><input style='text-align:right' type='text' class='cantidad form-control'  value='"+detalles_traslado[i].destino+"' onClick='buscar_categorias("+(i)+")' id='item_traslado"+(i)+"'></td><td style='text-align:center'><i class='nav-icon fas fa-trash-alt fa-2x' onClick='eliminarItemTraslado("+i+");' style='color:red'></i></td></tr>";
-
-       
+    
 
 
     //subtotal = subtotal + importe;

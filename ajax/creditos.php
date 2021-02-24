@@ -518,6 +518,33 @@ $datos=$creditos->get_paciente_id($_POST["id_paciente"]);
 
   break;
 
+
+  case 'buscar_existe_oid':
+  $datos = $creditos->buscar_existe_oid($_POST["id_paciente"]);
+   if (is_array($datos)==true and count($datos)>0) {
+      $data = Array();
+      foreach($datos as $row){
+       $num_orden = $row["numero_orden"];
+      }
+   }else{
+    $num_orden = "No";
+   }
+   echo json_encode($num_orden);
+  break;
+
+  case 'get_saldos_oid':
+  $datos = $creditos->get_saldos_oid($_POST["id_paciente"]);
+   if(is_array($datos)==true and count($datos)>0) {
+      $data = Array();
+      foreach($datos as $row){
+       $saldos_act = $row["saldos"];
+      }
+   }else{
+    $saldos_act = 0;
+   }
+   echo json_encode($saldos_act);
+  break;
+
 }//Fin case
 
  ?>

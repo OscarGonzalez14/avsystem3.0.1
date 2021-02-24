@@ -117,18 +117,6 @@
             </a>
           </li>  
 
-         
-        <!--  <li class="nav-item">
-            <a href="compras.php" class="nav-link">
-              <i class="nav-icon fas fa-cart-plus"></i>
-              <p>
-                Compras
-                <span class="right badge badge-danger" style="visibility:hidden">New</span>
-              </p>
-            </a>
-          </li>-->
-      
-              
           <li class="nav-item">
             <a href="adquisiciones.php" class="nav-link">
               <i class="nav-icon fas fa-cart-plus"></i>

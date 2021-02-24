@@ -164,7 +164,7 @@
         <div class="input-group-prepend">
           <div class="input-group-text">LENTE</i></div>
         </div>
-        <input type="text" class="form-control clear_orden_i" id="lente_orden">
+        <input type="text" class="form-control clear_orden_i" id="lente_orden" readonly>
       </div>
     </div>
 
@@ -173,7 +173,7 @@
         <div class="input-group-prepend">
           <div class="input-group-text">TRATAMIENTOS</i></div>
         </div>
-        <input type="text" class="form-control clear_orden_i" id="tratamiento_orden">
+        <input type="text" class="form-control clear_orden_i" id="tratamiento_orden" readonly>
       </div>
     </div>
   </div>

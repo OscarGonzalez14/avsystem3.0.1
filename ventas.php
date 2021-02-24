@@ -215,6 +215,52 @@ require_once("modals/modal_oid.php");
 </div>
 </section>
 
+<div class="modal" id="advertencia_creditos">
+  <div class="modal-dialog" style="max-width: 55%">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row" style="margin-top: 5px">
+              <div class="col-12">
+                <div class="callout callout-info" style="border-bottom: solid 1px #008080;">
+                  <h3 style='font-family: Helvetica, Arial, sans-serif;font-size: 20px;text-align: center'><i class="fas fa-exclamation-circle fa-2x" style="color: red"></i></h3>
+                  <h3 style='font-family: Helvetica, Arial, sans-serif;font-size: 20px;text-align: center'>EL TITULAR POSEE UNA ORDEN DE DESCUENTO ACTIVA</h3>
+                  <h3 style='font-family: Helvetica, Arial, sans-serif;font-size: 18px;text-align: center'>¿Desea agregar esta cuenta a orden ya Existente?</h3>
+                </div>
+              </div>
+            </div>
+
+            <table width="100%" class="table-hover table-bordered">
+              <thead style="background:#034f84;color:white;text-align: center;font-family: Helvetica, Arial, sans-serif;font-size:12px">
+                <tr>
+                  <th style="width: 26% !important" colspan="26">Titular</th>
+                  <th style="width: 26% !important" colspan="26">Empresa</th>
+                  <th style="width: 26% !important" colspan="26">Evaluado</th>
+                  <th style="width: 11% !important" colspan="11">Saldo Actual</th>
+                  <th style="width: 11% !important" colspan="11">Nuevo Saldo</th>
+                </tr>
+              </thead>
+              <tr>
+                  <td style="width: 26% !important;text-align: center" colspan="26"><span id="tit_add_tit"></span></td>
+                  <td style="width: 26% !important;text-align: center" colspan="26"><span id=""></span></td>
+                  <td style="width: 26% !important;text-align: center" colspan="26"><span id="eval_add_tit"></span></td>
+                  <td style="width: 11% !important;text-align: center" colspan="11"><span id=""></span></td>
+                  <td style="width: 11% !important;text-align: center" colspan="11"><span id=""></span></td>
+              </tr>
+            </table>
+
+      </div><!--Fin Modal Body-->
+      <!-- Modal footer -->
+      <div class="modal-footer">
+          <button type="submit" name="action" class="btn btn-success pull-left" value="Add"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Orden </button>
+          <button type="button" class="btn btn-info"><i class="far fa-folder-open" aria-hidden="true"></i> Agregar a orden existente</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 <?php require_once("footer.php");?>
 <?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>

@@ -16,7 +16,7 @@ $datos_factura_precio_u = $reporteria->get_datos_factura_p_unitario($_GET["n_ven
 $datos_factura_subtotal = $reporteria->get_datos_factura_subtotal($_GET["n_venta"],$_GET["id_paciente"]);
 $datos_factura_paciente = $reporteria->get_datos_factura_paciente($_GET["id_paciente"]);
 $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],$_GET["id_paciente"]);
-
+date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -66,14 +66,17 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
   for($i=0;$i<sizeof($datos_factura_paciente);$i++){
 
 ?>
-  <td colspan="40" style="color:black;font-size:11px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 40%"><strong>CLIENTE:</strong> <?php echo $datos_factura_paciente[$i]["nombres"];?></td>
+  <td colspan="35" style="color:black;font-size:11px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 35%"><strong>CLIENTE:</strong> <?php echo $datos_factura_paciente[$i]["nombres"];?></td>
 
-    <td colspan="40" style="color:black;font-size:11px;border: 1px solidwhite;font-family: Helvetica, Arial, sans-serif;width: 40%"><strong>DIRECCION:</strong> <?php echo $datos_factura_paciente[$i]["direccion"];?></td>
+    <td colspan="35" style="color:black;font-size:11px;border: 1px solidwhite;font-family: Helvetica, Arial, sans-serif;width: 35%"><strong>DIRECCION:</strong> <?php echo $datos_factura_paciente[$i]["direccion"];?></td>
 
-    <td colspan="20" style="color:black;font-size:11px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 40%"><strong>TELEFONO:</strong> <?php echo $datos_factura_paciente[$i]["telefono"];?></td>
+    <td colspan="15" style="color:black;font-size:11px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 15%"><strong>TELEFONO:</strong> <?php echo $datos_factura_paciente[$i]["telefono"];?></td>
+    <td colspan="15" style="color:black;font-size:11px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 15%"><strong>FECHA:</strong> <?php echo $hoy;?></td>
+   
     <?php
   }
 ?>
+
 </tr>
 </table>
 <table id="table2" width="100%">
@@ -87,14 +90,14 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
 </tr>
 
 <tr style="height:50px;">
-  <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 10px;text-align: center;margin:20px;height: 95px">
+  <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 9px;text-align: center;margin:20px;height: 95px">
  <?php 
     for ($i=0; $i < sizeof($datos_factura_cantidad); $i++) {
      ?><span style="margin-left: 0px !important"><?php echo $datos_factura_cantidad[$i]["cantidad_venta"]?></span><br>
      <?php } ?>     
   </td>
  
-  <td colspan="50" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 10px;text-align: left;margin:20px;text-transform: uppercase;
+  <td colspan="50" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 9px;text-align: left;margin:20px;text-transform: uppercase;
   ">
      <?php 
     for ($i=0; $i < sizeof($datos_factura_producto); $i++) {
@@ -102,7 +105,7 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
      <?php } ?>    
   </td>
  
-  <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size:10px;text-align: center;margin:20px">
+  <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size:9px;text-align: center;margin:20px">
 
     <?php 
     for ($i=0; $i < sizeof($datos_factura_precio_u); $i++) {
@@ -182,7 +185,7 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
 <?php
   for($i=0;$i<sizeof($datos_factura_venta);$i++){
  ?>
- <?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>
+
 <p style="font-size: 10px;text-align: right;">NF: <span style="color:red"><?php echo $correlativo; ?>&nbsp;-- &nbsp;</span> No.Venta:<?php echo $datos_factura_venta[$i]["numero_venta"];?>&nbsp;&nbsp;&nbsp;opto:&nbsp;<?php echo $datos_factura_venta[$i]["optometra"];?>&nbsp;&nbsp;-&nbsp;Impreso:&nbsp;<?php echo $hoy;?>&nbsp;&nbsp;&nbsp;user:&nbsp;<?php echo $datos_factura_venta[$i]["id_usuario"];?>--<?php echo $datos_factura_venta[$i]["sucursal"];?></p>
     <?php
   }
@@ -198,11 +201,12 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
   for($i=0;$i<sizeof($datos_factura_paciente);$i++){
 
 ?>
-  <td colspan="40" style="color:black;font-size:11px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 40%"><strong>CLIENTE:</strong> <?php echo $datos_factura_paciente[$i]["nombres"];?></td>
+  <td colspan="35" style="color:black;font-size:11px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 35%"><strong>CLIENTE:</strong> <?php echo $datos_factura_paciente[$i]["nombres"];?></td>
 
-    <td colspan="40" style="color:black;font-size:11px;border: 1px solidwhite;font-family: Helvetica, Arial, sans-serif;width: 40%"><strong>DIRECCION:</strong> <?php echo $datos_factura_paciente[$i]["direccion"];?></td>
+    <td colspan="35" style="color:black;font-size:11px;border: 1px solidwhite;font-family: Helvetica, Arial, sans-serif;width: 35%"><strong>DIRECCION:</strong> <?php echo $datos_factura_paciente[$i]["direccion"];?></td>
 
-    <td colspan="20" style="color:black;font-size:11px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 40%"><strong>TELEFONO:</strong> <?php echo $datos_factura_paciente[$i]["telefono"];?></td>
+    <td colspan="15" style="color:black;font-size:11px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 15%"><strong>TELEFONO:</strong> <?php echo $datos_factura_paciente[$i]["telefono"];?></td>
+    <td colspan="15" style="color:black;font-size:11px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 15%"><strong>FECHA:</strong> <?php echo $hoy;?></td>
     <?php
   }
 ?>
@@ -313,7 +317,6 @@ $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],
 <?php
   for($i=0;$i<sizeof($datos_factura_venta);$i++){
  ?>
-<?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>
 <p style="font-size: 10px;text-align: right;">NF: <span style="color:red"><?php echo $correlativo; ?>&nbsp;-- &nbsp;</span> No.Venta:<?php echo $datos_factura_venta[$i]["numero_venta"];?>&nbsp;&nbsp;&nbsp;opto:&nbsp;<?php echo $datos_factura_venta[$i]["optometra"];?>&nbsp;&nbsp;-&nbsp;Impreso:&nbsp;<?php echo $hoy;?>&nbsp;&nbsp;&nbsp;user:&nbsp;<?php echo $datos_factura_venta[$i]["id_usuario"];?>--<?php echo $datos_factura_venta[$i]["sucursal"];?></p>
     <?php
   }

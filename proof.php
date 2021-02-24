@@ -23,37 +23,39 @@ var arreglo =cadena.split(",");
 console.log(cadena);
 console.log(arreglo);
 </script>
+<?php 
 
+$array = array("Muffinhead", "Peter", "Monnie", "Banh");
+  $html= "
+     <thead class='bg-success'>
+      <th style='text-align:center'>Producto</th>
+      <th style='text-align:center'>Cantidad</th>
+      <th style='text-align:center'>P/U</th>
+      <th style='text-align:center'>Descuento $</th>
+      <th style='text-align:center'>Subtotal</th>                                   
+    </thead>";
+  foreach ($array as &$valor) {
+    $animales = [
+    "Muffinhead" => 14,
+    "Peter" => 4,
+    "Monnie" => 7,
+    "Banh" => 10
+];
+    $html .="<tr>
+      <td style='text-align:center'>".$valor.":".$animales[$valor]."</td>
+      <td style='text-align:center'>".$valor.":".$animales[$valor]."</td>
+      <td style='text-align:center'>".$valor.":".$animales[$valor]."</td>
+      <td style='text-align:center'>".$valor.":".$animales[$valor]."</td>
+      <td style='text-align:center'>".$valor.":".$animales[$valor]."</td>                                   
+    </tr>";
+  }
+ 
+
+
+  ?> 
+  <table>
+    <?php
+    echo $html;
+    ?>
+  </table>          
 </body>
-</html>
-
-<!-- PARA BUSCAR POR FECHA DONDE FECHA ES UN STRING
-SELECT * FROM existencias where categoria_ub like "EX-3" and STR_TO_DATE(fecha_ingreso, '%d-%m-%Y') < STR_TO_DATE("09-02-2021",'%d-%m-%Y')
-
--->
-
-         <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                Ordenes de Desc.
-                <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-danger right">.</span>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="desc_planilla.php" class="nav-link">
-                  <i class="far fa-file"></i>
-                  <p>Descuentos en Planilla</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Cargos Automaticos</p>
-                </a>
-              </li>
-
-            </ul>
-          </li>

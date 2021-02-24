@@ -462,6 +462,25 @@ public function denegar_orden($numero_orden){
     
 }
 
+public function buscar_existe_oid($id_paciente){
+    $conectar= parent::conexion();
+    parent::set_names(); 
+    $sql="select numero_orden from orden_credito where id_paciente=? order by id_orden DESC limit 1;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$id_paciente);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+    public function get_saldos_oid($id_paciente){
+    $conectar= parent::conexion();
+    $sql= "select sum(saldo) as saldos from creditos where id_paciente=? and forma_pago='Descuento en Planilla';";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$id_paciente);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }/////FIN CLASS
 
 ?>
