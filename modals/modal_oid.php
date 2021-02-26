@@ -124,6 +124,11 @@
       <input type="text" class="form-control get_correlativo_o" id="tel_ref2">
     </div>
 
+  <div class="form-group purple-border col-md-12">
+  <label for="exampleFormControlTextarea4">Observaciones</label>
+  <textarea class="form-control" id="observaciones_oid" rows="2"></textarea>
+</div>
+
   </div> 
  <button class="btn btn-outline-primary btn-block" type="button" id="btn_reg_orden" onClick="guardar_oid();"><i class="fas fa-save"> Registrar Orden</i></button>
  <a class="btn btn-primary" style="color:white;border-radius:1px;" href="" id="print_orden_descplanilla" target="_blank"><i class="fas fa-print"></i> IMPRIMIR ORDEN DE DESCUENTO</a>

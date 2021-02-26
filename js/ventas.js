@@ -648,6 +648,7 @@ function guardar_oid(){
     let codigo = $("#correlativo_orden").html();
     let numero_venta = $("#n_venta").val();
     let sucursal = $("#sucursal").val();
+    let observaciones_oid = $("#observaciones_oid").val();
 
 
 
@@ -669,7 +670,8 @@ function guardar_oid(){
           tel_ref1:tel_ref1,
           ref_2:ref_2,
           tel_ref2:tel_ref2,
-          codigo: codigo     
+          codigo: codigo,
+          observaciones_oid :observaciones_oid
     }
     data_oid.push(obj);
     console.log(data_oid);

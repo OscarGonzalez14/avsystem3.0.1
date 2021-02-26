@@ -283,12 +283,13 @@ public function agrega_detalle_venta(){
       $ref_2 = $v->ref_2;
       $tel_ref2 = $v->tel_ref2;
       $codigo = $v->codigo;
+      $observaciones_oid = $v->observaciones_oid;
   }//Fin foreach
 
     $finalizacion = date("d-m-Y",strtotime($fecha_inicio."+ $plazo month"));
 
     $estado_orden = "0";
-    $sql8="insert into orden_credito values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    $sql8="insert into orden_credito values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql8=$conectar->prepare($sql8);          
     $sql8->bindValue(1,$codigo);
     $sql8->bindValue(2,$id_paciente);
@@ -304,6 +305,7 @@ public function agrega_detalle_venta(){
     $sql8->bindValue(12,$sucursal);
     $sql8->bindValue(13,$monto_total);
     $sql8->bindValue(14,$plazo);
+    $sql8->bindValue(15,$observaciones_oid);
     $sql8->execute();
 
   ///////////////////////UPDATE DATOS DE PACIENTE

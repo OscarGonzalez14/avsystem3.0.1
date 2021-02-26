@@ -42,11 +42,11 @@ for ($i=0; $i <sizeof($data_orden_desc) ; $i++) {
     $cuotas_creditos = $monto_orden/$plazo_credito;
     $inicio_credito = $data_orden_desc[$i]["fecha_inicio"];
     $fin_credito = $data_orden_desc[$i]["fecha_finalizacion"];
-
     $ref_uno = $data_orden_desc[$i]["ref_uno"];
     $tel_ref_uno = $data_orden_desc[$i]["tel_ref_uno"];
     $ref_dos = $data_orden_desc[$i]["ref_dos"];
     $tel_ref_dos = $data_orden_desc[$i]["tel_ref_dos"];
+    $observaciones_oid = $data_orden_desc[$i]["observaciones"];
 }
 ?>
 
@@ -224,6 +224,10 @@ for ($i=0; $i <sizeof($data_orden_desc) ; $i++) {
       <tr>
         <td colspan="75" style="text-align: center;width: 25%;border: 1px solid :black;">TOTAL</td>
         <td colspan="25" style="text-align: center;width: 25%;border: 1px solid :black;"><b><?php echo "$".number_format($total,2,".",",")?></b></td>
+      </tr>
+      <tr><td colspan="100" style="text-align: left;width: 100%;text-transform: uppercase;color: white">HH</td></tr>
+      <tr>
+        <td colspan="100" style="text-align: left;width: 100%;border: 1px solid :black; text-transform: uppercase;"><span style="color: red;font-size: 14px">OBSERVACIONES:&nbsp;</span><span style="color: black"><?php echo $observaciones_oid;?></span></td>
       </tr>
     </tfoot>
   </table>
