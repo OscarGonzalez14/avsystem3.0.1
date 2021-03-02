@@ -5,338 +5,357 @@ require_once("../config/conexion.php");
 require_once("../modelos/Ventas.php");
  //llamo al modelo Ventas
 $ventas = new Ventas();
-  
+
 switch($_GET["op"]){
 ///////////////////////////AROS EN EXISTENCIAS
-case "agregar_aros_venta":          
+  case "agregar_aros_venta":          
   $datos=$ventas->buscar_aros_ventas($_POST["id_producto"],$_POST["id_ingreso"]);
   if(is_array($datos)==true and count($datos)>0){
-        foreach($datos as $row)
-        {
-          $output["desc_producto"] = $row["desc_producto"];
-          $output["precio_venta"] = number_format($row["precio_venta"],2,".",",");
-          $output["stock"] = $row["stock"];
-          $output["categoria_ub"] = $row["categoria_ub"];
-          $output["num_compra"] = $row["num_compra"];
-          $output["id_producto"] = $row["id_producto"];
-          $output["id_ingreso"] = $row["id_ingreso"];
-          $output["categoria_producto"] = $row["categoria_producto"];
+    foreach($datos as $row)
+    {
+      $output["desc_producto"] = $row["desc_producto"];
+      $output["precio_venta"] = number_format($row["precio_venta"],2,".",",");
+      $output["stock"] = $row["stock"];
+      $output["categoria_ub"] = $row["categoria_ub"];
+      $output["num_compra"] = $row["num_compra"];
+      $output["id_producto"] = $row["id_producto"];
+      $output["id_ingreso"] = $row["id_ingreso"];
+      $output["categoria_producto"] = $row["categoria_producto"];
           //$output["precio_compra"] = $row["precio_compra"];                   
-        }      
+    }      
 
-      } else {                 
+  } else {                 
                  //si no existe el registro entonces no recorre el array
-      $output["error"]="El producto seleccionado está inactivo, intenta con otro";
+    $output["error"]="El producto seleccionado está inactivo, intenta con otro";
 
-      }
+  }
 
   echo json_encode($output);
 
-     break;
+  break;
 ///////////////AGREGAR ACCESORIO A DETALLES DE VENTA(agregar a array detalles)
   case "agregar_accesorios_venta":          
   $datos=$ventas->buscar_accesorios_ventas($_POST["id_producto"],$_POST["id_ingreso"]);
   if(is_array($datos)==true and count($datos)>0){
-        foreach($datos as $row)
-        {
-          $output["desc_producto"] = $row["desc_producto"];
-          $output["precio_venta"] = number_format($row["precio_venta"],2,".",",");
-          $output["stock"] = $row["stock"];
-          $output["categoria_ub"] = $row["categoria_ub"];
-          $output["num_compra"] = $row["num_compra"];
-          $output["id_producto"] = $row["id_producto"];
-          $output["id_ingreso"] = $row["id_ingreso"];
-          $output["categoria_producto"] = $row["categoria_producto"];                   
-        }      
+    foreach($datos as $row)
+    {
+      $output["desc_producto"] = $row["desc_producto"];
+      $output["precio_venta"] = number_format($row["precio_venta"],2,".",",");
+      $output["stock"] = $row["stock"];
+      $output["categoria_ub"] = $row["categoria_ub"];
+      $output["num_compra"] = $row["num_compra"];
+      $output["id_producto"] = $row["id_producto"];
+      $output["id_ingreso"] = $row["id_ingreso"];
+      $output["categoria_producto"] = $row["categoria_producto"];                   
+    }      
 
-      } else {                 
+  } else {                 
                  //si no existe el registro entonces no recorre el array
-      $output["error"]="El producto seleccionado está inactivo, intenta con otro";
+    $output["error"]="El producto seleccionado está inactivo, intenta con otro";
 
-      }
-
-  echo json_encode($output);
-
-     break;
-
-//////////////DATA AGREGAR LENTES EN VENTA
-     case "agregar_lentes_venta":          
-  $datos=$ventas->buscar_lentes_ventas($_POST["id_producto"]);
-  if(is_array($datos)==true and count($datos)>0){
-        foreach($datos as $row)
-        {
-          $output["desc_producto"] = $row["desc_producto"];
-          $output["precio_venta"] = $row["precio_venta"];
-          $output["id_producto"] = $row["id_producto"];
-          $output["categoria_producto"] = strtoupper($row["categoria_producto"]);                   
-        }      
-
-      } else {                 
-                 //si no existe el registro entonces no recorre el array
-      $output["error"]="El producto seleccionado está inactivo, intenta con otro";
-
-      }
-
-  echo json_encode($output);
-
-     break;
-///////////////////////GET MUMERO VENTA
-  case "get_numero_venta":
-  $datos= $ventas->get_numero_venta($_POST["sucursal_correlativo"]);
-  $sucursal = $_POST["sucursal_correlativo"];
-  $prefijo = "";
-  if ($sucursal=="Metrocentro") {
-    $prefijo="ME";
-  }elseif ($sucursal=="Santa Ana") {
-    $prefijo="SA";
-  }elseif ($sucursal=="San Miguel") {
-    $prefijo="SM";
-  }
-    if(is_array($datos)==true and count($datos)>0){
-    foreach($datos as $row){                  
-      $codigo=$row["numero_venta"];
-      $cod=(substr($codigo,5,11))+1;
-      $output["correlativo"]="AV".$prefijo."-".$cod;
-    }             
-  }else{
-      $output["correlativo"] = "AV".$prefijo."-1";
   }
 
-   echo json_encode($output);
+  echo json_encode($output);
 
   break;
+
+//////////////DATA AGREGAR LENTES EN VENTA
+  case "agregar_lentes_venta":          
+  $datos=$ventas->buscar_lentes_ventas($_POST["id_producto"]);
+  if(is_array($datos)==true and count($datos)>0){
+    foreach($datos as $row)
+    {
+      $output["desc_producto"] = $row["desc_producto"];
+      $output["precio_venta"] = $row["precio_venta"];
+      $output["id_producto"] = $row["id_producto"];
+      $output["categoria_producto"] = strtoupper($row["categoria_producto"]);                   
+    }      
+
+  } else {                 
+                 //si no existe el registro entonces no recorre el array
+    $output["error"]="El producto seleccionado está inactivo, intenta con otro";
+
+  }
+
+  echo json_encode($output);
+
+  break;
+
+     ///////////////////////////SERVICIOS EN EXISTENCIAS
+  case "agregar_servicios_venta":          
+  $datos=$ventas->buscar_servicios_ventas($_POST["id_producto"]);
+  if(is_array($datos)==true and count($datos)>0){
+    foreach($datos as $row){
+ 
+    $output["servicio"] = $row["servicio"];
+    $output["precio_venta"] = number_format($row["precio_venta"],2,".",","); 
+    $output["id_producto"] = $row["id_producto"];       
+  }      
+
+} 
+
+echo json_encode($output);
+
+break;
+
+///////////////////////GET MUMERO VENTA
+case "get_numero_venta":
+$datos= $ventas->get_numero_venta($_POST["sucursal_correlativo"]);
+$sucursal = $_POST["sucursal_correlativo"];
+$prefijo = "";
+if ($sucursal=="Metrocentro") {
+  $prefijo="ME";
+}elseif ($sucursal=="Santa Ana") {
+  $prefijo="SA";
+}elseif ($sucursal=="San Miguel") {
+  $prefijo="SM";
+}
+if(is_array($datos)==true and count($datos)>0){
+  foreach($datos as $row){                  
+    $codigo=$row["numero_venta"];
+    $cod=(substr($codigo,5,11))+1;
+    $output["correlativo"]="AV".$prefijo."-".$cod;
+  }             
+}else{
+  $output["correlativo"] = "AV".$prefijo."-1";
+}
+
+echo json_encode($output);
+
+break;
+
 ////////////////////////COMBOX DINAMICOS PARA VENTAS
 case 'tipo_pago';
 
-  if ($_POST['id_tipo']=='Contado' or $_POST['id_tipo']=='Credito Fiscal') {
-    $html="
-      <option value='Contado'>Contado</option>
-      <option value='Efectivo'>Efectivo</option>
-      <option value='Tarjeta de Credito'>Tarjeta de Crédito</option>      
-      <option value='Cheque'>Cheque</option>";
-    echo $html;
+if ($_POST['id_tipo']=='Contado' or $_POST['id_tipo']=='Credito Fiscal') {
+  $html="
+  <option value='Contado'>Contado</option>
+  <option value='Efectivo'>Efectivo</option>
+  <option value='Tarjeta de Credito'>Tarjeta de Crédito</option>      
+  <option value='Cheque'>Cheque</option>";
+  echo $html;
 
-  }elseif($_POST['id_tipo']=='Credito'){
-  
+}elseif($_POST['id_tipo']=='Credito'){
+
   $html= "
-    <option value=''>Selecione</option>
-    <option value='Descuento en Planilla'> Descuento en Planilla</option>
-    <option value='Cargo Automatico'>Cargo Automático</option>
-    <option value='Creditos Personales'>Créditos Personales</option>
-    <option value='Tarjeta de Credito'>Tarjeta de Crédito</option>
-    <option value='Tasa cero'>Tasa cero</option>
-    <option value='Cheque'>Cheque</option>";
+  <option value=''>Selecione</option>
+  <option value='Descuento en Planilla'> Descuento en Planilla</option>
+  <option value='Cargo Automatico'>Cargo Automático</option>
+  <option value='Creditos Personales'>Créditos Personales</option>
+  <option value='Tarjeta de Credito'>Tarjeta de Crédito</option>
+  <option value='Tasa cero'>Tasa cero</option>
+  <option value='Cheque'>Cheque</option>";
   
-    echo $html;
-    }else{
+  echo $html;
+}else{
 
   $html= "<option value=''>Seleccione</option>
   ";
   
-    echo $html;
-    }
+  echo $html;
+}
 
-    break;
+break;
 
-    case "monto_cuotas":
+case "monto_cuotas":
 
-      if($_POST['m_cuotas']=='Descuento en Planilla' or $_POST['m_cuotas']=='Tasa cero'){
+if($_POST['m_cuotas']=='Descuento en Planilla' or $_POST['m_cuotas']=='Tasa cero'){
 
-      $html="
+  $html="
 
-      <option value='0'>Seleccione</>
-      <option value='2'> 2 Meses</>
-      <option value='3'> 3 Meses</>
-      <option value='4'> 4 Meses</>
-      <option value='5'> 5 Meses</>
-      <option value='6'> 6 Meses</>
-      <option value='7'> 7 Meses</>
-      <option value='8'> 8 Meses</>
-      <option value='9'> 9 Meses</>
-      <option value='10'> 10 Meses</>
-      <option value='11'> 11 Meses</>
-      <option value='12'> 12 Meses</>
-      
-      ";
+  <option value='0'>Seleccione</>
+  <option value='2'> 2 Meses</>
+  <option value='3'> 3 Meses</>
+  <option value='4'> 4 Meses</>
+  <option value='5'> 5 Meses</>
+  <option value='6'> 6 Meses</>
+  <option value='7'> 7 Meses</>
+  <option value='8'> 8 Meses</>
+  <option value='9'> 9 Meses</>
+  <option value='10'> 10 Meses</>
+  <option value='11'> 11 Meses</>
+  <option value='12'> 12 Meses</>
 
-      echo $html;
+  ";
 
-      }else if($_POST['m_cuotas']=='Cargo Automatico'){
+  echo $html;
 
-      $html="
+}else if($_POST['m_cuotas']=='Cargo Automatico'){
 
-      <option value='0'>Seleccione</>
-      <option value='2'> 2 Meses</>
-      <option value='3'> 3 Meses</>
-      <option value='4'> 4 Meses</>
-      <option value='5'> 5 Meses</>
-      <option value='6'> 6 Meses</>
-      <option value='7'> 7 Meses</>
-      <option value='8'> 8 Meses</>
-      <option value='9'> 9 Meses</>
-      <option value='10'> 10 Meses</>
-      <option value='11'> 11 Meses</>
-      <option value='12'> 12 Meses</>
-      
-      ";
+  $html="
 
-      echo $html;
+  <option value='0'>Seleccione</>
+  <option value='2'> 2 Meses</>
+  <option value='3'> 3 Meses</>
+  <option value='4'> 4 Meses</>
+  <option value='5'> 5 Meses</>
+  <option value='6'> 6 Meses</>
+  <option value='7'> 7 Meses</>
+  <option value='8'> 8 Meses</>
+  <option value='9'> 9 Meses</>
+  <option value='10'> 10 Meses</>
+  <option value='11'> 11 Meses</>
+  <option value='12'> 12 Meses</>
 
-      }else if($_POST['m_cuotas']=='Creditos Personales'){
+  ";
 
-        $html="
-      <option value=''>Seleccione</>
-      <option value='1'> 1 Meses</>
-      <option value='2'> 2 Meses</>
-      <option value='3'> 3 Meses</>
-      <option value='4'> 4 Meses</>
-      <option value='5'> 5 Meses</>
-      <option value='6'> 6 Meses</>
-      
-      ";
+  echo $html;
 
-      echo $html;
-      }
+}else if($_POST['m_cuotas']=='Creditos Personales'){
 
-    break;
+  $html="
+  <option value=''>Seleccione</>
+  <option value='1'> 1 Meses</>
+  <option value='2'> 2 Meses</>
+  <option value='3'> 3 Meses</>
+  <option value='4'> 4 Meses</>
+  <option value='5'> 5 Meses</>
+  <option value='6'> 6 Meses</>
+
+  ";
+
+  echo $html;
+}
+
+break;
 
 case 'registrar_venta':
 
-  $datos=$ventas->valida_existencia_venta($_POST["numero_venta"]);
-      if(is_array($datos)==true and count($datos)==0){
-      $ventas->agrega_detalle_venta();
-      $messages[]="ok";
-      
-    }else{
-      $errors[]="error";
-    }
+$datos=$ventas->valida_existencia_venta($_POST["numero_venta"]);
+if(is_array($datos)==true and count($datos)==0){
+  $ventas->agrega_detalle_venta();
+  $messages[]="ok";
 
-    if (isset($messages)){
-     ?>
-       <?php
-         foreach ($messages as $message) {
-             echo json_encode($message);
-           }
-         ?>
-   <?php
-  }
+}else{
+  $errors[]="error";
+}
+
+if (isset($messages)){
+ ?>
+ <?php
+ foreach ($messages as $message) {
+   echo json_encode($message);
+ }
+ ?>
+ <?php
+}
     //mensaje error
-      if (isset($errors)){
+if (isset($errors)){
 
-   ?>
+ ?>
 
-         <?php
-           foreach ($errors as $error) {
-               echo json_encode($error);
-             }
-           ?>
-   <?php
+ <?php
+ foreach ($errors as $error) {
+   echo json_encode($error);
+ }
+ ?>
+ <?php
 
-  }
+}
 
   break;    //////////GET DATA LENTES RECIBO INICIAL 
 
-    case 'get_datos_lentes_rec_ini':
-      $datos= $ventas->get_detalle_lente_rec_ini($_POST["id_paciente"],$_POST["numero_venta"]); 
+  case 'get_datos_lentes_rec_ini':
+  $datos= $ventas->get_detalle_lente_rec_ini($_POST["id_paciente"],$_POST["numero_venta"]); 
 
-        if(is_array($datos)==true and count($datos)>0){
-          foreach($datos as $row){         
-            $output["producto"] = $row["producto"];                
-          }       
-        echo json_encode($output);
-        } 
-      break;
+  if(is_array($datos)==true and count($datos)>0){
+    foreach($datos as $row){         
+      $output["producto"] = $row["producto"];                
+    }       
+    echo json_encode($output);
+  } 
+  break;
       //////////GET DATA PHOTOSENSIBLES RECIBO INICIAL 
-      case 'get_datos_photo_rec_ini':
-      $datos= $ventas->get_detalle_photo_rec_ini($_POST["id_paciente"],$_POST["numero_venta"]); 
+  case 'get_datos_photo_rec_ini':
+  $datos= $ventas->get_detalle_photo_rec_ini($_POST["id_paciente"],$_POST["numero_venta"]); 
 
-        if(is_array($datos)==true and count($datos)>0){
-          foreach($datos as $row){         
-            $output["producto"] = $row["producto"];                
-          }       
-        echo json_encode($output);
-        } 
-      break;
+  if(is_array($datos)==true and count($datos)>0){
+    foreach($datos as $row){         
+      $output["producto"] = $row["producto"];                
+    }       
+    echo json_encode($output);
+  } 
+  break;
 
             //////////GET DATA ANTIREFLEJANTE RECIBO INICIAL 
-      case 'get_datos_ar_rec_ini':
-      $datos= $ventas->get_detalle_ar_rec_ini($_POST["id_paciente"],$_POST["numero_venta"]); 
+  case 'get_datos_ar_rec_ini':
+  $datos= $ventas->get_detalle_ar_rec_ini($_POST["id_paciente"],$_POST["numero_venta"]); 
 
-        if(is_array($datos)==true and count($datos)>0){
-          foreach($datos as $row){         
-            $output["producto"] = $row["producto"];                
-          }       
-        echo json_encode($output);
-        } 
-      break;
+  if(is_array($datos)==true and count($datos)>0){
+    foreach($datos as $row){         
+      $output["producto"] = $row["producto"];                
+    }       
+    echo json_encode($output);
+  } 
+  break;
 
-      case 'get_datos_aros_rec_ini':
-      $datos= $ventas->get_detalle_aros_rec_ini($_POST["id_paciente"],$_POST["numero_venta"]); 
+  case 'get_datos_aros_rec_ini':
+  $datos= $ventas->get_detalle_aros_rec_ini($_POST["id_paciente"],$_POST["numero_venta"]); 
 
-        if(is_array($datos)==true and count($datos)>0){
-          foreach($datos as $row){         
-            $output["marca"] = $row["marca"];
-            $output["modelo"] = $row["modelo"];
-            $output["color"] = $row["color"];                
-          }       
-        echo json_encode($output);
+  if(is_array($datos)==true and count($datos)>0){
+    foreach($datos as $row){         
+      $output["marca"] = $row["marca"];
+      $output["modelo"] = $row["modelo"];
+      $output["color"] = $row["color"];                
+    }       
+    echo json_encode($output);
 
-        } 
-      break;
+  } 
+  break;
 
   /// INICIO LISTAR TODAS LAS VENTAS
-    case "listar_ventas_gral":
-    $datos=$ventas->get_ventas_gral($_POST["sucursal"]);
+  case "listar_ventas_gral":
+  $datos=$ventas->get_ventas_gral($_POST["sucursal"]);
     //Vamos a declarar un array
-    $data= Array();
+  $data= Array();
 
-    foreach($datos as $row)
-      {
-        $sub_array = array();
-        $sub_array[] = $row["id_ventas"];
-        $sub_array[] = $row["numero_venta"];
-        $sub_array[] = $row["usuario"];
-        $sub_array[] = $row["optometra"];
-        $sub_array[] = $row["fecha_venta"];
-        $sub_array[] = $row["paciente"];
-        $sub_array[] = $row["evaluado"];
-        $sub_array[] = $row["tipo_venta"];
-        $sub_array[] = $row["tipo_pago"];
-        $sub_array[] = $row["sucursal"];
-        $sub_array[] = "$".number_format($row["monto_total"],2,".",",");        
-        $sub_array[] = '<i class="fas fa-eye fa-2x" style="border-radius:0px;color:blue" data-toggle="modal" data-target="#detalle_ventas" onClick="detalleVentas(\''.$row["numero_venta"].'\','.$row["id_paciente"].')"></i>';
-        $data[] = $sub_array;
-      }
+  foreach($datos as $row)
+  {
+    $sub_array = array();
+    $sub_array[] = $row["id_ventas"];
+    $sub_array[] = $row["numero_venta"];
+    $sub_array[] = $row["usuario"];
+    $sub_array[] = $row["optometra"];
+    $sub_array[] = $row["fecha_venta"];
+    $sub_array[] = $row["paciente"];
+    $sub_array[] = $row["evaluado"];
+    $sub_array[] = $row["tipo_venta"];
+    $sub_array[] = $row["tipo_pago"];
+    $sub_array[] = $row["sucursal"];
+    $sub_array[] = "$".number_format($row["monto_total"],2,".",",");        
+    $sub_array[] = '<i class="fas fa-eye fa-2x" style="border-radius:0px;color:blue" data-toggle="modal" data-target="#detalle_ventas" onClick="detalleVentas(\''.$row["numero_venta"].'\','.$row["id_paciente"].')"></i>';
+    $data[] = $sub_array;
+  }
 
-      $results = array(
+  $results = array(
       "sEcho"=>1, //Información para el datatables
       "iTotalRecords"=>count($data), //enviamos el total registros al datatable
       "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
       "aaData"=>$data);
-      echo json_encode($results);      
-    break;
+  echo json_encode($results);      
+  break;
     /// FIN LISTAR TODAS LAS VENTAS
-    case "ver_detalle_venta":
-      $datos= $ventas->get_detalle_ventas_paciente($_POST["numero_venta"],$_POST["id_paciente"]);
-    break;
+  case "ver_detalle_venta":
+  $datos= $ventas->get_detalle_ventas_paciente($_POST["numero_venta"],$_POST["id_paciente"]);
+  break;
     //////////////////// GET DATA PACIENTE PARA MODAL CREDITOS EN VENTAS.PHP
-    case 'show_datos_paciente':    
-    $datos=$ventas->show_datos_paciente($_POST["id_paciente"]);
-      foreach($datos as $row){
-      $output["id_paciente"] = $row["id_paciente"];
-      $output["nombres"] = $row["nombres"];
-      $output["telefono"] = $row["telefono"];
-      $output["edad"] = $row["edad"];
-      $output["ocupacion"] = $row["ocupacion"];
-      $output["dui"] = $row["dui"];
-      $output["correo"] = $row["correo"]; 
-      $output["empresas"] = $row["empresas"]; 
-      $output["nit"] = $row["nit"];
-      $output["telefono_oficina"] = $row["telefono_oficina"];
-      $output["direccion"] = $row["direccion"];
+  case 'show_datos_paciente':    
+  $datos=$ventas->show_datos_paciente($_POST["id_paciente"]);
+  foreach($datos as $row){
+    $output["id_paciente"] = $row["id_paciente"];
+    $output["nombres"] = $row["nombres"];
+    $output["telefono"] = $row["telefono"];
+    $output["edad"] = $row["edad"];
+    $output["ocupacion"] = $row["ocupacion"];
+    $output["dui"] = $row["dui"];
+    $output["correo"] = $row["correo"]; 
+    $output["empresas"] = $row["empresas"]; 
+    $output["nit"] = $row["nit"];
+    $output["telefono_oficina"] = $row["telefono_oficina"];
+    $output["direccion"] = $row["direccion"];
 
-      }
-    echo json_encode($output);
+  }
+  echo json_encode($output);
   break;
 
   case 'get_correlativo_orden':
@@ -361,7 +380,7 @@ case 'registrar_venta':
     }
   }else{
     $codigo = "O".$prefijo."-1";
-}
+  }
   echo json_encode($codigo);
   break;
 }

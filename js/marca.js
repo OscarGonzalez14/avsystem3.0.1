@@ -40,6 +40,7 @@ function cargar_marca(){
       	success:function(data)
       	{
          console.log(data);
+         $("#marca_aros").empty();
          for(var i in data)
             { 
               document.getElementById("marca_aros").innerHTML += "<option value='"+data[i]+"'>"+data[i]+"</option>"; 

@@ -21,9 +21,7 @@ where e.id_producto=? and e.id_ingreso=?";
 
 public function buscar_accesorios_ventas($id_producto,$id_ingreso){
   $conectar= parent::conexion();
-  $sql="select p.categoria,p.desc_producto,p.categoria_producto,e.precio_venta,e.stock,e.categoria_ub,e.num_compra,e.fecha_ingreso,e.id_ingreso,p.id_producto from
-productos as p inner join existencias as e on p.id_producto=e.id_producto
-where e.id_producto=? and e.id_ingreso=? and p.categoria_producto='accesorios';";
+  $sql="select p.categoria,p.desc_producto,p.categoria_producto,e.precio_venta,e.stock,e.categoria_ub,e.num_compra,e.fecha_ingreso,e.id_ingreso,p.id_producto from productos as p inner join existencias as e on p.id_producto=e.id_producto where e.id_producto=? and e.id_ingreso=? and p.categoria_producto='accesorios';";
 
   $sql = $conectar->prepare($sql);
   $sql->bindValue(1,$id_producto);
@@ -41,6 +39,18 @@ public function buscar_lentes_ventas($id_producto){
   $sql->execute();
   return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 }
+
+public function buscar_servicios_ventas($id_producto){
+  $conectar= parent::conexion();
+  $sql="select id_producto,modelo as servicio, categoria as precio_venta from productos where id_producto=?;";
+
+  $sql = $conectar->prepare($sql);
+  $sql->bindValue(1,$id_producto);
+  $sql->execute();
+  return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
 
 public function get_numero_venta($sucursal_correlativo){
   $conectar= parent::conexion();

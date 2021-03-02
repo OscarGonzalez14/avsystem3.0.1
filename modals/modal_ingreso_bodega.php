@@ -43,14 +43,14 @@
         
         <!-- Modal body -->
         <div class="modal-body">
-         <table class="table-hover" id="data_productos_ingresos_bodega" width="100%">
+         <table class="table-hover" id="data_productos_ingresos_bodega" width="100%" border="">
                   <thead style="background:#034f84;color:white">
                     <tr>
-                      <th style="text-align:center">ID</th>
-                      <th style="text-align:center"># Compra</th>
-                      <th style="text-align:center">Descripción</th>
-                      <th style="text-align:center">Cantidad disponible</th>
-                      <th style="text-align:center">Agregar</th>
+                      <th style="text-align:center" width="5%">ID</th>
+                      <th style="text-align:center" width="5%"># Compra</th>
+                      <th style="text-align:center" width="80%">Descripción</th>
+                      <th style="text-align:center" width="5%">Disp.</th>
+                      <th style="text-align:center" width="5%">Agregar</th>
                     </tr>
                   </thead>
                   <tbody style="text-align:center">

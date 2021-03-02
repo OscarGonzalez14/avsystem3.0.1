@@ -8,6 +8,7 @@ require_once("modals/modal_lente_en_venta.php");
 require_once("modals/modal_accesorios_ventas.php");
 require_once("modals/pacientes_con_consulta.php");
 require_once("modals/pacientes_sin_consulta.php");
+require_once("modals/listar_servicios_venta.php");
 
 require_once("modals/modal_recibo_inicial.php");
 require_once("modals/antireflejante_ventas.php");
@@ -143,7 +144,7 @@ require_once("modals/modal_oid.php");
 
                   <a class="btn btn-dark" style="color:white;border-radius:1px; background:black" data-toggle="modal" data-target="#listar_photo_ventas" data-backdrop="static" data-keyboard="false" id="btn_photo_venta" onClick='listar_photo_venta();'><i class="fas fa-plus"></i> Photosensibles</a>
 
-                  <a class="btn btn-dark" style="color:white;border-radius:1px; background:black" data-toggle="modal" data-target="#listar_lentes_ventas" data-backdrop="static" data-keyboard="false" id="btn_aros_venta" onClick='listar_lentes_venta();'><i class="fas fa-plus"></i> Reparaciones</a>
+                  <a class="btn btn-dark" style="color:white;border-radius:1px; background:black" data-toggle="modal" data-target="#listar_servicios_ventas" data-backdrop="static" data-keyboard="false" id="btn_servicios_venta" onClick="listar_servicios_venta();"><i class="fas fa-plus"></i> Servicios</a>
 
                   <button class="btn btn-secondary" style="color:white;border-radius:1px;" data-toggle="modal" data-target="#listar_accesorios_ventas" data-backdrop="static" data-keyboard="false" id="btn_accesorios_venta"><i class="fas fa-plus"></i> Accesorios</button>
 
@@ -163,7 +164,7 @@ require_once("modals/modal_oid.php");
                       <th style="text-align:center" width="40%">Descripción&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                       <th style="text-align:center" width="10%">Cantidad</th>
                       <th style="text-align:center" width="10%">P/U</th>
-                       <th style="text-align:center" width="10%">Desc. $</th>
+                      <th style="text-align:center" width="10%">Desc. $</th>
                       <th style="text-align:center" width="10%">Subtotal</th>
                       <th style="text-align:center" width="10%">Quitar</th>
                     </tr>

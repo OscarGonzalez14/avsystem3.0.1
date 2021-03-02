@@ -11,6 +11,7 @@ if(isset($_SESSION["usuario"])){
  require_once('modals/modal_proveedores.php');
  require_once('modals/modal_aros.php');
  require_once('modals/modal_accesorios.php');
+ require_once('modals/otros_servicios.php');
  //require_once('modals/modal_reporte_ultima_compra_admin.php');
 
 ?>
@@ -43,7 +44,7 @@ div .post_compra{
 
     <button class="btn btn-dark" style="color:white;border-radius:2px; background:black;margin:solid black 1px" data-toggle="modal" data-target="#nuevo_lente"><i class="fas fa-plus-square"></i> Crear Lente</button>&nbsp;
 
-    <button class="btn btn-dark" style="color:white;border-radius:2px; background:black;margin:solid black 1px" data-backdrop="static" data-keyboard="false"><i class="fas fa-plus-square"></i> Regalías</button>&nbsp;
+    <button class="btn btn-dark" style="color:white;border-radius:2px; background:black;margin:solid black 1px" data-toggle="modal" data-target="#nuevo_servicio"><i class="fas fa-plus-square"></i> Crear Servicio</button>&nbsp;
 
     <!-- <button type="button" class="btn btn-dark btn-flat">DISTRIBUIR COMPRA</button>&nbsp;-->
     <button type="button" class="btn btn-info btn-flat">REPORTE DE COMPRAS</button>

@@ -96,6 +96,41 @@ function agregarDetalleVenta(id_producto,id_ingreso){
   });//fin de ajax
 }
 
+var detalles = [];
+function agregarServicioVenta(id_producto){
+  $.ajax({
+  url:"ajax/ventas.php?op=agregar_servicios_venta",
+  method:"POST",
+  data:{id_producto:id_producto},
+  cache: false,
+  dataType:"json",
+  success:function(data){
+    console.log(data);
+
+    var obj = {
+      cantidad : 1,
+      codProd  : id_producto,
+      descripcion    : data.servicio,
+      precio_venta  : data.precio_venta,
+      subtotal : 0,
+      descuento : 0,
+      categoria_prod : data.categoria_producto
+      //cantidad : 1,
+      //codProd  : id_producto,
+      //descripcion    : data.desc_modelo,
+      //categoria_ub  : "",
+      //precio_venta  : data.precio_venta,
+      //subtotal : 0,
+      //descuento : 0,
+      //categoria_prod : data.categoria_producto
+    };//Fin objeto
+    detalles.push(obj);
+    listarDetallesVentas();
+   $('#listar_servicios_ventas').modal("hide");
+    console.log(detalles);
+    }//fin success
+  });//fin de ajax
+}
 
 ///////////AGEREGAR ACCESORIOS A LA VENTA
 var detalles = [];
