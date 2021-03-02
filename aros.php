@@ -36,9 +36,11 @@ require_once('modals/editar_aro.php');
     
 </div><!-- /.wrapper -->
 
+<?php require_once("footer.php");?>
 <script src='js/bootbox.min.js'></script>
 <script src='js/productos.js'></script>
 <script src='js/marca.js'></script>
+
 <?php } else{
   echo "Acceso no permitido";
   header("Location:index.php");

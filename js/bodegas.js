@@ -143,7 +143,7 @@ function listarDetallesIngresos(){
 
         var filas = filas + "<tr id='fila"+i+"'><td style='text-align:center'>"+(i+1)+
         "</td>"+"<td style='text-align:center;'>"+detalles[i].numero_compra+"</td>"+"<td style='text-align:center;'>"+detalles[i].cant_ingreso+
-        "</td>"+"<td style='text-align:center;'><span>"+detalles[i].descripcion+"</span></td>"+"<td>"+"<select class='form-control' id='categoria_ubicacion' onClick='setUbicacion(event, this, "+(i)+");'></select>"+"</td>"+"<td>"+"<input type='text'class='form-control cant"+detalles[i].id_producto+"' onClick='setCant(event, this, "+(i)+");' onKeyUp='setCant(event, this, "+(i)+")' value='"+detalles[i].cantidad+"' pattern='^[0-9]+' id='cant"+(i)+"'>"+"</td>"+"<td style='text-align:center'><i class='nav-icon fas fa-trash-alt fa-2x' onClick='eliminarItem("+i+");' style='color:red'></i></td>"+"</tr>";
+        "</td>"+"<td style='text-align:center;'><span>"+detalles[i].descripcion+"</span></td>"+"<td>"+"<select class='form-control ubicacion-cats' id='cats+[i]' onClick='change_cat(event, this, "+(i)+");'></select>"+"</td>"+"<td>"+"<input type='text'class='form-control cant"+detalles[i].id_producto+"' onClick='setCant(event, this, "+(i)+");' onKeyUp='setCant(event, this, "+(i)+")' value='"+detalles[i].cantidad+"' pattern='^[0-9]+' id='cant"+(i)+"'>"+"</td>"+"<td style='text-align:center'><i class='nav-icon fas fa-trash-alt fa-2x' onClick='eliminarItem("+i+");' style='color:red'></i></td>"+"</tr>";
 
     //subtotal = subtotal + importe;
 
@@ -152,12 +152,25 @@ function listarDetallesIngresos(){
   $('#listar_productos_de_ingreso').html(filas);
 
 }
- 
+
 function setUbicacion(event, obj, idx){
     event.preventDefault();
     detalles[idx].ubicacion = String(obj.value);
     //recalcular(idx);
 }
+
+let cats = ["cat1", "cat2"];
+console.log(cats.length)
+
+function change_cat(){
+  var ubicacion="";
+
+  for (i = 0; i < sizeof(cats); i++)
+  event.preventDefault();
+detalles.ubicacion.detalles = String(obj.value);
+
+}
+
 
 function setCant(event, obj, idx){
     event.preventDefault();
@@ -666,7 +679,7 @@ function listarDetallesTraslado(){
     for(var i=0; i<detalles_traslado.length; i++){
         var filas = filas + "<tr id='fila_t"+i+"'><td>"+(i+1)+
         "</td><td style='text-align:center;'>"+detalles_traslado[i].descripcion+
-        "<td style='text-align:center'><input style='text-align:right' type='number' class='cantidad form-control' onClick='setCantidad_traslado(event, this, "+(i)+");' onKeyUp='setCantidad_traslado(event, this, "+(i)+");' value='"+detalles_traslado[i].cantidad+"'><td style='text-align:center'><input style='text-align:right' type='text' class='cantidad form-control'  value='"+detalles_traslado[i].origen+"' readonly ></td><td style='text-align:center'><input style='text-align:right' type='text' class='cantidad form-control'  value='"+detalles_traslado[i].destino+"' onClick='buscar_categorias("+(i)+")' id='item_traslado"+(i)+"'></td><td style='text-align:center'><i class='nav-icon fas fa-trash-alt fa-2x' onClick='eliminarItemTraslado("+i+");' style='color:red'></i></td></tr>";
+        "<td style='text-align:center'><input style='text-align:right' type='number' class='cantidad form-control' onClick='setCantidad_traslado(event, this, "+(i)+");' onKeyUp='setCantidad_traslado(event, this, "+(i)+");' value='"+detalles_traslado[i].cantidad+"'><td style='text-align:center'><input style='text-align:right' type='text' class='cantidad form-control'  value='"+detalles_traslado[i].origen+"' readonly ></td><td style='text-align:center'><input style='text-align:right' type='text' class='cantidad form-control'  value='"+detalles_traslado[i].destino+"' onClick='buscar_categorias("+(i)+")' id='item_traslado"+(i)+"' readonly ></td><td style='text-align:center'><i class='nav-icon fas fa-trash-alt fa-2x' onClick='eliminarItemTraslado("+i+");' style='color:red'></i></td></tr>";
 
        
 

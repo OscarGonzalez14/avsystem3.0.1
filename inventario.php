@@ -43,7 +43,7 @@ require_once("modelos/Reporteria.php");
               <div class="icon">
                 <i class="fas fa-glasses"></i>
               </div>
-              <a href="stock.php" class="small-box-footer">Inventarios<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="aros.php" class="small-box-footer">Inventarios<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
 
