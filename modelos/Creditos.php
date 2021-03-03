@@ -474,7 +474,7 @@ public function buscar_existe_oid($id_paciente){
 
     public function get_saldos_oid($id_paciente){
     $conectar= parent::conexion();
-    $sql= "select sum(saldo) as saldos from creditos where id_paciente=? and forma_pago='Descuento en Planilla';";
+    $sql= "select  p.nombres,p.empresas,sum(c.saldo) as saldos from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente  where c.id_paciente=? and c.forma_pago='Descuento en Planilla' group by c.id_credito order by c.id_credito;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$id_paciente);
     $sql->execute();
