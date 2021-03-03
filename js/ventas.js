@@ -591,16 +591,17 @@ function saveVenta(){
     //$('#recibo_inicial').modal('show');
     //setTimeout ("mostrar_recibo_inicial();", 2000);
   }else if(tipo_venta=="Credito" && tipo_pago=="Descuento en Planilla"){
-     buscar_existe_oid();return false;
-    $("#oid").modal("show");
-    
-    let id_paciente = $("#id_paciente").val();
+    buscar_existe_oid();
+    //$("#oid").modal("show");    
+    //let id_paciente = $("#id_paciente").val();
     
   }else if(tipo_venta=="Credito" && tipo_pago=="Cargo Automatico"){
     registrarVenta();
     Swal.fire('Cargo Automático Registrado!','','success');
   }
 }
+
+
 
 function buscar_existe_oid(){
   //$("#advertencia_creditos").modal("show");
@@ -614,8 +615,13 @@ function buscar_existe_oid(){
   cache:false,
   dataType:"json",
   success:function(data){ 
-  console.log(data);   
+  console.log(data);
+
+    var tipo_pago = $("#tipo_pago").val();
+    var tipo_venta = $("#tipo_venta").val();
+    let plazo = $("#plazo").val();   
     if (data != "No") {
+      console.log("existe credito");
       $("#advertencia_creditos").modal("show");
       $("#tit_add_tit").html(paciente);
       $("#eval_add_tit").html(evaluado);
@@ -627,39 +633,39 @@ function buscar_existe_oid(){
       dataType:"json",
       success:function(data){ 
       console.log(data);
-      if (data>0) {
-        console.log("existe credito")
+      console.log("este es la empresa"+data.empresas);
+      $("#empresa_add_tit").html(data.empresas);
+      $("#saldo_act_add").html("$"+data.saldos);
+      if(data>0) {
+        console.log("Posee un credito");
       }else{
-        console.log("No existe credito")
-      } 
-        
+        console.log("No posee credito");
+      }        
     }
   })
-
-      }else{
-        $("#oid").modal("show");
-        var tipo_pago = $("#tipo_pago").val();
-        var tipo_venta = $("#tipo_venta").val();
-        let plazo = $("#plazo").val();
-        document.getElementById("print_manual_oid").style.display = "block";
-        $.ajax({
-        url:"ajax/ventas.php?op=show_datos_paciente",
-        method:"POST",
-        data:{id_paciente:id_paciente},
-        cache:false,
-        dataType:"json",
-        success:function(data){ 
-        console.log(data);   
-          $("#paciente_empresarial").val(data.nombres);
-          $("#edad_pac").val(data.edad);
-          $("#tel_pac").val(data.telefono);
-          $("#dui_pac").val(data.dui);
-          $("#plazo_credito").val(plazo);
-        }
-      })//////////FIN AJAX
+  }else{
+    $("#oid").modal("show");
+    console.log("FFFFFFFF000000")
+    document.getElementById("print_manual_oid").style.display = "block";
+    let id_paciente = $("#id_paciente").val();
+    $.ajax({
+    url:"ajax/ventas.php?op=show_datos_paciente",
+    method:"POST",
+    data:{id_paciente:id_paciente},
+    cache:false,
+    dataType:"json",
+    success:function(data){ 
+    console.log(data);   
+      $("#paciente_empresarial").val(data.nombres);
+      $("#edad_pac").val(data.edad);
+      $("#tel_pac").val(data.telefono);
+      $("#dui_pac").val(data.dui);
+      $("#plazo_credito").val(plazo);
+    }
+    })
       }
     }
-  })
+})     
 }
 
 data_oid = [];

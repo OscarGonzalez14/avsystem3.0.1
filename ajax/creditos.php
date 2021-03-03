@@ -537,12 +537,14 @@ $datos=$creditos->get_paciente_id($_POST["id_paciente"]);
    if(is_array($datos)==true and count($datos)>0) {
       $data = Array();
       foreach($datos as $row){
-       $saldos_act = $row["saldos"];
+      $output["nombres"] = $row["nombres"];
+      $output["empresas"] = $row["empresas"];
+      $output["saldos"] = number_format($row["saldos"],2,".",",");
       }
    }else{
-    $saldos_act = 0;
+    $output["error"]="El paciente no posee credito activo";
    }
-   echo json_encode($saldos_act);
+   echo json_encode($output);
   break;
 
 }//Fin case

@@ -244,9 +244,9 @@ require_once("modals/modal_oid.php");
               </thead>
               <tr>
                   <td style="width: 26% !important;text-align: center" colspan="26"><span id="tit_add_tit"></span></td>
-                  <td style="width: 26% !important;text-align: center" colspan="26"><span id=""></span></td>
+                  <td style="width: 26% !important;text-align: center" colspan="26"><span id="empresa_add_tit"></span></td>
                   <td style="width: 26% !important;text-align: center" colspan="26"><span id="eval_add_tit"></span></td>
-                  <td style="width: 11% !important;text-align: center" colspan="11"><span id=""></span></td>
+                  <td style="width: 11% !important;text-align: center" colspan="11"><span id="saldo_act_add"></span></td>
                   <td style="width: 11% !important;text-align: center" colspan="11"><span id=""></span></td>
               </tr>
             </table>
