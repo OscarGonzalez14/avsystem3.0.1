@@ -616,16 +616,18 @@ function buscar_existe_oid(){
   dataType:"json",
   success:function(data){ 
   console.log(data);
-
+//==========VALIDACION SI EXISTE CREDITO===========//
+    var n_orden_add = data;
+    $("#n_orden_add").val(data);
     var tipo_pago = $("#tipo_pago").val();
     var tipo_venta = $("#tipo_venta").val();
     let plazo = $("#plazo").val();   
-    if (data != "No") {
+    if (data != "No") { //==========SI CONSULTA RETORNA QUE EXISTE ORDEN========//
       console.log("existe credito");
       $("#advertencia_creditos").modal("show");
       $("#tit_add_tit").html(paciente);
       $("#eval_add_tit").html(evaluado);
-      $.ajax({
+      $.ajax({//================SE HACE LA CONSULTA SI EXISTE CREDITO
       url:"ajax/creditos.php?op=get_saldos_oid",
       method:"POST",
       data:{id_paciente:id_paciente},
@@ -633,13 +635,20 @@ function buscar_existe_oid(){
       dataType:"json",
       success:function(data){ 
       console.log(data);
+      var monto_total = $("#total_venta").html();
       console.log("este es la empresa"+data.empresas);
       $("#empresa_add_tit").html(data.empresas);
+      
+      let saldos_act = data.saldos;
+      console.log("Este es saldom actual"+saldos_act);
+      if(saldos_act>0) {      
+      let n_saldo = parseInt(monto_total)+parseInt(saldos_act);
+      console.log(n_saldo);
+      $("#nuevo_saldo_add").html("$"+n_saldo)
       $("#saldo_act_add").html("$"+data.saldos);
-      if(data>0) {
-        console.log("Posee un credito");
       }else{
-        console.log("No posee credito");
+        $("#nuevo_saldo_add").html("$00.00");
+        $("#saldo_act_add").html("$00.00");
       }        
     }
   })
@@ -668,6 +677,57 @@ function buscar_existe_oid(){
 })     
 }
 
+//AGREGAR BENEFICIARIO EN DESCUENTO EN L¿
+function add_beneficiario_oid(){
+
+  let n_orden_add = $("#n_orden_add").val();
+  var fecha_venta = $("#fecha").val();  
+  var numero_venta = $("#n_venta").val();
+  var paciente = $("#titular_cuenta").val();
+  var vendedor = $("#usuario").val();
+  var monto_total = $("#total_venta").html();
+  var tipo_pago = $("#tipo_pago").val();
+  var tipo_venta = $("#tipo_venta").val();
+  var id_usuario = $("#usuario").val();
+  var id_paciente = $("#id_paciente").val();
+  var sucursal = $("#sucursal").val();
+  var evaluado = $("#evaluado").val();
+  var optometra = $("#optometra").val();
+  var plazo = $("#plazo").val();
+  var id_ref = $("#id_refererido").val();
+
+  var test_array = detalles.length;
+  if (test_array<1) {
+  Swal.fire('Debe Agregar Productos a la Venta!','','error')
+  return false;
+}
+
+  $('#listar_det_ventas').html('');
+    $.ajax({
+    url:"ajax/ventas.php?op=agregar_benefiaciario_oid",
+    method:"POST",
+    data:{'arrayVenta':JSON.stringify(detalles),'fecha_venta':fecha_venta,'numero_venta':numero_venta,'paciente':paciente,'vendedor':vendedor,'monto_total':monto_total,'tipo_pago':tipo_pago,'tipo_venta':tipo_venta,'id_usuario':id_usuario,'id_paciente':id_paciente,'sucursal':sucursal,'evaluado':evaluado,'optometra':optometra,'plazo':plazo,"id_ref":id_ref},
+    cache: false,
+    dataType:"json",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+    },     
+    success:function(data){
+    console.log(data);
+    //return false;       
+    detalles = [];
+    if(data == "error"){
+      Swal.fire('La venta no se pudo realizar por que el correlativo ya fue registrado... Intentar actualizar el navegador!','','error')
+      setTimeout("$('#recibo_inicial').modal('hide');",3000)
+      ocultar_btn_post_venta();
+    }
+    }
+
+});//////FIN AJAX
+}
+/////////////////REGISTRAR PRIMERA OID
 data_oid = [];
 function guardar_oid(){
     let id_paciente = $("#id_paciente").val();
@@ -714,14 +774,14 @@ function guardar_oid(){
           codigo: codigo,
           observaciones_oid :observaciones_oid
     }
+
     data_oid.push(obj);
     console.log(data_oid);
     document.getElementById("btn_reg_orden").style.display = "none";
     document.getElementById("print_orden_descplanilla").href='imprimir_oid_pdf.php?n_orden='+codigo+'&'+'n_venta='+numero_venta+'&'+'id_paciente='+id_paciente+'&'+'sucursal='+sucursal;
-     document.getElementById("print_pagare").href='imprimir_pagare_pdf.php?n_orden='+codigo+'&'+'n_venta='+numero_venta+'&'+'id_paciente='+id_paciente+'&'+'sucursal='+sucursal;
+    document.getElementById("print_pagare").href='imprimir_pagare_pdf.php?n_orden='+codigo+'&'+'n_venta='+numero_venta+'&'+'id_paciente='+id_paciente+'&'+'sucursal='+sucursal;
     setTimeout("show_btn_print_oid();",1500);
 
-    
     registrarVenta();
     //get_correlativo_orden();
   }else{
@@ -735,14 +795,16 @@ $(document).on('keyup', '#tel_ref2', function(){
   get_correlativo_orden();
 });
 
+
 function show_btn_print_oid(){
   document.getElementById("print_orden_descplanilla").style.display = "block";
   document.getElementById("print_pagare").style.display = "block";
   document.getElementById("print_manual_oid").style.display = "block";
 }
+
+
 function get_correlativo_orden(){
-  let sucursal = $("#sucursal").val();
- 
+  let sucursal = $("#sucursal").val(); 
     $.ajax({
     url:"ajax/ventas.php?op=get_correlativo_orden",
     method:"POST",

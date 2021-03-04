@@ -231,7 +231,7 @@ require_once("modals/modal_oid.php");
                 </div>
               </div>
             </div>
-
+            <input type="text" id="n_orden_add" value="123">
             <table width="100%" class="table-hover table-bordered">
               <thead style="background:#034f84;color:white;text-align: center;font-family: Helvetica, Arial, sans-serif;font-size:12px">
                 <tr>
@@ -247,7 +247,7 @@ require_once("modals/modal_oid.php");
                   <td style="width: 26% !important;text-align: center" colspan="26"><span id="empresa_add_tit"></span></td>
                   <td style="width: 26% !important;text-align: center" colspan="26"><span id="eval_add_tit"></span></td>
                   <td style="width: 11% !important;text-align: center" colspan="11"><span id="saldo_act_add"></span></td>
-                  <td style="width: 11% !important;text-align: center" colspan="11"><span id=""></span></td>
+                  <td style="width: 11% !important;text-align: center" colspan="11"><span id="nuevo_saldo_add"></span></td>
               </tr>
             </table>
 
