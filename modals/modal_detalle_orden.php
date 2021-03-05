@@ -115,6 +115,25 @@
         </tr>      
       </tbody>
     </table><br><br>
+
+    <!--TABLA DE BENEFICIARIOS-->
+      <div class="card-body p-0 table-responsive" style="margin:1px">
+            <table id="lista_aros_ventas_data" width="100%" class="table-hover table-bordered">
+              <thead style="background:#034f84;color:white;text-align: center;">
+                <tr>
+                <td style="width: 5%"></td>
+                <th style="width: 10%">Estado</th>
+                <th style="width: 65% !important">Evaluado (Beneficiario)</th>
+                <th style="width: 15% !important">Monto</th>
+                </tr>
+              </thead>
+              <tbody style="text-align:center" id="benefiaciarios_orden">                                
+              </tbody>
+            </table>
+          </div>
+
+    <!--TABLA DE BENEFICIARIOS--> 
+
       <table width="100%" class="table-hover table-bordered display nowrap">
     <thead style="text-align: center" class="table-hover table-bordered display nowrap">
       <tr class="bg-info">

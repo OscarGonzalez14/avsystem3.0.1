@@ -552,6 +552,7 @@ function actions_requisicions(id_requisicion,n_requisicion,estado){
 
 
 function lista_items_est_uno(){ 
+  
     $('#det_modal_aprobada').html('');
     var filas = "";
     for(var i=0; i<item_est_uno.length; i++){

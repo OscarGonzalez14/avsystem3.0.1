@@ -231,7 +231,7 @@ require_once("modals/modal_oid.php");
                 </div>
               </div>
             </div>
-            <input type="text" id="n_orden_add" value="123">
+            <input type="hidden" id="n_orden_add" value="123">
             <table width="100%" class="table-hover table-bordered">
               <thead style="background:#034f84;color:white;text-align: center;font-family: Helvetica, Arial, sans-serif;font-size:12px">
                 <tr>
@@ -254,8 +254,8 @@ require_once("modals/modal_oid.php");
       </div><!--Fin Modal Body-->
       <!-- Modal footer -->
       <div class="modal-footer">
-          <button type="submit" name="action" class="btn btn-success pull-left" value="Add"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Orden </button>
-          <button type="button" class="btn btn-info"><i class="far fa-folder-open" aria-hidden="true"></i> Agregar a orden existente</button>
+          <button type="submit" name="action" class="btn btn-success pull-left" value="Add" onClick="newOrden();"><i class="fa fa-plus" aria-hidden="true"></i> Nueva Orden </button>
+          <button type="button" class="btn btn-info" onClick="add_beneficiario_oid();"><i class="far fa-folder-open" aria-hidden="true"></i> Agregar a orden existente</button>
       </div>
 
     </div>

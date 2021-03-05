@@ -482,38 +482,88 @@ public function get_saldos_oid($id_paciente){
 }
 
 public function agregar_benefiaciario_oid(){
-    
+  $fecha_venta = $_POST["fecha_venta"];
+  $numero_venta = $_POST["numero_venta"];
+  $paciente = $_POST["paciente"];
+  $vendedor = $_POST["vendedor"];
+  $monto_total = $_POST["monto_total"];
+  $tipo_pago = $_POST["tipo_pago"];
+  $tipo_venta = $_POST["tipo_venta"];
+  $id_usuario = $_POST["id_usuario"];
+  $id_paciente = $_POST["id_paciente"];
+  $sucursal = $_POST["sucursal"];
+  $evaluado = $_POST["evaluado"];
+  $optometra = $_POST["optometra"];
+  $plazo = $_POST["plazo"];
+  $id_ref = $_POST["id_ref"];
+  $numero_orden = $_POST["n_orden_add"];
+  $nuevo_saldo_add = $_POST["nuevo_saldo_add"];  
+  
+
+  $str = '';
+  $detalles = array();
+  $detalles = json_decode($_POST['arrayVenta']);
+  $conectar= parent::conexion();
+  parent::set_names();
+
+    foreach ($detalles as $k => $v) {
+    $cantidad = $v->cantidad;
+    $categoria_prod = $v->categoria_prod;
+    $categoria_ub = $v->categoria_ub;
+    $codProd = $v->codProd;
+    $descripcion = $v->descripcion;
+    $descuento = $v->descuento;
+    $id_ingreso = $v->id_ingreso;
+    $num_compra = $v->num_compra;
+    $precio_venta = $v->precio_venta;
+    $stock = $v->stock;
+    $subtotal = $v->subtotal;
+
+    $sql5="insert into detalle_ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?);";
+    $sql5=$conectar->prepare($sql5);
+    $sql5->bindValue(1,$numero_orden);
+    $sql5->bindValue(2,$codProd);
+    $sql5->bindValue(3,$descripcion);
+    $sql5->bindValue(4,$precio_venta);
+    $sql5->bindValue(5,$cantidad);
+    $sql5->bindValue(6,$descuento);
+    $sql5->bindValue(7,$subtotal);
+    $sql5->bindValue(8,$fecha_venta);
+    $sql5->bindValue(9,$id_usuario);
+    $sql5->bindValue(10,$id_paciente);
+    $sql5->bindValue(11,$evaluado);
+    $sql5->bindValue(12,$categoria_ub);
+    $sql5->execute();
+
+}//////////////////FIN FOREACH ////////
+
+$sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    $sql5=$conectar->prepare($sql5);
+    $sql5->bindValue(1,$numero_orden);          
+    $sql5->bindValue(2,$fecha_venta);
+    $sql5->bindValue(3,$numero_venta);
+    $sql5->bindValue(4,$paciente);
+    $sql5->bindValue(5,$vendedor);       
+    $sql5->bindValue(6,$monto_total);
+    $sql5->bindValue(7,$tipo_pago);
+    $sql5->bindValue(8,$tipo_venta);          
+    $sql5->bindValue(9,$id_usuario);
+    $sql5->bindValue(10,$id_paciente);
+    $sql5->bindValue(11,$sucursal);
+    $sql5->bindValue(12,$evaluado);
+    $sql5->bindValue(13,$optometra);
+    $sql5->execute();
+
+  $sql12 = "update orden_credito set monto=?, tipo_orden='agrupada' where numero_orden=?";
+  $sql12 = $conectar->prepare($sql12);
+  $sql12->bindValue(1,$nuevo_saldo_add);
+  $sql12->bindValue(2,$numero_orden);
+  $sql12->execute();
 }
 
 
 
-
-/************************************************************
-*******ORDENES DE DESCUENTO EN PLANILLA APROBADAS************
-*************************************************************/
-public function get_ordenes_descuento_aprobadas($sucursal){
-    $conectar=parent::conexion();
-    parent::set_names();
-
-    $sql="select o.numero_orden,p.nombres,p.empresas,p.id_paciente,o.fecha_registro,o.estado,o.id_orden,o.sucursal from orden_credito as o inner join pacientes as p on o.id_paciente = p.id_paciente where o.sucursal=? and estado='1' order by o.id_orden DESC;";
-    $sql=$conectar->prepare($sql);
-    $sql->bindValue(1, $sucursal);
-    $sql->execute();
-    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
-
-}
-
-  //////////////FUNCION PARA ELIMINAR PACIENTE
-  public function eliminar_oid($id_orden, $numero_orden, $id_paciente){
-    $conectar=parent::conexion();
-    $sql="delete from orden_credito where id_orden=? and numero_orden=? and id_paciente=?; ";
-    $sql=$conectar->prepare($sql);
-    $sql->bindValue(1, $id_orden);
-    $sql->bindValue(2, $numero_orden);
-    $sql->bindValue(3, $id_paciente);
-    $sql->execute();
-    return $resultado=$sql->fetch(PDO::FETCH_ASSOC);
-  }
 
 }/////FIN CLASS
+
 ?>

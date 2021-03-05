@@ -299,7 +299,9 @@ public function agrega_detalle_venta(){
     $finalizacion = date("d-m-Y",strtotime($fecha_inicio."+ $plazo month"));
 
     $estado_orden = "0";
-    $sql8="insert into orden_credito values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    $tipo_orden = "Individual";
+
+    $sql8="insert into orden_credito values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql8=$conectar->prepare($sql8);          
     $sql8->bindValue(1,$codigo);
     $sql8->bindValue(2,$id_paciente);
@@ -316,6 +318,8 @@ public function agrega_detalle_venta(){
     $sql8->bindValue(13,$monto_total);
     $sql8->bindValue(14,$plazo);
     $sql8->bindValue(15,$observaciones_oid);
+    $sql8->bindValue(16,$tipo_orden);
+
     $sql8->execute();
 
   ///////////////////////UPDATE DATOS DE PACIENTE
@@ -384,9 +388,9 @@ public function agrega_detalle_venta(){
     $sql5->execute();
 
 
-    if($categoria_prod=="aros"){
+    //if($categoria_prod=="aros"){
     ////////////////////ACTUALIZAR STOCK DE BODEGA SI PRODUCTO == aros o accesorios
-      $sql3="select * from existencias where id_producto=? and bodega=? and categoria_ub=? and num_compra=? and id_ingreso=?;";           
+     /* $sql3="select * from existencias where id_producto=? and bodega=? and categoria_ub=? and num_compra=? and id_ingreso=?;";           
       $sql3=$conectar->prepare($sql3);
       $sql3->bindValue(1,$codProd);
       $sql3->bindValue(2,$sucursal);
@@ -414,9 +418,9 @@ public function agrega_detalle_venta(){
       $sql12->bindValue(5,$categoria_ub);
       $sql12->bindValue(6,$num_compra);
       $sql12->execute();
-  }          
+  } */         
 
-  }//////////// fin validar para descontar de inventario   
+  //}//////////// fin validar para descontar de inventario   
   }
 
 }//////////FIN FUNCION REGISTRA VENTA

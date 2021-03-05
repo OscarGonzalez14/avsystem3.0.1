@@ -640,7 +640,7 @@ function buscar_existe_oid(){
       $("#empresa_add_tit").html(data.empresas);
       
       let saldos_act = data.saldos;
-      console.log("Este es saldom actual"+saldos_act);
+      console.log("Este es saldo actual"+saldos_act);
       if(saldos_act>0) {      
       let n_saldo = parseInt(monto_total)+parseInt(saldos_act);
       console.log(n_saldo);
@@ -654,6 +654,11 @@ function buscar_existe_oid(){
   })
   }else{
     $("#oid").modal("show");
+    var n_orden_add = data;
+    $("#n_orden_add").val(data);
+    var tipo_pago = $("#tipo_pago").val();
+    var tipo_venta = $("#tipo_venta").val();
+    let plazo = $("#plazo").val();  
     console.log("FFFFFFFF000000")
     document.getElementById("print_manual_oid").style.display = "block";
     let id_paciente = $("#id_paciente").val();
@@ -676,6 +681,28 @@ function buscar_existe_oid(){
     }
 })     
 }
+function newOrden(){
+    $("#advertencia_creditos").modal("hide");
+    $("#oid").modal("show");
+    console.log("FFFFFFFF000000")
+    document.getElementById("print_manual_oid").style.display = "block";
+    let id_paciente = $("#id_paciente").val();
+    $.ajax({
+    url:"ajax/ventas.php?op=show_datos_paciente",
+    method:"POST",
+    data:{id_paciente:id_paciente},
+    cache:false,
+    dataType:"json",
+    success:function(data){ 
+    console.log(data);   
+      $("#paciente_empresarial").val(data.nombres);
+      $("#edad_pac").val(data.edad);
+      $("#tel_pac").val(data.telefono);
+      $("#dui_pac").val(data.dui);
+      $("#plazo_credito").val(plazo);
+    }
+    })
+}
 
 //AGREGAR BENEFICIARIO EN DESCUENTO EN L¿
 function add_beneficiario_oid(){
@@ -695,6 +722,7 @@ function add_beneficiario_oid(){
   var optometra = $("#optometra").val();
   var plazo = $("#plazo").val();
   var id_ref = $("#id_refererido").val();
+  var nuevo_saldo_add = $("#nuevo_saldo_add").html();
 
   var test_array = detalles.length;
   if (test_array<1) {
@@ -702,13 +730,14 @@ function add_beneficiario_oid(){
   return false;
 }
 
+
 $('#listar_det_ventas').html('');
     $.ajax({
     url:"ajax/ventas.php?op=agregar_benefiaciario_oid",
     method:"POST",
     data:{'arrayVenta':JSON.stringify(detalles),'fecha_venta':fecha_venta,'numero_venta':numero_venta,'paciente':paciente,'vendedor':vendedor,'monto_total':monto_total,
     'tipo_pago':tipo_pago,'tipo_venta':tipo_venta,'id_usuario':id_usuario,
-    'id_paciente':id_paciente,'sucursal':sucursal,'evaluado':evaluado,'optometra':optometra,'plazo':plazo,"id_ref":id_ref,'n_orden_add':n_orden_add},
+    'id_paciente':id_paciente,'sucursal':sucursal,'evaluado':evaluado,'optometra':optometra,'plazo':plazo,"id_ref":id_ref,'n_orden_add':n_orden_add,'nuevo_saldo_add':nuevo_saldo_add},
     cache: false,
     dataType:"json",
     error:function(x,y,z){
@@ -718,12 +747,10 @@ $('#listar_det_ventas').html('');
     },     
     success:function(data){
     console.log(data);
-    //return false;       
-    detalles = [];
-    if(data == "error"){
-      Swal.fire('La venta no se pudo realizar por que el correlativo ya fue registrado... Intentar actualizar el navegador!','','error')
-      setTimeout("$('#recibo_inicial').modal('hide');",3000)
-      ocultar_btn_post_venta();
+    if(data == "ok"){
+      Swal.fire('Un nuevo beneficiario se agregado a la orden...Esperar aprobación!','','info')
+      $("#advertencia_creditos").modal("hide");
+      //ocultar_btn_post_venta();
     }
     }
 
