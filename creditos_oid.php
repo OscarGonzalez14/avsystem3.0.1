@@ -34,7 +34,12 @@ require_once("modals/modal_correlativo_factura.php");
                   </div>
                 </div>
 
-                
+                <div class="col-sm-2">
+                  <label> OID Aprobadas</label>
+                    <div class="input-group">
+                      <a href="oid_aprobadas.php" class="btn btn-info form-control" style="background:#001a33;margin:solid #000066 1px" data-backdrop="static" data-keyboard="false"><i class="fas fa-file-import"></i>&nbsp;&nbsp;&nbsp;OIDS </a>
+                  </div>
+                </div>
                 
               </div>
         <table id="creditos_oid" class="table-hover" width="100%">

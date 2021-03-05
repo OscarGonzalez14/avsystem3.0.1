@@ -17,16 +17,28 @@ $reporteria = new Reporteria();
 }
 </style>
 
- <div class="content-wrapper">
+<div class="content-wrapper">
 <input type="hidden" name="cat_user" id="cat_user" value="<?php echo $cat_user;?>"/>
-    <section class="content" style="border-right:50px">
+    <section class="content-header">
       <div class="container-fluid">
+        <div class="row mb-2" style="margin: 2px">
+          <div class="col-sm-9">
+            <h5 align="center"><i class="fas fa-list" style="color:green"></i> <strong>&nbsp;DESCUENTOS EN PLANILLA</strong></h5>
+          </div>
+          <div class="col-sm-3">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item active">OID Pendientes</li>
+              <li class="breadcrumb-item"><a href="oid_aprobadas.php">OID Aprobadas</a></li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    
     <div class="col-md-12">
 
     <div class="card" style="margin: 1px">
-      <div class="card-body">
-      <h4 align="center">&nbsp;DESCUENTOS EN PLANILLA</h4>
-    </div>
+     
     <!--ESTE DATATABLE SE RECARGA DESDE  credit-->
     <table id="ordenes_desc_pendientes" width="100%" style="text-align: center;text-align:center" data-order='[[ 0, "desc" ]]' class="table-hover table-bordered display nowrap">
       <thead style="color:black;min-height:10px;border-radius: 2px;font-style: normal;font-size: 15px" class="bg-info">

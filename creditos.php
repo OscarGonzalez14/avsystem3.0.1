@@ -82,6 +82,7 @@ require_once('header_dos.php');
               <a href="creditos_mora.php" class="small-box-footer"> Ir a Créditos en Mora<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>        
+    
  </div>
 
  <?php require_once("footer.php"); ?>

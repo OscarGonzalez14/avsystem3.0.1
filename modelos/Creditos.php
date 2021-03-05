@@ -481,6 +481,34 @@ public function buscar_existe_oid($id_paciente){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-}/////FIN CLASS
 
+
+/************************************************************
+*******ORDENES DE DESCUENTO EN PLANILLA APROBADAS************
+*************************************************************/
+public function get_ordenes_descuento_aprobadas($sucursal){
+    $conectar=parent::conexion();
+    parent::set_names();
+
+    $sql="select o.numero_orden,p.nombres,p.empresas,p.id_paciente,o.fecha_registro,o.estado,o.id_orden,o.sucursal from orden_credito as o inner join pacientes as p on o.id_paciente = p.id_paciente where o.sucursal=? and estado='1' order by o.id_orden DESC;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $sucursal);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+  //////////////FUNCION PARA ELIMINAR PACIENTE
+  public function eliminar_oid($id_orden, $numero_orden, $id_paciente){
+    $conectar=parent::conexion();
+    $sql="delete from orden_credito where id_orden=? and numero_orden=? and id_paciente=?; ";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $id_orden);
+    $sql->bindValue(2, $numero_orden);
+    $sql->bindValue(3, $id_paciente);
+    $sql->execute();
+    return $resultado=$sql->fetch(PDO::FETCH_ASSOC);
+  }
+
+}/////FIN CLASS
 ?>

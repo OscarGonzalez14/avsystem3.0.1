@@ -2,16 +2,23 @@ function init(){
 	listar_creditos_sucursal();
   listar_creditos_cauto();
   listar_ordenes_pendientes();
+  listar_oid_aprobadas();
 
 }
 ///////////OCULTAR ELEMENTOS AL INICIO
 $(document).ready(ocultar_element_ini);
 
-  function ocultar_element_ini(){
+function ocultar_element_ini(){
   document.getElementById("print_orden_desp").style.display = "none";
   document.getElementById("btn_print_recibos").style.display = "none";
 
 }
+
+//////// AL VER DETALLES EN OID APROBADAS, OCULTAR BOTONES 
+$(document).on('click', '.ocultar_btns_oid', function(){ 
+  document.getElementById("btns_orden").style.display = "none";
+});
+
 ////////////////LISTAR CREDITOS DE CONTADO
 function listar_creditos_sucursal(){
   var sucursal= $("#sucursal").val();
@@ -21,73 +28,73 @@ function listar_creditos_sucursal(){
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
       dom: 'Bfrtip',//Definimos los elementos del control de tabla
       buttons: [
-                'excelHtml5'
-            ],
-    "ajax":
-        {
-          url: 'ajax/creditos.php?op=listar_creditos_contado',
-          type : "post",
-          dataType : "json",
-          data:{sucursal:sucursal},
-          error: function(e){
-            console.log(e.responseText);
-          }
-        },
-    "bDestroy": true,
-    "responsive": true,
-    "bInfo":true,
+      'excelHtml5'
+      ],
+      "ajax":
+      {
+        url: 'ajax/creditos.php?op=listar_creditos_contado',
+        type : "post",
+        dataType : "json",
+        data:{sucursal:sucursal},
+        error: function(e){
+          console.log(e.responseText);
+        }
+      },
+      "bDestroy": true,
+      "responsive": true,
+      "bInfo":true,
     "iDisplayLength": 10,//Por cada 10 registros hace una paginación
       "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
 
       "language": {
 
-          "sProcessing":     "Procesando...",
+        "sProcessing":     "Procesando...",
 
-          "sLengthMenu":     "Mostrar _MENU_ registros",
+        "sLengthMenu":     "Mostrar _MENU_ registros",
 
-          "sZeroRecords":    "No se encontraron resultados",
+        "sZeroRecords":    "No se encontraron resultados",
 
-          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+        "sEmptyTable":     "Ningún dato disponible en esta tabla",
 
-          "sInfo":           "Mostrando un total de _TOTAL_ registros",
+        "sInfo":           "Mostrando un total de _TOTAL_ registros",
 
-          "sInfoEmpty":      "Mostrando un total de 0 registros",
+        "sInfoEmpty":      "Mostrando un total de 0 registros",
 
-          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
 
-          "sInfoPostFix":    "",
+        "sInfoPostFix":    "",
 
-          "sSearch":         "Buscar:",
+        "sSearch":         "Buscar:",
 
-          "sUrl":            "",
+        "sUrl":            "",
 
-          "sInfoThousands":  ",",
+        "sInfoThousands":  ",",
 
-          "sLoadingRecords": "Cargando...",
+        "sLoadingRecords": "Cargando...",
 
-          "oPaginate": {
+        "oPaginate": {
 
-              "sFirst":    "Primero",
+          "sFirst":    "Primero",
 
-              "sLast":     "Último",
+          "sLast":     "Último",
 
-              "sNext":     "Siguiente",
+          "sNext":     "Siguiente",
 
-              "sPrevious": "Anterior"
+          "sPrevious": "Anterior"
 
-          },
+        },
 
-          "oAria": {
+        "oAria": {
 
-              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
 
-              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
 
-          }
+        }
 
          }//cerrando language
 
-  }).DataTable();
+       }).DataTable();
 }
 ///////////////LISTAR CREDITOS DE CARGO AUTOMATICO
 function listar_creditos_cauto(){
@@ -98,73 +105,73 @@ function listar_creditos_cauto(){
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
       dom: 'Bfrtip',//Definimos los elementos del control de tabla
       buttons: [
-                'excelHtml5'
-            ],
-    "ajax":
-        {
-          url: 'ajax/creditos.php?op=listar_creditos_cauto',
-          type : "post",
-          dataType : "json",
-          data:{sucursal:sucursal},
-          error: function(e){
-            console.log(e.responseText);
-          }
-        },
-    "bDestroy": true,
-    "responsive": true,
-    "bInfo":true,
+      'excelHtml5'
+      ],
+      "ajax":
+      {
+        url: 'ajax/creditos.php?op=listar_creditos_cauto',
+        type : "post",
+        dataType : "json",
+        data:{sucursal:sucursal},
+        error: function(e){
+          console.log(e.responseText);
+        }
+      },
+      "bDestroy": true,
+      "responsive": true,
+      "bInfo":true,
     "iDisplayLength": 10,//Por cada 10 registros hace una paginación
       "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
 
       "language": {
 
-          "sProcessing":     "Procesando...",
+        "sProcessing":     "Procesando...",
 
-          "sLengthMenu":     "Mostrar _MENU_ registros",
+        "sLengthMenu":     "Mostrar _MENU_ registros",
 
-          "sZeroRecords":    "No se encontraron resultados",
+        "sZeroRecords":    "No se encontraron resultados",
 
-          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+        "sEmptyTable":     "Ningún dato disponible en esta tabla",
 
-          "sInfo":           "Mostrando un total de _TOTAL_ registros",
+        "sInfo":           "Mostrando un total de _TOTAL_ registros",
 
-          "sInfoEmpty":      "Mostrando un total de 0 registros",
+        "sInfoEmpty":      "Mostrando un total de 0 registros",
 
-          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
 
-          "sInfoPostFix":    "",
+        "sInfoPostFix":    "",
 
-          "sSearch":         "Buscar:",
+        "sSearch":         "Buscar:",
 
-          "sUrl":            "",
+        "sUrl":            "",
 
-          "sInfoThousands":  ",",
+        "sInfoThousands":  ",",
 
-          "sLoadingRecords": "Cargando...",
+        "sLoadingRecords": "Cargando...",
 
-          "oPaginate": {
+        "oPaginate": {
 
-              "sFirst":    "Primero",
+          "sFirst":    "Primero",
 
-              "sLast":     "Último",
+          "sLast":     "Último",
 
-              "sNext":     "Siguiente",
+          "sNext":     "Siguiente",
 
-              "sPrevious": "Anterior"
+          "sPrevious": "Anterior"
 
-          },
+        },
 
-          "oAria": {
+        "oAria": {
 
-              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
 
-              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
 
-          }
+        }
 
          }//cerrando language
 
-  }).DataTable();
+       }).DataTable();
 }
 
 ///////////////LISTAR CREDITOS DESCUENTO EN PLANILLA
@@ -178,73 +185,73 @@ function listar_creditos_oid(){
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
       dom: 'Bfrtip',//Definimos los elementos del control de tabla
       buttons: [
-                'excelHtml5'
-            ],
-    "ajax":
-        {
-          url: 'ajax/creditos.php?op=listar_creditos_oid',
-          type : "post",
-          dataType : "json",
-          data:{sucursal:sucursal,empresa:empresa},
-          error: function(e){
-            console.log(e.responseText);
-          }
-        },
-    "bDestroy": true,
-    "responsive": true,
-    "bInfo":true,
+      'excelHtml5'
+      ],
+      "ajax":
+      {
+        url: 'ajax/creditos.php?op=listar_creditos_oid',
+        type : "post",
+        dataType : "json",
+        data:{sucursal:sucursal,empresa:empresa},
+        error: function(e){
+          console.log(e.responseText);
+        }
+      },
+      "bDestroy": true,
+      "responsive": true,
+      "bInfo":true,
     "iDisplayLength": 10,//Por cada 10 registros hace una paginación
       "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
 
       "language": {
 
-          "sProcessing":     "Procesando...",
+        "sProcessing":     "Procesando...",
 
-          "sLengthMenu":     "Mostrar _MENU_ registros",
+        "sLengthMenu":     "Mostrar _MENU_ registros",
 
-          "sZeroRecords":    "No se encontraron resultados",
+        "sZeroRecords":    "No se encontraron resultados",
 
-          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+        "sEmptyTable":     "Ningún dato disponible en esta tabla",
 
-          "sInfo":           "Mostrando un total de _TOTAL_ registros",
+        "sInfo":           "Mostrando un total de _TOTAL_ registros",
 
-          "sInfoEmpty":      "Mostrando un total de 0 registros",
+        "sInfoEmpty":      "Mostrando un total de 0 registros",
 
-          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
 
-          "sInfoPostFix":    "",
+        "sInfoPostFix":    "",
 
-          "sSearch":         "Buscar:",
+        "sSearch":         "Buscar:",
 
-          "sUrl":            "",
+        "sUrl":            "",
 
-          "sInfoThousands":  ",",
+        "sInfoThousands":  ",",
 
-          "sLoadingRecords": "Cargando...",
+        "sLoadingRecords": "Cargando...",
 
-          "oPaginate": {
+        "oPaginate": {
 
-              "sFirst":    "Primero",
+          "sFirst":    "Primero",
 
-              "sLast":     "Último",
+          "sLast":     "Último",
 
-              "sNext":     "Siguiente",
+          "sNext":     "Siguiente",
 
-              "sPrevious": "Anterior"
+          "sPrevious": "Anterior"
 
-          },
+        },
 
-          "oAria": {
+        "oAria": {
 
-              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
 
-              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
 
-          }
+        }
 
          }//cerrando language
 
-  }).DataTable();
+       }).DataTable();
 }
 
 
@@ -254,31 +261,31 @@ function realizarAbonos(id_paciente,id_credito,numero_venta){
   get_correlativo_recibo();
 
   $.ajax({
-  url:"ajax/creditos.php?op=datos_paciente_abono",
-  method:"POST",
-  data:{id_paciente:id_paciente,id_credito:id_credito,numero_venta:numero_venta},
-  cache:false,
-  dataType:"json",
-  success:function(data)
-  { 
-    console.log(data);
+    url:"ajax/creditos.php?op=datos_paciente_abono",
+    method:"POST",
+    data:{id_paciente:id_paciente,id_credito:id_credito,numero_venta:numero_venta},
+    cache:false,
+    dataType:"json",
+    success:function(data)
+    { 
+      console.log(data);
 
-    var nuevo_saldo = data.saldo-data.cuotas;  
-    $("#recibi_abono").val(data.paciente);
-    $("#servicio_abono").val(data.evaluado);
-    $("#telefono_abono").val(data.telefono);
-    $("#empresa_abono").val(data.empresas);
-    $("#monto_venta_rec_ini").val(data.monto);
-    $("#n_venta_recibo_ini").val(data.numero_venta);
-    $("#id_paciente").val(data.id_paciente);
-    $("#saldo_credito").val(data.saldo);
-    $("#saldo").val(nuevo_saldo.toFixed(2));
-    $("#numero").val(data.cuotas); 
-    
- }
+      var nuevo_saldo = data.saldo-data.cuotas;  
+      $("#recibi_abono").val(data.paciente);
+      $("#servicio_abono").val(data.evaluado);
+      $("#telefono_abono").val(data.telefono);
+      $("#empresa_abono").val(data.empresas);
+      $("#monto_venta_rec_ini").val(data.monto);
+      $("#n_venta_recibo_ini").val(data.numero_venta);
+      $("#id_paciente").val(data.id_paciente);
+      $("#saldo_credito").val(data.saldo);
+      $("#saldo").val(nuevo_saldo.toFixed(2));
+      $("#numero").val(data.cuotas); 
+
+    }
   })
  //////// FIN ajax datos de paciente
- $.ajax({
+ $.ajax({ 
   url:"ajax/ventas.php?op=get_datos_lentes_rec_ini",
   method:"POST",
   data:{id_paciente:id_paciente,numero_venta:numero_venta},
@@ -289,64 +296,64 @@ function realizarAbonos(id_paciente,id_credito,numero_venta){
     console.log(data);  
     $("#lente_rec_ini").val(data.producto);
   }
-  })
+})
   ////////////////photo
   $.ajax({
-  url:"ajax/ventas.php?op=get_datos_photo_rec_ini",
-  method:"POST",
-  data:{id_paciente:id_paciente,numero_venta:numero_venta},
-  cache:false,
-  dataType:"json",
-  success:function(data)
-  { 
-    console.log(data);  
-    $("#photo_rec_ini").val(data.producto);
-  }
+    url:"ajax/ventas.php?op=get_datos_photo_rec_ini",
+    method:"POST",
+    data:{id_paciente:id_paciente,numero_venta:numero_venta},
+    cache:false,
+    dataType:"json",
+    success:function(data)
+    { 
+      console.log(data);  
+      $("#photo_rec_ini").val(data.producto);
+    }
   })
 
     ////////////////antireflejante
-  $.ajax({
-  url:"ajax/ventas.php?op=get_datos_ar_rec_ini",
-  method:"POST",
-  data:{id_paciente:id_paciente,numero_venta:numero_venta},
-  cache:false,
-  dataType:"json",
-  success:function(data)
-  { 
-    console.log(data);  
-    $("#ar_rec_ini").val(data.producto);
-  }
-  })
+    $.ajax({
+      url:"ajax/ventas.php?op=get_datos_ar_rec_ini",
+      method:"POST",
+      data:{id_paciente:id_paciente,numero_venta:numero_venta},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      { 
+        console.log(data);  
+        $("#ar_rec_ini").val(data.producto);
+      }
+    })
       ////////////////aros
-  $.ajax({
-  url:"ajax/ventas.php?op=get_datos_aros_rec_ini",
-  method:"POST",
-  data:{id_paciente:id_paciente,numero_venta:numero_venta},
-  cache:false,
-  dataType:"json",
-  success:function(data)
-  { 
-    console.log(data);  
-    $("#marca_aro_ini").val(data.marca);
-    $("#modelo_aro_ini").val(data.modelo);
-    $("#color_aro_ini").val(data.color);
-  }
-  })
+      $.ajax({
+        url:"ajax/ventas.php?op=get_datos_aros_rec_ini",
+        method:"POST",
+        data:{id_paciente:id_paciente,numero_venta:numero_venta},
+        cache:false,
+        dataType:"json",
+        success:function(data)
+        { 
+          console.log(data);  
+          $("#marca_aro_ini").val(data.marca);
+          $("#modelo_aro_ini").val(data.modelo);
+          $("#color_aro_ini").val(data.color);
+        }
+      })
 
     ////////////////abono anterior
-  $.ajax({
-  url:"ajax/creditos.php?op=datos_abono_anterior",
-  method:"POST",
-  data:{id_paciente:id_paciente,numero_venta:numero_venta},
-  cache:false,
-  dataType:"json",
-  success:function(data)
-  { 
-    console.log(data);  
-    $("#abono_ant").val(data.monto_abono);
+    $.ajax({
+      url:"ajax/creditos.php?op=datos_abono_anterior",
+      method:"POST",
+      data:{id_paciente:id_paciente,numero_venta:numero_venta},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      { 
+        console.log(data);  
+        $("#abono_ant").val(data.monto_abono);
+      }
+    })
   }
-  })
-}
 
 ////////////////REGISTRAR ABONO
 function registra_abonos(){
@@ -357,14 +364,14 @@ function registra_abonos(){
   var monto = $("#numero").val();
 
   if (monto !="" && saldo>=0) {//VALIDA MONTO
-     if (saldo >0 && fecha_rec_ini=="") {
+   if (saldo >0 && fecha_rec_ini=="") {
      Swal.fire('Especifique fecha de proximo abono abono!','','error')
-    }else{
+   }else{
     //////////////SE ENVIA RECIBO
-      registrar_abono();
-    }
-  }else{
-    Swal.fire('Debe llenar los campos obligatorios correctamente!','','error')
+    registrar_abono();
+  }
+}else{
+  Swal.fire('Debe llenar los campos obligatorios correctamente!','','error')
 
   }//VALIDA MONTO
   
@@ -372,157 +379,157 @@ function registra_abonos(){
 
 function registrar_abono(){
 
-    var a_anteriores=$("#abono_ant").val();
-    var n_recibo = $("#n_recibo").html();
-    var n_venta_recibo_ini =$("#n_venta_recibo_ini").val();
-    var monto =$("#monto_venta_rec_ini").val();
-    var fecha =$("#fecha").val();
-    var sucursal =$("#sucursal").val();
-    var id_paciente =$("#id_paciente").val();
-    var id_usuario =$("#usuario").val();
-    var telefono_ini =$("#telefono_abono").val();
-    var recibi_rec_ini =$("#recibi_abono").val();
-    var empresa_ini =$("#empresa_abono").val();
-    var texto=$("#texto").val();
-    var numero=$("#numero").val();
-    var saldo=$("#saldo").val();
-    var forma_pago=$("#forma_pago").val();
-    var marca_aro_ini=$("#marca_aro_ini").val();
-    var modelo_aro_ini=$("#modelo_aro_ini").val();    
-    var color_aro_ini=$("#color_aro_ini").val();
-    var lente_rec_ini=$("#lente_rec_ini").val();
-    var ar_rec_ini=$("#ar_rec_ini").val();
-    var photo_rec_ini=$("#photo_rec_ini").val();
-    var observaciones_rec_ini=$("#observaciones_rec_ini").val();
-    var pr_abono=$("#pr_abono").val();
-    var servicio_rec_ini=$("#servicio_abono").val();    
-    
-    if (forma_pago !="") {
+  var a_anteriores=$("#abono_ant").val();
+  var n_recibo = $("#n_recibo").html();
+  var n_venta_recibo_ini =$("#n_venta_recibo_ini").val();
+  var monto =$("#monto_venta_rec_ini").val();
+  var fecha =$("#fecha").val();
+  var sucursal =$("#sucursal").val();
+  var id_paciente =$("#id_paciente").val();
+  var id_usuario =$("#usuario").val();
+  var telefono_ini =$("#telefono_abono").val();
+  var recibi_rec_ini =$("#recibi_abono").val();
+  var empresa_ini =$("#empresa_abono").val();
+  var texto=$("#texto").val();
+  var numero=$("#numero").val();
+  var saldo=$("#saldo").val();
+  var forma_pago=$("#forma_pago").val();
+  var marca_aro_ini=$("#marca_aro_ini").val();
+  var modelo_aro_ini=$("#modelo_aro_ini").val();    
+  var color_aro_ini=$("#color_aro_ini").val();
+  var lente_rec_ini=$("#lente_rec_ini").val();
+  var ar_rec_ini=$("#ar_rec_ini").val();
+  var photo_rec_ini=$("#photo_rec_ini").val();
+  var observaciones_rec_ini=$("#observaciones_rec_ini").val();
+  var pr_abono=$("#pr_abono").val();
+  var servicio_rec_ini=$("#servicio_abono").val();    
+
+  if (forma_pago !="") {
     $('#creditos_de_contado').DataTable().ajax.reload();
     $.ajax({
-    url:"ajax/recibos.php?op=registrar_recibo",
-    method:"POST",
-    data:{a_anteriores:a_anteriores,n_recibo:n_recibo,n_venta_recibo_ini:n_venta_recibo_ini,monto:monto,fecha:fecha,sucursal:sucursal,id_paciente:id_paciente,id_usuario:id_usuario,telefono_ini:telefono_ini,recibi_rec_ini:recibi_rec_ini,empresa_ini:empresa_ini,texto:texto,numero:numero,saldo:saldo,forma_pago:forma_pago,marca_aro_ini:marca_aro_ini,modelo_aro_ini:modelo_aro_ini,color_aro_ini:color_aro_ini,lente_rec_ini:lente_rec_ini,ar_rec_ini:ar_rec_ini,photo_rec_ini:photo_rec_ini,observaciones_rec_ini:observaciones_rec_ini,pr_abono:pr_abono,servicio_rec_ini:servicio_rec_ini},
-    cache: false,
-    dataType:"json",
-    error:function(x,y,z){
-      d_pacole.log(x);
-      console.log(y);
-      console.log(z);
-    }, 
+      url:"ajax/recibos.php?op=registrar_recibo",
+      method:"POST",
+      data:{a_anteriores:a_anteriores,n_recibo:n_recibo,n_venta_recibo_ini:n_venta_recibo_ini,monto:monto,fecha:fecha,sucursal:sucursal,id_paciente:id_paciente,id_usuario:id_usuario,telefono_ini:telefono_ini,recibi_rec_ini:recibi_rec_ini,empresa_ini:empresa_ini,texto:texto,numero:numero,saldo:saldo,forma_pago:forma_pago,marca_aro_ini:marca_aro_ini,modelo_aro_ini:modelo_aro_ini,color_aro_ini:color_aro_ini,lente_rec_ini:lente_rec_ini,ar_rec_ini:ar_rec_ini,photo_rec_ini:photo_rec_ini,observaciones_rec_ini:observaciones_rec_ini,pr_abono:pr_abono,servicio_rec_ini:servicio_rec_ini},
+      cache: false,
+      dataType:"json",
+      error:function(x,y,z){
+        d_pacole.log(x);
+        console.log(y);
+        console.log(z);
+      }, 
       
-    success:function(data){
-      console.log(data);
-      if(data=='error'){
-        Swal.fire('Este correlativo ya fué ingresado!','','error')
-        return false;
-      }else if (data=="ok") {
-        Swal.fire('Recibo registrado exitosamente!','','success')
-        $('#creditos_de_contado').DataTable().ajax.reload();
-        $('#creditos_oid').DataTable().ajax.reload();
-  
-      }
-      
-    }
+      success:function(data){
+        console.log(data);
+        if(data=='error'){
+          Swal.fire('Este correlativo ya fué ingresado!','','error')
+          return false;
+        }else if (data=="ok") {
+          Swal.fire('Recibo registrado exitosamente!','','success')
+          $('#creditos_de_contado').DataTable().ajax.reload();
+          $('#creditos_oid').DataTable().ajax.reload();
 
-  });
+        }
+
+      }
+
+    });
   }else{
     Swal.fire('Especifique la forma de Pago!','','error')
     return false;
   }  
-    
-  }
+
+}
   ///////////////////////IMPRIMIR RECIBO DE ABONO
   $(document).on('click', '#registrar_abono', function(){
-  var n_recibo = $("#n_recibo").html();
-  var n_venta_recibo_ini =$("#n_venta_recibo_ini").val();
-  var id_paciente =$("#id_paciente").val();
-  document.getElementById("btn_print_recibos").style.display = "block";
-  let sucursal = $("#sucursal").val();
+    var n_recibo = $("#n_recibo").html();
+    var n_venta_recibo_ini =$("#n_venta_recibo_ini").val();
+    var id_paciente =$("#id_paciente").val();
+    document.getElementById("btn_print_recibos").style.display = "block";
+    let sucursal = $("#sucursal").val();
 
-  document.getElementById("btn_print_recibos").href='imprimir_recibo_pdf.php?n_recibo='+
-  n_recibo+'&'+'n_venta='+n_venta_recibo_ini+'&'+'id_paciente='+id_paciente+'&'+'sucursal='+sucursal;
-  
-});
+    document.getElementById("btn_print_recibos").href='imprimir_recibo_pdf.php?n_recibo='+
+    n_recibo+'&'+'n_venta='+n_venta_recibo_ini+'&'+'id_paciente='+id_paciente+'&'+'sucursal='+sucursal;
+
+  });
   /////////////////LISTAR DETALLE DE ABONOS
   function verDetAbonos(id_paciente,numero_venta){
-  $("#detalle_abonos").modal("show");
-  tabla_det_abono=$('#lista_det_abonos').dataTable({
+    $("#detalle_abonos").modal("show");
+    tabla_det_abono=$('#lista_det_abonos').dataTable({
     "aProcessing": true,//Activamos el procesamiento del datatables
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
       dom: 'Brtip',//Definimos los elementos del control de tabla
-       buttons: [
-                'excelHtml5'
-            ],
-    "ajax":
-        {
-          url: 'ajax/creditos.php?op=listar_detalle_abonos',
-          type : "post",
+      buttons: [
+      'excelHtml5'
+      ],
+      "ajax":
+      {
+        url: 'ajax/creditos.php?op=listar_detalle_abonos',
+        type : "post",
           //dataType : "json",
           data:{id_paciente:id_paciente,numero_venta:numero_venta},
           error: function(e){
             console.log(e.responseText);
           }
         },
-    "bDestroy": true,
-    "responsive": true,
-    "bInfo":true,
+        "bDestroy": true,
+        "responsive": true,
+        "bInfo":true,
     "iDisplayLength": 10,//Por cada 10 registros hace una paginación
       "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
 
       "language": {
 
-          "sProcessing":     "Procesando...",
+        "sProcessing":     "Procesando...",
 
-          "sLengthMenu":     "Mostrar _MENU_ registros",
+        "sLengthMenu":     "Mostrar _MENU_ registros",
 
-          "sZeroRecords":    "No se encontraron resultados",
+        "sZeroRecords":    "No se encontraron resultados",
 
-          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+        "sEmptyTable":     "Ningún dato disponible en esta tabla",
 
-          "sInfo":           "Mostrando un total de _TOTAL_ registros",
-          
-          "sInfoEmpty":      "Mostrando un total de 0 registros",
+        "sInfo":           "Mostrando un total de _TOTAL_ registros",
 
-          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+        "sInfoEmpty":      "Mostrando un total de 0 registros",
 
-          "sInfoPostFix":    "",
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
 
-          "sSearch":         "Buscar:",
+        "sInfoPostFix":    "",
 
-          "sUrl":            "",
+        "sSearch":         "Buscar:",
 
-          "sInfoThousands":  ",",
+        "sUrl":            "",
 
-          "sLoadingRecords": "Cargando...",
+        "sInfoThousands":  ",",
 
-          "oPaginate": {
+        "sLoadingRecords": "Cargando...",
 
-              "sFirst":    "Primero",
+        "oPaginate": {
 
-              "sLast":     "Último",
+          "sFirst":    "Primero",
 
-              "sNext":     "Siguiente",
+          "sLast":     "Último",
 
-              "sPrevious": "Anterior"
+          "sNext":     "Siguiente",
 
-          },
+          "sPrevious": "Anterior"
 
-          "oAria": {
+        },
 
-              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+        "oAria": {
 
-              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
 
-          }
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+
+        }
 
          }//cerrando language
 
-  }).DataTable();
+       }).DataTable();
 
 //////////////////////////////GET DATOS PACENTE CREDITO
 
-  $.ajax({
+$.ajax({
   url:"ajax/creditos.php?op=get_datos_credito_abono",
   method:"POST",
   data:{id_paciente:id_paciente,numero_venta:numero_venta},
@@ -537,7 +544,7 @@ function registrar_abono(){
     $("#total_abonado").html(abonado_act);
     $("#saldo_det_abono").html(data.saldo);
   }
-  })
+})
 }
 
 ////////////////GET CREDITOS POR CATEGORÍA
@@ -554,20 +561,20 @@ $(document).on('click', '.cat_creditos', function(){
     "aProcessing": true,//Activamos el procesamiento del datatables
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
       dom: 'Bfrtip',//Definimos los elementos del control de tabla
-            buttons: [
-                { extend: 'excelHtml5', footer: true }
-            ],
-    "ajax":
-        {
-          url: 'ajax/creditos.php?op=show_cat_creditos',
-          type : "post",
-          dataType : "json",
-          data:{categoria:categoria},
-          error: function(e){
-            console.log(e.responseText);
-          }
-        },
-         drawCallback: function () {
+      buttons: [
+      { extend: 'excelHtml5', footer: true }
+      ],
+      "ajax":
+      {
+        url: 'ajax/creditos.php?op=show_cat_creditos',
+        type : "post",
+        dataType : "json",
+        data:{categoria:categoria},
+        error: function(e){
+          console.log(e.responseText);
+        }
+      },
+      drawCallback: function () {
         var monto_saldo = $('#cats_creditos').DataTable().column(4).data().sum();
         $('#montos_c').html('$'+monto_saldo.toFixed(2));
         var creditos = $('#cats_creditos').DataTable().column(5).data().sum();
@@ -576,84 +583,84 @@ $(document).on('click', '.cat_creditos', function(){
         $('#abonado').html('$'+abonado.toFixed(2));
 
       },
-    "bDestroy": true,
-    "responsive": true,
-    "bInfo":true,
+      "bDestroy": true,
+      "responsive": true,
+      "bInfo":true,
     "iDisplayLength": 10,//Por cada 10 registros hace una paginación
       "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
 
       "language": {
 
-          "sProcessing":     "Procesando...",
+        "sProcessing":     "Procesando...",
 
-          "sLengthMenu":     "Mostrar _MENU_ registros",
+        "sLengthMenu":     "Mostrar _MENU_ registros",
 
-          "sZeroRecords":    "No se encontraron resultados",
+        "sZeroRecords":    "No se encontraron resultados",
 
-          "sEmptyTable":     "Ningún dato disponible en esta tabla",
+        "sEmptyTable":     "Ningún dato disponible en esta tabla",
 
-          "sInfo":           "Mostrando un total de _TOTAL_ registros",
+        "sInfo":           "Mostrando un total de _TOTAL_ registros",
 
-          "sInfoEmpty":      "Mostrando un total de 0 registros",
+        "sInfoEmpty":      "Mostrando un total de 0 registros",
 
-          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
 
-          "sInfoPostFix":    "",
+        "sInfoPostFix":    "",
 
-          "sSearch":         "Buscar:",
+        "sSearch":         "Buscar:",
 
-          "sUrl":            "",
+        "sUrl":            "",
 
-          "sInfoThousands":  ",",
+        "sInfoThousands":  ",",
 
-          "sLoadingRecords": "Cargando...",
+        "sLoadingRecords": "Cargando...",
 
-          "oPaginate": {
+        "oPaginate": {
 
-              "sFirst":    "Primero",
+          "sFirst":    "Primero",
 
-              "sLast":     "Último",
+          "sLast":     "Último",
 
-              "sNext":     "Siguiente",
+          "sNext":     "Siguiente",
 
-              "sPrevious": "Anterior"
+          "sPrevious": "Anterior"
 
-          },
+        },
 
-          "oAria": {
+        "oAria": {
 
-              "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
 
-              "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
 
-          }
+        }
 
          }//cerrando language
 
-  }).DataTable();
+       }).DataTable();
   
 });
 ////////////////GET DATOS PACIENTE CREDITOS ATRASADOS/////////////
 function info_pacientes_mora(id_paciente,numero_venta){
 
   $.ajax({
-  url:"ajax/creditos.php?op=get_datos_creditos_mora",
-  method:"POST",
-  data:{id_paciente:id_paciente},
-  cache:false,
-  dataType:"json",
-  success:function(data)
-  { 
-    console.log(data);  
-    $("#paciente_credito_mora").html(data.nombres);
-    $("#tel_credito_mora").html(data.telefono);
-    $("#empresa_credito_mora").html(data.empresas);
-    $("#dir_credito_mora").html(data.direccion);
+    url:"ajax/creditos.php?op=get_datos_creditos_mora",
+    method:"POST",
+    data:{id_paciente:id_paciente},
+    cache:false,
+    dataType:"json",
+    success:function(data)
+    { 
+      console.log(data);  
+      $("#paciente_credito_mora").html(data.nombres);
+      $("#tel_credito_mora").html(data.telefono);
+      $("#empresa_credito_mora").html(data.empresas);
+      $("#dir_credito_mora").html(data.direccion);
 
-  }
+    }
   })
 ////////////////////GET DATOS VENTA CREDITO EN MORA
-  $.ajax({
+$.ajax({
   url:"ajax/creditos.php?op=get_datos_venta_mora",
   method:"POST",
   data:{id_paciente:id_paciente,numero_venta:numero_venta},
@@ -668,7 +675,7 @@ function info_pacientes_mora(id_paciente,numero_venta){
     $("#tipo_pago_mora").html(data.tipo_pago);
 
   }
-  })
+})
 
 }
 
@@ -683,28 +690,28 @@ function print_facturas_ventas(){
 
 function print_invoices(id_paciente,numero_venta){
  // console.log(numero_venta);return false;
-var sucursal = $("#sucursal").val();
-var id_usuario = $("#usuario").val();
-$("#id_paciente_venta_factura").val(id_paciente);
-$("#print_invoices").modal("show");
-$("#n_venta_factura").val(numero_venta);
+ var sucursal = $("#sucursal").val();
+ var id_usuario = $("#usuario").val();
+ $("#id_paciente_venta_factura").val(id_paciente);
+ $("#print_invoices").modal("show");
+ $("#n_venta_factura").val(numero_venta);
 
-  $.ajax({
-    url:"ajax/creditos.php?op=get_correlativo_factura",
-    method:"POST",
-    data:{sucursal:sucursal},
-    cache:false,
-    dataType:"json",
-    success:function(data){ 
-      console.log(data);
- 
-        $("#correlativo_factura").html(data.correlativo);
-        var correlativo_f = data.correlativo;
-        console.log(correlativo_f);
-        document.getElementById("link_invoice_print").href='imprimir_factura_pdf.php?n_venta='+numero_venta+'&'+'id_paciente='+id_paciente+'&'+'correlativo_f='+correlativo_f;
-      }
-  })
-  
+ $.ajax({
+  url:"ajax/creditos.php?op=get_correlativo_factura",
+  method:"POST",
+  data:{sucursal:sucursal},
+  cache:false,
+  dataType:"json",
+  success:function(data){ 
+    console.log(data);
+
+    $("#correlativo_factura").html(data.correlativo);
+    var correlativo_f = data.correlativo;
+    console.log(correlativo_f);
+    document.getElementById("link_invoice_print").href='imprimir_factura_pdf.php?n_venta='+numero_venta+'&'+'id_paciente='+id_paciente+'&'+'correlativo_f='+correlativo_f;
+  }
+})
+
   //var enlace = document.getElementById("link_invoice_print");
   //enlace.addEventListener("click", registrar_impresion, false);
 }
@@ -742,7 +749,7 @@ function get_finaliza(){
   let inicio = $("#fecha_inicio").val();
   let plazo_credito = $("#plazo_credito").val();
   console.log("inicioo"+inicio+plazo_credito);
-    $.ajax({
+  $.ajax({
     url:"ajax/creditos.php?op=get_finaliza_fecha",
     method:"POST",
     data:{inicio:inicio,plazo_credito:plazo_credito},
@@ -757,17 +764,17 @@ function get_finaliza(){
     /************************************************************
     *****************ORDENES DE DESCUENTO EN PLANILLA************
     *************************************************************/
-  function listar_ordenes_pendientes(){
-    let sucursal = $("#sucursal").val();
-    tabla_ordenes_pla = $('#ordenes_desc_pendientes').DataTable({      
+    function listar_ordenes_pendientes(){
+      let sucursal = $("#sucursal").val();
+      tabla_ordenes_pla = $('#ordenes_desc_pendientes').DataTable({      
     "aProcessing": true,//Activamos el procesamiento del datatables
     "aServerSide": true,//Paginación y filtrado realizados por el servidor
     dom: 'Bfrtip',//Definimos los elementos del control de tabla
     buttons: [              
-      'copyHtml5',
-      'excelHtml5',
-      'csvHtml5',
-      'pdf'
+    'copyHtml5',
+    'excelHtml5',
+    'csvHtml5',
+    'pdf'
     ],
 
     "ajax":{
@@ -776,61 +783,61 @@ function get_finaliza(){
       dataType : "json",
       data:{sucursal:sucursal},         
       error: function(e){
-      console.log(e.responseText);
-    },           
+        console.log(e.responseText);
+      },           
     },
 
-        "bDestroy": true,
-        "responsive": true,
-        "bInfo":true,
+    "bDestroy": true,
+    "responsive": true,
+    "bInfo":true,
         "iDisplayLength": 10,//Por cada 10 registros hace una paginación
           "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
 
-            "language": {
- 
-          "sProcessing":     "Procesando...",
-       
-          "sLengthMenu":     "Mostrar _MENU_ registros",
-       
-          "sZeroRecords":    "No se encontraron resultados",
-       
-          "sEmptyTable":     "Ningún dato disponible en esta tabla",
-       
-          "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-       
-          "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-       
-          "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-       
-          "sInfoPostFix":    "",
-       
-          "sSearch":         "Buscar:",
-       
-          "sUrl":            "",
-       
-          "sInfoThousands":  ",",
-       
-          "sLoadingRecords": "Cargando...",
-       
-          "oPaginate": {
-       
+          "language": {
+
+            "sProcessing":     "Procesando...",
+
+            "sLengthMenu":     "Mostrar _MENU_ registros",
+
+            "sZeroRecords":    "No se encontraron resultados",
+
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+
+            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+
+            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+
+            "sInfoPostFix":    "",
+
+            "sSearch":         "Buscar:",
+
+            "sUrl":            "",
+
+            "sInfoThousands":  ",",
+
+            "sLoadingRecords": "Cargando...",
+
+            "oPaginate": {
+
               "sFirst":    "Primero",
-       
+
               "sLast":     "Último",
-       
+
               "sNext":     "Siguiente",
-       
+
               "sPrevious": "Anterior"
-       
-          },
-       
-          "oAria": {
-       
+
+            },
+
+            "oAria": {
+
               "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-       
+
               "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-       
-          }
+
+            }
 
          }, //cerrando language
 
@@ -838,21 +845,21 @@ function get_finaliza(){
 
         });
 
-}
+    }
 
-var detalle_venta_flotante = [];
-var venta_flotante = [];
-function acciones_oid(numero_orden,id_paciente,estado){
-detalle_venta_flotante = [];
-venta_flotante = [];
-  let categoria_usuario = $('#cat_user').val();
-  console.log(`cat ${categoria_usuario} orden ${numero_orden} id_paciente ${id_paciente} estado ${estado}`)
-  $("#detalle_oid").modal("show");
-  if (categoria_usuario != "administrador") {
-    document.getElementById("btns_orden").style.display = "none";
-  }
+    var detalle_venta_flotante = [];
+    var venta_flotante = [];
+    function acciones_oid(numero_orden,id_paciente,estado){
+      detalle_venta_flotante = [];
+      venta_flotante = [];
+      let categoria_usuario = $('#cat_user').val();
+      console.log(`cat ${categoria_usuario} orden ${numero_orden} id_paciente ${id_paciente} estado ${estado}`)
+      $("#detalle_oid").modal("show");
+      if (categoria_usuario != "administrador") {
+        document.getElementById("btns_orden").style.display = "none";
+      }
   /////////////ajax data detalles del  orden
-    $.ajax({
+  $.ajax({
     url:"ajax/creditos.php?op=get_detalles_orden_oid",
     method:"POST",
     data:{id_paciente:id_paciente,numero_orden:numero_orden},
@@ -873,26 +880,26 @@ venta_flotante = [];
 
 
   $.ajax({
-  url:"ajax/creditos.php?op=get_detalles_orden_paciente",
-  method:"POST",
-  data:{id_paciente:id_paciente},
-  cache:false,
-  dataType:"json",
-  success:function(data){ 
-    console.log(data);  
-    $("#paciente_orden").html(data.nombres);
-    $("#funcion_pac_orden").html(data.ocupacion);
-    $("#dui_pac_orden").html(data.dui);
-    $("#edad_pac_orden").html(`${data.edad} años`);
-    $("#nit_pac_orden").html(data.nit);
-    $("#tel_pac_orden").html(data.telefono);
-    $("#tel_of_pac_orden").html(data.telefono_oficina);
-    $("#correo_pac_orden").html(data.correo);
-    $("#dir_pac_orden").html(data.direccion);
-    $("#empresa_pac_orden").html(data.empresas);
-  }
-})
-var total = 0
+    url:"ajax/creditos.php?op=get_detalles_orden_paciente",
+    method:"POST",
+    data:{id_paciente:id_paciente},
+    cache:false,
+    dataType:"json",
+    success:function(data){ 
+      console.log(data);  
+      $("#paciente_orden").html(data.nombres);
+      $("#funcion_pac_orden").html(data.ocupacion);
+      $("#dui_pac_orden").html(data.dui);
+      $("#edad_pac_orden").html(`${data.edad} años`);
+      $("#nit_pac_orden").html(data.nit);
+      $("#tel_pac_orden").html(data.telefono);
+      $("#tel_of_pac_orden").html(data.telefono_oficina);
+      $("#correo_pac_orden").html(data.correo);
+      $("#dir_pac_orden").html(data.direccion);
+      $("#empresa_pac_orden").html(data.empresas);
+    }
+  })
+  var total = 0
   ////////////////GET DETALLE PRODUCTOS ORDEN
   $.ajax({
     url : "ajax/creditos.php?op=get_detalle_productos_orden",
@@ -901,32 +908,32 @@ var total = 0
     cache : false,
     dataType : "json",
     success:function(data){
-    console.log(data);
-    
-    for(var i in data){
+      console.log(data);
+
+      for(var i in data){
      //var total = parseInt(total) + parseInt(data[i].precio_final);
-      var obj = {
-        id_producto : data[i].id_producto,
-        cantidad : data[i].cantidad,
-        producto : data[i].producto,
-        precio_venta : data[i].precio_venta,
-        descuento : data[i].descuento,
-        precio_final : data[i].precio_final,
-        descuento : data[i].descuento,
-        fecha_venta : data[i].fecha_venta,
-        id_usuario : data[i].id_usuario,
-        id_paciente : data[i].id_paciente,
-        beneficiario : data[i].beneficiario,
-        categoria_ub : data[i].categoria_ub
-              
+     var obj = {
+      id_producto : data[i].id_producto,
+      cantidad : data[i].cantidad,
+      producto : data[i].producto,
+      precio_venta : data[i].precio_venta,
+      descuento : data[i].descuento,
+      precio_final : data[i].precio_final,
+      descuento : data[i].descuento,
+      fecha_venta : data[i].fecha_venta,
+      id_usuario : data[i].id_usuario,
+      id_paciente : data[i].id_paciente,
+      beneficiario : data[i].beneficiario,
+      categoria_ub : data[i].categoria_ub
+
       };//FIN OBJ
       detalle_venta_flotante.push(obj);
       detalle_productos_flotantes();
 
     }
 
-    }
-  })
+  }
+})
 
   $.ajax({
     url: "ajax/creditos.php?op=get_detalle_venta_flotante",
@@ -935,60 +942,60 @@ var total = 0
     cache : false,
     dataType : "json",
     success:function(data){
-    console.log(data);
-    for(var i in data){
-      var obj_dos = {
-       fecha_venta : data[i].fecha_venta,
-       paciente: data[i].paciente,
-       vendedor: data[i].vendedor,
-       monto_total: data[i].monto_total,
-       tipo_pago: data[i].tipo_pago,
-       tipo_venta: data[i].tipo_venta,
-       id_usuario: data[i].id_usuario,
-       id_paciente: data[i].id_paciente,
-       sucursal: data[i].sucursal,
-       evaluado: data[i].evaluado,
-       optometra: data[i].optometra
+      console.log(data);
+      for(var i in data){
+        var obj_dos = {
+         fecha_venta : data[i].fecha_venta,
+         paciente: data[i].paciente,
+         vendedor: data[i].vendedor,
+         monto_total: data[i].monto_total,
+         tipo_pago: data[i].tipo_pago,
+         tipo_venta: data[i].tipo_venta,
+         id_usuario: data[i].id_usuario,
+         id_paciente: data[i].id_paciente,
+         sucursal: data[i].sucursal,
+         evaluado: data[i].evaluado,
+         optometra: data[i].optometra
       }; //Fin obj_dos
       venta_flotante.push(obj_dos);
     }
 
   }
-  })
+})
 
 }
 
 function detalle_productos_flotantes(){ 
-    $('#detalle_productos_orden').html('');
-    var filas = "";
-    for(var i=0; i<detalle_venta_flotante.length; i++){
-      var filas = filas +"<tr id='fila"+i+"'><td style='text-align:center;width: 25% !important' colspan='25'>"+detalle_venta_flotante[i].cantidad+
-      "</td>"+"<td style='text-align:center;width: 50% !important' colspan='50'>"+detalle_venta_flotante[i].producto+"</td>"+
-      "<td style='text-align:center;width: 25%' colspan='25'>"+detalle_venta_flotante[i].precio_final+"</td>"+"</tr>";
-    }
+  $('#detalle_productos_orden').html('');
+  var filas = "";
+  for(var i=0; i<detalle_venta_flotante.length; i++){
+    var filas = filas +"<tr id='fila"+i+"'><td style='text-align:center;width: 25% !important' colspan='25'>"+detalle_venta_flotante[i].cantidad+
+    "</td>"+"<td style='text-align:center;width: 50% !important' colspan='50'>"+detalle_venta_flotante[i].producto+"</td>"+
+    "<td style='text-align:center;width: 25%' colspan='25'>"+detalle_venta_flotante[i].precio_final+"</td>"+"</tr>";
+  }
 
-    $('#detalle_productos_orden').html(filas);
+  $('#detalle_productos_orden').html(filas);
 }
 
 function aprobar_od_planilla(){
  let plazo = $("#plazo_orden_desc").val();
  let numero_orden = $("#n_orden_des").val();
  $.ajax({
-    url:"ajax/creditos.php?op=aprobar_orden_planilla",
-    method: "POST",
-    data: {'detOrden':JSON.stringify(detalle_venta_flotante),'arrayVenta':JSON.stringify(venta_flotante),'plazo':plazo,'numero_orden':numero_orden},
-    cache: false,
-    dataType:"json",
-    error:function(x,y,z){
-      d_pacole.log(x);
-      console.log(y);
-      console.log(z);
-    },     
-    success:function(data){
-      console.log(data);
-      $('#ordenes_desc_pendientes').DataTable().ajax.reload();
-    }
- })
+  url:"ajax/creditos.php?op=aprobar_orden_planilla",
+  method: "POST",
+  data: {'detOrden':JSON.stringify(detalle_venta_flotante),'arrayVenta':JSON.stringify(venta_flotante),'plazo':plazo,'numero_orden':numero_orden},
+  cache: false,
+  dataType:"json",
+  error:function(x,y,z){
+    d_pacole.log(x);
+    console.log(y);
+    console.log(z);
+  },     
+  success:function(data){
+    console.log(data);
+    $('#ordenes_desc_pendientes').DataTable().ajax.reload();
+  }
+})
  Swal.fire('Orden de descuento registrado!','','success');
  $("#detalle_oid").modal('hide');
 }
@@ -1000,23 +1007,216 @@ function denegar_od_planilla(){
   bootbox.confirm("¿Está Seguro de denegar esta orden?", function(result){
     if(result){
 
-  $.ajax({
-    url:"ajax/creditos.php?op=denegar_orden",
-    method:"POST",
-    data:{numero_orden:numero_orden},
-    dataType:"json",
-    success:function(data)
-    {
-      console.log(data);
-      if(data=="ok"){
-        setTimeout ("Swal.fire('La orden ha sido denegada','','warning')", 100);
+      $.ajax({
+        url:"ajax/creditos.php?op=denegar_orden",
+        method:"POST",
+        data:{numero_orden:numero_orden},
+        dataType:"json",
+        success:function(data)
+        {
+          console.log(data);
+          if(data=="ok"){
+            setTimeout ("Swal.fire('La orden ha sido denegada','','warning')", 100);
       }          //alert(data);
       $("#data_pacientes").DataTable().ajax.reload();
     }
   });
 
-}
+    }
 });//bootbox
 
 }
+
+function listar_creditos_cauto(){
+  var sucursal= $("#sucursal").val();
+  tabla_creditos_cauto=$('#creditos_cauto').dataTable(
+  {
+    "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+      buttons: [
+      'excelHtml5'
+      ],
+      "ajax":
+      {
+        url: 'ajax/creditos.php?op=listar_creditos_cauto',
+        type : "post",
+        dataType : "json",
+        data:{sucursal:sucursal},
+        error: function(e){
+          console.log(e.responseText);
+        }
+      },
+      "bDestroy": true,
+      "responsive": true,
+      "bInfo":true,
+    "iDisplayLength": 10,//Por cada 10 registros hace una paginación
+      "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+
+      "language": {
+
+        "sProcessing":     "Procesando...",
+
+        "sLengthMenu":     "Mostrar _MENU_ registros",
+
+        "sZeroRecords":    "No se encontraron resultados",
+
+        "sEmptyTable":     "Ningún dato disponible en esta tabla",
+
+        "sInfo":           "Mostrando un total de _TOTAL_ registros",
+
+        "sInfoEmpty":      "Mostrando un total de 0 registros",
+
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+
+        "sInfoPostFix":    "",
+
+        "sSearch":         "Buscar:",
+
+        "sUrl":            "",
+
+        "sInfoThousands":  ",",
+
+        "sLoadingRecords": "Cargando...",
+
+        "oPaginate": {
+
+          "sFirst":    "Primero",
+
+          "sLast":     "Último",
+
+          "sNext":     "Siguiente",
+
+          "sPrevious": "Anterior"
+
+        },
+
+        "oAria": {
+
+          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+
+        }
+
+         }//cerrando language
+
+       }).DataTable();
+}
+
+
+/////////LISTAR OIDS CREADAS
+function listar_oid_aprobadas(){
+  var sucursal= $("#sucursal").val();
+  tabla_oid_creadas=$('#oid_aprobadas').dataTable(
+  {
+    "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+      buttons: [
+      'excelHtml5'
+      ],
+      "ajax":
+      {
+        url: 'ajax/creditos.php?op=listar_oid_aprobadas',
+        type : "post",
+        dataType : "json",
+        data:{sucursal:sucursal},
+        error: function(e){
+          console.log(e.responseText);
+        }
+      },
+      "bDestroy": true,
+      "responsive": true,
+      "bInfo":true,
+    "iDisplayLength": 10,//Por cada 10 registros hace una paginación
+      "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+
+      "language": {
+
+        "sProcessing":     "Procesando...",
+
+        "sLengthMenu":     "Mostrar _MENU_ registros",
+
+        "sZeroRecords":    "No se encontraron resultados",
+
+        "sEmptyTable":     "Ningún dato disponible en esta tabla",
+
+        "sInfo":           "Mostrando un total de _TOTAL_ registros",
+
+        "sInfoEmpty":      "Mostrando un total de 0 registros",
+
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+
+        "sInfoPostFix":    "",
+
+        "sSearch":         "Buscar:",
+
+        "sUrl":            "",
+
+        "sInfoThousands":  ",",
+
+        "sLoadingRecords": "Cargando...",
+
+        "oPaginate": {
+
+          "sFirst":    "Primero",
+
+          "sLast":     "Último",
+
+          "sNext":     "Siguiente",
+
+          "sPrevious": "Anterior"
+
+        },
+
+        "oAria": {
+
+          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+
+        }
+
+         }//cerrando language
+
+       }).DataTable();
+}
+
+//////Eliminar oid solo para administradores
+
+
+function eliminar_oid(id_orden, numero_orden, id_paciente){
+
+  let cat_user = $("#cat_user").val();
+  console.log(cat_user);
+  if (cat_user=="administrador"){
+
+    bootbox.confirm("¿Está Seguro de eliminar OID aprobada?", function(result){
+      if(result){
+
+        $.ajax({
+          url:"ajax/creditos.php?op=eliminar_oid",
+          method:"POST",
+          data:{id_orden:id_orden,numero_orden:numero_orden,id_paciente:id_paciente},
+          dataType:"json",
+          success:function(data)
+          {
+            console.log(data);
+            if(data=="ok"){
+              setTimeout ("Swal.fire('OID Eliminada Existosamente','','success')", 100);
+              setTimeout ("explode();", 2000);
+            }
+            $("#oid_aprobadas").DataTable().ajax.reload();   
+          }
+        });
+
+      }
+});//bootbox
+
+  }else if (cat_user=="optometra","asesor") {
+      setTimeout ("Swal.fire('No posse permisos para eliminar OID','','error')", 100);
+    }
+}
+
 init();
