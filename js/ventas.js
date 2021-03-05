@@ -702,11 +702,13 @@ function add_beneficiario_oid(){
   return false;
 }
 
-  $('#listar_det_ventas').html('');
+$('#listar_det_ventas').html('');
     $.ajax({
     url:"ajax/ventas.php?op=agregar_benefiaciario_oid",
     method:"POST",
-    data:{'arrayVenta':JSON.stringify(detalles),'fecha_venta':fecha_venta,'numero_venta':numero_venta,'paciente':paciente,'vendedor':vendedor,'monto_total':monto_total,'tipo_pago':tipo_pago,'tipo_venta':tipo_venta,'id_usuario':id_usuario,'id_paciente':id_paciente,'sucursal':sucursal,'evaluado':evaluado,'optometra':optometra,'plazo':plazo,"id_ref":id_ref},
+    data:{'arrayVenta':JSON.stringify(detalles),'fecha_venta':fecha_venta,'numero_venta':numero_venta,'paciente':paciente,'vendedor':vendedor,'monto_total':monto_total,
+    'tipo_pago':tipo_pago,'tipo_venta':tipo_venta,'id_usuario':id_usuario,
+    'id_paciente':id_paciente,'sucursal':sucursal,'evaluado':evaluado,'optometra':optometra,'plazo':plazo,"id_ref":id_ref,'n_orden_add':n_orden_add},
     cache: false,
     dataType:"json",
     error:function(x,y,z){

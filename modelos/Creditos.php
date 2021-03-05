@@ -463,7 +463,7 @@ public function denegar_orden($numero_orden){
 }
 
 public function buscar_existe_oid($id_paciente){
-    $conectar= parent::conexion();
+    $conectar = parent::conexion();
     parent::set_names(); 
     $sql="select numero_orden from orden_credito where id_paciente=? order by id_orden DESC limit 1;";
     $sql=$conectar->prepare($sql);
@@ -472,14 +472,19 @@ public function buscar_existe_oid($id_paciente){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
-    public function get_saldos_oid($id_paciente){
-    $conectar= parent::conexion();
+public function get_saldos_oid($id_paciente){
+    $conectar = parent::conexion();
     $sql= "select  p.nombres,p.empresas,c.saldo as saldos from creditos as c inner join pacientes as p on c.id_paciente=p.id_paciente  where c.id_paciente=? and c.forma_pago='Descuento en Planilla' order by c.id_credito limit 1;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$id_paciente);
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
-    }
+}
+
+public function agregar_benefiaciario_oid(){
+    
+}
+
 
 }/////FIN CLASS
 

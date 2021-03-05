@@ -219,6 +219,7 @@ if($_POST['m_cuotas']=='Descuento en Planilla' or $_POST['m_cuotas']=='Tasa cero
 
 break;
 
+//////////////////////////SE REGISTRA VENTA O PRIMER REGISTRO DE CREDITO /////////////////////
 case 'registrar_venta':
 
 $datos=$ventas->valida_existencia_venta($_POST["numero_venta"]);
@@ -252,8 +253,43 @@ if (isset($errors)){
  <?php
 
 }
+  break;    //////////GET DATA LENTES RECIBO INICIAL
 
-  break;    //////////GET DATA LENTES RECIBO INICIAL 
+/////////////////////////SE REGISTRA UNA APROBACION DE OID /////////////////////
+
+case 'agregar_benefiaciario_oid':
+
+
+require_once("../modelos/Creditos.php");
+ //llamo al modelo Ventas
+  $creditos = new Creditos();
+  $creditos->agregar_benefiaciario_oid();
+  $messages[]="ok";
+
+  if (isset($messages)){
+   ?>
+  <?php
+  foreach ($messages as $message) {
+   echo json_encode($message);
+  }
+  ?>
+ <?php
+}
+    //mensaje error
+if (isset($errors)){
+
+ ?>
+
+ <?php
+ foreach ($errors as $error) {
+   echo json_encode($error);
+ }
+ ?>
+ <?php
+
+}
+  break; 
+
 
   case 'get_datos_lentes_rec_ini':
   $datos= $ventas->get_detalle_lente_rec_ini($_POST["id_paciente"],$_POST["numero_venta"]); 

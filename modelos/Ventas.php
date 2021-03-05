@@ -541,17 +541,17 @@ echo $html;
 }
 
 ////////////////GET UTILIDADES
-  public function get_utilidades(){
+public function get_utilidades(){
   $conectar= parent::conexion();
   $sql="select dc.precio_compra,dv.precio_final,dv.precio_final-dc.precio_compra as utilidad from detalle_ventas as dv join detalle_compras as dc where dv.id_producto=dc.id_producto;";
   $sql = $conectar->prepare($sql);
- // $sql->bindValue(1,$id_paciente);
+  // $sql->bindValue(1,$id_paciente);
   $sql->execute();
   return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
 //////////////get data pacientes en ventas.php modal
- public function show_datos_paciente($id_paciente){
+public function show_datos_paciente($id_paciente){
     $conectar= parent::conexion();
     $sql="select*from pacientes where id_paciente=?;";
     $sql=$conectar->prepare($sql);
