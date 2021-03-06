@@ -571,7 +571,6 @@ case 'listar_oid_aprobadas':
         $sub_array[] = $estado;  
         $sub_array[] = '<i class="fas fa-eye ocultar_btns_oid" style="border-radius:0px;color:blue" onClick="acciones_oid(\''.$row["numero_orden"].'\','.$row["id_paciente"].','.$row["estado"].')"></i>';
         $sub_array[] = '<a href="imprimir_oid_pdf.php?n_orden='.$row["numero_orden"].'&'."id_paciente=".$row["id_paciente"].'&'."sucursal=".$row["sucursal"].'" method="POST" target="_blank"><button type="button" class="btn btn-link btn-md"><i class="fa fa-print" aria-hidden="true" style="color:green"></i></button></a>';
-        //$sub_array[] = '<a href="imprimir_oid_pdf.php?n_orden='.$row["numero_orden"].'&'."id_paciente=".$row["id_paciente"].'&'."sucursal=".$row["sucursal"].'" method="POST" target="_blank"><button type="button"  class="btn btn-infos btn-md"><i class="glyphicon glyphicon-edit"></i> Imprimir</button></a>';
         $sub_array[] = '<button type="button"  class="btn btn-md bg-light" onClick="eliminar_oid('.$row["id_orden"].',\''.$row["numero_orden"].'\','.$row["id_paciente"].')"><i class="fa fa-trash" aria-hidden="true" style="color:red"></i></button>';
         $data[] = $sub_array;
       }

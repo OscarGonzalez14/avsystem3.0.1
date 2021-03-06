@@ -149,6 +149,8 @@ require_once("modals/modal_oid.php");
                   <button class="btn btn-secondary" style="color:white;border-radius:1px;" data-toggle="modal" data-target="#listar_accesorios_ventas" data-backdrop="static" data-keyboard="false" id="btn_accesorios_venta"><i class="fas fa-plus"></i> Accesorios</button>
 
                   <a href="reporte_gral_ventas.php"><button class="btn btn-primary" style="color:white;border-radius:1px;" ><i class="fas fa-eye"></i> REPORTES </button></a>
+
+
              </section>       
             </div><!-- FIN BOTONES AGREGAR PRODUCTO-->
             <div class="card">
