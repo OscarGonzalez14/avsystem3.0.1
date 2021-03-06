@@ -250,14 +250,17 @@ public function aprobar_orden(){
 ///////detalle productos venta flotante
  $detalle_orden = array();
  $detalle_orden = json_decode($_POST["detOrden"]);
- //////////////////detalle venta flotante
+
+ ////////////////// DETALLE VENTA FLOTANTE  ///////////////
+
  $detalle_venta = array();
  $detalle_venta = json_decode($_POST["arrayVenta"]);
  $plazo = $_POST["plazo"];
  $numero_orden = $_POST["numero_orden"];
+
  date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y");
 
-foreach ($detalle_venta as $k => $v) {
+ foreach ($detalle_venta as $k => $v) {
     $evaluado = $v->evaluado;
     $fecha_venta = $v->fecha_venta;
     $id_paciente = $v->id_paciente;
@@ -269,7 +272,7 @@ foreach ($detalle_venta as $k => $v) {
     $tipo_pago = $v->tipo_pago;
     $tipo_venta = $v->tipo_venta;
     $vendedor = $v->vendedor;
-}
+ }
 
 
 require_once("Ventas.php");
@@ -481,6 +484,23 @@ public function get_saldos_oid($id_paciente){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
+/************************************************************
+*******ORDENES DE DESCUENTO EN PLANILLA APROBADAS************
+*************************************************************/
+public function get_ordenes_descuento_aprobadas($sucursal){
+    $conectar=parent::conexion();
+    parent::set_names();
+
+    $sql="select o.numero_orden,p.nombres,p.empresas,p.id_paciente,o.fecha_registro,o.estado,o.id_orden,o.sucursal from orden_credito as o inner join pacientes as p on o.id_paciente = p.id_paciente where o.sucursal=? and estado='1' order by o.id_orden DESC;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1, $sucursal);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+
 public function agregar_benefiaciario_oid(){
   $fecha_venta = $_POST["fecha_venta"];
   $numero_venta = $_POST["numero_venta"];
@@ -561,7 +581,15 @@ $sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?);";
   $sql12->execute();
 }
 
-
+public function get_beneficiarios($id_paciente,$numero_orden){
+   $conectar= parent::conexion();
+  $sql= "select o.numero_orden,p.nombres,p.empresas,p.id_paciente,o.fecha_registro,v.estado,o.id_orden,o.sucursal,v.evaluado,v.monto_total from orden_credito as o inner join pacientes as p on o.id_paciente = p.id_paciente inner join ventas_flotantes as v on o.numero_orden=v.numero_orden  where v.id_paciente=? and v.numero_orden=? group by v.evaluado; ";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1, $id_paciente);
+  $sql->bindValue(2, $numero_orden);
+  $sql->execute();
+  return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);   
+}
 
 
 }/////FIN CLASS

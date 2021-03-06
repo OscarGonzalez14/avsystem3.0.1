@@ -288,7 +288,7 @@ public function get_ventas_consulta($id_paciente){
 	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
-//////////////////GET DATA ORDEN CREDITO
+//////////////////   GET DATA ORDEN CREDITO  /////////////////////////
 public function get_data_orden_credito($id_paciente,$n_orden){
 	$conectar= parent::conexion();
 	parent::set_names(); 

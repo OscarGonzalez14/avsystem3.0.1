@@ -849,9 +849,11 @@ function get_finaliza(){
 
     var detalle_venta_flotante = [];
     var venta_flotante = [];
+    var beneficiarios_orden=[];
     function acciones_oid(numero_orden,id_paciente,estado){
       detalle_venta_flotante = [];
       venta_flotante = [];
+      beneficiarios_orden=[]
       let categoria_usuario = $('#cat_user').val();
       console.log(`cat ${categoria_usuario} orden ${numero_orden} id_paciente ${id_paciente} estado ${estado}`)
       $("#detalle_oid").modal("show");
@@ -899,6 +901,40 @@ function get_finaliza(){
       $("#empresa_pac_orden").html(data.empresas);
     }
   })
+
+  ///////////////////////GET DATA BENEFICIARIOS //////////////////
+  $.ajax({
+    url : "ajax/creditos.php?op=get_beneficiarios",
+    method :"POST",
+    data: {id_paciente:id_paciente,numero_orden:numero_orden},
+    cache : false,
+    dataType : "json",
+    success:function(data){
+    console.log(data);
+    
+
+    for(var i in data){
+
+    var obj = {
+      numero_orden : data[i].numero_orden,
+      nombres : data[i].nombres,
+      empresas : data[i].empresas,
+      id_paciente : data[i].id_paciente,
+      estado : data[i].estado,
+      id_orden : data[i].id_orden,
+      sucursal : data[i].sucursal,
+      evaluado : data[i].evaluado,
+      monto_total : data[i].monto_total
+    };//FIN OBJ
+      beneficiarios_orden.push(obj);
+      console.log(beneficiarios_orden);
+      detalle_beneficiarios_orden();
+    }//Fin for
+    
+
+    }
+  })
+
   var total = 0
   ////////////////GET DETALLE PRODUCTOS ORDEN
   $.ajax({
@@ -964,6 +1000,44 @@ function get_finaliza(){
 })
 
 }
+
+function detalle_beneficiarios_orden(){ 
+  $('#benefiaciarios_orden').html('');
+  var filas = "";
+     for(var i=0; i<beneficiarios_orden.length; i++){
+    console.log(`Estado :${beneficiarios_orden[i].estado}`);    
+   var filas = filas + "<tr id='fila"+i+"'><td style='width: 15%'>"+"<input class='hemograma' type='checkbox' name='check_box' value='valor"+i+"' id=item"+i+" onClick='estado_check_beneficiario(event, this, "+(i)+");'></td>"+
+      "<td style='text-align:center;width: 10% !important'>"+beneficiarios_orden[i].estado+"</td>"+
+      "<td style='text-align:center;width: 65% !important'>"+beneficiarios_orden[i].evaluado+"</td>"+
+      "<td style='text-align:center;width: 15% !important'>"+"$"+beneficiarios_orden[i].monto_total+"</td>"
+      +"</td>"+"</tr>";
+  }
+  
+  $('#benefiaciarios_orden').html(filas);
+
+  for(var i=0; i<beneficiarios_orden.length; i++){
+    let id_item = "item"+i;
+    console.log(id_item);
+    if((beneficiarios_orden[i].estado)=="Aprobado"){
+       document.getElementById(id_item).checked = true;
+       document.getElementById(id_item).disabled = true;
+    }
+  }
+}
+
+
+function estado_check_beneficiario(event, obj, idx){
+ 
+ let estado_check =  beneficiarios_orden[idx].estado;
+ console.log(estado_check);
+ if(estado_check=="Sin aprobar"){
+  beneficiarios_orden[idx].estado = "Ok";
+ }else if(estado_check=="Ok"){
+  beneficiarios_orden[idx].estado = "Denegado";
+ }else if(estado_check=="Denegado")
+  beneficiarios_orden[idx].estado = "Ok";
+}
+
 
 function detalle_productos_flotantes(){ 
   $('#detalle_productos_orden').html('');

@@ -351,7 +351,7 @@ public function agrega_detalle_venta(){
     $stock = $v->stock;
     $subtotal = $v->subtotal;
 
-
+    
     $sql5="insert into detalle_ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5=$conectar->prepare($sql5);
     $sql5->bindValue(1,$codigo);
@@ -366,11 +366,12 @@ public function agrega_detalle_venta(){
     $sql5->bindValue(10,$id_paciente);
     $sql5->bindValue(11,$evaluado);
     $sql5->bindValue(12,$categoria_ub);
+    
     $sql5->execute();
 
   } 
-
-  $sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+  $estado_flotante = 0;
+  $sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5=$conectar->prepare($sql5);
     $sql5->bindValue(1,$codigo);          
     $sql5->bindValue(2,$fecha_venta);
@@ -385,6 +386,7 @@ public function agrega_detalle_venta(){
     $sql5->bindValue(11,$sucursal);
     $sql5->bindValue(12,$evaluado);
     $sql5->bindValue(13,$optometra);
+    $sql5->bindValue(14,$estado_flotante);
     $sql5->execute();
 
 

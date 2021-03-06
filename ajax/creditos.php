@@ -442,6 +442,7 @@ $datos=$creditos->get_paciente_id($_POST["id_paciente"]);
     $datos= $creditos->get_detalle_orden_credito($_POST["id_paciente"],$_POST["numero_orden"]);
 
     if(is_array($datos)==true and count($datos)>0){
+      
       $data = Array();
 
       foreach($datos as $row){
@@ -463,7 +464,44 @@ $datos=$creditos->get_paciente_id($_POST["id_paciente"]);
 
     } 
   echo json_encode($data);
+  break;
+
+ case 'get_beneficiarios':
+
+    $datos= $creditos->get_beneficiarios($_POST["id_paciente"],$_POST["numero_orden"]);
+
+    if(is_array($datos)==true and count($datos)>0){
+      $data = Array();
+
+      foreach($datos as $row){
+       
+       if ($row["estado"]==1) {
+         $estado= "Aprobado";
+       }else{
+        $estado="Sin aprobar";
+       }
+
+
+        $output = array();
+
+
+        $output["numero_orden"] = $row["numero_orden"];
+        $output["nombres"] = $row["nombres"];
+        $output["empresas"] = $row["empresas"];
+        $output["id_paciente"] = $row["id_paciente"];
+        //$output["fecha_venta"] = $row["fecha_venta"];
+        $output["estado"] = $estado;
+        $output["id_orden"] = $row["id_orden"];
+        $output["sucursal"] = $row["sucursal"];
+        $output["evaluado"] = $row["evaluado"];
+        $output["monto_total"] = strtoupper($row["monto_total"]);
+        $data[] = $output;                    
+      }      
+
+    } 
+  echo json_encode($data);
    break;
+
 
  case 'get_detalle_venta_flotante':
    $datos = $creditos->get_detalle_venta_flotante($_POST["id_paciente"],$_POST["numero_orden"]);

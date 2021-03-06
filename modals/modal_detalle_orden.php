@@ -57,7 +57,7 @@
 
   <table width="100%" class="table-hover table-bordered display nowrap">
     <tr class="bg-info">
-    <th colspan="100" style="color:white;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><b>DATOS GENERALES DEL PACIENTE</b></th>  
+    <th colspan="100" style="color:white;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><b>DATOS TITULAR DE LA CUENTA</b></th>  
     </tr>
     <tr class="bg-light">
       <th colspan="25" style="text-align:center;font-size: 12px;width:25%;font-family: Helvetica, Arial, sans-serif"><b>NOMBRE COMPLETO</b></th>
@@ -131,10 +131,8 @@
               </tbody>
             </table>
           </div>
-
-    <!--TABLA DE BENEFICIARIOS--> 
-
-      <table width="100%" class="table-hover table-bordered display nowrap">
+    <!--TABLA DE BENEFICIARIOS-->
+  <!--<table width="100%" class="table-hover table-bordered display nowrap">
     <thead style="text-align: center" class="table-hover table-bordered display nowrap">
       <tr class="bg-info">
         <th colspan="100" style="color:white;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><b>DETALLE ORDENES PRODUCTO</b></th>  
@@ -153,7 +151,7 @@
           <td colspan="25" style="text-align:center;"><b><span id="total_orden_t"></span></b></td>
         </tr>
       </tfoot>
-    </table><br>
+    </table><br>-->
 </div>
 
 
