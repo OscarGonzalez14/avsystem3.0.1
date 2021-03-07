@@ -5,7 +5,8 @@
 
       <div class="modal-body" style="color: #ff6500;display: block;margin-left: auto;margin-right: auto;">
         <div>
-          <i class="fas fa-exclamation-triangle fa-2x" style="color: #ff6500;text-align: center;"></i> <span style="font-size: 30px;color: #404040;font-family: font-family: Helvetica, Arial, sans-serif;"><b>Correlativo</span> <span style="font-size: 30px;color: red;font-family: font-family: Helvetica, Arial, sans-serif;"><span style="color: red" id="correlativo_factura"></span></span></b>
+          <i class="fas fa-exclamation-triangle fa-2x" style="color: #ff6500;text-align: center;"></i> <span style="font-size: 30px;color: #404040;font-family: font-family: Helvetica, Arial, sans-serif;"><b>Correlativo</span> <span style="font-size: 30px;color: red;font-family: font-family: Helvetica, Arial, sans-serif;"><span style="color: red" id="correlativo_factura"></span></span></b><br>
+          <input type="datetime-local" id="fecha_facturacion">
         </div>
       </div>
       <input type="hidden" name="" id="n_venta_factura">

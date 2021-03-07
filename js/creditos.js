@@ -692,6 +692,7 @@ function print_invoices(id_paciente,numero_venta){
  // console.log(numero_venta);return false;
  var sucursal = $("#sucursal").val();
  var id_usuario = $("#usuario").val();
+ var fecha_fac = $("#fecha_facturacion").val();
  $("#id_paciente_venta_factura").val(id_paciente);
  $("#print_invoices").modal("show");
  $("#n_venta_factura").val(numero_venta);
@@ -708,7 +709,7 @@ function print_invoices(id_paciente,numero_venta){
     $("#correlativo_factura").html(data.correlativo);
     var correlativo_f = data.correlativo;
     console.log(correlativo_f);
-    document.getElementById("link_invoice_print").href='imprimir_factura_pdf.php?n_venta='+numero_venta+'&'+'id_paciente='+id_paciente+'&'+'correlativo_f='+correlativo_f;
+    document.getElementById("link_invoice_print").href='imprimir_factura_pdf.php?n_venta='+numero_venta+'&'+'id_paciente='+id_paciente+'&'+'correlativo_f='+correlativo_f+'&'+'fecha_fac='+fecha_fac;
   }
 })
 
@@ -849,7 +850,7 @@ function get_finaliza(){
 
   var detalle_venta_flotante = [];
   var venta_flotante = [];
-  var beneficiarios_orden=[];
+  var beneficiarios_orden = [];
   function acciones_oid(numero_orden,id_paciente,estado){
   detalle_venta_flotante = [];
   venta_flotante = [];
@@ -1019,7 +1020,6 @@ function get_finaliza(){
 
 })
  //listar_beneficiarios_productos();
-
 }
 
 var det_ventas_flotantes = [];
@@ -1144,7 +1144,7 @@ function aprobar_od_planilla(){
 }
 
 
-function aprobar_od_planillasssssssssssssssss(){
+function aprobar_od_planillassss(){
  let plazo = $("#plazo_orden_desc").val();
  let numero_orden = $("#n_orden_des").val();
  $.ajax({

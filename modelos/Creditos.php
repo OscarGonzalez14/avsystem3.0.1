@@ -249,9 +249,11 @@ public function aprobar_orden(){
     $conectar = parent::conexion();
     ///////BENEFICIARIOS ORDEN
     $beneficiarios_oid = array();
-    $beneficiarios_oid = json_decode($_POST);
+    $beneficiarios_oid = json_decode($_POST["beneficiariosArray"]);
+    date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
 
-    foreach ($beneficiarios_oid as $k => $v) {///////////GET BENEFICIARIOS
+
+    foreach ($beneficiarios_oid as $k => $v){///////////GET BENEFICIARIOS
         $estado = $v->estado;
         $evaluado = $v->evaluado;
         $id_orden = $v->id_orden;
@@ -261,30 +263,89 @@ public function aprobar_orden(){
         $numero_orden = $v->numero_orden;
         $sucursal = $v->sucursal;
 
-        if ($estado=="Ok"){
+    if ($estado=="Ok"){
+
+
             require_once("Ventas.php");
             $ventas = new Ventas();
             $correlativo = $ventas->get_numero_venta($sucursal);
-
             $prefijo = "";
+
             if ($sucursal=="Metrocentro") {
-            $prefijo="ME";
+                $prefijo="ME";
             }elseif ($sucursal=="Santa Ana") {
-              $prefijo="SA";
+                $prefijo="SA";
             }elseif ($sucursal=="San Miguel") {
-            $prefijo="SM";
+                $prefijo="SM";
            }
-        if(is_array($correlativo)==true and count($correlativo)>0){
-        foreach($correlativo as $row){                  
-         $codigo=$row["numero_venta"];
-         $cod=(substr($codigo,5,11))+1;
-         $num_venta ="AV".$prefijo."-".$cod;
-        }             
-        }else{
-        $num_venta = "AV".$prefijo."-1";
-       }
+          
+           if(is_array($correlativo)==true and count($correlativo)>0){
+                foreach($correlativo as $row){                  
+                    $codigo=$row["numero_venta"];
+                    $cod=(substr($codigo,5,11))+1;
+                    $num_venta ="AV".$prefijo."-".$cod;
+                }///FIN FOREACH             
+           }else{
+          $num_venta = "AV".$prefijo."-1";
         }
-    }///////////FIN GET BENEFICARIOS
+    $sql = "select*from detalle_ventas_flotantes where numero_orden=? and beneficiario=?;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$numero_orden);
+    $sql->bindValue(2,$evaluado);
+    $sql->execute();
+    $resultados = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($resultados as $v => $row) {
+       $id_producto = $row["id_producto"];
+       $producto = $row["producto"];
+       $precio_venta = $row["precio_venta"];
+       $cantidad_venta = $row["cantidad_venta"];
+       $descuento = $row["descuento"];
+       $precio_final = $row["precio_final"];
+       $fecha_venta = $row["fecha_venta"];
+       $id_usuario = $row["id_usuario"];
+       $id_paciente = $row["id_paciente"];
+       $beneficiario = $row["beneficiario"];
+
+        //////////OBETENER LA DESCRIPCION DEL PRODUCTO /////////////
+        $sqlp = "select*from productos where id_producto=?;";
+        $sqlp = $conectar->prepare($sqlp);
+        $sqlp->bindValue(1,$id_producto);
+        $sqlp->execute();
+
+        $detalles_producto = $sqlp->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($detalles_producto as $item){
+        $cat_prod = $item["categoria_producto"];
+        if ($cat_prod == "aros") {
+            $descripcion = "ARO.: ".$item["marca"]." MOD.:".$item["modelo"]." COLOR.:".$item["color"]." MED.:".$item["medidas"]." ".$item["diseno"];
+        }elseif($cat_prod=="Lentes"){
+            $descripcion = "LENTE: ".$item["desc_producto"];
+        }elseif($cat_prod=="Antireflejante" or $cat_prod=="Photosensible"){
+            $descripcion = "TRATAMIENTOS: ".$item["desc_producto"];
+        }elseif($cat_prod=="accesorios"){
+            $descripcion = "ACC: ".$item["desc_producto"];
+        }
+        }
+
+       $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,?,?,?,?);";
+       $sql=$conectar->prepare($sql);
+       $sql->bindValue(1,$num_venta);
+       $sql->bindValue(2,$id_producto);
+       $sql->bindValue(3,$descripcion);
+       $sql->bindValue(4,$precio_venta);
+       $sql->bindValue(5,$cantidad_venta);
+       $sql->bindValue(6,$descuento);
+       $sql->bindValue(7,$precio_final);
+       $sql->bindValue(8,$hoy);
+       $sql->bindValue(9,$id_usuario);
+       $sql->bindValue(10,$id_paciente);
+       $sql->bindValue(11,$beneficiario);
+       $sql->execute();
+
+    }
+       }///////fIN COMPROBACION DE ESTADO
+    }/////////// FIN GET BENEFICARIOS FOREACH
 
 }
 
