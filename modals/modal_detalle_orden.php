@@ -122,25 +122,26 @@
     <!--TABLA DE BENEFICIARIOS-->
       <div class="card-body p-0 table-responsive" style="margin:1px">
             <table id="lista_aros_ventas_data" width="100%" class="table-hover table-bordered">
+
               <thead>
                 <tr class="bg-dark"><th colspan="100" style="width: 100%;text-align: center">BENEFICIARIOS</th></tr>
               </thead>
+
                 <tr style="text-align: center;font-size: 14px;background:  #C8C8C8">
-                <td style="width: 5%"></td>
-                <td style="width: 10%;text-transform: uppercase;"><b>Estado</b></td>
-                <td style="width: 65%;text-transform: uppercase;"><b>Evaluado (Beneficiario)</b></td>
-                <td style="width: 15%;text-transform: uppercase;"><b>Monto</b></td>
+                  <td style="width: 15%"></td>
+                  <td style="width: 10%;text-transform: uppercase;"><b>Estado</b></td>
+                  <td style="width: 65%;text-transform: uppercase;"><b>Evaluado (Beneficiario)</b></td>
+                  <td style="width: 10%;text-transform: uppercase;"><b>Monto</b></td>
                 </tr>
 
-              <tbody style="text-align:center;font-size: 14px" id="benefiaciarios_orden">                                
-              </tbody>
+              <tbody style="text-align:center;font-size: 14px" id="benefiaciarios_orden"></tbody>
             </table>
           </div><br>
     <!--TABLA DE BENEFICIARIOS-->
     <table width="100%" class="table-hover table-bordered display nowrap">
     <thead style="text-align: center" class="table-hover table-bordered display nowrap">
       <tr class="bg-dark">
-        <th colspan="100" style="color:white;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><b>BENEFICIARIOS Y SERVICIOS</b></th>  
+        <th colspan="100" style="color:white;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:100%;text-align: center"><b>BENEFICIARIOS Y SERVICIOS</b></th>  
       </tr>
     </thead>
     <tbody style="text-align:center;font-size:12px" id="beneficiarios_productos_vf"></tbody>

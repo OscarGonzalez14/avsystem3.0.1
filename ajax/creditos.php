@@ -477,8 +477,12 @@ $datos=$creditos->get_paciente_id($_POST["id_paciente"]);
        
        if ($row["estado"]==1) {
          $estado= "Aprobado";
+         $badge="success";
+         $est="Aprobado";
        }else{
         $estado="Sin aprobar";
+        $badge="warning";
+        $est="Sin aprobar";
        }
 
 
@@ -489,8 +493,8 @@ $datos=$creditos->get_paciente_id($_POST["id_paciente"]);
         $output["nombres"] = $row["nombres"];
         $output["empresas"] = $row["empresas"];
         $output["id_paciente"] = $row["id_paciente"];
-        //$output["fecha_venta"] = $row["fecha_venta"];
         $output["estado"] = $estado;
+        //$output["estado"] = '<span class="right badge badge-'.$badge.'">'.$est.'</span>';
         $output["id_orden"] = $row["id_orden"];
         $output["sucursal"] = $row["sucursal"];
         $output["evaluado"] = $row["evaluado"];

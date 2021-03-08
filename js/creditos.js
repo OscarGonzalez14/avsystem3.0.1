@@ -1069,18 +1069,27 @@ function listar_beneficiarios_productos(){
 
 }
 
-function detalle_beneficiarios_orden(){ 
+function detalle_beneficiarios_orden(){
+  let monto_total = 0;
   $('#benefiaciarios_orden').html('');
   var filas = "";
-     for(var i=0; i<beneficiarios_orden.length; i++){
-    console.log(`Estado :${beneficiarios_orden[i].estado}`);    
-   var filas = filas + "<tr id='fila"+i+"'><td style='width: 15%'>"+"<input class='check_beneficiarios' type='checkbox' name='check_beneficiarios' value='valor"+i+"' id=item"+i+" onClick='estado_check_beneficiario(event, this, "+(i)+");'></td>"+
-      "<td style='text-align:center;width: 10% !important'>"+beneficiarios_orden[i].estado+"</td>"+
-      "<td style='text-align:center;width: 65% !important'>"+beneficiarios_orden[i].evaluado+"</td>"+
-      "<td style='text-align:center;width: 15% !important'>"+"$"+beneficiarios_orden[i].monto_total+"</td>"
-      +"</td>"+"</tr>";
+  for(var i=0; i<beneficiarios_orden.length; i++){
+    let est_ord = beneficiarios_orden[i].estado;
+  if(est_ord=="Aprobado"){
+    monto_total = parseFloat(monto_total)+parseFloat(beneficiarios_orden[i].monto_total);
+    var color = "green";
+  }else{
+    var color = "orange";
   }
-  
+
+  var filas = filas + "<tr id='fila"+i+"'><td style='width: 15%;color: blue'>"+"<input class='check_beneficiarios' style='color:red' type='checkbox' name='check_beneficiarios' value='valor"+i+"' id=item"+i+" onClick='estado_check_beneficiario(event, this, "+(i)+");'></td>"+
+      "<td style='text-align:center;width: 10% !important;color:"+color+"'>"+beneficiarios_orden[i].estado+"</td>"+
+      "<td style='text-align:center;width: 65% !important'>"+beneficiarios_orden[i].evaluado+"</td>"+
+      "<td style='text-align:center;width: 10% !important'>"+"$"+beneficiarios_orden[i].monto_total+"</td>"
+      +"</td>"+
+      "</tr>";
+  }
+  console.log("SUMMA"+monto_total)
   $('#benefiaciarios_orden').html(filas);
 
   for(var i=0; i<beneficiarios_orden.length; i++){
@@ -1089,6 +1098,7 @@ function detalle_beneficiarios_orden(){
     if((beneficiarios_orden[i].estado)=="Aprobado"){
        document.getElementById(id_item).checked = true;
        document.getElementById(id_item).disabled = true;
+       document.getElementById(id_item).style.background  = "red"
     }
   }
 }
@@ -1098,6 +1108,7 @@ function estado_check_beneficiario(event, obj, idx){
  
  let estado_check =  beneficiarios_orden[idx].estado;
  console.log(estado_check);
+
  if(estado_check=="Sin aprobar"){
   beneficiarios_orden[idx].estado = "Ok";
  }else if(estado_check=="Ok"){
