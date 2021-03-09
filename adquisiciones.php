@@ -42,7 +42,7 @@ div .post_compra{
 
     <button class="btn btn-dark" style="color:white;border-radius:2px; background:black;margin:solid black 1px" data-toggle="modal" data-target="#accesorios_save" data-backdrop="static" data-keyboard="false" onClick="campos_modal_acc();"><i class="fas fa-plus-square"></i> Crear Acc</button>&nbsp;
 
-    <button class="btn btn-dark" style="color:white;border-radius:2px; background:black;margin:solid black 1px" data-toggle="modal" data-target="#nuevo_lente"><i class="fas fa-plus-square"></i> Crear Lente</button>&nbsp;
+    <a href="lentes.php" class="btn btn-dark" style="color:white;border-radius:2px; background:black;margin:solid black 1px"data-backdrop="static" data-keyboard="false"><i class="fas fa-plus-square"></i> Crear lente</a>&nbsp;
 
     <button class="btn btn-dark" style="color:white;border-radius:2px; background:black;margin:solid black 1px" data-toggle="modal" data-target="#nuevo_servicio"><i class="fas fa-plus-square"></i> Crear Servicio</button>&nbsp;
 
@@ -62,6 +62,7 @@ div .post_compra{
   </button> 
   </div>    
   </div><!--fin div contenedor de bontones-->
+</div><!--fin container fluid-->
 
               
     <div class="row" style="margin-top: 5px"><!--Inicio encabezado compras-->
@@ -160,16 +161,15 @@ div .post_compra{
 
       </div><!--/.row2-->
 
-      <div style="margin:20px;">
+      <div style="margin:20px;"><!--agregar productos a la compra-->
        <a class="btn btn-dark" style="color:white;border-radius:3px; background:black" data-toggle="modal" data-target="#modalAros" data-backdrop="static" data-keyboard="false" onClick="listar_aros();"><i class="fas fa-glasses"></i> Agregar Aro</a>
 
        <a class="btn btn-dark" style="color:white;border-radius:3px; background:black" data-toggle="modal" data-target="#modalAccesorios" data-backdrop="static" data-keyboard="false" onClick="listar_acc_compras();"><i class="fas fa-glasses"></i> Agregar Accesorio</a>
 
-       <a class="btn btn-dark" style="color:white;border-radius:3px; background:black"data-backdrop="static" data-keyboard="false"><i class="fas fa-glasses"></i> Agregar Lente</a>
+       <!--<a class="btn btn-dark" style="color:white;border-radius:3px; background:black"data-backdrop="static" data-keyboard="false"><i class="fas fa-glasses"></i> Agregar Lente</a>
 
        <a class="btn btn-dark" style="color:white;border-radius:3px; background:black"  data-backdrop="static" data-keyboard="false"><i class="fas fa-gift"></i> Regalías</a>
-     </div>
-
+     </div>-->
 
      <div class="col-md-12"><!--inicio de datatable compras-->
       <div class="card">
@@ -203,7 +203,7 @@ div .post_compra{
               <input type="hidden" id="usuario" value="<?php echo $_SESSION["usuario"]?>">
               <input type="hidden" id="fecha" value="<?php echo $hoy;?>">
               <button class="btn btn-dark btn-block" id="btn_de_compra" style="border-radius:2px" onClick='registrarCompra();' onmouseover="get_numero_recibo();"><i class="fas fa-save"></i> REGISTRAR COMPRA</button>
-            </div><!--Fin tabla de dtcompras-->
+            </div><!--Fin card-body-->
         
 
             <div class="row post_compra" id="post_compra" style="display: flex;justify-content: space-between !important; margin-top:5px;">
@@ -229,19 +229,12 @@ div .post_compra{
                   <input type="hidden" name="">
                 </div>-->
 
-              </div>
-            
-            
-
-              
-            
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
+              </div><!--row post_compra-->
+          </div><!-- /.card -->
         </div> <!--Fin datatable-->    
-      </div>
+      </div><!--fin ingreso productos a compra-->
 
-  </div>
+  </div><!--fin container fliud-->
 </section>
 
 </div><!-- /.content wrapper-->

@@ -31,9 +31,9 @@
                   <label>Tipo Paciente</label>
                   <select name="tipo_paciente" class="form-control" id="tipo_paciente">
                     <option value="Sucursal" selected="true">Sucursal</option>
-                    <option value="Desc_planilla">Desc. Planilla</option>
+                    <!--<option value="Desc_planilla">Desc. Planilla</option>
                     <option value="Cargo_a">Cargo A.</option>
-                    <option value="C_personal">Crédito Personal</option>                
+                    <option value="C_personal">Crédito Personal</option>-->              
                   </select>         
                 </div>
 

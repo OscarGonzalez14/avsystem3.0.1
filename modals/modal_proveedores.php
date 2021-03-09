@@ -18,7 +18,7 @@
     }
 
     .modal-dialog {
-     /* height: 45vh;*/
+      height: 45vh;
       display: flex;
       align-items: center;
 }

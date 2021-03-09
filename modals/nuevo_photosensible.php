@@ -27,7 +27,7 @@
         <div class="form-row">
           <div class="form-group col-md-6">
               <label>Descripción</label>
-              <input type="text" class="form-control" name="" placeholder="Descripción del antireflejantes" id="describe_tres" onkeyup="mayus(this);">
+              <input type="text" class="form-control" name="" placeholder="Descripción del Photosensible" id="describe_tres" onkeyup="mayus(this);">
           </div>
           <div class="form-group col-md-3">
             <label>Costo $</label>

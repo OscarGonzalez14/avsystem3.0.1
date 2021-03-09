@@ -81,7 +81,8 @@ switch($_GET["op"]){
 
   break;
 
-     ///////////////////////////SERVICIOS EN EXISTENCIAS
+    
+  ///SERVICIOS EN EXISTENCIAS
   case "agregar_servicios_venta":          
   $datos=$ventas->buscar_servicios_ventas($_POST["id_producto"]);
   if(is_array($datos)==true and count($datos)>0){

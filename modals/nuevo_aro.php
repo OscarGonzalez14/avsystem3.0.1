@@ -1,10 +1,36 @@
+ <style>
+    #tamModal{
+      width: 65% !important;
+    }
+     #head{
+        background-color: black;
+        color: white;
+        text-align: center;
+    }
+
+    .input-dark{
+      border: solid 1px black;
+      border-radius: 0px;
+    }
+
+    .input-dark{
+      border: solid 1px black;
+    }
+
+    .modal-dialog {
+     /* height: 45vh;*/
+      display: flex;
+      align-items: center;
+}
+</style>
+
 <!-- Modal -->
 <div class="modal fade" id="nuevo_aro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">NUEVO ARO</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <div class="modal-header" id="head">
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus-square"></i> NUEVO ARO</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -75,7 +101,7 @@
       <input type="hidden" id="categoria_producto" value="aros"/>
       <div class="modal-footer">
 
-        <button type="button" class="btn btn-primary" onClick="guardarAro();"><i class="fas fa-save"></i>GUARDAR</button>
+        <button type="button" class="btn btn-primary btn-block" onClick="guardarAro();"><i class="fas fa-save"></i>GUARDAR</button>
       </div>
     </div>
   </div>

@@ -1,6 +1,6 @@
 <style>
     #tamModal_acc{
-      width: 60% !important;
+      width: 80% !important;
     }
      #head{
         background-color: black;
@@ -14,10 +14,15 @@
     .input-dark{
       border: solid 1px black;
     }
+    .modal-dialog {
+     /* height: 45vh;*/
+      display: flex;
+      align-items: center;
+}
 </style>
 
 <div class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="modalAccesorios" style="border-radius:0px !important;">
-  <div class="modal-dialog modal-lg" role="document" id="tamModal_acc">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document" id="tamModal_acc">
 
     <div class="modal-content">
      <div class="modal-header" id="head" style="justify-content:space-between">

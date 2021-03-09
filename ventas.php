@@ -1,5 +1,4 @@
- 
-<?php
+ <?php
 require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){ 
 require_once("header_dos.php");

@@ -8,6 +8,24 @@ require_once("modals/modal_correlativo_factura.php");
  ?>
 
  <div class="content-wrapper">
+  <section class="content-header" >
+      <div class="container-fluid">
+        <div class="row mb-2" style="margin: 2px">
+          <div class="col-sm-5" style="align-items:left">
+            <h5><strong><i class="fas fa-money-check" style="color:green"></i> CRÉDITOS CARGO AUTOMÁTICO</strong></h5>
+          </div>
+          <div class="col-sm-7">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="creditos.php" style="color:black">Créditos</a></li>
+              <li class="breadcrumb-item"><a href="creditos_contado.php">Contado</a></li>
+              <li class="breadcrumb-item"><a href="creditos_oid.php">Desc. Planilla</a></li>
+              <li class="breadcrumb-item active"><a>Cargo Auto</a></li>
+              <li class="breadcrumb-item"><a href="creditos_mora.php">Créditos en mora</a></li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
  <section class="content" style="margin-top:5px">
  	<div class="row">
  	 <div class="col-12">
@@ -15,10 +33,7 @@ require_once("modals/modal_correlativo_factura.php");
  		<div class="card-body">
  		  <section class="content">
  			<div class="container_fluid"><!--inicio del contenido-->
- 			   <div class="callout callout-info">
-        		<h5 align="center"><i class="fas fa-money-check-alt" style="color:green"></i> <strong>CRÉDITOS CARGO AUTOMÁTICO</strong></h5>              
-    		   </div>
-           
+
         <table id="creditos_cauto" class="table-hover" width="100%">
            <thead style="background:#034f84;color:white;text-align: center;">
             <tr>
@@ -33,7 +48,7 @@ require_once("modals/modal_correlativo_factura.php");
             <th style='text-align: center;'>Factura</th>
           </tr>
      </thead>
-     <tbody style="text-align: center">
+     <tbody style="text-align: center"></tbody>
    </table> 
  			</div>
  		  </section>
@@ -42,7 +57,8 @@ require_once("modals/modal_correlativo_factura.php");
  	 </div>
  	</div>
  </section>
- </div>
+ 
+
 <?php require_once("footer.php");?>
 <?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>
 <input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>

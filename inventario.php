@@ -31,7 +31,6 @@ require_once("modelos/Reporteria.php");
           </div>
         </div>
 
-
         <div class="col-lg-3 col-6">
             <!-- small box -->
           <div class="small-box bg-dark">
@@ -43,7 +42,22 @@ require_once("modelos/Reporteria.php");
               <div class="icon">
                 <i class="fas fa-glasses"></i>
               </div>
-              <a href="stock.php" class="small-box-footer">Inventarios<i class="fas fa-arrow-circle-right"></i></a>
+              <a href="aros.php" class="small-box-footer">Inventarios<i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+          <div class="small-box bg-primary">
+            <div class="inner">
+              <h3>Ingresos</h3>
+              <br>
+              <br>
+            </div>
+              <div class="icon">
+                <i class="fas fa-boxes"></i>
+              </div>
+              <a href="ingresos_bodega.php" class="small-box-footer">Ingresos a bodega<i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
 

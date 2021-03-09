@@ -1,13 +1,14 @@
 <style>
     #tamModal_aros{
       width:85% !important;
-      margin:15;
+      align-items: center;
     }
      #head{
         background-color: black;
         color: white;
         text-align: center;
     }
+
     .input-dark{
       border: solid 1px black;
       border-radius: 0px;
@@ -15,10 +16,17 @@
     .input-dark{
       border: solid 1px black;
     }
+    .modal-dialog {
+     /* height: 45vh;*/
+      display: flex;
+      align-items: center;
+
+}
+
 </style>
 
 <div class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="modalAros" style="border-radius:0px !important;">
-  <div class="modal-dialog modal-lg" role="document" id="tamModal_aros">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document" id="tamModal_aros">
 
     <div class="modal-content">
      <div class="modal-header" id="head" style="justify-content:space-between">

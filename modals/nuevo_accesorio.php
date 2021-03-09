@@ -15,7 +15,7 @@ $marcas=$marca->get_marca();
 </style>
 
 <div class="modal fade" role="dialog" aria-labelleddy="myLargeModalLabel" id="accesorios_save" style="border-radius:0px !important;">
-	<div class="modal-dialog modal-lg" role="document" id="tamModal">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document" id="tamModal">
 		<div class="modal-content">
 
 		<!--cabecera de la modal  guardar accesorio-->		
