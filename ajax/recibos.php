@@ -86,4 +86,32 @@ switch ($_GET["op"]) {
    echo json_encode($output);
 
   break;
+
+  case 'listar_recibos_emitidos':
+    $datos=$recibos->get_recibos_emitidos($_POST["sucursal"]);
+    //Vamos a declarar un array
+    $data= Array();
+
+    foreach($datos as $row){
+
+        $sub_array = array();
+
+        $sub_array[] = $row["id_recibo"];
+        $sub_array[] = $row["numero_recibo"];
+        $sub_array[] = $row["numero_venta"];
+        $sub_array[] = $row["nombres"];
+        $sub_array[] = $row["servicio_para"];
+        $sub_array[] = '<button type="button"  class="btn btn-md bg-light" onClick="editar_recibo('.$row["id_recibo"].',\''.$row["numero_recibo"].'\',\''.$row["numero_venta"].'\','.$row["nombres"].')"><i class="fa fa-edit" aria-hidden="true" style="color:green"></i></button>';
+        $sub_array[] = '<a href="imprimir_recibo_pdf.php?n_recibo='.$row["numero_recibo"].'&'."nombres=".$row["nombres"].'&'."sucursal=".$row["sucursal"].'" method="POST" target="_blank"><button type="button" class="btn btn-link btn-md imprimir_recibo"><i class="fa fa-print" aria-hidden="true" style="color:green"></i></button></a>';
+        $data[] = $sub_array;
+      }
+
+      $results = array(
+      "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+      echo json_encode($results);      
+    break;
+
 }
