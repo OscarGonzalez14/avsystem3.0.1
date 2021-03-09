@@ -910,8 +910,7 @@ function get_finaliza(){
     cache : false,
     dataType : "json",
     success:function(data){
-   // console.log(data);
-    
+   // console.log(data);  
 
     for(var i in data){
     var obj = {
@@ -945,7 +944,7 @@ function get_finaliza(){
     success:function(data){
       //console.log(data);
 
-      for(var i in data){
+    for(var i in data){
      //var total = parseInt(total) + parseInt(data[i].precio_final);
      var obj = {
       id_producto : data[i].id_producto,
@@ -1019,21 +1018,55 @@ function get_finaliza(){
 }
 
 })
-
+ //listar_beneficiarios_productos();
 
 }
 
+var det_ventas_flotantes = [];
+
 function get_det_f_ben(id_paciente,numero_orden,flotante_b){
   $.ajax({
-        url: "ajax/creditos.php?op=get_det_f_ben",
-        method : "POST",
-        data: {id_paciente:id_paciente,numero_orden:numero_orden,flotante_b:flotante_b},
-        cache : false,
-        dataType :"json",
-        success:function(data){
-        console.log(data);
-  }
+    url: "ajax/creditos.php?op=get_det_f_ben",
+    method : "POST",
+    data: {id_paciente:id_paciente,numero_orden:numero_orden,flotante_b:flotante_b},
+    cache : false,
+    dataType :"json",
+    success:function(data){   
+
+        var obj = {
+         numero_orden : data.numero_orden,
+         id_producto: data.id_producto,
+         producto: data.producto,
+         precio_venta: data.precio_venta,
+         cantidad_venta: data.cantidad_venta,
+         beneficiario: data.beneficiario,
+         precio_final: data.precio_final,
+         fecha_venta: data.fecha_venta,
+         id_usuario: data.id_usuario,
+         id_paciente: data.id_paciente,
+         beneficiario: data.beneficiario,
+         categoria_ub: data.categoria_ub
+      }; //Fin obj_dos
+      det_ventas_flotantes.push(obj);  
+}
 })
+  listar_beneficiarios_productos();
+}
+
+function listar_beneficiarios_productos(){
+
+  $('#beneficiarios_productos_vf').html('');
+  var filas = "";
+  for(var i=0; i<det_ventas_flotantes.length; i++){
+   var filas = filas +"<tr>"+
+      "<td style='text-align:center;width: 10% !important'>"+det_ventas_flotantes[i].cantidad_venta+"</td>"+
+      "<td style='text-align:center;width: 65% !important'>"+det_ventas_flotantes[i].producto+"</td>"+
+      "<td style='text-align:center;width: 15% !important'>"+"$"+det_ventas_flotantes[i].precio_final+"</td>"
+      +"</tr>";
+  }
+
+  $('#beneficiarios_productos_vf').html(filas);
+
 }
 
 function detalle_beneficiarios_orden(){ 
@@ -1093,7 +1126,7 @@ function aprobar_od_planilla(){
  $.ajax({
   url:"ajax/creditos.php?op=aprobar_orden_planilla",
   method: "POST",
-  data: {'detOrden':JSON.stringify(detalle_venta_flotante),'arrayVenta':JSON.stringify(venta_flotante),'plazo':plazo,'numero_orden':numero_orden},
+  data: {'beneficiariosArray':JSON.stringify(beneficiarios_orden)},
   cache: false,
   dataType:"json",
   error:function(x,y,z){
@@ -1110,6 +1143,29 @@ function aprobar_od_planilla(){
  $("#detalle_oid").modal('hide');
 }
 
+
+function aprobar_od_planillasssssssssssssssss(){
+ let plazo = $("#plazo_orden_desc").val();
+ let numero_orden = $("#n_orden_des").val();
+ $.ajax({
+  url:"ajax/creditos.php?op=aprobar_orden_planilla",
+  method: "POST",
+  data: {'detOrden':JSON.stringify(detalle_venta_flotante),'arrayVenta':JSON.stringify(venta_flotante),'plazo':plazo,'numero_orden':numero_orden},
+  cache: false,
+  dataType:"json",
+  error:function(x,y,z){
+    d_pacole.log(x);
+    console.log(y);
+    console.log(z);
+  },     
+  success:function(data){
+    console.log(data);
+    $('#ordenes_desc_pendientes').DataTable().ajax.reload();
+  }
+})
+ Swal.fire('Orden de descuento registrado!','','success');
+ $("#detalle_oid").modal('hide');
+}
 
 function denegar_od_planilla(){
   let numero_orden = $("#n_orden_des").val();

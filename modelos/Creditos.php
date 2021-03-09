@@ -246,213 +246,46 @@ public function get_detalle_venta_flotante($id_paciente,$n_orden){
 ///////////APROBAR ORDEN
 public function aprobar_orden(){
 
- $conectar = parent::conexion();
-///////detalle productos venta flotante
- $detalle_orden = array();
- $detalle_orden = json_decode($_POST["detOrden"]);
+    $conectar = parent::conexion();
+    ///////BENEFICIARIOS ORDEN
+    $beneficiarios_oid = array();
+    $beneficiarios_oid = json_decode($_POST);
 
- ////////////////// DETALLE VENTA FLOTANTE  ///////////////
+    foreach ($beneficiarios_oid as $k => $v) {///////////GET BENEFICIARIOS
+        $estado = $v->estado;
+        $evaluado = $v->evaluado;
+        $id_orden = $v->id_orden;
+        $id_paciente = $v->id_paciente;
+        $monto_total = $v->monto_total;
+        $nombres = $v->nombres;
+        $numero_orden = $v->numero_orden;
+        $sucursal = $v->sucursal;
 
- $detalle_venta = array();
- $detalle_venta = json_decode($_POST["arrayVenta"]);
- $plazo = $_POST["plazo"];
- $numero_orden = $_POST["numero_orden"];
+        if ($estado=="Ok"){
+            require_once("Ventas.php");
+            $ventas = new Ventas();
+            $correlativo = $ventas->get_numero_venta($sucursal);
 
- date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y");
+            $prefijo = "";
+            if ($sucursal=="Metrocentro") {
+            $prefijo="ME";
+            }elseif ($sucursal=="Santa Ana") {
+              $prefijo="SA";
+            }elseif ($sucursal=="San Miguel") {
+            $prefijo="SM";
+           }
+        if(is_array($correlativo)==true and count($correlativo)>0){
+        foreach($correlativo as $row){                  
+         $codigo=$row["numero_venta"];
+         $cod=(substr($codigo,5,11))+1;
+         $num_venta ="AV".$prefijo."-".$cod;
+        }             
+        }else{
+        $num_venta = "AV".$prefijo."-1";
+       }
+        }
+    }///////////FIN GET BENEFICARIOS
 
- foreach ($detalle_venta as $k => $v) {
-    $evaluado = $v->evaluado;
-    $fecha_venta = $v->fecha_venta;
-    $id_paciente = $v->id_paciente;
-    $id_usuario = $v->id_usuario;
-    $monto_total = $v->monto_total;
-    $optometra = $v->optometra;
-    $paciente = $v->paciente;
-    $sucursal = $v->sucursal;
-    $tipo_pago = $v->tipo_pago;
-    $tipo_venta = $v->tipo_venta;
-    $vendedor = $v->vendedor;
- }
-
-
-require_once("Ventas.php");
-
-$ventas = new Ventas();
-$correlativo = $ventas->get_numero_venta($sucursal);
-  
-  $prefijo = "";
-  if ($sucursal=="Metrocentro") {
-    $prefijo="ME";
-  }elseif ($sucursal=="Santa Ana") {
-    $prefijo="SA";
-  }elseif ($sucursal=="San Miguel") {
-    $prefijo="SM";
-  }
-    if(is_array($correlativo)==true and count($correlativo)>0){
-    foreach($correlativo as $row){                  
-      $codigo=$row["numero_venta"];
-      $cod=(substr($codigo,5,11))+1;
-      $num_venta ="AV".$prefijo."-".$cod;
-    }             
-  }else{
-      $num_venta = "AV".$prefijo."-1";
-  }
-
-////////////////RECORRER ARRAR PARA EXTAER VALORES E INSERTAR DETALLE DE VENTA
- foreach ($detalle_orden as $item => $valor) {
-    $beneficiario = $valor->beneficiario;
-    $cantidad = $valor->cantidad;
-    $categoria_ub = $valor->categoria_ub;
-    $descuento = $valor->descuento;
-    $fecha_venta = $valor->fecha_venta;
-    $id_paciente = $valor->id_paciente;
-    $id_producto = $valor->id_producto;
-    $id_usuario = $valor->id_usuario;
-    $precio_final = $valor->precio_final;
-    $precio_venta = $valor->precio_venta;
-    $producto = $valor->producto;
-
-      //////////OBETENER LA DESCRIPCION DEL PRODUCTO /////////////
-    $sqlp = "select*from productos where id_producto=?;";
-    $sqlp = $conectar->prepare($sqlp);
-    $sqlp->bindValue(1,$id_producto);
-    $sqlp->execute();
-
-    $detalles_producto = $sqlp->fetchAll(PDO::FETCH_ASSOC);
-
-    foreach ($detalles_producto as $item){
-    $cat_prod = $item["categoria_producto"];
-    if ($cat_prod == "aros") {
-        $descripcion = "ARO.: ".$item["marca"]." MOD.:".$item["modelo"]." COLOR.:".$item["color"]." MED.:".$item["medidas"]." ".$item["diseno"];
-    }elseif($cat_prod=="Lentes"){
-          $descripcion = "LENTE: ".$item["desc_producto"];
-    }elseif($cat_prod=="Antireflejante" or $cat_prod=="Photosensible"){
-          $descripcion = "TRATAMIENTOS: ".$item["desc_producto"];
-    }elseif($cat_prod=="accesorios"){
-          $descripcion = "ACC: ".$item["desc_producto"];
-    }
-    }
-
-    $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,?,?,?,?);";
-    $sql=$conectar->prepare($sql);
-    $sql->bindValue(1,$num_venta);
-    $sql->bindValue(2,$id_producto);
-    $sql->bindValue(3,$descripcion);
-    $sql->bindValue(4,$precio_venta);
-    $sql->bindValue(5,$cantidad);
-    $sql->bindValue(6,$descuento);
-    $sql->bindValue(7,substr($precio_final,1,8));
-    $sql->bindValue(8,$hoy);
-    $sql->bindValue(9,$id_usuario);
-    $sql->bindValue(10,$id_paciente);
-    $sql->bindValue(11,$beneficiario);
-    // $sql->bindValue(12,$precio_compra);
-    $sql->execute();
-
-    if($cat_prod=="aros" or $cat_prod == "accesorios"){
-    ////////////////////ACTUALIZAR STOCK DE BODEGA SI PRODUCTO == aros o accesorios
-      $sql3="select * from existencias where id_producto=? and bodega=? and categoria_ub=?;";           
-      $sql3=$conectar->prepare($sql3);
-      $sql3->bindValue(1,$id_producto);
-      $sql3->bindValue(2,$sucursal);
-      $sql3->bindValue(3,$categoria_ub);
-      $sql3->execute();
-
-      $resultados = $sql3->fetchAll(PDO::FETCH_ASSOC);
-
-      foreach($resultados as $b=>$row){
-      $re["existencia"] = $row["stock"];
-    }            
-    
-    $cantidad_totales = $row["stock"] - $cantidad;
-
-    if(is_array($resultados)==true and count($resultados)>0) {                    
-
-      $sql12 = "update existencias set stock=? where id_producto=? and bodega=? and categoria_ub=?;";
-      $sql12 = $conectar->prepare($sql12);
-      $sql12->bindValue(1,$cantidad_totales);
-      $sql12->bindValue(2,$id_producto);
-      $sql12->bindValue(3,$sucursal);
-      $sql12->bindValue(4,$categoria_ub);
-
-      $sql12->execute();
-  } 
- }
-}
-
-//////////////GET NUMERO VENTA
-
- ///////////////REGISTRAR VENTA
- $sql2="insert into ventas values(null,?,?,?,?,?,?,?,?,?,?,?,?);";
-    $sql2=$conectar->prepare($sql2);
-          
-    $sql2->bindValue(1,$hoy);
-    $sql2->bindValue(2,$num_venta);
-    $sql2->bindValue(3,$paciente);
-    $sql2->bindValue(4,$vendedor);       
-    $sql2->bindValue(5,$monto_total);
-    $sql2->bindValue(6,$tipo_pago);
-    $sql2->bindValue(7,$tipo_venta);          
-    $sql2->bindValue(8,$id_usuario);
-    $sql2->bindValue(9,$id_paciente);
-    $sql2->bindValue(10,$sucursal);
-    $sql2->bindValue(11,$evaluado);
-    $sql2->bindValue(12,$optometra);
-    $sql2->execute();
-
-    ///////////////////////INSERTAR CREDITOS
-    $sql1="insert into creditos values(null,?,?,?,?,?,?,?,?,?);";
-    $sql1=$conectar->prepare($sql1);          
-    $sql1->bindValue(1,$tipo_venta);
-    $sql1->bindValue(2,$monto_total);
-    $sql1->bindValue(3,$plazo);
-    $sql1->bindValue(4,$monto_total);
-    $sql1->bindValue(5,$tipo_pago);
-    $sql1->bindValue(6,$num_venta);
-    $sql1->bindValue(7,$id_paciente);
-    $sql1->bindValue(8,$id_usuario);
-    $sql1->bindValue(9,$hoy);
-    $sql1->execute();
-
-    $n_recibo="";
-    $n_factura="";
-    $forma_cobro="";
-    $monto_cobrado="";
-    $abono_anterior="0";
-    $abonos_realizados="0";
-    $sucursal_cobro="";
-    $tipo_ingreso = "Venta";
-
-    $sql2="insert into corte_diario values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-    $sql2=$conectar->prepare($sql2);          
-    $sql2->bindValue(1,$hoy);
-    $sql2->bindValue(2,$n_recibo);
-    $sql2->bindValue(3,$num_venta);
-    $sql2->bindValue(4,$n_factura);
-    $sql2->bindValue(5,$paciente);
-    $sql2->bindValue(6,$vendedor);
-    $sql2->bindValue(7,$monto_total);
-    $sql2->bindValue(8,$forma_cobro);
-    $sql2->bindValue(9,$monto_cobrado);
-    $sql2->bindValue(10,$monto_total);
-    $sql2->bindValue(11,$tipo_venta);
-    $sql2->bindValue(12,$tipo_pago);
-    $sql2->bindValue(13,$id_usuario);
-    $sql2->bindValue(14,$abono_anterior);
-    $sql2->bindValue(15,$abonos_realizados);
-    $sql2->bindValue(16,$id_paciente);
-    $sql2->bindValue(17,$sucursal);
-    $sql2->bindValue(18,$sucursal_cobro);
-    $sql2->bindValue(19,$tipo_ingreso);
-    $sql2->execute();
-
-    //////ACRUALIZAR ESTADO DE ORDEN
-
-    $sql3 = "update orden_credito set estado='1' where numero_orden=? and id_paciente=?;";
-    $sql3 = $conectar->prepare($sql3);
-    $sql3->bindValue(1,$numero_orden);
-    $sql3->bindValue(2,$id_paciente);
-    $sql3->execute();
 }
 
 public function denegar_orden($numero_orden){
@@ -501,6 +334,7 @@ public function get_ordenes_descuento_aprobadas($sucursal){
 
 
 public function agregar_benefiaciario_oid(){
+
   $fecha_venta = $_POST["fecha_venta"];
   $numero_venta = $_POST["numero_venta"];
   $paciente = $_POST["paciente"];
@@ -555,8 +389,8 @@ public function agregar_benefiaciario_oid(){
     $sql5->execute();
 
 }//////////////////FIN FOREACH ////////
-
-$sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+$estado_ord="0";
+$sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5=$conectar->prepare($sql5);
     $sql5->bindValue(1,$numero_orden);          
     $sql5->bindValue(2,$fecha_venta);
@@ -571,13 +405,14 @@ $sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5->bindValue(11,$sucursal);
     $sql5->bindValue(12,$evaluado);
     $sql5->bindValue(13,$optometra);
+    $sql5->bindValue(14,$estado_ord);
     $sql5->execute();
 
-  $sql12 = "update orden_credito set monto=?, tipo_orden='agrupada' where numero_orden=?";
-  $sql12 = $conectar->prepare($sql12);
-  $sql12->bindValue(1,$nuevo_saldo_add);
-  $sql12->bindValue(2,$numero_orden);
-  $sql12->execute();
+    $sql12 = "update orden_credito set tipo_orden='agrupada' where numero_orden=?";
+    $sql12 = $conectar->prepare($sql12);
+    $sql12->bindValue(1,$nuevo_saldo_add);
+    $sql12->bindValue(2,$numero_orden);
+    $sql12->execute();
 }
 
 public function get_beneficiarios($id_paciente,$numero_orden){

@@ -544,9 +544,8 @@ $datos=$creditos->get_paciente_id($_POST["id_paciente"]);
   case 'get_det_f_ben':
    $datos = $creditos->get_det_f_ben($_POST["id_paciente"],$_POST["numero_orden"],$_POST["flotante_b"]);
    if (is_array($datos)==true and count($datos)>0) {
-      $data = Array();
       foreach($datos as $row){
-        $output = array();
+
         $output["numero_orden"] = $row["numero_orden"];
         $output["id_producto"] = $row["id_producto"];
         $output["producto"] = $row["producto"];
@@ -559,10 +558,10 @@ $datos=$creditos->get_paciente_id($_POST["id_paciente"]);
         $output["id_paciente"] = $row["id_paciente"];
         $output["beneficiario"] = $row["beneficiario"];
         $output["categoria_ub"] = $row["categoria_ub"];
-        $data[]= $output;
+
       }
    }
-   echo json_encode($data);
+   echo json_encode($output);
   break;
 
   
