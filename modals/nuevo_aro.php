@@ -1,10 +1,25 @@
+<style>
+    #nuevo_aro{
+      max-width: 100% !important;
+      margin: auto;
+    }
+    .modal-header{
+        background-color: black !important;
+        color: white;
+        text-align: center;
+    }
+    .modal-dialog{
+      margin: auto;
+    }
+</style>
+  
 <!-- Modal -->
 <div class="modal fade" id="nuevo_aro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">NUEVO ARO</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus-square"></i> NUEVO ARO</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -43,9 +58,9 @@
       <label for="inputPassword4">Diseño</label>
       <select class="form-control" id="diseno_aro" required="">
         <option value="">Seleccionar Diseño</option>
-        <option value="Completo">Cerrado</option>
-        <option value="Semi-Aereo">Semi Aereo</option>
-        <option value="Aereo">Aereo</option>
+        <option value="CERRADO">Cerrado</option>
+        <option value="SEMI-AEREO">Semi Aereo</option>
+        <option value="AEREO">Aereo</option>
       </select>
     </div>
 
@@ -53,11 +68,11 @@
       <label for="inputPassword4">Materiales</label>
       <select class="form-control" id="materiales_aro" required="">
         <option value="">Seleccionar Material</option>
-        <option value="Metal">Metal</option>
-        <option value="Acetato">Acetato</option>
-        <option value="Metal/Acetato">Metal/Acetato</option>
-        <option value="Fibra de Carbono">Fibra de Carbono</option>
-        <option value="Titanio">Titanio</option>
+        <option value="METAL">Metal</option>
+        <option value="ACETATO">Acetato</option>
+        <option value="METAL/ACETATO">Metal/Acetato</option>
+        <option value="FIBRA DE CARBONO">Fibra de Carbono</option>
+        <option value="TITANIO">Titanio</option>
         <option value="TR90">TR90</option>
       </select>
     </div>
@@ -65,9 +80,9 @@
     <div class="form-group col-md-3">
       <label for="exampleFormControlSelect2">Categoría</label>
       <select id="cat_venta_aros" class="form-control" required="">
-        <option value='Básico'>Básico</option>
-        <option value='Intermedio'>Intermedio</option>
-        <option value='Premium'>Premium</option>
+        <option value='BASICO'>Básico</option>
+        <option value='INTERMEDIO'>Intermedio</option>
+        <option value='PREMIUM'>Premium</option>
       </select>
     </div>
   </div>

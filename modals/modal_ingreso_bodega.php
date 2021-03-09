@@ -1,4 +1,9 @@
 <style>
+.modal-header{
+  background-color:black;
+  color:white;
+}
+
   .fullscreen-modal .modal-dialog {
   margin: 0;
   margin-right: auto;
@@ -32,18 +37,18 @@
 
 <!-- The Modal -->
   <div id="modal_ingreso_bodega" class="modal fullscreen-modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl modal-dialog  modal-dialog-centered">
       <div class="modal-content">
       
         <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Ingresar Productos a Bodega</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <div class="modal-header" style="justify-content:space-between;">
+          <span class="modal-title"><strong> Ingresar Productos a Bodega</strong></span>
+          <button type="button" class="close" data-dismiss="modal" style="color:white;">&times;</button>
         </div>
         
         <!-- Modal body -->
         <div class="modal-body">
-         <table class="table-hover" id="data_productos_ingresos_bodega" width="100%" border="">
+         <table class="table-hover table-bordered table-striped" id="data_productos_ingresos_bodega" width="100%" border="">
                   <thead style="background:#034f84;color:white">
                     <tr>
                       <th style="text-align:center" width="5%">ID</th>
@@ -53,7 +58,7 @@
                       <th style="text-align:center" width="5%">Agregar</th>
                     </tr>
                   </thead>
-                  <tbody style="text-align:center">
+                  <tbody style="text-align:center;font-size:14px;">
                                         
                   </tbody>
           </table>

@@ -7,16 +7,32 @@ require_once("modals/info_pacientes_modal.php");
  ?>
 
  <div class="content-wrapper">
+    <section class="content-header" >
+      <div class="container-fluid">
+        <div class="row mb-2" style="margin: 2px">
+          <div class="col-sm-5" style="align-items:left">
+            <h5><strong><i class="fas fa-money-check" style="color:green"></i> CRÉDITOS EN MORA</strong></h5>
+          </div>
+          <div class="col-sm-7">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="creditos.php" style="color:black">Créditos</a></li>
+              <li class="breadcrumb-item"><a href="creditos_contado.php">Contado</a></li>
+              <li class="breadcrumb-item"><a href="creditos_oid.php">Desc. Planilla</a></li>
+              <li class="breadcrumb-item"><a href="creditos_cautomaticos.php">Cargo Auto</a></li>
+              <li class="breadcrumb-item active"><a>Créditos en mora</a></li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
   <div style="margin:2px">
-  <div class="callout callout-info">
+  <div>
     <div class="col-sm-10">
+
             <ol class="breadcrumb float-sm-left">
-              <li class="breadcrumb-item"><a href="creditos.php" style="color:black">Regresar</a></li>
               <li class="breadcrumb-item" class="bg-primary" class="cat_creditos" ><a class="bg-warning cat_creditos" style="background:#FF7F50;padding: 5px;border-radius: 8px" name="cat_b">Categoría B</a></li>
               <li class="breadcrumb-item" class="bg-primary" class=""><a class="bg-danger cat_creditos" style="background:#8B0000;padding: 5px;border-radius: 8px" name="cat_c">Categoría C</a></li>
-              
-            </ol>
-        <h4 align="center"><i class="fas fa-business-time" style="color:green"></i> <strong>CREDITOS EN MORA - <span id="name_cat"></span></strong></h4>              
+            </ol> 
     </div>
   </div><!--FIN INVOICES-->
 

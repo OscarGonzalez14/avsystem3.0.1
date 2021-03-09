@@ -42,7 +42,7 @@ div .post_compra{
 
     <button class="btn btn-dark" style="color:white;border-radius:2px; background:black;margin:solid black 1px" data-toggle="modal" data-target="#accesorios_save" data-backdrop="static" data-keyboard="false" onClick="campos_modal_acc();"><i class="fas fa-plus-square"></i> Crear Acc</button>&nbsp;
 
-    <button class="btn btn-dark" style="color:white;border-radius:2px; background:black;margin:solid black 1px" data-toggle="modal" data-target="#nuevo_lente"><i class="fas fa-plus-square"></i> Crear Lente</button>&nbsp;
+    <a href="lentes.php" class="btn btn-dark" style="color:white;border-radius:2px; background:black;margin:solid black 1px"data-backdrop="static" data-keyboard="false"><i class="fas fa-plus-square"></i> Crear Lente</a>&nbsp;
 
     <button class="btn btn-dark" style="color:white;border-radius:2px; background:black;margin:solid black 1px" data-toggle="modal" data-target="#nuevo_servicio"><i class="fas fa-plus-square"></i> Crear Servicio</button>&nbsp;
 
@@ -165,9 +165,9 @@ div .post_compra{
 
        <a class="btn btn-dark" style="color:white;border-radius:3px; background:black" data-toggle="modal" data-target="#modalAccesorios" data-backdrop="static" data-keyboard="false" onClick="listar_acc_compras();"><i class="fas fa-glasses"></i> Agregar Accesorio</a>
 
-       <a class="btn btn-dark" style="color:white;border-radius:3px; background:black"data-backdrop="static" data-keyboard="false"><i class="fas fa-glasses"></i> Agregar Lente</a>
+       <!--<a class="btn btn-dark" style="color:white;border-radius:3px; background:black"data-backdrop="static" data-keyboard="false"><i class="fas fa-glasses"></i> Agregar Lente</a>
 
-       <a class="btn btn-dark" style="color:white;border-radius:3px; background:black"  data-backdrop="static" data-keyboard="false"><i class="fas fa-gift"></i> Regalías</a>
+       <a class="btn btn-dark" style="color:white;border-radius:3px; background:black"  data-backdrop="static" data-keyboard="false"><i class="fas fa-gift"></i> Regalías</a>-->
      </div>
 
 

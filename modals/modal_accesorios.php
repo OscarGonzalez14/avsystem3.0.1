@@ -1,7 +1,12 @@
 <style>
     #tamModal_acc{
-      width: 60% !important;
+      max-width: 60% !important;
     }
+    #modalAccesorios{
+      align-items:center;
+      justify-content:center;
+    }
+
      #head{
         background-color: black;
         color: white;
@@ -17,7 +22,7 @@
 </style>
 
 <div class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="modalAccesorios" style="border-radius:0px !important;">
-  <div class="modal-dialog modal-lg" role="document" id="tamModal_acc">
+  <div class="modal-dialog  modal-dialog-centered" role="document" id="tamModal_acc">
 
     <div class="modal-content">
      <div class="modal-header" id="head" style="justify-content:space-between">
@@ -36,7 +41,7 @@
                       <th style="text-align:center">Agregar</th>
                     </tr>
                   </thead>
-                  <tbody style="text-align:center;">
+                  <tbody style="text-align:center;font-size:14px;">
                                         
                   </tbody>
                 </table>

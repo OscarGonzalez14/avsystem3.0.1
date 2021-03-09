@@ -24,7 +24,7 @@
 
 
 <div class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="listar_servicios_ventas" style="border-radius:0px !important;">
-  <div class="modal-dialog modal-lg" role="document" id="tamModal_servicio">
+  <div class="modal-dialog  modal-dialog-centered" role="document" id="tamModal_servicio">
 
     <div class="modal-content">
      <div class="modal-header" id="head" style="justify-content:space-between">
@@ -42,7 +42,7 @@
                 <th style="text-align:center" width="5%">Agregar</th> 
                 </tr>
               </thead>
-              <tbody style="text-align:center">                                  
+              <tbody style="text-align:center;font-size:14px;">                                  
               </tbody>
             </table>
           </div>

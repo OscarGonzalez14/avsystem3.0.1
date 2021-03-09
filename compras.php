@@ -148,8 +148,8 @@ if(isset($_SESSION["usuario"])){
                 <table class="table table-striped" id="tabla_det_compras">
                   <thead class="bg-info">
                     <tr>
-                      <th style="text-align:center" width="10%">#</th>
-                      <th style="text-align:center" width="40%">Descripción&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                      <th style="text-align:center" width="5%">#</th>
+                      <th style="text-align:center" width="45%">Descripción&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                       <th style="text-align:center" width="10%">P. C/U</th>
                       <th style="text-align:center" width="10%">Cantidad</th>
                       <th style="text-align:center" width="10%">P. V/U</th>

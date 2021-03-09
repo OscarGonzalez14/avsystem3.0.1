@@ -8,6 +8,24 @@ require_once("modals/modal_correlativo_factura.php");
  ?>
 
  <div class="content-wrapper">
+    <section class="content-header" >
+      <div class="container-fluid">
+        <div class="row mb-2" style="margin: 2px">
+          <div class="col-sm-5" style="align-items:left">
+            <h5><strong><i class="fas fa-money-check" style="color:green"></i> DESCUENTOS EN PLANILLA</strong></h5>
+          </div>
+          <div class="col-sm-7">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="creditos.php" style="color:black">Créditos</a></li>
+              <li class="breadcrumb-item"><a href="creditos_contado.php">Contado</a></li>
+              <li class="breadcrumb-item active"><a>Desc. Planilla</a></li>
+              <li class="breadcrumb-item"><a href="creditos_cautomaticos.php">Cargo Auto</a></li>
+              <li class="breadcrumb-item"><a href="creditos_mora.php">Créditos en mora</a></li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
  <section class="content" style="margin-top:5px">
  	<div class="row">
  	 <div class="col-12">
