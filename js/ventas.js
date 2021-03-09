@@ -114,15 +114,15 @@ function agregarServicioVenta(id_producto){
       precio_venta  : data.precio_venta,
       subtotal : 0,
       descuento : 0,
+      categoria_prod : data.categoria_producto,
+      cantidad : 1,
+      codProd  : id_producto,
+      descripcion    : data.desc_modelo,
+      categoria_ub  : "",
+      precio_venta  : data.precio_venta,
+      subtotal : 0,
+      descuento : 0,
       categoria_prod : data.categoria_producto
-      //cantidad : 1,
-      //codProd  : id_producto,
-      //descripcion    : data.desc_modelo,
-      //categoria_ub  : "",
-      //precio_venta  : data.precio_venta,
-      //subtotal : 0,
-      //descuento : 0,
-      //categoria_prod : data.categoria_producto
     };//Fin objeto
     detalles.push(obj);
     listarDetallesVentas();

@@ -847,19 +847,19 @@ function get_finaliza(){
 
     }
 
-    var detalle_venta_flotante = [];
-    var venta_flotante = [];
-    var beneficiarios_orden=[];
-    function acciones_oid(numero_orden,id_paciente,estado){
-      detalle_venta_flotante = [];
-      venta_flotante = [];
-      beneficiarios_orden=[]
-      let categoria_usuario = $('#cat_user').val();
-      console.log(`cat ${categoria_usuario} orden ${numero_orden} id_paciente ${id_paciente} estado ${estado}`)
-      $("#detalle_oid").modal("show");
-      if (categoria_usuario != "administrador") {
-        document.getElementById("btns_orden").style.display = "none";
-      }
+  var detalle_venta_flotante = [];
+  var venta_flotante = [];
+  var beneficiarios_orden=[];
+  function acciones_oid(numero_orden,id_paciente,estado){
+  detalle_venta_flotante = [];
+  venta_flotante = [];
+  beneficiarios_orden=[]
+  let categoria_usuario = $('#cat_user').val();
+  //console.log(`cat ${categoria_usuario} orden ${numero_orden} id_paciente ${id_paciente} estado ${estado}`)
+  $("#detalle_oid").modal("show");
+  if (categoria_usuario != "administrador") {
+    document.getElementById("btns_orden").style.display = "none";
+  }
   /////////////ajax data detalles del  orden
   $.ajax({
     url:"ajax/creditos.php?op=get_detalles_orden_oid",
@@ -868,7 +868,7 @@ function get_finaliza(){
     cache:false,
     dataType:"json",
     success:function(data){ 
-      console.log(data);  
+     // console.log(data);  
       $("#monto_orden").html(data.monto);
       $("#plazo_orden").html(`${data.plazo} cuotas`);
       $("#cuota_orden").html(data.cuota);
@@ -888,7 +888,7 @@ function get_finaliza(){
     cache:false,
     dataType:"json",
     success:function(data){ 
-      console.log(data);  
+    //  console.log(data);  
       $("#paciente_orden").html(data.nombres);
       $("#funcion_pac_orden").html(data.ocupacion);
       $("#dui_pac_orden").html(data.dui);
@@ -910,11 +910,10 @@ function get_finaliza(){
     cache : false,
     dataType : "json",
     success:function(data){
-    console.log(data);
+   // console.log(data);
     
 
     for(var i in data){
-
     var obj = {
       numero_orden : data[i].numero_orden,
       nombres : data[i].nombres,
@@ -927,7 +926,7 @@ function get_finaliza(){
       monto_total : data[i].monto_total
     };//FIN OBJ
       beneficiarios_orden.push(obj);
-      console.log(beneficiarios_orden);
+     // console.log(beneficiarios_orden);
       detalle_beneficiarios_orden();
     }//Fin for
     
@@ -944,7 +943,7 @@ function get_finaliza(){
     cache : false,
     dataType : "json",
     success:function(data){
-      console.log(data);
+      //console.log(data);
 
       for(var i in data){
      //var total = parseInt(total) + parseInt(data[i].precio_final);
@@ -961,7 +960,6 @@ function get_finaliza(){
       id_paciente : data[i].id_paciente,
       beneficiario : data[i].beneficiario,
       categoria_ub : data[i].categoria_ub
-
       };//FIN OBJ
       detalle_venta_flotante.push(obj);
       detalle_productos_flotantes();
@@ -978,7 +976,7 @@ function get_finaliza(){
     cache : false,
     dataType : "json",
     success:function(data){
-      console.log(data);
+     // console.log(data);
       for(var i in data){
         var obj_dos = {
          fecha_venta : data[i].fecha_venta,
@@ -999,6 +997,43 @@ function get_finaliza(){
   }
 })
 
+////////////////////////////GET BENEFIACIOS EN VENTAS FLOTANTES PARA DETALLE VENTAS FLOTANTES ///////////////
+  $.ajax({
+    url: "ajax/creditos.php?op=get_beneficiarios_ventas_flot",
+    method : "POST",
+    data: {id_paciente:id_paciente,numero_orden:numero_orden},
+    cache : false,
+    dataType : "json",
+    success:function(data){
+      for(var i in data){
+      console.log(data[i].evaluado)
+      let flotante_benf = data[i].evaluado;
+      let flotante_b = flotante_benf.toString();
+       console.log(flotante_b);
+       console.log(numero_orden);
+       console.log(id_paciente);
+       get_det_f_ben(id_paciente,numero_orden,flotante_b);
+      //GET DETALLE DE VENTA FLOTANTE POR PACIENTE      
+////FIN DETALLE DE VENTA FLOTANTE POR PACIENTE
+}; //Fin GET VENTAS FLOTANTES ASOCIADOS A LA ORDEN
+}
+
+})
+
+
+}
+
+function get_det_f_ben(id_paciente,numero_orden,flotante_b){
+  $.ajax({
+        url: "ajax/creditos.php?op=get_det_f_ben",
+        method : "POST",
+        data: {id_paciente:id_paciente,numero_orden:numero_orden,flotante_b:flotante_b},
+        cache : false,
+        dataType :"json",
+        success:function(data){
+        console.log(data);
+  }
+})
 }
 
 function detalle_beneficiarios_orden(){ 
@@ -1006,7 +1041,7 @@ function detalle_beneficiarios_orden(){
   var filas = "";
      for(var i=0; i<beneficiarios_orden.length; i++){
     console.log(`Estado :${beneficiarios_orden[i].estado}`);    
-   var filas = filas + "<tr id='fila"+i+"'><td style='width: 15%'>"+"<input class='hemograma' type='checkbox' name='check_box' value='valor"+i+"' id=item"+i+" onClick='estado_check_beneficiario(event, this, "+(i)+");'></td>"+
+   var filas = filas + "<tr id='fila"+i+"'><td style='width: 15%'>"+"<input class='check_beneficiarios' type='checkbox' name='check_beneficiarios' value='valor"+i+"' id=item"+i+" onClick='estado_check_beneficiario(event, this, "+(i)+");'></td>"+
       "<td style='text-align:center;width: 10% !important'>"+beneficiarios_orden[i].estado+"</td>"+
       "<td style='text-align:center;width: 65% !important'>"+beneficiarios_orden[i].evaluado+"</td>"+
       "<td style='text-align:center;width: 15% !important'>"+"$"+beneficiarios_orden[i].monto_total+"</td>"
@@ -1050,6 +1085,7 @@ function detalle_productos_flotantes(){
 
   $('#detalle_productos_orden').html(filas);
 }
+
 
 function aprobar_od_planilla(){
  let plazo = $("#plazo_orden_desc").val();

@@ -491,7 +491,6 @@ public function get_saldos_oid($id_paciente){
 public function get_ordenes_descuento_aprobadas($sucursal){
     $conectar=parent::conexion();
     parent::set_names();
-
     $sql="select o.numero_orden,p.nombres,p.empresas,p.id_paciente,o.fecha_registro,o.estado,o.id_orden,o.sucursal from orden_credito as o inner join pacientes as p on o.id_paciente = p.id_paciente where o.sucursal=? and estado='1' order by o.id_orden DESC;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1, $sucursal);
@@ -591,6 +590,26 @@ public function get_beneficiarios($id_paciente,$numero_orden){
   return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);   
 }
 
+public function get_beneficiarios_ventas_flot($id_paciente,$numero_orden){
+$conectar= parent::conexion();
+  $sql= "select evaluado from ventas_flotantes where id_paciente=? and numero_orden=? and tipo_pago='Descuento en Planilla';";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1, $id_paciente);
+  $sql->bindValue(2, $numero_orden);
+  $sql->execute();
+  return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);   
+}
+
+public function get_det_f_ben($id_paciente,$numero_orden,$flotante_b){
+$conectar= parent::conexion();
+  $sql= "select*from detalle_ventas_flotantes where id_paciente=? and numero_orden=? and beneficiario=?;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1, $id_paciente);
+  $sql->bindValue(2, $numero_orden);
+  $sql->bindValue(3, $flotante_b);
+  $sql->execute();
+  return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);   
+}
 
 }/////FIN CLASS
 

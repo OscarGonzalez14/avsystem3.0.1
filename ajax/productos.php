@@ -280,6 +280,7 @@ case "buscar_aros_venta":
 
 // DATATABLE ANTIREFLEJANTES VENTAS
      case "listar_ar_venta":////////muestra antireflejante en modal de ventas
+       case "listar_ar_venta":////////muestra antireflejante en modal de ventas
     $datos=$productos->get_ar_ventas();
     //Vamos a declarar un array
     $data= Array();
@@ -290,7 +291,7 @@ case "buscar_aros_venta":
         $sub_array[] = $row["desc_producto"];
         $sub_array[] = "$".number_format($row["precio"],2,".",",");
 
-        $sub_array[] = '<button type="button" class="btn btn-dark agrega_antireflejante"  style="border-radius:0px" onClick="agregarServicioVenta('.$row["id_producto"].')">Seleccionar</button>';
+        $sub_array[] = '<button type="button" class="btn btn-dark agrega_antireflejante"  style="border-radius:0px" onClick="agregar_detalles_lente_venta('.$row["id_producto"].')">Seleccionar</button>';
         $data[] = $sub_array;
       }
 
