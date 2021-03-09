@@ -13,7 +13,6 @@ $reporteria=new Reporteria();
  // $n_venta =$_GET["n_venta"];
   $n_orden =$_GET["n_orden"];
   $sucursal = $_GET["sucursal"];
-//echo $id_paciente.$n_venta.$n_orden;
 if ($sucursal == "Metrocentro") {
   $direccion = "Boulevard de los Heroes. Centro Comercial Metrocentro Local#7 San Salvador";
   $telefono = "2260-1653";
@@ -35,11 +34,19 @@ if ($sucursal == "Metrocentro") {
 date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
 $datos_paciente = $reporteria->get_datos_factura_paciente($id_paciente);
 $data_orden_desc = $reporteria->get_data_orden_credito($id_paciente,$n_orden);
+$suma_monto_orden=0;
+ $evaluados_oid = $reporteria->beneficiarios_oid($id_paciente,$n_orden);
+  for ($i=0; $i <sizeof($evaluados_oid) ; $i++) {
+    $monto = $evaluados_oid[$i]["monto_total"];
+    $suma_monto_orden = $suma_monto_orden+number_format($monto,2,".",",");
+ }
+ //echo $suma_monto_orden;
+
 /////////////RECORRER DATA ORDEN DE DESCUENTO
 for ($i=0; $i <sizeof($data_orden_desc) ; $i++) { 
     $monto_orden = $data_orden_desc[$i]["monto"];
     $plazo_credito = $data_orden_desc[$i]["plazo"];
-    $cuotas_creditos = $monto_orden/$plazo_credito;
+    
     $inicio_credito = $data_orden_desc[$i]["fecha_inicio"];
     $fin_credito = $data_orden_desc[$i]["fecha_finalizacion"];
     $ref_uno = $data_orden_desc[$i]["ref_uno"];
@@ -48,6 +55,7 @@ for ($i=0; $i <sizeof($data_orden_desc) ; $i++) {
     $tel_ref_dos = $data_orden_desc[$i]["tel_ref_dos"];
     $observaciones_oid = $data_orden_desc[$i]["observaciones"];
 }
+$cuotas_creditos = $suma_monto_orden/$plazo_credito;
 ?>
 
 <!DOCTYPE html>
@@ -128,7 +136,7 @@ for ($i=0; $i <sizeof($data_orden_desc) ; $i++) {
 </td> <!--fin segunda columna-->
 </tr>
 </table>
-<p style="text-align: right;font-size:11px;font-family: Helvetica, Arial, sans-serif;" align="right"><?php echo $dir2.",&nbsp;".$hoy;?></p>
+<span style="text-align: right;font-size:11px;font-family: Helvetica, Arial, sans-serif;" align="right"><?php echo $dir2.",&nbsp;".$hoy;?></span>
 <div style="width:100%;margin-top:0px;font-size:12px;font-family: Helvetica, Arial, sans-serif;height: 885px">
 <!--INICIO GET DATA PACIENTES-->
 <?php    
@@ -137,11 +145,11 @@ for ($i=0; $i <sizeof($data_orden_desc) ; $i++) {
       $nombre_pac = $datos_paciente[$j]["nombres"];
      ?>
       <span> <b>EMPRESA:</b>&nbsp; <u><?php echo $datos_paciente[$j]["empresas"]."."?></u></span><br>
-      <span style="font-size:13px;font-family: Helvetica, Arial, sans-serif;">Por la presente y de confirmidad con el artículo N° 136 del código de trabajo, publicado en el Diario Oficial del 31 de Julio de 1972, autorizo a usted a descontar de mi sueldo mensual que devengo en esta empresa como empleado(a) de la misma; la cantidad de:&nbsp;<b style="color: black"><u><?php echo "$".number_format($monto_orden,2,".",",");?></u></b> en <?php echo $plazo_credito?> cuotas __mensuales de: <b><u><?php echo "$".number_format($cuotas_creditos,2,".",",");?></u></b>, las cuales deberán pagar por mi cuenta a partir de: <u><?php echo date("d-m-Y", strtotime($inicio_credito));?></u> hasta <u><?php echo date("d-m-Y", strtotime($fin_credito));?></u>. Por lo tanto autorizo a que se realicen los pagos en concepto de producto y servicios visuales. <br><br><br>  <b>Atentamente.</b><br></span>
+      <span style="font-size:13px;font-family: Helvetica, Arial, sans-serif;">Por la presente y de confirmidad con el artículo N° 136 del código de trabajo, publicado en el Diario Oficial del 31 de Julio de 1972, autorizo a usted a descontar de mi sueldo mensual que devengo en esta empresa como empleado(a) de la misma; la cantidad de:&nbsp;<b style="color: black"><u><?php echo "$".number_format($suma_monto_orden,2,".",",");?></u></b> en <?php echo $plazo_credito?> cuotas __mensuales de: <b><u><?php echo "$".number_format($cuotas_creditos,2,".",",");?></u></b>, las cuales deberán pagar por mi cuenta a partir de: <u><?php echo date("d-m-Y", strtotime($inicio_credito));?></u> hasta <u><?php echo date("d-m-Y", strtotime($fin_credito));?></u>. Por lo tanto autorizo a que se realicen los pagos en concepto de producto y servicios visuales. <br><br>  <b>Atentamente.</b><br></span>
 
   <table width="100%" class="table2">
         <tr>
-    <th colspan="100" style="color:black;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><b>DATOS GENERALES DEL PACIENTE</b></th>  
+    <th colspan="100" style="color:black;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><b>TITULAR DE CUENTA</b></th>  
     </tr>
     <tr>
       <th colspan="45" style="color:black;font-size:11px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:45%" bgcolor="#c5e2f6"><b>NOMBRE COMPLETO</b></th>
@@ -192,45 +200,46 @@ for ($i=0; $i <sizeof($data_orden_desc) ; $i++) {
     </tr>
     
   </table><br>
-  <?php $detalle_orden_desc = $reporteria->get_detalle_orden_credito($id_paciente,$n_orden);?>
-  <table width="100%" class="table2">
-        <tr>
-    <th colspan="100" style="color:black;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><b>SERVICIOS Y PRODUCTOS SOLICITADOS</b></th>  
-    </tr>
-    <thead>
-    <tr>
-      <th colspan="25" style="text-align: center;width: 25%;border: 1px solid :black;" bgcolor="#c5e2f6">CANTIDAD</th>
-      <th colspan="50" style="text-align: center;width: 50%;border: 1px solid :black;" bgcolor="#c5e2f6">DESCRIPCIÓN</th>
-      <th colspan="25" style="text-align: center;width: 25%;border: 1px solid :black;" bgcolor="#c5e2f6">PRECIO</th>
-    </tr>
-     </thead>
-    <tbody>
-      <?php 
-      $total = 0;
-       foreach ($detalle_orden_desc as $row) {
 
-         echo 
-           '<tr>'.
-             '<td colspan="25" style="text-align: center;width: 25%;border: 1px solid :black;">'.$row["cantidad_venta"].'</td>'.
-             '<td colspan="50" style="text-align: center;width: 50%;border: 1px solid :black;">'.strtoupper($row["producto"]).'</td>'.
-             '<td colspan="25" style="text-align: center;width: 25%;border: 1px solid :black;">'."$".number_format($row["precio_final"],2,".",",").'</td>'.
-           '</tr>';
+  <?php }?>
 
-           $total = $total+number_format($row["precio_final"],2,".",",");
-       }
-      ?>
-    </tbody>
-    <tfoot>
+  <?php
+  $html="";
+  $evaluados_oid = $reporteria->beneficiarios_oid($id_paciente,$n_orden);
+  for ($i=0; $i <sizeof($evaluados_oid) ; $i++) { 
+    $evaluado = $evaluados_oid[$i]["evaluado"];
+    
+    $det_ventas_flot = $reporteria->get_detalle_vf_beneficiario($evaluado,$n_orden);
+    $html.="<thead><tr><th colspan='100' style='width:100%;text-align:center;border: solid 1px black' bgcolor='#c5e2f6'>".$evaluado."</th></tr></thead>
+
       <tr>
-        <td colspan="75" style="text-align: center;width: 25%;border: 1px solid :black;">TOTAL</td>
-        <td colspan="25" style="text-align: center;width: 25%;border: 1px solid :black;"><b><?php echo "$".number_format($total,2,".",",")?></b></td>
-      </tr>
-      <tr><td colspan="100" style="text-align: left;width: 100%;text-transform: uppercase;color: white">HH</td></tr>
+        <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>CANTIDAD</td>
+        <td colspan='50' style='width:50%;text-align:center;border: solid 1px black'>DESCRIPCION</td>
+        <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>PRECIO</td>
+      </tr>  
+
+    ";
+    foreach ($det_ventas_flot as $k => $v) {
+      $html.="
       <tr>
-        <td colspan="100" style="text-align: left;width: 100%;border: 1px solid :black; text-transform: uppercase;"><span style="color: red;font-size: 14px">OBSERVACIONES:&nbsp;</span><span style="color: black"><?php echo $observaciones_oid;?></span></td>
+          <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>".$v["cantidad_venta"]."</td>
+          <td colspan='50' style='width:50%;text-align:center;border: solid 1px black'>".$v["producto"]."</td>
+          <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>"."$".$v["precio_venta"]."</td>
       </tr>
-    </tfoot>
-  </table>
+
+      ";
+    }
+
+  }
+
+  ?>
+ <table width="100%" class="table2">
+  <tr>
+    <th colspan="100" style="color:black;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><b>BENEFICIARIOS Y SERVICIOS</b></th>  
+    </tr>
+ <?php echo $html;?> 
+</table>
+
 <br><br>   
 <table width="100%">
   <tr>
@@ -243,7 +252,7 @@ for ($i=0; $i <sizeof($data_orden_desc) ; $i++) {
   </tr>
 </table>  
 <!--FIN INICIO GET DATA PACIENTES-->
-<?php }?>
+
  <br>
 
  <div style="border: solid 1px black;">
@@ -270,9 +279,10 @@ for ($i=0; $i <sizeof($data_orden_desc) ; $i++) {
 </table>
 </div>
 </div>
+<span style="text-align: right;font-size: 9px;margin-top: 8PX" align="right">Este documento ha sido emitido por el departamento Empresarial de Óptica AV Plus y creado por: <?php echo $_SESSION["nombres"]."&nbsp;-&nbsp;".$hoy;?></span>
 </div><!--Fin primera parte-->
 
-<span style="text-align: right;font-size: 9px" align="right">Este documento ha sido emitido por el departamento Empresarial de Óptica AV Plus y creado por: <?php echo $_SESSION["nombres"]."&nbsp;-&nbsp;".$hoy;?></span>
+
 
 
 <?php

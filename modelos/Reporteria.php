@@ -311,5 +311,35 @@ public function get_detalle_orden_credito($id_paciente,$n_orden){
 	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+public function beneficiarios_oid($id_paciente,$n_orden){
+
+	$conectar= parent::conexion();
+	parent::set_names(); 
+
+	$sql = "select evaluado,monto_total from ventas_flotantes where id_paciente=? and numero_orden=?;";
+	$sql = $conectar->prepare($sql);
+	$sql->bindValue(1,$id_paciente);
+	$sql->bindValue(2,$n_orden);
+	$sql->execute();
+	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
+////////////GET DETALLES DE VENTAS FLOTANTES POR BENEFICIARIO OID
+
+public function get_detalle_vf_beneficiario($evaluado,$n_orden){
+
+	$conectar= parent::conexion();
+	parent::set_names(); 
+
+	$sql = "select*from detalle_ventas_flotantes where beneficiario=? and numero_orden=?;";
+	$sql = $conectar->prepare($sql);
+	$sql->bindValue(1,$evaluado);
+	$sql->bindValue(2,$n_orden);
+	$sql->execute();
+	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
+
 
 }

@@ -392,7 +392,7 @@ public function aprobar_orden(){
     $sql4->bindValue(1,$numero_orden);
     $sql4->execute();
 
-    $sql5 = "select saldo,id_credito from creditos where id_paciente=? and forma_pago='Descuento en Planilla' order by id_credito DESC limit 1;";
+    $sql5 = "select saldo,id_credito,monto from creditos where id_paciente=? and forma_pago='Descuento en Planilla' order by id_credito DESC limit 1;";
     $sql5= $conectar->prepare($sql5);
     $sql5->bindValue(1, $id_paciente);
     $sql5->execute();
@@ -401,14 +401,17 @@ public function aprobar_orden(){
     foreach($saldos as $s=>$item){
         $saldo = $item["saldo"];
         $id_credito = $item["id_credito"];
+        $monto_credito = $item["monto"];
     }
 
     if(is_array($saldos)==true and count($saldos)>0){
        $saldo_act = $saldo+$monto_total;
-       $sql6 ="update creditos set saldo=? where id_credito=?;";
+       $nuevo_monto = $monto_credito+$monto_total;
+       $sql6 ="update creditos set saldo=?,monto=? where id_credito=?;";
        $sql6= $conectar->prepare($sql6);
        $sql6->bindValue(1,$saldo_act);
-       $sql6->bindValue(2,$id_credito);
+       $sql6->bindValue(2,$nuevo_monto);
+       $sql6->bindValue(3,$id_credito);
        $sql6->execute();
     }else{
        $tipo_venta = "Credito";
@@ -537,6 +540,7 @@ public function agregar_benefiaciario_oid(){
 
 }//////////////////FIN FOREACH ////////
 $estado_ord="0";
+
 $sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5=$conectar->prepare($sql5);
     $sql5->bindValue(1,$numero_orden);          
