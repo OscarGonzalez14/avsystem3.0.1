@@ -1,10 +1,25 @@
+<style>
+    #nuevo_aro{
+      max-width: 100% !important;
+      margin: auto;
+    }
+    .modal-header{
+        background-color: black !important;
+        color: white;
+        text-align: center;
+    }
+    .modal-dialog{
+      margin: auto;
+    }
+</style>
+  
 <!-- Modal -->
 <div class="modal fade" id="nuevo_aro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">NUEVO ARO</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-plus-square"></i> NUEVO ARO</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white;">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>

@@ -18,9 +18,8 @@ case "listar_productos_ingreso_bodegas":
     $sub_array[] = $row["id_producto"];				
 		$sub_array[] = $row["numero_compra"];
 		$sub_array[] = $row["descripcion"];
-    //$sub_array[] = "marca".$row["marca"];
     $sub_array[] = $row["cant_ingreso"];
-    $sub_array[] = '<button type="button"  class="btn btn-infos btn-md asigna_datos_orden" onClick="agregaIngreso('.$row["id_producto"].',\''.$row["numero_compra"].'\');"><i class="fas fa-plus"></i></button>';                                 
+    $sub_array[] = '<button type="button"  class="btn btn-infos btn-sm asigna_datos_orden" onClick="agregaIngreso('.$row["id_producto"].',\''.$row["numero_compra"].'\');"><i class="fas fa-plus"></i></button>';                                 
 		$data[] = $sub_array;
 	}
         $results = array(
@@ -41,7 +40,8 @@ case "listar_productos_ingreso_bodegas":
         foreach($datos as $row)
         {
           $output["numero_compra"] = $row["numero_compra"];
-          $output["descripcion"] = $row["descripcion"];
+          $output["descripcion"] = $row["descripcion"]." ".$row["diseno"]." ".$row["materiales"];
+          /*$output["descripcion"] = $row["descripcion"];*/
           $output["id_producto"] = $row["id_producto"];
           $output["cant_ingreso"] = $row["cant_ingreso"];
           $output["precio_venta"] = $row["precio_venta"];

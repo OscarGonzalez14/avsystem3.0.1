@@ -15,7 +15,7 @@
   
   <!-- The Modal -->
 <div class="modal fade bd-example-modal-lg" role="dialog" id="nuevo_lente">
-  <div class="modal-dialog" id="lente">
+  <div class="modal-dialog modal-dialog-centered" id="lente">
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header bg-info" id="head" style="justify-content:space-between">

@@ -88,7 +88,7 @@ break;
         $sub_array[] = $row["medidas"];
         $sub_array[] = $row["diseno"];
         $sub_array[] = $row["materiales"];
-        $sub_array[] = '<button type="button" class="btn btn-dark agrega_aro"  style="border-radius:0px; btn-sm" onClick="agregar_aro('.$row["id_producto"].')">Seleccionar</button>';
+        $sub_array[] = '<button type="button" class="btn btn-primary btn-sm agrega_aro"  style="border-radius:0px; btn-sm" onClick="agregar_aro('.$row["id_producto"].')"><i class="fa fa-plus" aria-hidden="true"></i></button>';
         $data[] = $sub_array;
       }
 
@@ -113,7 +113,7 @@ break;
         $sub_array[] = $row["desc_producto"];
         $sub_array[] = "$".number_format($row["precio"],2,".",",");
 
-        $sub_array[] = '<button type="button" class="btn btn-dark agrega_aro"  style="border-radius:0px" onClick="agregar_detalles_lente_venta('.$row["id_producto"].')">Seleccionar</button>';
+        $sub_array[] = '<button type="button" class="btn btn-primary btn-sm agrega_aro"  style="border-radius:0px" onClick="agregar_detalles_lente_venta('.$row["id_producto"].')"><i class="fa fa-plus" aria-hidden="true"></i></button>';
         $data[] = $sub_array;
       }
 
@@ -167,7 +167,7 @@ case "buscar_aros_venta":
       $sub_array[] = $row["num_compra"];      
       $sub_array[] = "$".number_format($row["precio_venta"],2,".",",");
       $sub_array[] = $row["categoria_ub"];
-      $sub_array[] = '<button type="button" name="hola" id="'.$row["id_producto"].'" class="btn btn-primary btn-sm btn-flat" onClick="agregarDetalleVenta('.$row["id_producto"].','.$row["id_ingreso"].')"><i class="fa fa-plus"></i> Agregar</button>';
+      $sub_array[] = '<button type="button" name="hola" id="'.$row["id_producto"].'" class="btn btn-primary btn-sm btn-flat" onClick="agregarDetalleVenta('.$row["id_producto"].','.$row["id_ingreso"].')"><i class="fa fa-plus"></i> </button>';
       
         $data[] = $sub_array;
        
@@ -193,7 +193,7 @@ case "buscar_aros_venta":
       $sub_array[] = $row["num_compra"];      
       $sub_array[] = "$".number_format($row["precio_venta"],2,".",",");
       $sub_array[] = $row["categoria_ub"];
-      $sub_array[] = '<button type="button" name="hola" id="'.$row["id_producto"].'" class="btn btn-primary btn-sm btn-flat" onClick="agregarAccVenta('.$row["id_producto"].','.$row["id_ingreso"].')"><i class="fa fa-plus"></i> Agregar</button>';
+      $sub_array[] = '<button type="button" name="hola" id="'.$row["id_producto"].'" class="btn btn-primary btn-sm btn-flat" onClick="agregarAccVenta('.$row["id_producto"].','.$row["id_ingreso"].')"><i class="fa fa-plus"></i></button>';
       
         $data[] = $sub_array;
        
@@ -234,7 +234,7 @@ case "buscar_aros_venta":
         $sub_array[] = $row["modelo"];
         $sub_array[] = $row["categoria"];
         $sub_array[] = $row["desc_producto"];
-        $sub_array[] = '<button type="button" class="btn btn-dark"  style="border-radius:0px" onClick="agregar_accesorio('.$row["id_producto"].')">Seleccionar</button>';
+        $sub_array[] = '<button type="button" class="btn btn-primary btn-sm"  style="border-radius:0px" onClick="agregar_accesorio('.$row["id_producto"].')"><i class="fa fa-plus" aria-hidden="true"></i></button>';
         $data[] = $sub_array;
       }
 
@@ -291,7 +291,7 @@ case "buscar_aros_venta":
         $sub_array[] = $row["desc_producto"];
         $sub_array[] = "$".number_format($row["precio"],2,".",",");
 
-        $sub_array[] = '<button type="button" class="btn btn-dark agrega_antireflejante"  style="border-radius:0px" onClick="agregar_detalles_lente_venta('.$row["id_producto"].')">Seleccionar</button>';
+        $sub_array[] = '<button type="button" class="btn btn-primary btn-sm agrega_antireflejante"  style="border-radius:0px" onClick="agregar_detalles_lente_venta('.$row["id_producto"].')"><i class="fa fa-plus" aria-hidden="true"></i></button>';
         $data[] = $sub_array;
       }
 
@@ -316,7 +316,7 @@ case "buscar_aros_venta":
         $sub_array[] = $row["desc_producto"];
         $sub_array[] = "$".number_format($row["precio"],2,".",",");
 
-        $sub_array[] = '<button type="button" class="btn btn-dark agrega_antireflejante"  style="border-radius:0px" onClick="agregar_detalles_lente_venta('.$row["id_producto"].')">Seleccionar</button>';
+        $sub_array[] = '<button type="button" class="btn btn-primary btn-sm agrega_antireflejante"  style="border-radius:0px" onClick="agregar_detalles_lente_venta('.$row["id_producto"].')"><i class="fa fa-plus" aria-hidden="true"></i></button>';
         $data[] = $sub_array;
       }
 
@@ -453,7 +453,7 @@ case "listar_productos_traslado":
         $sub_array[] = $row["id_producto"];
         $sub_array[] = $row["modelo"];
         $sub_array[] = "$".number_format($row["precio"],2,".",",");
-        $sub_array[] = '<button type="button" onClick="agregarServicioVenta('.$row["id_producto"].')" class="btn btn-sm bg-success"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>';          
+        $sub_array[] = '<button type="button" onClick="agregarServicioVenta('.$row["id_producto"].')" class="btn btn-sm bg-primary"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>';          
 
         $data[] = $sub_array;
       }
