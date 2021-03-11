@@ -66,6 +66,8 @@ function agregar_aro(id_producto){
       marca    : data.marca,
       color    : data.color,
       medidas  : data.medidas,
+      diseno   : data.diseno,
+      materiales : data.materiales,
       precio_compra : 0,
       precio_venta  : 0,
       subtotal : 0,
@@ -98,6 +100,8 @@ function agregar_accesorio(id_producto){
       marca    : data.marca,
       color    : "",
       medidas  : "",
+      diseno   : "",
+      materiales : "",
       precio_compra : 0,
       precio_venta  : 0,
       subtotal : 0,
@@ -128,7 +132,7 @@ function listarDetallesCompras(){
         var filas = filas + "<tr id='fila"+i+"'><td>"+(i+1)+
         "</td><td style='text-align:center;'>"+detalles[i].categoria+" "+detalles[i].marca+" "+
         "Mod.: "+detalles[i].modelo+" "+detalles[i].color+" "+
-        detalles[i].medidas+
+        detalles[i].medidas+" "+detalles[i].diseno+" "+detalles[i].materiales+
 
         "</td><td style='text-align:center'><input style='text-align:right;border-radius:3px' type='text' class='cantidad form-control' name='precio_compra[]' id='precio_compra[]' onClick='setPrecioCompra(event, this, "+(i)+");' onKeyUp='setPrecioCompra(event, this, "+(i)+");' value='"+  detalles[i].precio_compra+"'><td style='text-align:center'><input style='text-align:right' type='number' class='cantidad form-control' name='cantidad[]' id='cantidad[]' onClick='setCantidad(event, this, "+(i)+");' onKeyUp='setCantidad(event, this, "+(i)+");' value='"+detalles[i].cantidad+"'><td style='text-align:center'><input style='text-align:right' type='text' class='cantidad form-control' name='cantidad[]' id='pv"+(i)+"' onClick='setPrecioVenta(event, this, "+(i)+");' onKeyUp='setPrecioVenta(event, this, "+(i)+");' value='"+detalles[i].precio_venta+"'></td><td style='text-align:center;'><span>$</span><span style='text-align:right' name='subtotal[]' id=subtotal"+i+" >"+detalles[i].subtotal+"</span><td style='text-align:center'><i class='nav-icon fas fa-trash-alt fa-2x' onClick='eliminarFila("+i+");' style='color:red'></i></td></tr>";
 

@@ -17,7 +17,7 @@ case "listar_productos_ingreso_bodegas":
 		$sub_array = array();
     $sub_array[] = $row["id_producto"];				
 		$sub_array[] = $row["numero_compra"];
-		$sub_array[] = $row["descripcion"];
+		$sub_array[] = $row["descripcion"]." ".$row["diseno"]." ".$row["materiales"];
     $sub_array[] = $row["cant_ingreso"];
     $sub_array[] = '<button type="button"  class="btn btn-infos btn-sm asigna_datos_orden" onClick="agregaIngreso('.$row["id_producto"].',\''.$row["numero_compra"].'\');"><i class="fas fa-plus"></i></button>';                                 
 		$data[] = $sub_array;

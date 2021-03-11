@@ -14,8 +14,8 @@ public function get_numero_ingreso(){
 }
 public function get_productos_ingresar($numero_compra){
 $conectar= parent::conexion();         
-$sql= "SELECT * FROM `detalle_compras` WHERE `numero_compra`=?;";
-/*$sql="select p.id_producto,d.descripcion,p.diseno,p.materiales,d.numero_compra,d.cant_ingreso from productos as p inner join detalle_compras as d on p.id_producto=d.id_producto  where p.id_producto='77' and d.numero_compra='C-75';";*/
+/*$sql= "SELECT * FROM `detalle_compras` WHERE `numero_compra`=?;";*/
+$sql="select*from detalle_compras as d inner join productos as p on d.id_producto=p.id_producto where numero_compra=?;";
 $sql=$conectar->prepare($sql);
 $sql->bindValue(1,$numero_compra);
 $sql->execute();

@@ -58,9 +58,9 @@
       <label for="inputPassword4">Diseño</label>
       <select class="form-control" id="diseno_aro" required="">
         <option value="">Seleccionar Diseño</option>
-        <option value="Completo">Cerrado</option>
-        <option value="Semi-Aereo">Semi Aereo</option>
-        <option value="Aereo">Aereo</option>
+        <option value="CERRADO">Cerrado</option>
+        <option value="SEMI-AEREO">Semi Aereo</option>
+        <option value="AEREO">Aereo</option>
       </select>
     </div>
 
@@ -68,11 +68,11 @@
       <label for="inputPassword4">Materiales</label>
       <select class="form-control" id="materiales_aro" required="">
         <option value="">Seleccionar Material</option>
-        <option value="Metal">Metal</option>
-        <option value="Acetato">Acetato</option>
-        <option value="Metal/Acetato">Metal/Acetato</option>
-        <option value="Fibra de Carbono">Fibra de Carbono</option>
-        <option value="Titanio">Titanio</option>
+        <option value="METAL">Metal</option>
+        <option value="ACETATO">Acetato</option>
+        <option value="METAL/ACETATO">Metal/Acetato</option>
+        <option value="FIBRA DE CARBONO">Fibra de Carbono</option>
+        <option value="TITANIO">Titanio</option>
         <option value="TR90">TR90</option>
       </select>
     </div>
@@ -80,9 +80,9 @@
     <div class="form-group col-md-3">
       <label for="exampleFormControlSelect2">Categoría</label>
       <select id="cat_venta_aros" class="form-control" required="">
-        <option value='Básico'>Básico</option>
-        <option value='Intermedio'>Intermedio</option>
-        <option value='Premium'>Premium</option>
+        <option value='BASICO'>Básico</option>
+        <option value='INTERMEDIO'>Intermedio</option>
+        <option value='PREMIUM'>Premium</option>
       </select>
     </div>
   </div>
