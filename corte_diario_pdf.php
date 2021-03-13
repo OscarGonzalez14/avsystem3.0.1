@@ -663,8 +663,7 @@ if(($recuperado_cargo[$j]["monto_cobrado"])>0){
     <th colspan="9" style="width:10%" class="stilot1"><?php echo "$".number_format($cobros_recuperado_agricola,2,".",","); ?></th>
     <th colspan="9" style="width:10%" class="stilot1"><?php echo "$".number_format($cobros_recuperado_cuscatlan,2,".",","); ?></th>
     <th colspan="9" style="width:10%" class="stilot1"><?php echo "$".number_format($cobros_recuperado_davivienda,2,".",","); ?></th>
-    <th colspan="12" style="width:15%;font-size: 11px;color: green" class="stilot1"><?php echo "$".number_format($total_cobros_recuperado,2,".",","); ?></th>
-   
+    <th colspan="12" style="width:15%;font-size: 11px;color: green" class="stilot1"><?php echo "$".number_format($total_cobros_recuperado,2,".",","); ?></th>   
   </tr>
  <?php $total_efectivo_diario = $cobros_ventas_efectivo + $cobros_recuperado_efectivo; ?>
   <tr>
@@ -685,6 +684,7 @@ if(($recuperado_cargo[$j]["monto_cobrado"])>0){
 
   for($j=0;$j<count($saldo_caja_chica);$j++){
   $saldo_caja = $saldo_caja+$saldo_caja_chica[$j]["saldo"];
+ // echo $saldo_caja;
 
 }
 
@@ -734,8 +734,9 @@ for($j=0;$j<count($caja_chica);$j++){
 
 </tbody>
 <?php 
-$get_movimientos_caja = $reporteria->get_mov_caja($fecha,$sucursal);
 
+$get_movimientos_caja = $reporteria->get_mov_caja($fecha,$sucursal);
+if (is_array($get_movimientos_caja) and count($get_movimientos_caja)>0) {
 ?>
 </table>
 
@@ -757,7 +758,25 @@ for($j=0;$j<count($get_movimientos_caja);$j++){
     <td colspan="28" style="text-align: center;font-size: 12px;color: red;" class="stilot1"><strong><?php echo "$".number_format($total_diario_efectivo,2,".",",");?></strong></td>
   </tr>
 <?php
-} ?>
+}
+}else{
+ $monto_efectivo_t = $saldo_caja+$total_efectivo_diario;
+?>
+
+  <tr>
+    <td colspan="33"  style="background: #001a57;color: white;color;text-align: center;font-size: 12px" class="stilot1">SALDO CAJA</td>
+    <td colspan="36" style="background: #001a57;color: white;color;text-align: center;font-size: 12px" class="stilot1">GASTOS CAJA CHICA</td>
+    <td colspan="36" style="background: #001a57;color: white;color;text-align: center;font-size: 12px" class="stilot1">TOTALES EFECTIVO</td>
+  </tr>
+  <tr>
+    <td colspan="33"  style="text-align: center;font-size: 12px" class="stilot1"><?php echo "$".number_format($saldo_caja),2,".",",";?></td>
+    <td colspan="36" class="stilot1" style="text-align: center;font-size: 12px"><?php echo "$00.00"?></td>
+    <td colspan="36" class="stilot1" style="text-align: center;font-size: 12px;color: blue"><b><?php echo "$".number_format($monto_efectivo_t),2,".",","$;?></b></td>
+  </tr>
+
+
+
+<?php } ?>
 </table>
 
 </body>

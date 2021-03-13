@@ -430,10 +430,9 @@ public function aprobar_orden(){
        $sql7->bindValue(9,$hoy);
 
        $sql7->execute();
-
     }
 
-    }///////fIN COMPROBACION DE ESTADO
+    }///////FIN COMPROBACION DE ESTADO
     }/////////// FIN GET BENEFICARIOS FOREACH
 
 }
