@@ -1,6 +1,6 @@
 <style>
     #tamModal_servicio{
-      max-width: 65% !important;
+      max-width: 70% !important;
     }
      #head{
         background-color: black;
@@ -33,12 +33,13 @@
      </div>
 
           <div class="card-body p-0" style="margin:7px">
-            <table id="lista_servicios_ventas_data" width="100%" class = "table-hover table-bordered table-striped">
+            <table id="lista_servicios_ventas_data" width="100%" class = "table-hover table-bordered display nowrap">
               <thead style="background:#034f84;color:white;text-align: center;">
                 <tr>
                 <th style="text-align:center" width="5%">ID</th>
-                <th style="text-align:center" width="70%">Servicio</th>
-                <th style="text-align:center" width="20%">Precio</th>
+                <th style="text-align:center" width="20%">Servicio</th>
+                <th style="text-align:center" width="20%">Descripción</th>
+                <th style="text-align:center" width="5%">Precio</th>
                 <th style="text-align:center" width="5%">Agregar</th> 
                 </tr>
               </thead>

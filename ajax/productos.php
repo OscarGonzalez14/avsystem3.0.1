@@ -452,6 +452,7 @@ case "listar_productos_traslado":
         $sub_array = array();
         $sub_array[] = $row["id_producto"];
         $sub_array[] = $row["modelo"];
+        $sub_array[] = $row["desc_producto"];
         $sub_array[] = "$".number_format($row["precio"],2,".",",");
         $sub_array[] = '<button type="button" onClick="agregarServicioVenta('.$row["id_producto"].')" class="btn btn-sm bg-success"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>';          
 

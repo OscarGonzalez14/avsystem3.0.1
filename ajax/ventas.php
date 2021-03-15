@@ -87,7 +87,7 @@ switch($_GET["op"]){
   if(is_array($datos)==true and count($datos)>0){
     foreach($datos as $row){
  
-    $output["servicio"] = $row["servicio"];
+    $output["desc_producto"] = $row["desc_producto"];
     $output["precio_venta"] = number_format($row["precio_venta"],2,".",","); 
     $output["id_producto"] = $row["id_producto"];       
   }      

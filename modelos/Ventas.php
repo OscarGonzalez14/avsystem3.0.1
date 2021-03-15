@@ -42,7 +42,7 @@ public function buscar_lentes_ventas($id_producto){
 
 public function buscar_servicios_ventas($id_producto){
   $conectar= parent::conexion();
-  $sql="select id_producto,modelo as servicio, categoria as precio_venta from productos where id_producto=?;";
+  $sql="select desc_producto,categoria as precio_venta, categoria_producto,id_producto from productos where id_producto=?;";
 
   $sql = $conectar->prepare($sql);
   $sql->bindValue(1,$id_producto);
