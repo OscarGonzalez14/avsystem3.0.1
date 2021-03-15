@@ -38,7 +38,8 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("Y-m-d");;
          <ul class="breadcrumb float-sm-right" style="background-color:transparent;padding:0px;">
          <li class="breadcrumb-item"><a href="ventas.php">Nueva Venta</a></li>
          <li class="breadcrumb-item"><a href="corte_diario.php">Corte Diario</a></li>
-         <li class="breadcrumb-item active">Reporte</li>
+         <li class="breadcrumb-item active">Reporte General</li>
+         <li class="breadcrumb-item"><a href="reporte_mensual_vtas.php">Reporte Mensual</a></li>
          </ul>
         </div>
 

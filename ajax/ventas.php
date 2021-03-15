@@ -419,5 +419,32 @@ if (isset($errors)){
   }
   echo json_encode($codigo);
   break;
+
+
+ case "listar_vtas_mensuales":
+
+  $datos=$ventas->listar_vtas_mensuales($_POST["fecha_final"],$_POST["fecha_inicial"],$_POST["sucursal"]);
+  $data= Array();
+  foreach($datos as $row){
+    $sub_array = array();
+    $sub_array[] = $row["id_ventas"];
+    $sub_array[] = $row["paciente"];
+    $sub_array[] = $row["tipo_venta"];
+    $sub_array[] = $row["tipo_pago"];
+    $sub_array[] = $row["monto_total"];
+    $sub_array[] = $row["saldo"];
+    $sub_array[] = date("d-m-Y",strtotime($row["fecha_venta"])); 
+    $sub_array[] = $row["usuario"];  
+                                                
+    $data[] = $sub_array;
+  }
+
+      $results = array(
+      "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+    echo json_encode($results);
+    break;
 }
 ?>
