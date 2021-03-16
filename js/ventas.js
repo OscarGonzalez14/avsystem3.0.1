@@ -1113,7 +1113,8 @@ function detalleVentas(numero_venta,id_paciente){
       cache:false,
       //dataType:"json",
       success:function(data)
-      {       
+      { 
+      console.log(data)      
         $("#tabla_detalle_venta").html(data);
    
       }

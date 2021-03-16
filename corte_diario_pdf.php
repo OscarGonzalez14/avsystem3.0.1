@@ -771,7 +771,7 @@ for($j=0;$j<count($get_movimientos_caja);$j++){
   <tr>
     <td colspan="33"  style="text-align: center;font-size: 12px" class="stilot1"><?php echo "$".number_format($saldo_caja),2,".",",";?></td>
     <td colspan="36" class="stilot1" style="text-align: center;font-size: 12px"><?php echo "$00.00"?></td>
-    <td colspan="36" class="stilot1" style="text-align: center;font-size: 12px;color: blue"><b><?php echo "$".number_format($monto_efectivo_t),2,".",","$;?></b></td>
+    <td colspan="36" class="stilot1" style="text-align: center;font-size: 12px;color: blue"><b><?php echo "$".number_format($monto_efectivo_t),2,".",",";?></b></td>
   </tr>
 
 
@@ -801,8 +801,7 @@ $dompdf->render();
 //$dompdf->stream();
 $dompdf->stream('document', array('Attachment'=>'0'));
 ?>
-
-
-   <?php } else{
+<?php } else{
 echo "Acceso denegado";
+
   } ?>

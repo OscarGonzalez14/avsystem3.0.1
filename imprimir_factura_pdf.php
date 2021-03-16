@@ -9,10 +9,6 @@ $reporteria=new Reporteria();
 $id_paciente =$_GET["id_paciente"];
 $n_venta =$_GET["n_venta"];
 $correlativo = $_GET["correlativo_f"];
-$fecha_fac= $_GET["fecha_fac"];
-$fecha_imp = date("d-m-Y H:i:s", strtotime($fecha_fac));
-//echo $fecha_imp;
-
 
 $datos_factura_cantidad = $reporteria->get_datos_factura_cantidad($_GET["n_venta"],$_GET["id_paciente"]);
 $datos_factura_producto = $reporteria->get_datos_factura($_GET["n_venta"],$_GET["id_paciente"]);
@@ -20,7 +16,7 @@ $datos_factura_precio_u = $reporteria->get_datos_factura_p_unitario($_GET["n_ven
 $datos_factura_subtotal = $reporteria->get_datos_factura_subtotal($_GET["n_venta"],$_GET["id_paciente"]);
 $datos_factura_paciente = $reporteria->get_datos_factura_paciente($_GET["id_paciente"]);
 $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],$_GET["id_paciente"]);
-date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -60,8 +56,8 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
     }
    </style>
   </head>
-
-<body>
+  <body>
+ <?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>
 <div style="margin-top: 130px;height:500px" >
   <table width="100%">
     <tr>
@@ -70,17 +66,15 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
   for($i=0;$i<sizeof($datos_factura_paciente);$i++){
 
 ?>
-  <td colspan="35" style="color:black;font-size:11px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 35%"><strong>CLIENTE:</strong> <?php echo $datos_factura_paciente[$i]["nombres"];?></td>
+  <td colspan="30" style="color:black;font-size:9px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 30%"><strong>CLIENTE:</strong> <?php echo $datos_factura_paciente[$i]["nombres"];?></td>
 
-    <td colspan="35" style="color:black;font-size:11px;border: 1px solidwhite;font-family: Helvetica, Arial, sans-serif;width: 35%"><strong>DIRECCION:</strong> <?php echo $datos_factura_paciente[$i]["direccion"];?></td>
+    <td colspan="35" style="color:black;font-size:9px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 35%"><strong>DIRECCION:</strong> <?php echo $datos_factura_paciente[$i]["direccion"];?></td>
 
-    <td colspan="10" style="color:black;font-size:11px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 10%"><strong>TELEFONO:</strong> <?php echo $datos_factura_paciente[$i]["telefono"];?></td>
-    <td colspan="20" style="color:black;font-size:11px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 20%"><strong>FECHA:</strong> <?php echo $fecha_imp;?></td>
-   
+    <td colspan="18" style="color:black;font-size:9px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 18%"><strong>TELEFONO:</strong> <?php echo $datos_factura_paciente[$i]["telefono"];?></td>
+    <td colspan="17" style="color:black;font-size:9px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 17%"><strong>HORA:</strong> <?php echo $hoy;?></td>
     <?php
   }
 ?>
-
 </tr>
 </table>
 <table id="table2" width="100%">
@@ -94,14 +88,14 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
 </tr>
 
 <tr style="height:50px;">
-  <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 9px;text-align: center;margin:20px;height: 95px">
+  <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 10px;text-align: center;margin:20px;height: 95px">
  <?php 
     for ($i=0; $i < sizeof($datos_factura_cantidad); $i++) {
      ?><span style="margin-left: 0px !important"><?php echo $datos_factura_cantidad[$i]["cantidad_venta"]?></span><br>
      <?php } ?>     
   </td>
  
-  <td colspan="50" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 9px;text-align: left;margin:20px;text-transform: uppercase;
+  <td colspan="50" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 10px;text-align: left;margin:20px;text-transform: uppercase;
   ">
      <?php 
     for ($i=0; $i < sizeof($datos_factura_producto); $i++) {
@@ -109,7 +103,7 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
      <?php } ?>    
   </td>
  
-  <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size:9px;text-align: center;margin:20px">
+  <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size:10px;text-align: center;margin:20px">
 
     <?php 
     for ($i=0; $i < sizeof($datos_factura_precio_u); $i++) {
@@ -190,7 +184,7 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
   for($i=0;$i<sizeof($datos_factura_venta);$i++){
  ?>
 
-<p style="font-size: 10px;text-align: right;">NF: <span style="color:red"><?php echo $correlativo; ?>&nbsp;-- &nbsp;</span> No.Venta:<?php echo $datos_factura_venta[$i]["numero_venta"];?>&nbsp;&nbsp;&nbsp;opto:&nbsp;<?php echo $datos_factura_venta[$i]["optometra"];?>&nbsp;&nbsp;-&nbsp;Impreso:&nbsp;<?php echo $fecha_imp;?>&nbsp;&nbsp;&nbsp;user:&nbsp;<?php echo $datos_factura_venta[$i]["id_usuario"];?>--<?php echo $datos_factura_venta[$i]["sucursal"];?></p>
+<p style="font-size: 10px;text-align: right;">NF: <span style="color:red"><?php echo $correlativo; ?>&nbsp;-- &nbsp;</span> No.Venta:<?php echo $datos_factura_venta[$i]["numero_venta"];?>&nbsp;&nbsp;&nbsp;opto:&nbsp;<?php echo $datos_factura_venta[$i]["optometra"];?>&nbsp;&nbsp;-&nbsp;Impreso:&nbsp;<?php echo $hoy;?>&nbsp;&nbsp;&nbsp;user:&nbsp;<?php echo $datos_factura_venta[$i]["id_usuario"];?>--<?php echo $datos_factura_venta[$i]["sucursal"];?></p>
     <?php
   }
 ?>
@@ -205,12 +199,12 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
   for($i=0;$i<sizeof($datos_factura_paciente);$i++){
 
 ?>
-  <td colspan="35" style="color:black;font-size:11px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 35%"><strong>CLIENTE:</strong> <?php echo $datos_factura_paciente[$i]["nombres"];?></td>
+  <td colspan="30" style="color:black;font-size:9px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 30%"><strong>CLIENTE:</strong> <?php echo $datos_factura_paciente[$i]["nombres"];?></td>
 
-    <td colspan="35" style="color:black;font-size:11px;border: 1px solidwhite;font-family: Helvetica, Arial, sans-serif;width: 35%"><strong>DIRECCION:</strong> <?php echo $datos_factura_paciente[$i]["direccion"];?></td>
+    <td colspan="35" style="color:black;font-size:9px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 35%"><strong>DIRECCION:</strong> <?php echo $datos_factura_paciente[$i]["direccion"];?></td>
 
-    <td colspan="10" style="color:black;font-size:11px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 10%"><strong>TELEFONO:</strong> <?php echo $datos_factura_paciente[$i]["telefono"];?></td>
-    <td colspan="20" style="color:black;font-size:11px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 20%"><strong>FECHA:</strong> <?php echo $fecha_imp;?></td>
+    <td colspan="18" style="color:black;font-size:9px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 18%"><strong>TELEFONO:</strong> <?php echo $datos_factura_paciente[$i]["telefono"];?></td>
+    <td colspan="17" style="color:black;font-size:9px;border: 1px solid white;font-family: Helvetica, Arial, sans-serif;width: 17%"><strong>HORA:</strong> <?php echo $hoy;?></td>
     <?php
   }
 ?>
@@ -227,21 +221,22 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
 </tr>
 
 <tr style="height:55px;">
-  <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: center;height: 95px">
+  
+  <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 10px;text-align: center;height: 95px">
  <?php 
     for ($i=0; $i < sizeof($datos_factura_cantidad); $i++) {
      echo $datos_factura_cantidad[$i]["cantidad_venta"]?><br>
      <?php } ?>     
   </td>
  
-  <td colspan="50" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 11px;text-align: left;">
+  <td colspan="50" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size: 10px;text-align: left;">
      <?php 
     for ($i=0; $i < sizeof($datos_factura_producto); $i++) {
      echo "&nbsp;&nbsp;&nbsp;".$datos_factura_producto[$i]["producto"]?><br>
      <?php } ?>    
   </td>
  
-  <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size:11px;text-align: center">
+  <td colspan="10" style="border: 1px solid black;font-family: Helvetica, Arial, sans-serif;font-size:10px;text-align: center">
 
     <?php 
     for ($i=0; $i < sizeof($datos_factura_precio_u); $i++) {
@@ -321,7 +316,8 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
 <?php
   for($i=0;$i<sizeof($datos_factura_venta);$i++){
  ?>
-<p style="font-size: 10px;text-align: right;">NF: <span style="color:red"><?php echo $correlativo; ?>&nbsp;-- &nbsp;</span> No.Venta:<?php echo $datos_factura_venta[$i]["numero_venta"];?>&nbsp;&nbsp;&nbsp;opto:&nbsp;<?php echo $datos_factura_venta[$i]["optometra"];?>&nbsp;&nbsp;-&nbsp;Impreso:&nbsp;<?php echo $fecha_imp;?>&nbsp;&nbsp;&nbsp;user:&nbsp;<?php echo $datos_factura_venta[$i]["id_usuario"];?>--<?php echo $datos_factura_venta[$i]["sucursal"];?></p>
+<?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>
+<p style="font-size: 10px;text-align: right;">NF: <span style="color:red"><?php echo $correlativo; ?>&nbsp;-- &nbsp;</span> No.Venta:<?php echo $datos_factura_venta[$i]["numero_venta"];?>&nbsp;&nbsp;&nbsp;opto:&nbsp;<?php echo $datos_factura_venta[$i]["optometra"];?>&nbsp;&nbsp;-&nbsp;Impreso:&nbsp;<?php echo $hoy;?>&nbsp;&nbsp;&nbsp;user:&nbsp;<?php echo $datos_factura_venta[$i]["id_usuario"];?>--<?php echo $datos_factura_venta[$i]["sucursal"];?></p>
     <?php
   }
 ?>
@@ -330,13 +326,12 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
 
 </body>
 </html>
-
 <?php
 $salida_html = ob_get_contents();
 
   //$user=$_SESSION["id_usuario"];
 
-ob_end_clean();
+  ob_end_clean();
 $dompdf = new Dompdf();
 $dompdf->loadHtml($salida_html);
 

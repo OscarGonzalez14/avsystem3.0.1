@@ -49,7 +49,7 @@
 
   <div class="modal-content">
   <div class="modal-header" id="head_oid" style="justify-content:space-between">
-    <span><i class="far fa-file-alt"></i>DETALLE ORDEN DESCUENTO EN PLANILLA #</span><span id="correlativo_orden"></span>
+    <span><i class="far fa-file-alt"></i> DETALLE ORDEN DESCUENTO EN PLANILLA #</span><span id="correlativo_orden"></span>
     <button type="button" class="close" data-dismiss="modal" style="color:white">&times;</button>
   </div>
     <div class="modal-body">
@@ -119,6 +119,17 @@
       </tbody>
     </table><br>
 
+        <!--TABLA DE BENEFICIARIOS-->
+    
+    <table id="beneficiarios_productos_vf" class="table-striped table-bordered table-hover" width="100%" style="font-size:13px">
+
+          <thead class="bg-success">
+            <th>Cantidad</th>
+            <th>Producto</th>
+            <th>Subtotal</th>
+          </thead>                            
+    </table>
+
     <!--TABLA DE BENEFICIARIOS-->
       <div class="card-body p-0 table-responsive" style="margin:1px">
             <table id="lista_aros_ventas_data" width="100%" class="table-hover table-bordered">
@@ -137,17 +148,8 @@
               <tbody style="text-align:center;font-size: 14px" id="benefiaciarios_orden"></tbody>
             </table>
           </div><br>
-    <!--TABLA DE BENEFICIARIOS-->
-    <table width="100%" class="table-hover table-bordered display nowrap">
-    <thead style="text-align: center" class="table-hover table-bordered display nowrap">
-      <tr class="bg-dark">
-        <th colspan="100" style="color:white;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:100%;text-align: center"><b>BENEFICIARIOS Y SERVICIOS</b></th>  
-      </tr>
-    </thead>
-    <tbody style="text-align:center;font-size:12px" id="beneficiarios_productos_vf"></tbody>
-    </table>
-</div>
 
+</div>
 
 <div class="modal-footer justify-content-between" id="btns_orden">
   <button type="button" class="btn btn-info btn-block" onClick="aprobar_od_planilla();" style="color: white"><i class="fas fa-save" aria-hidden="true"></i> GUARDAR CAMBIOS</button>

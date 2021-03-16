@@ -528,8 +528,10 @@ $datos=$creditos->get_paciente_id($_POST["id_paciente"]);
 
         $data[]= $output;
       }
-   }
-   echo json_encode($data);
+  }
+
+  echo json_encode($data);
+
   break;
 
    case 'get_beneficiarios_ventas_flot':
@@ -617,6 +619,7 @@ $datos=$creditos->get_paciente_id($_POST["id_paciente"]);
    echo json_encode($num_orden);
   break;
 
+
   case 'get_saldos_oid':
   $datos = $creditos->get_saldos_oid($_POST["id_paciente"]);
    if(is_array($datos)==true and count($datos)>0) {
@@ -665,7 +668,7 @@ case 'listar_oid_aprobadas':
     break;
 
     /////eliminar oid aprobada
-   case "eliminar_oid":
+    case "eliminar_oid":
         $creditos->eliminar_oid($_POST["id_orden"],$_POST["numero_orden"],$_POST["id_paciente"]);
         $messages[]="ok";
         
@@ -680,8 +683,11 @@ case 'listar_oid_aprobadas':
        }
     break;
 
+  case "get_det_ventas_flotantes":
 
-
+  $datos = $creditos->get_det_ventas_flotantes($_POST["id_paciente"],$_POST["numero_orden"]);
+  
+  break;
 
 }//Fin case
 

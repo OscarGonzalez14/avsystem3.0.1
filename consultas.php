@@ -16,7 +16,7 @@ require_once('header.php');
           </div>
           <div class="col-sm-4">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="pacientes.php">Pacientes</a></li>
+              <li class="breadcrumb-item"><a href="pacientes.php">Nueva Consulta</a></li>
               <li class="breadcrumb-item active">Consultas</li>
             </ol>
           </div>

@@ -205,30 +205,34 @@ $cuotas_creditos = $suma_monto_orden/$plazo_credito;
 
   <?php
   $html="";
+
   $evaluados_oid = $reporteria->beneficiarios_oid($id_paciente,$n_orden);
   for ($i=0; $i <sizeof($evaluados_oid) ; $i++) { 
     $evaluado = $evaluados_oid[$i]["evaluado"];
     
     $det_ventas_flot = $reporteria->get_detalle_vf_beneficiario($evaluado,$n_orden);
-    $html.="<thead><tr><th colspan='100' style='width:100%;text-align:center;border: solid 1px black' bgcolor='#c5e2f6'>".$evaluado."</th></tr></thead>
-
-      <tr>
-        <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>CANTIDAD</td>
-        <td colspan='50' style='width:50%;text-align:center;border: solid 1px black'>DESCRIPCION</td>
-        <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>PRECIO</td>
-      </tr>  
+    $html.="<thead><tr><th colspan='100' style='width:100%;text-align:center;border: solid 1px black' bgcolor='#c5e2f6'>".$evaluado."</th></tr></thead>       
 
     ";
+    $total=0;
     foreach ($det_ventas_flot as $k => $v) {
+      $precio= $v["precio_venta"];
+      $total = $total+$precio;
       $html.="
       <tr>
           <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>".$v["cantidad_venta"]."</td>
           <td colspan='50' style='width:50%;text-align:center;border: solid 1px black'>".$v["producto"]."</td>
           <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>"."$".$v["precio_venta"]."</td>
-      </tr>
+      </tr>   
+     
+     
 
       ";
     }
+    $html.="<tr>
+        <td colspan='75' style='text-align:center;background:#C8C8C8;color;black;'>TOTAL</td>
+        <td colspan='25' style='text-align:center;background:#C8C8C8;color;black;'><b>"."$".number_format($total,2,".",",")."</b></td>
+      </tr><tr><td style='color:white;'>H</td></tr>";
 
   }
 
@@ -237,6 +241,11 @@ $cuotas_creditos = $suma_monto_orden/$plazo_credito;
   <tr>
     <th colspan="100" style="color:black;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><b>BENEFICIARIOS Y SERVICIOS</b></th>  
     </tr>
+    <tr>
+        <td colspan='25' style='width:25%;text-align:center;border: solid 1px black;background:#034f84;color: white'>CANTIDAD</td>
+        <td colspan='50' style='width:50%;text-align:center;border: solid 1px black;background:#034f84;color: white'>DESCRIPCION</td>
+        <td colspan='25' style='width:25%;text-align:center;border: solid 1px black;background:#034f84;color: white'>PRECIO</td>
+      </tr> 
  <?php echo $html;?> 
 </table>
 

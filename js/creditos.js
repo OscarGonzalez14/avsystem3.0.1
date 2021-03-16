@@ -862,6 +862,7 @@ function get_finaliza(){
     document.getElementById("btns_orden").style.display = "none";
   }
   /////////////ajax data detalles del  orden
+  //$("#nnn").val(numero_orden)
   $.ajax({
     url:"ajax/creditos.php?op=get_detalles_orden_oid",
     method:"POST",
@@ -1022,36 +1023,28 @@ function get_finaliza(){
  //listar_beneficiarios_productos();
 }
 
-var det_ventas_flotantes = [];
 
-function get_det_f_ben(id_paciente,numero_orden,flotante_b){
-  $.ajax({
-    url: "ajax/creditos.php?op=get_det_f_ben",
-    method : "POST",
-    data: {id_paciente:id_paciente,numero_orden:numero_orden,flotante_b:flotante_b},
-    cache : false,
-    dataType :"json",
-    success:function(data){   
 
-        var obj = {
-         numero_orden : data.numero_orden,
-         id_producto: data.id_producto,
-         producto: data.producto,
-         precio_venta: data.precio_venta,
-         cantidad_venta: data.cantidad_venta,
-         beneficiario: data.beneficiario,
-         precio_final: data.precio_final,
-         fecha_venta: data.fecha_venta,
-         id_usuario: data.id_usuario,
-         id_paciente: data.id_paciente,
-         beneficiario: data.beneficiario,
-         categoria_ub: data.categoria_ub
-      }; //Fin obj_dos
-      det_ventas_flotantes.push(obj);  
+function get_det_f_ben(id_paciente,numero_orden){
+
+  console.log(`Este es el ID: ${id_paciente} Este es # orden ${numero_orden}`);
+ 
+   $.ajax({
+      url:"ajax/creditos.php?op=get_det_ventas_flotantes",
+      method:"POST",
+      data:{numero_orden:numero_orden,id_paciente:id_paciente},
+      cache:false,
+      //dataType:"json",
+      success:function(data)
+      { 
+        console.log(data)      
+        $("#beneficiarios_productos_vf").html(data);
+   
+      }
+    })
+
 }
-})
-  listar_beneficiarios_productos();
-}
+
 
 function listar_beneficiarios_productos(){
 
@@ -1134,6 +1127,9 @@ function detalle_productos_flotantes(){
 function aprobar_od_planilla(){
  let plazo = $("#plazo_orden_desc").val();
  let numero_orden = $("#n_orden_des").val();
+
+ //array_ben =beneficiarios_orden.length;
+
  $.ajax({
   url:"ajax/creditos.php?op=aprobar_orden_planilla",
   method: "POST",
@@ -1203,6 +1199,7 @@ function denegar_od_planilla(){
 });//bootbox
 
 }
+
 
 function listar_creditos_cauto(){
   var sucursal= $("#sucursal").val();

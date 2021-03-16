@@ -595,6 +595,57 @@ $conectar= parent::conexion();
   return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);   
 }
 
+public function get_det_ventas_flotantes($id_paciente,$numero_orden){
+
+    $conectar= parent::conexion();
+    parent::set_names(); 
+
+   $sql = "select evaluado,monto_total from ventas_flotantes where id_paciente=? and numero_orden=?;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1,$id_paciente);
+    $sql->bindValue(2,$numero_orden);
+    $sql->execute();
+    $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    $html="<thead>
+        <th colspan='100' style='color:black;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:100%;text-align: center' class='bg-dark'><b>BENEFICIARIOS Y SERVICIOS</b></th>
+        </thead>
+        <thead>  
+        <th colspan='25' style='width:25%;text-align:center;border: solid 1px black;background:#034f84;color: white'>Cantidad</th>
+        <th colspan='50' style='width:50%;text-align:center;border: solid 1px black;background:#034f84;color: white'>Producto</th>
+        <th colspan='25' style='width:25%;text-align:center;border: solid 1px black;background:#034f84;color: white'>Precio Venta</th>
+        </thead>";
+
+      for ($i=0; $i <sizeof($resultado) ; $i++) { 
+        $evaluado = $resultado[$i]["evaluado"];
+            $sql2 = "select*from detalle_ventas_flotantes where beneficiario=? and numero_orden=?;";
+            $sql2 = $conectar->prepare($sql2);
+            $sql2->bindValue(1,$evaluado);
+            $sql2->bindValue(2,$numero_orden);
+            $sql2->execute();
+        $det_ventas_flot= $sql2->fetchAll(PDO::FETCH_ASSOC);
+        $total=0;
+        $html.="<thead><tr><th colspan='100' style='width:100%;text-align:center;border: solid 1px black' bgcolor='#c5e2f6'>".$evaluado."</th></tr></thead>";
+        foreach ($det_ventas_flot as $k => $v) {
+        $precio= $v["precio_venta"];
+        $total = $total+$precio;
+        $html.="
+        <tr>
+            <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>".$v["cantidad_venta"]."</td>
+            <td colspan='50' style='width:50%;text-align:center;border: solid 1px black'>".$v["producto"]."</td>
+            <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>"."$".$v["precio_venta"]."</td>
+        </tr>";
+        }
+        $html.="<tr>
+            <td colspan='75' style='text-align:right;background:#C8C8C8;color;black;'><b>TOTAL<b></td>
+            <td colspan='25' style='text-align:center;background:#C8C8C8;color;black;'><b>"."$".number_format($total,2,".",",")."</b></td>
+         </tr><tr><td style='color:white;'>H</td></tr>";
+}
+
+   echo $html;
+
+}
+
 }/////FIN CLASS
 
 ?>
