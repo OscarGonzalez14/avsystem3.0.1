@@ -45,7 +45,7 @@ $reporteria = new Reporteria();
           <tr style="min-height:10px;border-radius: 3px;font-style: normal;font-size: 12px;text-align: center">
             <td  style="text-align:center;">ID</td>
             <td  style="text-align:center;"># Orden</td>
-            <td  style="text-align:center;">Paciente</td>
+            <td  style="text-align:center;">Titular</td>
             <td  style="text-align:center;">Empresa</td>
             <td  style="text-align:center;">Fecha creación</td>
             <td  style="text-align:center;">Estado</td>
@@ -59,11 +59,10 @@ $reporteria = new Reporteria();
       </table>
     </div>
     </div>
-          <input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>"/>
-          <input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>
-          <?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>
-          <input type="hidden" id="fecha" value="<?php echo $hoy;?>">
-           
+    <input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>"/>
+    <input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"/>
+    <?php date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");?>
+    <input type="hidden" id="fecha" value="<?php echo $hoy;?>">          
  
  <?php require_once("footer.php"); ?>
  <input type="hidden" id="name_pag" value="DESCUENTOS EN PLANILLA">

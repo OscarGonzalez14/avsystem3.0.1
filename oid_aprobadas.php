@@ -47,7 +47,7 @@ if(isset($_SESSION["usuario"])){
               <tr style="min-height:10px;border-radius: 3px;font-style: normal;font-size: 12px;text-align: center">
                 <td  style="text-align:center;">ID</td>
                 <td  style="text-align:center;"># Orden</td>
-                <td  style="text-align:center;">Paciente</td>
+                <td  style="text-align:center;">Titular</td>
                 <td  style="text-align:center;">Empresa</td>
                 <td  style="text-align:center;">Fecha creación</td>
                 <td  style="text-align:center;">Estado</td>

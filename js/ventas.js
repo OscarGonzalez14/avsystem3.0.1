@@ -608,6 +608,7 @@ function buscar_existe_oid(){
   let id_paciente = $("#id_paciente").val();
   let paciente = $("#titular_cuenta").val();
   let evaluado = $("#evaluado").val();
+
   $.ajax({
   url:"ajax/creditos.php?op=buscar_existe_oid",
   method:"POST",
@@ -621,7 +622,10 @@ function buscar_existe_oid(){
     $("#n_orden_add").val(data);
     var tipo_pago = $("#tipo_pago").val();
     var tipo_venta = $("#tipo_venta").val();
-    let plazo = $("#plazo").val();   
+    let plazo = $("#plazo").val();
+
+    get_plazo_orden(n_orden_add,id_paciente);
+
     if (data != "No") { //==========SI CONSULTA RETORNA QUE EXISTE ORDEN========//
       console.log("existe credito");
       $("#advertencia_creditos").modal("show");
@@ -642,10 +646,11 @@ function buscar_existe_oid(){
       let saldos_act = data.saldos;
       console.log("Este es saldo actual"+saldos_act);
       if(saldos_act>0) {      
-      let n_saldo = parseInt(monto_total)+parseInt(saldos_act);
-      console.log(n_saldo);
-      $("#nuevo_saldo_add").html("$"+n_saldo)
-      $("#saldo_act_add").html("$"+data.saldos);
+      let n_saldo = parseFloat(monto_total)+parseFloat(saldos_act);
+      let new_sal = parseInt(n_saldo.toFixed(2));
+      console.log(new_sal);
+        $("#nuevo_saldo_add").html("$"+n_saldo.toFixed(2))
+        $("#saldo_act_add").html("$"+data.saldos);
       }else{
         $("#nuevo_saldo_add").html("$00.00");
         $("#saldo_act_add").html("$00.00");
@@ -681,6 +686,26 @@ function buscar_existe_oid(){
     }
 })     
 }
+
+function get_plazo_orden(n_orden_add,id_paciente){    
+  ///////////GET PLAZO ACTUAL DE ORDEN CREDITO //////
+  $.ajax({
+      url:"ajax/creditos.php?op=get_det_orden",
+      method:"POST",
+      data:{n_orden_add:n_orden_add,id_paciente:id_paciente},
+      cache:false,
+      dataType:"json",
+      success:function(data){ 
+      console.log(data);
+      let plazo_orden = $("#plazo_acts").val();
+      document.getElementById("plazo_acts").placeholder = "Plazo Actual: "+data.plazo+" Meses";
+      $("#plazo_acts_1").val(data.plazo);
+      
+  }
+  });
+
+}
+
 function newOrden(){
     $("#advertencia_creditos").modal("hide");
     $("#oid").modal("show");
@@ -724,10 +749,21 @@ function add_beneficiario_oid(){
   var id_ref = $("#id_refererido").val();
   var nuevo_saldo_add = $("#nuevo_saldo_add").html();
 
+  let plazo_orden = $("#plazo_acts").val();
+
+  console.log(plazo_orden);
+
+
+  if (plazo_orden != "") {
+    var new_plazo = plazo_orden;
+  }else{
+    var new_plazo = $("#plazo_acts_1").val();
+  }
+
   var test_array = detalles.length;
-  if (test_array<1) {
-  Swal.fire('Debe Agregar Productos a la Venta!','','error')
-  return false;
+      if (test_array<1) {
+      Swal.fire('Debe Agregar Productos a la Venta!','','error')
+      return false;
 }
 
 
@@ -737,7 +773,7 @@ $('#listar_det_ventas').html('');
     method:"POST",
     data:{'arrayVenta':JSON.stringify(detalles),'fecha_venta':fecha_venta,'numero_venta':numero_venta,'paciente':paciente,'vendedor':vendedor,'monto_total':monto_total,
     'tipo_pago':tipo_pago,'tipo_venta':tipo_venta,'id_usuario':id_usuario,
-    'id_paciente':id_paciente,'sucursal':sucursal,'evaluado':evaluado,'optometra':optometra,'plazo':plazo,"id_ref":id_ref,'n_orden_add':n_orden_add,'nuevo_saldo_add':nuevo_saldo_add},
+    'id_paciente':id_paciente,'sucursal':sucursal,'evaluado':evaluado,'optometra':optometra,'plazo':plazo,"id_ref":id_ref,'n_orden_add':n_orden_add,'nuevo_saldo_add':nuevo_saldo_add,new_plazo:new_plazo},
     cache: false,
     dataType:"json",
     error:function(x,y,z){

@@ -1119,7 +1119,6 @@ function detalle_productos_flotantes(){
     "</td>"+"<td style='text-align:center;width: 50% !important' colspan='50'>"+detalle_venta_flotante[i].producto+"</td>"+
     "<td style='text-align:center;width: 25%' colspan='25'>"+detalle_venta_flotante[i].precio_final+"</td>"+"</tr>";
   }
-
   $('#detalle_productos_orden').html(filas);
 }
 
@@ -1127,8 +1126,6 @@ function detalle_productos_flotantes(){
 function aprobar_od_planilla(){
  let plazo = $("#plazo_orden_desc").val();
  let numero_orden = $("#n_orden_des").val();
-
- //array_ben =beneficiarios_orden.length;
 
  $.ajax({
   url:"ajax/creditos.php?op=aprobar_orden_planilla",

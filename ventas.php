@@ -219,7 +219,7 @@ require_once("modals/modal_oid.php");
 </section>
 
 <div class="modal" id="advertencia_creditos">
-  <div class="modal-dialog" style="max-width: 55%">
+  <div class="modal-dialog" style="max-width: 90%">
     <div class="modal-content">
       <!-- Modal Header -->
       <!-- Modal body -->
@@ -234,25 +234,28 @@ require_once("modals/modal_oid.php");
               </div>
             </div>
             <input type="hidden" id="n_orden_add" value="123">
+
             <table width="100%" class="table-hover table-bordered">
               <thead style="background:#034f84;color:white;text-align: center;font-family: Helvetica, Arial, sans-serif;font-size:12px">
                 <tr>
-                  <th style="width: 26% !important" colspan="26">Titular</th>
-                  <th style="width: 26% !important" colspan="26">Empresa</th>
-                  <th style="width: 26% !important" colspan="26">Evaluado</th>
-                  <th style="width: 11% !important" colspan="11">Saldo Actual</th>
-                  <th style="width: 11% !important" colspan="11">Nuevo Saldo</th>
+                  <th style="width: 24% !important;font-size:11px" colspan="24">Titular</th>
+                  <th style="width: 20% !important;font-size:11px" colspan="20">Empresa</th>
+                  <th style="width: 23% !important;font-size:11px" colspan="23">Evaluado</th>
+                  <th style="width: 11% !important;font-size:11px" colspan="11">Saldo Actual</th>
+                  <th style="width: 11% !important;font-size:11px" colspan="11">Nuevo Saldo</th>
+                  <th style="width: 11% !important;font-size:11px" colspan="11">Plazo</th>
                 </tr>
               </thead>
               <tr>
-                  <td style="width: 26% !important;text-align: center" colspan="26"><span id="tit_add_tit"></span></td>
-                  <td style="width: 26% !important;text-align: center" colspan="26"><span id="empresa_add_tit"></span></td>
-                  <td style="width: 26% !important;text-align: center" colspan="26"><span id="eval_add_tit"></span></td>
-                  <td style="width: 11% !important;text-align: center" colspan="11"><span id="saldo_act_add"></span></td>
-                  <td style="width: 11% !important;text-align: center" colspan="11"><span id="nuevo_saldo_add"></span></td>
+                  <td style="width: 24% !important;text-align: center;font-size:11px" colspan="24"><span id="tit_add_tit"></span></td>
+                  <td style="width: 20% !important;text-align: center;font-size:11px" colspan="20"><span id="empresa_add_tit"></span></td>
+                  <td style="width: 23% !important;text-align: center;font-size:11px" colspan="23"><span id="eval_add_tit"></span></td>
+                  <td style="width: 11% !important;text-align: center;font-size:11px" colspan="11"><span id="saldo_act_add"></span></td>
+                  <td style="width: 11% !important;text-align: center;font-size:11px" colspan="11"><span id="nuevo_saldo_add"></span></td>
+                  <td style="width: 11% !important;text-align: center;font-size:11px" colspan="11"><input type="number" id="plazo_acts"></td>
               </tr>
             </table>
-
+      <input type="hidden" id="plazo_acts_1">
       </div><!--Fin Modal Body-->
       <!-- Modal footer -->
       <div class="modal-footer">

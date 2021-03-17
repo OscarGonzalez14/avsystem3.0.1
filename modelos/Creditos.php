@@ -233,6 +233,17 @@ public function get_detalle_orden_credito($id_paciente,$n_orden){
     return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+public function get_det_orden($n_orden_add,$id_paciente){
+    $conectar= parent::conexion();
+    parent::set_names(); 
+    $sql="select*from orden_credito where id_paciente=? and numero_orden=?;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$id_paciente);
+    $sql->bindValue(2,$n_orden_add);
+    $sql->execute();
+    return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+
 public function get_detalle_venta_flotante($id_paciente,$n_orden){
     $conectar= parent::conexion();
     parent::set_names(); 
@@ -499,8 +510,8 @@ public function agregar_benefiaciario_oid(){
   $plazo = $_POST["plazo"];
   $id_ref = $_POST["id_ref"];
   $numero_orden = $_POST["n_orden_add"];
-  $nuevo_saldo_add = $_POST["nuevo_saldo_add"];  
-  
+  $nuevo_saldo_add = $_POST["nuevo_saldo_add"];
+  $nuevo_plazo = $_POST["new_plazo"];  
 
   $str = '';
   $detalles = array();
@@ -558,10 +569,12 @@ $sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5->bindValue(14,$estado_ord);
     $sql5->execute();
 
-    $sql12 = "update orden_credito set tipo_orden='agrupada',estado='0' where numero_orden=?";
+    $sql12 = "update orden_credito set tipo_orden='agrupada',plazo=?,estado='0' where numero_orden=?";
     $sql12 = $conectar->prepare($sql12);
-    $sql12->bindValue(1,$numero_orden);
+    $sql12->bindValue(1,$nuevo_plazo);
+    $sql12->bindValue(2,$numero_orden);
     $sql12->execute();
+
 }
 
 public function get_beneficiarios($id_paciente,$numero_orden){
