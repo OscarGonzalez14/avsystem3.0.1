@@ -461,7 +461,7 @@ public function denegar_orden($numero_orden){
 public function buscar_existe_oid($id_paciente){
     $conectar = parent::conexion();
     parent::set_names(); 
-    $sql="select numero_orden from orden_credito where id_paciente=? order by id_orden DESC limit 1;";
+    $sql="select p.id_paciente,p.nombres,p.empresas,o.numero_orden from pacientes as p inner join orden_credito as o on o.id_paciente=p.id_paciente where o.id_paciente=?;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$id_paciente);
     $sql->execute();
@@ -569,10 +569,28 @@ $sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5->bindValue(14,$estado_ord);
     $sql5->execute();
 
-    $sql12 = "update orden_credito set tipo_orden='agrupada',plazo=?,estado='0' where numero_orden=?";
+    //$finalizacion = date("d-m-Y",strtotime($fecha_inicio."+ $plazo month"));
+    ///GET FECHA INICIO DE ORDEN
+
+    $sql6="select fecha_inicio from orden_credito where numero_orden=? and id_paciente=?;";
+    $sql6=$conectar->prepare($sql6);
+    $sql6->bindValue(1,$numero_orden);
+    $sql6->bindValue(2,$id_paciente);
+    $sql6->execute();
+    $inicio = $sql6->fetchAll(PDO::FETCH_ASSOC);
+
+    for ($i=0; $i <sizeof($inicio) ; $i++) { 
+        $f_inicio = $inicio[$i]["fecha_inicio"];
+    }
+    
+    $finalizacion = date("d-m-Y",strtotime($f_inicio."+ $nuevo_plazo month"));
+
+    $sql12 = "update orden_credito set tipo_orden='agrupada',plazo=?,estado='0',fecha_finalizacion=? where numero_orden=? and id_paciente=?";
     $sql12 = $conectar->prepare($sql12);
     $sql12->bindValue(1,$nuevo_plazo);
-    $sql12->bindValue(2,$numero_orden);
+    $sql12->bindValue(2,$finalizacion);
+    $sql12->bindValue(3,$numero_orden);
+    $sql12->bindValue(4,$id_paciente);
     $sql12->execute();
 
 }

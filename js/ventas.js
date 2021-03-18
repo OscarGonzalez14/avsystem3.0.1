@@ -618,12 +618,14 @@ function buscar_existe_oid(){
   success:function(data){ 
   console.log(data);
 //==========VALIDACION SI EXISTE CREDITO===========//
-    var n_orden_add = data;
-    $("#n_orden_add").val(data);
+    var n_orden_add = data.numero_orden;
+    var emp_tit = data.empresas;
+    $("#n_orden_add").val(data.numero_orden);
     var tipo_pago = $("#tipo_pago").val();
     var tipo_venta = $("#tipo_venta").val();
     let plazo = $("#plazo").val();
-
+    let pac_evaluado = $("#evaluado").val();
+    console.log(pac_evaluado);
     get_plazo_orden(n_orden_add,id_paciente);
 
     if (data != "No") { //==========SI CONSULTA RETORNA QUE EXISTE ORDEN========//
@@ -631,6 +633,8 @@ function buscar_existe_oid(){
       $("#advertencia_creditos").modal("show");
       $("#tit_add_tit").html(paciente);
       $("#eval_add_tit").html(evaluado);
+      
+
       $.ajax({//================SE HACE LA CONSULTA SI EXISTE CREDITO
       url:"ajax/creditos.php?op=get_saldos_oid",
       method:"POST",
@@ -641,7 +645,7 @@ function buscar_existe_oid(){
       console.log(data);
       var monto_total = $("#total_venta").html();
       console.log("este es la empresa"+data.empresas);
-      $("#empresa_add_tit").html(data.empresas);
+      $("#empresa_add_tit").html(emp_tit);
       
       let saldos_act = data.saldos;
       console.log("Este es saldo actual"+saldos_act);
@@ -680,6 +684,7 @@ function buscar_existe_oid(){
       $("#tel_pac").val(data.telefono);
       $("#dui_pac").val(data.dui);
       $("#plazo_credito").val(plazo);
+      $("#benef_empresarial").val(pac_evaluado);
     }
     })
       }

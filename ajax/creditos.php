@@ -443,7 +443,8 @@ case 'get_det_orden':
 $datos=$creditos->get_det_orden($_POST["n_orden_add"],$_POST["id_paciente"]);
 
     if(is_array($datos)==true and count($datos)>0){
-      foreach($datos as $row){         
+
+      foreach($datos as $row){
         $output["ref_uno"] = $row["ref_uno"];
         $output["tel_ref_uno"] = $row["tel_ref_uno"];
         $output["ref_dos"] = $row["ref_dos"];
@@ -457,10 +458,10 @@ $datos=$creditos->get_det_orden($_POST["n_orden_add"],$_POST["id_paciente"]);
         $output["monto"] = $row["monto"];
         $output["plazo"] = $row["plazo"];
         $output["observaciones"] = $row["observaciones"];
-        $output["tipo_orden"] = $row["tipo_orden"];
-       
-      }       
+        $output["tipo_orden"] = $row["tipo_orden"];               
+      }
     echo json_encode($output);
+
     } 
   break;
 
@@ -638,12 +639,13 @@ $datos=$creditos->get_det_orden($_POST["n_orden_add"],$_POST["id_paciente"]);
    if (is_array($datos)==true and count($datos)>0) {
       $data = Array();
       foreach($datos as $row){
-       $num_orden = $row["numero_orden"];
+       $output["numero_orden"] = $row["numero_orden"];
+       $output["empresas"] = $row["empresas"];
       }
    }else{
-    $num_orden = "No";
+    $output["error"] = "No";
    }
-   echo json_encode($num_orden);
+   echo json_encode($output);
   break;
 
 

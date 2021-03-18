@@ -35,11 +35,13 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
 $datos_paciente = $reporteria->get_datos_factura_paciente($id_paciente);
 $data_orden_desc = $reporteria->get_data_orden_credito($id_paciente,$n_orden);
 $suma_monto_orden=0;
+
  $evaluados_oid = $reporteria->beneficiarios_oid($id_paciente,$n_orden);
+
   for ($i=0; $i <sizeof($evaluados_oid) ; $i++) {
     $monto = $evaluados_oid[$i]["monto_total"];
     $suma_monto_orden = $suma_monto_orden+number_format($monto,2,".",",");
- }
+  }
  //echo $suma_monto_orden;
 
 /////////////RECORRER DATA ORDEN DE DESCUENTO

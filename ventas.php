@@ -233,7 +233,7 @@ require_once("modals/modal_oid.php");
                 </div>
               </div>
             </div>
-            <input type="hidden" id="n_orden_add" value="123">
+            <input type="text" id="n_orden_add" value="123">
 
             <table width="100%" class="table-hover table-bordered">
               <thead style="background:#034f84;color:white;text-align: center;font-family: Helvetica, Arial, sans-serif;font-size:12px">
@@ -243,7 +243,7 @@ require_once("modals/modal_oid.php");
                   <th style="width: 23% !important;font-size:11px" colspan="23">Evaluado</th>
                   <th style="width: 11% !important;font-size:11px" colspan="11">Saldo Actual</th>
                   <th style="width: 11% !important;font-size:11px" colspan="11">Nuevo Saldo</th>
-                  <th style="width: 11% !important;font-size:11px" colspan="11">Plazo</th>
+                  <th style="width: 11% !important;font-size:11px" colspan="11">Nuevo Plazo</th>
                 </tr>
               </thead>
               <tr>

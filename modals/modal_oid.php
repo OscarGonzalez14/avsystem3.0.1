@@ -1,6 +1,6 @@
 <style>
     #tamModal_orden_desc{
-      max-width: 85% !important;
+      max-width: 95% !important;
     }
      #head_oid{
         background-color: #000080;
@@ -33,23 +33,25 @@
   </div>
     <div class="modal-body">
       <div class="card card-danger" style="margin-top: 5px">
+     <div class="form-group col-md-2">
+      <label for="inputCity">Plazo</span></label>
+      <input type="hidden" class="form-control" id="plazo_credito">
+    </div>
       
-      
-  <div class="form-row" style="margin: 5px">
+  <div class="form-row" style="margin: 5px;font-size: 12px">
 
-    <div class="form-group col-md-5">
-      <label for="inputEmail4">Nombre Completo</label>
+    <div class="form-group col-md-4">
+      <label for="inputEmail4">Títular</label>
       <input type="text" class="form-control" id="paciente_empresarial" readonly="">
     </div>
-
-    <div class="form-group col-md-3">
-      <label for="inputCity">Inicio crédito</span></label>
-      <input type="date" class="form-control" id="fecha_inicio" onClick="calculaFinCredito();">
+        <div class="form-group col-md-4">
+      <label for="inputEmail4">Beneficiario</label>
+      <input type="text" class="form-control" id="benef_empresarial" readonly="">
     </div>
 
     <div class="form-group col-md-2">
-      <label for="inputCity">Plazo</span></label>
-      <input type="text" class="form-control" id="plazo_credito">
+      <label for="inputCity">Inicio</span></label>
+      <input type="date" class="form-control" id="fecha_inicio" onClick="calculaFinCredito();" placeholder="INICIO CREDITO">
     </div>
 
     <div class="form-group col-md-2">
