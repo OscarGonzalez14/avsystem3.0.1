@@ -78,14 +78,14 @@ public function get_accesorios(){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-public function get_aros(){
+/*public function get_aros(){
     $conectar= parent::conexion();
     $sql= "select*from productos where categoria_producto='aros' order by id_producto DESC;";
     $sql=$conectar->prepare($sql);
     //$sql->bindValue(1, $sucursal_correlativo);
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
-    }
+    }*/
 
 //////LISTAR AROS EN COMPRAS
 public function get_acc_compras(){
@@ -367,6 +367,29 @@ public function get_servicios_ventas(){
   $sql->execute();
   return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 }
+/*
+public function agregar_aros_compras(){
 
+$conectar = parent::conexion();
+parent::set_names();
+////UPDATE seleccionar aros
+$aros_seleccionados = array();
+$aros_seleccionados = json_decode($_POST["arrayAgregar"]);
+$id_usuario = $_POST["id_usuario"];
+
+foreach($aros_seleccionados as $a => $n){
+    $id_producto = $n->id_producto;
+  }
+}
+*/
+
+/////////////DATATABLE ORDENES
+public function get_aros_compras(){
+    $conectar = parent::conexion();
+    $sql = "select*from productos where categoria_producto='aros' order by id_producto DESC;";
+    $sql = $conectar->prepare($sql);
+    $sql->execute();    
+    return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+}
 
 }//////Fin de la clase

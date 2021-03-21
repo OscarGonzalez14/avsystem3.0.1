@@ -25,7 +25,7 @@ return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 public function get_productos_ingresar_bodega($id_producto,$numero_compra){
 $conectar = parent::conexion();         
 /*$sql= "select*from detalle_compras where id_producto=? and numero_compra=? and cant_ingreso>0;";*/
-$sql="select p.id_producto,d.descripcion,p.diseno,p.materiales,d.numero_compra,d.cant_ingreso from productos as p inner join detalle_compras as d on p.id_producto=d.id_producto  where p.id_producto=? and d.numero_compra=? and cant_ingreso>0;";
+$sql="select p.id_producto,d.descripcion,p.diseno,p.materiales,d.numero_compra,d.cant_ingreso,d.precio_compra,d.precio_venta from productos as p inner join detalle_compras as d on p.id_producto=d.id_producto  where p.id_producto=? and d.numero_compra=? and cant_ingreso>0;";
 $sql=$conectar->prepare($sql);
 $sql->bindValue(1,$id_producto);
 $sql->bindValue(2,$numero_compra);
