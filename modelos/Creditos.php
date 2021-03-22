@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 require_once("../config/conexion.php");
 
 	class Creditos extends conectar{
@@ -658,13 +659,13 @@ public function get_det_ventas_flotantes($id_paciente,$numero_orden){
         $total=0;
         $html.="<thead><tr><th colspan='100' style='width:100%;text-align:center;border: solid 1px black' bgcolor='#c5e2f6'>".$evaluado."</th></tr></thead>";
         foreach ($det_ventas_flot as $k => $v) {
-        $precio= $v["precio_venta"];
+        $precio= $v["precio_final"];
         $total = $total+$precio;
         $html.="
         <tr>
             <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>".$v["cantidad_venta"]."</td>
             <td colspan='50' style='width:50%;text-align:center;border: solid 1px black'>".$v["producto"]."</td>
-            <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>"."$".$v["precio_venta"]."</td>
+            <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>"."$".$v["precio_final"]."</td>
         </tr>";
         }
         $html.="<tr>
@@ -675,6 +676,17 @@ public function get_det_ventas_flotantes($id_paciente,$numero_orden){
 
    echo $html;
 
+}
+
+
+public function get_data_credito_oid($id_paciente,$numero_venta){
+$conectar= parent::conexion();
+  $sql= "select p.nombres,p.empresas,c.monto,c.saldo,c.fecha_adquirido,c.id_paciente,c.numero_venta from pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente where forma_pago='Descuento en Planilla' and c.id_paciente=? and c.numero_venta=?;";
+  $sql=$conectar->prepare($sql);
+  $sql->bindValue(1, $id_paciente);
+  $sql->bindValue(2, $numero_venta);
+  $sql->execute();
+  return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);   
 }
 
 }/////FIN CLASS

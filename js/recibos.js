@@ -259,6 +259,185 @@ function listar_recibos_emitidos(){
 }
 
 
+/////////////// GET CREDITOS PARA EMITIR POR LOTES ////////////////////////
 
+function get_cobros_empresariales(){
+  data_credito_oid  = [];
+  items_oid=[];
+  var empresa = $("#empresa_act_oid").html();
+  console.log(empresa);
+  tabla_oids = $('#lista_creditos_emp').dataTable({
+    "aProcessing": true,//Activamos el procesamiento del datatables
+      "aServerSide": true,//Paginación y filtrado realizados por el servidor
+      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+      buttons: [
+      'excelHtml5'
+      ],
+      "ajax":
+      {
+        url: 'ajax/recibos.php?op=listar_creditos_empresariales',
+        type : "post",
+        dataType : "json",
+        data:{empresa:empresa},
+        error: function(e){
+        console.log(e.responseText);
+        }
+      },
+      "bDestroy": true,
+      "responsive": true,
+      "bInfo":true,
+      "iDisplayLength": 10,//Por cada 10 registros hace una paginación
+      "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+
+      "language": {
+
+        "sProcessing":     "Procesando...",
+
+        "sLengthMenu":     "Mostrar _MENU_ registros",
+
+        "sZeroRecords":    "No se encontraron resultados",
+
+        "sEmptyTable":     "Ningún dato disponible en esta tabla",
+
+        "sInfo":           "Mostrando un total de _TOTAL_ registros",
+
+        "sInfoEmpty":      "Mostrando un total de 0 registros",
+
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+
+        "sInfoPostFix":    "",
+
+        "sSearch":         "Buscar:",
+
+        "sUrl":            "",
+
+        "sInfoThousands":  ",",
+
+        "sLoadingRecords": "Cargando...",
+
+        "oPaginate": {
+
+          "sFirst":    "Primero",
+
+          "sLast":     "Último",
+
+          "sNext":     "Siguiente",
+
+          "sPrevious": "Anterior"
+
+        },
+
+        "oAria": {
+
+          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+
+        }
+
+         }//cerrando language
+
+       }).DataTable();
+}
+var items_oid=[];
+
+$(document).on('click', '.selectPacienteOid', function(){
+
+  let id_pac = $(this).attr("value");
+  let numero_venta = $(this).attr("name");
+  let id_item = $(this).attr("id");
+
+  console.log(`id:_paciente ${id_pac} numero_venta ${numero_venta} id_item ${id_item}`);
+
+  let chk = document.getElementById(id_item);
+  let estado_chk = chk.checked;
+  console.log(estado_chk);
+
+  if (estado_chk == true) {
+    let obj = {
+    id_paciente : id_pac,
+    numero_venta : numero_venta
+  }
+  items_oid.push(obj);
+  }else if(estado_chk == false){
+  let index = items_oid.findIndex(x => x.venta==numero_venta)
+  console.log(index)
+  items_oid.splice(index, 1)
+  }
+
+});
+
+var data_credito_oid=[];
+
+function get_data_credito_oid(){
+
+  //data_credito_oid=[];
+
+  for(var i=0;i<items_oid.length;i++){
+    var id_paciente = items_oid[i].id_paciente;
+    var numero_venta = items_oid[i].numero_venta;
+
+    $.ajax({
+    url:"ajax/creditos.php?op=get_data_credito_oid",
+    method:"POST",
+    data:{numero_venta:numero_venta,id_paciente:id_paciente},
+    cache: false,
+    dataType:"json",
+    success:function(data){
+    console.log(data);
+
+    let obj = {
+      pacientes : data.nombres,
+      empresa : data.empresas,
+      monto : data.monto,
+      saldo : data.saldo,
+      subtotal : 0,
+      abono_act : 0,
+      numero_venta : data.numero_venta
+    }
+    data_credito_oid.push(obj);
+    listar_data_oid();
+    } 
+ 
+  });  
+
+  }////////FIN DEL FOR
+  $("#modalOrdenCobro").modal("hide");
+ 
+}
+
+function listar_data_oid(){
+
+  $('#listar_data_oid').html('');
+
+    var filas = "";
+    //var subtotal = 0;
+    var total = 0;
+
+    for(var i=0; i<data_credito_oid.length; i++){
+
+      var filas = filas + "<tr id='fila"+i+"'><td style='text-align:center;width: 5%;' colspan='5'>"+(i+1)+"</td>"+
+      "<td style='text-align:center;width: 20%;' colspan='20'>"+data_credito_oid[i].pacientes+"</td>"+
+      "<td style='text-align:center;width: 25%;' colspan='25'>"+data_credito_oid[i].empresa+"</td>"+
+      "<td style='text-align:center;width: 10%;' colspan='10'>"+"$"+data_credito_oid[i].monto+"</td>"+
+      "<td style='text-align:center;width: 10%;' colspan='10'>"+data_credito_oid[i].numero_venta+"</td>"+
+      "<td style='text-align:center;width: 10%;text-align:center' colspan='10'><input style='text-align:center' type='number' value="+data_credito_oid[i].abono_act+" class='form-control' onClick='setCantidadAbono(event, this, "+(i)+");' onKeyUp='setCantidadAbono(event, this, "+(i)+");'></td>"+
+      "<td style='text-align:center;width: 10%;' colspan='10'>"+"$"+data_credito_oid[i].saldo+"</td>"+
+      "<td  style='text-align:center;width: 10%;' colspan='10'>"+"$"+data_credito_oid[i].subtotal+"</td>"+"</tr>";
+
+  }//cierre for
+  $('#listar_data_oid').html(filas);
+  //calcularTotales();
+}
+
+function setCantidadAbono(event, obj, idx){
+  event.preventDefault();
+  data_credito_oid[idx].abono_act = parseFloat(obj.value);
+  let abono = data_credito_oid[idx].abono_act;
+  let saldo = parseFloat(data_credito_oid[idx].monto) - abono;
+  data_credito_oid[idx].saldo = parseFloat(saldo);
+
+
+}
 
 init();

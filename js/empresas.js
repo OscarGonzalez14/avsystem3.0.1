@@ -150,15 +150,20 @@ function listar_en_pacientes(){
 }
 
 /////////////RELLENAR LA EMPRESA DE PACIENTE EMPRESARIAL
-function agregar_empresa_pac(id_empresa){      
-$.ajax({
+function agregar_empresa_pac(id_empresa){
+	      
+    $.ajax({
 	url:"ajax/empresas.php?op=buscar_empresa_paciente",
 	method:"POST",
 	data:{id_empresa:id_empresa},
 	dataType:"json",
 	success:function(data){                       
 		$('#empresasModal').modal('hide');		
-		$('#empresa').val(data.nombre);	
+		$('#empresa').val(data.nombre);
+		console.log("Prueba 1")
+        let empresa = $("#empresa").val();
+        console.log(empresa);
+        $("#empresa_act").html(empresa);	
 	}
 })
 

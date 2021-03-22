@@ -218,13 +218,13 @@ $cuotas_creditos = $suma_monto_orden/$plazo_credito;
     ";
     $total=0;
     foreach ($det_ventas_flot as $k => $v) {
-      $precio= $v["precio_venta"];
+      $precio= $v["precio_final"];
       $total = $total+$precio;
       $html.="
       <tr>
           <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>".$v["cantidad_venta"]."</td>
           <td colspan='50' style='width:50%;text-align:center;border: solid 1px black'>".$v["producto"]."</td>
-          <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>"."$".$v["precio_venta"]."</td>
+          <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>"."$".$v["precio_final"]."</td>
       </tr>   
      
      
@@ -248,7 +248,13 @@ $cuotas_creditos = $suma_monto_orden/$plazo_credito;
         <td colspan='50' style='width:50%;text-align:center;border: solid 1px black;background:#034f84;color: white'>DESCRIPCION</td>
         <td colspan='25' style='width:25%;text-align:center;border: solid 1px black;background:#034f84;color: white'>PRECIO</td>
       </tr> 
- <?php echo $html;?> 
+ <?php echo $html;?>
+
+ <tfoot style="margin-top: 0px">
+   <tr>
+     <td colspan="100" width="100%" style='width:100%;text-align:left;border: solid 1px black'>OBSERVACIONES: <span style="text-transform: uppercase;padding: 5px"><?php echo $observaciones_oid;?></span></td>
+   </tr>
+ </tfoot> 
 </table>
 
 <br><br>   
@@ -269,8 +275,8 @@ $cuotas_creditos = $suma_monto_orden/$plazo_credito;
  <div style="border: solid 1px black;">
  <h3 style="text-align: center;">AREA DE PAGADURÍA <?php echo strtoupper($empresa_pac)?></h3>
  <div style="margin: 8px">
- <b style="font-size: 13px">Presente.</b><br> 
- <span style="font-size: 14px;text-align: justify;text-justify:inter-word;">Al tomar nota de la carta anterior nos comprometemos con optica AV Plus a descontar del sueldo mensual de Sr.(a) con nombre <u><?php echo strtoupper($nombre_pac)?>.</u> Las cuotas de <b><?php echo "$".number_format($cuotas_creditos,2,".",","); ?></b>, durante un período de tiempo que consta de <?php echo $plazo_credito." meses "?>para remitirlas a su cuenta con forma de pago: ____Mensual ___Quincenal. Cada Fecha:_______________________</span>
+ <b style="font-size: 11px">Presente.</b><br> 
+ <span style="font-size: 12px;text-align: justify;text-justify:inter-word;">Al tomar nota de la carta anterior nos comprometemos con optica AV Plus a descontar del sueldo mensual de Sr.(a) con nombre <u><?php echo strtoupper($nombre_pac)?>.</u> Las cuotas de <b><?php echo "$".number_format($cuotas_creditos,2,".",","); ?></b>, durante un período de tiempo que consta de <?php echo $plazo_credito." meses "?>para remitirlas a su cuenta con forma de pago: ____Mensual ___Quincenal. Cada Fecha:_______________________</span>
  <br><br>
  <table width="100%">
   <tr>

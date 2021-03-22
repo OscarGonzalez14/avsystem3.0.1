@@ -114,4 +114,29 @@ switch ($_GET["op"]) {
       echo json_encode($results);      
     break;
 
+/////////////////////LISTAR CVREDITOS EMPRESARIALES
+    case 'listar_creditos_empresariales':
+    $datos=$recibos->get_creditos_empresarial($_POST["empresa"]);
+    $data= Array();
+    $i=0;
+    foreach($datos as $row){
+        $sub_array = array();
+        $sub_array[] = '<input type="checkbox" class="form-check-input selectPacienteOid" value="'.$row["id_paciente"].'" name="'.$row["numero_venta"].'" id="oid_correlativo'.$i.'"><span style="color:white">.</span>';
+        $sub_array[] = $row["nombres"];
+        $sub_array[] = $row["empresas"];
+        $sub_array[] = "$".number_format($row["monto"],2,".",",");
+        $sub_array[] = "$".number_format($row["saldo"],2,".",",");
+        $data[] = $sub_array;
+        $i++;
+      }
+
+      $results = array(
+      "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+      echo json_encode($results);      
+    break;
+
+
 }

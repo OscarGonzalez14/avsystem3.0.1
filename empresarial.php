@@ -22,7 +22,7 @@ require_once('modals/empresa.php');
   </button>
      <form action="orden_cobro.php" method="POST" target="_blank">
      	<input type="hidden" id="empresa" name="empresa">
-    <button type="submit" class="btn btn-success"style="float: right;margin-top: 3px;background:#0d645c;color: white"><i class="nav-icon fas fa-cash-register"></i>
+    <button type="submit" class="btn btn-success"style="float: right;margin-top: 3px;background:#0d645c;color: white" onClick="nueva_orden_pago()"><i class="nav-icon fas fa-cash-register"></i>
     ORDEN DE COBRO
   </button>
 </form>
@@ -31,7 +31,7 @@ require_once('modals/empresa.php');
 
 <div style="margin: 1px">
   <div class="callout callout-info">
-        <h5 align="center"><i class="fas fa-tasks" style="color:green"></i><strong>  PACIENTES:</strong><span>???????</span></h5>              
+        <h5 align="center"><i class="fas fa-tasks" style="color:green"></i><b>  PACIENTES:&nbsp;<span id="empresa_act" style="color: red"></span></b></h5>              
     </div>
     
   <table class="table-hover table-bordered" id="data_empresas_cread" width="100%">
@@ -97,6 +97,8 @@ var telefono = new Cleave('#telEmpresa', {
     blocks: [4,4],
     uppercase: true
 });
+
+
 </script>
 <?php } else{
 echo "Acceso denegado";

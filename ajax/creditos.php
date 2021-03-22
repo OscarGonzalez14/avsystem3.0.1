@@ -643,7 +643,7 @@ $datos=$creditos->get_det_orden($_POST["n_orden_add"],$_POST["id_paciente"]);
        $output["empresas"] = $row["empresas"];
       }
    }else{
-    $output["error"] = "No";
+    $output = "No";
    }
    echo json_encode($output);
   break;
@@ -672,7 +672,7 @@ case 'listar_oid_aprobadas':
     foreach($datos as $row){
 
         $sub_array = array();
-        if ($row['estado']==1){
+        if($row['estado']==1){
           $estado = 'Aprobada';
         }
 
@@ -714,6 +714,30 @@ case 'listar_oid_aprobadas':
 
   case "get_det_ventas_flotantes":
   $datos = $creditos->get_det_ventas_flotantes($_POST["id_paciente"],$_POST["numero_orden"]);  
+  break;
+
+
+  case "get_data_credito_oid":          
+  $datos=$creditos->get_data_credito_oid($_POST["id_paciente"],$_POST["numero_venta"]);
+  if(is_array($datos)==true and count($datos)>0){
+    foreach($datos as $row)
+    {
+      $output["nombres"] = $row["nombres"];
+      $output["empresas"] = $row["empresas"];
+      $output["monto"] = number_format($row["monto"],2,".",",");
+      $output["saldo"] = number_format($row["saldo"],2,".",",");
+      $output["id_paciente"] = $row["id_paciente"];
+      $output["numero_venta"] = $row["numero_venta"];              
+    }      
+
+  } else {                 
+                 //si no existe el registro entonces no recorre el array
+    $output["error"]="El producto seleccionado está inactivo, intenta con otro";
+
+  }
+
+  echo json_encode($output);
+
   break;
 
 }//Fin case
