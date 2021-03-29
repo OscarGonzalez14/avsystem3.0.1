@@ -254,7 +254,7 @@ public function get_creditos_empresarial($empresa){
     $conectar=parent::conexion();
     parent::set_names();
 
-    $sql="select p.nombres,p.empresas,c.monto,c.saldo,c.fecha_adquirido,c.id_paciente,c.numero_venta from pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente where forma_pago='Descuento en Planilla' and p.empresas=?;";
+    $sql="select p.nombres,p.empresas,c.monto,c.saldo,c.fecha_adquirido,c.id_paciente,c.numero_venta from pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente where forma_pago='Descuento en Planilla' and p.empresas=? and c.saldo>0;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1, $empresa);
     $sql->execute();

@@ -490,7 +490,6 @@ public function get_ordenes_descuento_aprobadas($sucursal){
     $sql->bindValue(1, $sucursal);
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
-
 }
 
 
@@ -627,6 +626,7 @@ $conectar= parent::conexion();
   return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);   
 }
 
+
 public function get_det_ventas_flotantes($id_paciente,$numero_orden){
 
     $conectar= parent::conexion();
@@ -657,6 +657,7 @@ public function get_det_ventas_flotantes($id_paciente,$numero_orden){
             $sql2->execute();
         $det_ventas_flot= $sql2->fetchAll(PDO::FETCH_ASSOC);
         $total=0;
+
         $html.="<thead><tr><th colspan='100' style='width:100%;text-align:center;border: solid 1px black' bgcolor='#c5e2f6'>".$evaluado."</th></tr></thead>";
         foreach ($det_ventas_flot as $k => $v) {
         $precio= $v["precio_final"];
@@ -665,7 +666,7 @@ public function get_det_ventas_flotantes($id_paciente,$numero_orden){
         <tr>
             <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>".$v["cantidad_venta"]."</td>
             <td colspan='50' style='width:50%;text-align:center;border: solid 1px black'>".$v["producto"]."</td>
-            <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>"."$".$v["precio_final"]."</td>
+            <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>"."$".number_format($v["precio_final"],2,".",",")."</td>
         </tr>";
         }
         $html.="<tr>

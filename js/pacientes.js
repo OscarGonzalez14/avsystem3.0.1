@@ -148,12 +148,19 @@ function save_paciente() {
 	var direccion_completa = $("#direccion_completa").val();
 	var tipo_paciente = $("#tipo_paciente").val();
 	var fecha = $("#fecha").val();
+	var  empresa_paciente = $("#empresa_paciente").val();
+    var  codigo_emp = $("#codigo_emp").val();
+    var  departamento = $("#departamento_paciente").val();
+
+
+    //empresa_paciente:empresa_paciente,codigo_emp:codigo_emp,departamento:departamento
+
 
 	if(edad !=""){
     $.ajax({
     url:"ajax/pacientes.php?op=guardar_paciente",
     method:"POST",
-    data:{codigo_paciente:codigo_paciente,nombres:nombres,telefono:telefono,edad:edad,ocupacion:ocupacion,sucursal:sucursal,dui:dui,correo:correo,usuario:usuario,empresa:empresa,nit:nit,direccion_completa:direccion_completa,tel_oficina:tel_oficina,tipo_paciente:tipo_paciente,fecha:fecha},
+    data:{codigo_paciente:codigo_paciente,nombres:nombres,telefono:telefono,edad:edad,ocupacion:ocupacion,sucursal:sucursal,dui:dui,correo:correo,usuario:usuario,empresa:empresa,nit:nit,direccion_completa:direccion_completa,tel_oficina:tel_oficina,tipo_paciente:tipo_paciente,fecha:fecha,empresa_paciente:empresa_paciente,codigo_emp:codigo_emp,departamento:departamento},
     cache: false,
     dataType:"json",
     error:function(x,y,z){
@@ -586,3 +593,15 @@ function ganadores(){
 		document.getElementById("win").style.color = 'gray';
 	}
 }
+
+
+$(document).ready(function(){
+  $("#empresa_paciente").change(function () {         
+    $("#empresa_paciente option:selected").each(function () {
+      empresa = $(this).val();
+      $.post('ajax/departamentos.php?op=select_departamento', { empresa: empresa }, function(data){
+        $("#departamento_paciente").html(data);
+      });            
+    });
+  })
+});

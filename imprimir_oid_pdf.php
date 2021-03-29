@@ -156,27 +156,27 @@ $cuotas_creditos = $suma_monto_orden/$plazo_credito;
     <tr>
       <th colspan="45" style="color:black;font-size:11px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:45%" bgcolor="#c5e2f6"><b>NOMBRE COMPLETO</b></th>
       <th colspan="30" style="color:black;font-size:11px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:30%" bgcolor="#c5e2f6"><b>FUNCIÓN LABORAL</b></th>
-      <th colspan="25" style="color:black;font-size:11px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:25%" bgcolor="#c5e2f6"><b>DUI</b></th>
+      <th colspan="25" style="color:black;font-size:11px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:25%" bgcolor="#c5e2f6"><b>DEPARTAMENTO</b></th>
     </tr>
     <tr>
       <td colspan="45" style="font-size:12px;border: 1px solid :black;font-family: Helvetica, Arial, sans-serif;width:45%;text-align: center"><?php echo $datos_paciente[$j]["nombres"];?></td>
       <td colspan="30" style="font-size:12px;border: 1px solid :black;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><?php echo $datos_paciente[$j]["ocupacion"];?></td>
-      <td colspan="25" style="font-size:12px;border: 1px solid :black;font-family: Helvetica, Arial, sans-serif;width:25%;text-align: center"><?php echo $datos_paciente[$j]["dui"];?></td>
+      <td colspan="25" style="font-size:12px;border: 1px solid :black;font-family: Helvetica, Arial, sans-serif;width:25%;text-align: center"><?php echo strtoupper($datos_paciente[$j]["empresa_dept"]);?></td>
     </tr>
 
     <tr>
-      <th colspan="10" style="color:black;font-size:11px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:10%" bgcolor="#c5e2f6"><b>EDAD</b></th>
-      <th colspan="20" style="color:black;font-size:11px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:20%" bgcolor="#c5e2f6"><b>NIT</b></th>
+      <th colspan="10" style="color:black;font-size:11px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:10%" bgcolor="#c5e2f6"><b>COD. EMP.</b></th>
+      <th colspan="20" style="color:black;font-size:11px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:20%" bgcolor="#c5e2f6"><b>EDAD</b></th>
       <th colspan="15" style="color:black;font-size:11px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:15%" bgcolor="#c5e2f6"><b>TELEFONO</b></th>
       <th colspan="30" style="color:black;font-size:11px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:30%" bgcolor="#c5e2f6"><b>TEL. OFICINA</b></th>
-      <th colspan="25" style="color:black;font-size:11px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:25%" bgcolor="#c5e2f6"><b>CORREO</b></th>
+      <th colspan="25" style="color:black;font-size:11px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:25%" bgcolor="#c5e2f6"><b>DUI</b></th>
     </tr>
     <tr>
+      <td colspan="20" style="font-size:12px;border: 1px solid :black;font-family: Helvetica, Arial, sans-serif;width:20%;text-align: center"><?php echo $datos_paciente[$j]["departamento"];?></td>
       <td colspan="10" style="font-size:12px;border: 1px solid :black;font-family: Helvetica, Arial, sans-serif;width:10%;text-align: center"><?php echo $datos_paciente[$j]["edad"]." años";?></td>
-      <td colspan="20" style="font-size:12px;border: 1px solid :black;font-family: Helvetica, Arial, sans-serif;width:20%;text-align: center"><?php echo $datos_paciente[$j]["nit"];?></td>
       <td colspan="15" style="font-size:12px;border: 1px solid :black;font-family: Helvetica, Arial, sans-serif;width:15%;text-align: center"><?php echo $datos_paciente[$j]["telefono"];?></td>
       <td colspan="30" style="font-size:12px;border: 1px solid :black;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><?php echo $datos_paciente[$j]["telefono_oficina"];?></td>
-      <td colspan="25" style="font-size:12px;border: 1px solid :black;font-family: Helvetica, Arial, sans-serif;width:25%;text-align: center"><?php echo $datos_paciente[$j]["correo"];?></td>
+      <td colspan="25" style="font-size:12px;border: 1px solid :black;font-family: Helvetica, Arial, sans-serif;width:25%;text-align: center"><?php echo $datos_paciente[$j]["dui"];?></td>
     </tr>
     <tr>
       <td colspan="100" style="font-size:12px;border: 1px solid black;font-family: Helvetica, Arial, sans-serif;width:100%">&nbsp;&nbsp;<b>DIRECCIÓN COMPLETA:</b>&nbsp;<?php echo $datos_paciente[$j]["direccion"];?></td>
@@ -224,7 +224,7 @@ $cuotas_creditos = $suma_monto_orden/$plazo_credito;
       <tr>
           <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>".$v["cantidad_venta"]."</td>
           <td colspan='50' style='width:50%;text-align:center;border: solid 1px black'>".$v["producto"]."</td>
-          <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>"."$".$v["precio_final"]."</td>
+          <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>"."$".number_format($v["precio_final"],2,".",",")."</td>
       </tr>   
      
      

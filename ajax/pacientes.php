@@ -42,7 +42,7 @@
      
     if($tipo_paciente=="Desc_planilla" || $tipo_paciente=="Cargo_a") {
       if(is_array($codigo)==true and count($codigo)==0 and is_array($dui)==true and count($dui)==0){
-      $pacientes->registrar_paciente($_POST["codigo_paciente"],$_POST["nombres"],$_POST["telefono"],$_POST["edad"],$_POST["ocupacion"],$_POST["sucursal"],$_POST["dui"],$_POST["correo"],$_POST["usuario"],$_POST["empresa"],$_POST["nit"],$_POST["tel_oficina"],$_POST["direccion_completa"],$_POST["tipo_paciente"],$_POST["fecha"]);
+      $pacientes->registrar_paciente($_POST["codigo_paciente"],$_POST["nombres"],$_POST["telefono"],$_POST["edad"],$_POST["ocupacion"],$_POST["sucursal"],$_POST["dui"],$_POST["correo"],$_POST["usuario"],$_POST["empresa"],$_POST["nit"],$_POST["tel_oficina"],$_POST["direccion_completa"],$_POST["tipo_paciente"],$_POST["fecha"],$_POST["empresa_paciente"],$_POST["codigo_emp"],$_POST["departamento"]);
     $messages[]="ok";
     }else{
       $errors[]="dui";
@@ -70,7 +70,7 @@
    }
   }elseif ($tipo_paciente=="Sucursal" or $tipo_paciente=="C_personal") {
     if(is_array($codigo)==true and count($codigo)==0){
-      $pacientes->registrar_paciente($_POST["codigo_paciente"],$_POST["nombres"],$_POST["telefono"],$_POST["edad"],$_POST["ocupacion"],$_POST["sucursal"],$_POST["dui"],$_POST["correo"],$_POST["usuario"],$_POST["empresa"],$_POST["nit"],$_POST["tel_oficina"],$_POST["direccion_completa"],$_POST["tipo_paciente"],$_POST["fecha"]);
+      $pacientes->registrar_paciente($_POST["codigo_paciente"],$_POST["nombres"],$_POST["telefono"],$_POST["edad"],$_POST["ocupacion"],$_POST["sucursal"],$_POST["dui"],$_POST["correo"],$_POST["usuario"],$_POST["empresa"],$_POST["nit"],$_POST["tel_oficina"],$_POST["direccion_completa"],$_POST["tipo_paciente"],$_POST["fecha"],$_POST["empresa_paciente"],$_POST["codigo_emp"],$_POST["departamento"]);
     $messages[]="ok";
     }else{
       $errors[]="codigo";
@@ -98,7 +98,7 @@
    }
   }
 }else{
-    $pacientes->editar_paciente($_POST["codigo_paciente"],$_POST["nombres"],$_POST["telefono"],$_POST["edad"],$_POST["ocupacion"],$_POST["sucursal"],$_POST["dui"],$_POST["correo"],$_POST["usuario"],$_POST["empresa"],$_POST["nit"],$_POST["tel_oficina"],$_POST["direccion_completa"],$_POST["tipo_paciente"],$_POST["fecha"]);
+    $pacientes->editar_paciente($_POST["codigo_paciente"],$_POST["nombres"],$_POST["telefono"],$_POST["edad"],$_POST["ocupacion"],$_POST["sucursal"],$_POST["dui"],$_POST["correo"],$_POST["usuario"],$_POST["empresa"],$_POST["nit"],$_POST["tel_oficina"],$_POST["direccion_completa"],$_POST["tipo_paciente"],$_POST["fecha"],$_POST["tipo_paciente"],$_POST["fecha"],$_POST["empresa_paciente"],$_POST["codigo_emp"],$_POST["departamento"]);
     $messages[]="editado";
         if (isset($messages)){
      ?>

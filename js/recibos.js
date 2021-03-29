@@ -204,7 +204,7 @@ function listar_recibos_emitidos(){
       "bDestroy": true,
       "responsive": true,
       "bInfo":true,
-    "iDisplayLength": 10,//Por cada 10 registros hace una paginación
+      "iDisplayLength": 10,//Por cada 10 registros hace una paginación
       "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
 
       "language": {
@@ -267,9 +267,9 @@ function get_cobros_empresariales(){
   var empresa = $("#empresa_act_oid").html();
   console.log(empresa);
   tabla_oids = $('#lista_creditos_emp').dataTable({
-    "aProcessing": true,//Activamos el procesamiento del datatables
-      "aServerSide": true,//Paginación y filtrado realizados por el servidor
-      dom: 'Bfrtip',//Definimos los elementos del control de tabla
+    "aProcessing": true,
+      "aServerSide": true,
+      dom: 'Bfrtip',
       buttons: [
       'excelHtml5'
       ],
@@ -393,7 +393,8 @@ function get_data_credito_oid(){
       saldo : data.saldo,
       subtotal : 0,
       abono_act : 0,
-      numero_venta : data.numero_venta
+      numero_venta : data.numero_venta,
+      nuevo_saldo :data.saldo
     }
     data_credito_oid.push(obj);
     listar_data_oid();
@@ -420,23 +421,45 @@ function listar_data_oid(){
       "<td style='text-align:center;width: 20%;' colspan='20'>"+data_credito_oid[i].pacientes+"</td>"+
       "<td style='text-align:center;width: 25%;' colspan='25'>"+data_credito_oid[i].empresa+"</td>"+
       "<td style='text-align:center;width: 10%;' colspan='10'>"+"$"+data_credito_oid[i].monto+"</td>"+
-      "<td style='text-align:center;width: 10%;' colspan='10'>"+data_credito_oid[i].numero_venta+"</td>"+
-      "<td style='text-align:center;width: 10%;text-align:center' colspan='10'><input style='text-align:center' type='number' value="+data_credito_oid[i].abono_act+" class='form-control' onClick='setCantidadAbono(event, this, "+(i)+");' onKeyUp='setCantidadAbono(event, this, "+(i)+");'></td>"+
       "<td style='text-align:center;width: 10%;' colspan='10'>"+"$"+data_credito_oid[i].saldo+"</td>"+
-      "<td  style='text-align:center;width: 10%;' colspan='10'>"+"$"+data_credito_oid[i].subtotal+"</td>"+"</tr>";
-
-  }//cierre for
-  $('#listar_data_oid').html(filas);
+      "<td style='text-align:center;width: 10%;text-align:center' colspan='10'><input style='text-align:center' type='number' value="+data_credito_oid[i].abono_act+" class='form-control' onClick='setCantidadAbono(event, this, "+(i)+");' onKeyUp='setCantidadAbono(event, this, "+(i)+");'></td>"+
+      "<td style='text-align:center;width: 10%;' colspan='10'><span id=saldo"+i+">"+"$"+data_credito_oid[i].nuevo_saldo+"</span></td>"+
+      "<td  style='text-align:center;width: 10%;font-size:13px;color:blue' colspan='10'><b><span id=subtotal"+i+">"+"$"+data_credito_oid[i].subtotal+"</span></b></td>"+"</tr>";
+    }//cierre for
+    $('#listar_data_oid').html(filas);
   //calcularTotales();
 }
 
+
 function setCantidadAbono(event, obj, idx){
   event.preventDefault();
+  console.log(data_credito_oid[idx].abono_act);
   data_credito_oid[idx].abono_act = parseFloat(obj.value);
-  let abono = data_credito_oid[idx].abono_act;
-  let saldo = parseFloat(data_credito_oid[idx].monto) - abono;
-  data_credito_oid[idx].saldo = parseFloat(saldo);
+  console.log(data_credito_oid[idx].abono_act);
+  recalcular_datos(idx);
 
+}
+
+function recalcular_datos(idx){
+  let abono = (data_credito_oid[idx].abono_act).toFixed(2);
+  let n_saldo = parseFloat(data_credito_oid[idx].saldo) - parseFloat(abono);
+  let nuevo_saldo = (n_saldo).toFixed(2);
+  data_credito_oid[idx].nuevo_saldo = parseFloat(nuevo_saldo);
+  $("#saldo"+idx).html("$"+nuevo_saldo);
+  $("#subtotal"+idx).html("$"+abono);
+
+  calcularTotal();
+}
+
+function calcularTotal(){
+
+  var total_final = 0;
+  for (var i = 0; i < data_credito_oid.length; i++) {
+    var abono = data_credito_oid[i].abono_act;
+    total_final = total_final+abono;
+  }
+  console.log(total_final);
+  $("#total_abonos").html(total_final.toFixed(2));
 
 }
 

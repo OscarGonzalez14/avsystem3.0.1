@@ -15,7 +15,7 @@ class Paciente extends Conectar{
     }
 
 
-	public function registrar_paciente($codigo_paciente,$nombres,$telefono,$edad,$ocupacion,$sucursal,$dui,$correo,$usuario,$empresa,$nit,$tel_oficina,$direccion_completa,$tipo_paciente,$fecha){
+	public function registrar_paciente($codigo_paciente,$nombres,$telefono,$edad,$ocupacion,$sucursal,$dui,$correo,$usuario,$empresa,$nit,$tel_oficina,$direccion_completa,$tipo_paciente,$fecha,$empresa_paciente,$codigo_emp,$departamento){
 
       date_default_timezone_set('America/El_Salvador');
      $calc_fecha = strtotime("-$edad year");
@@ -23,7 +23,7 @@ class Paciente extends Conectar{
  
       $conectar= parent::conexion();
       parent::set_names();
-      $sql="insert into pacientes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+      $sql="insert into pacientes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
         
       $sql=$conectar->prepare($sql);
 
@@ -43,6 +43,9 @@ class Paciente extends Conectar{
         $sql->bindValue(14, $_POST["direccion_completa"]);
         $sql->bindValue(15, $_POST["tipo_paciente"]);
         $sql->bindValue(16, $fecha_nac);
+        $sql->bindValue(17, $_POST["empresa_paciente"]);
+        $sql->bindValue(18, $_POST["codigo_emp"]);
+        $sql->bindValue(19, $_POST["departamento"]);
 
         $sql->execute();      
 }
@@ -133,13 +136,13 @@ public function get_paciente_refieren(){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
   }
 
-  public function editar_paciente($codigo_paciente,$nombres,$telefono,$edad,$ocupacion,$sucursal,$dui,$correo,$usuario,$empresa,$nit,$tel_oficina,$direccion_completa,$tipo_paciente){
+  public function editar_paciente($codigo_paciente,$nombres,$telefono,$edad,$ocupacion,$sucursal,$dui,$correo,$usuario,$empresa,$nit,$tel_oficina,$direccion_completa,$tipo_paciente,$empresa_paciente,$codigo_emp,$departamento){
 
     $conectar= parent::conexion();
     parent::set_names();
 
     $sql="update pacientes set 
-        nombres=?,telefono=?,edad=?,ocupacion=?,dui=?,correo=?,empresas=?,telefono_oficina=?,direccion=?,tipo_paciente=?,nit=? where codigo=?";          
+        nombres=?,telefono=?,edad=?,ocupacion=?,dui=?,correo=?,empresas=?,telefono_oficina=?,direccion=?,tipo_paciente=?,nit=?,empresa_dept=?,departamento=?,codigo_emp=? where codigo=?";          
         $sql=$conectar->prepare($sql);
         $sql->bindValue(1, $_POST["nombres"]);
         $sql->bindValue(2, $_POST["telefono"]);
@@ -152,7 +155,10 @@ public function get_paciente_refieren(){
         $sql->bindValue(9, $_POST["direccion_completa"]);
         $sql->bindValue(10, $_POST["tipo_paciente"]);
         $sql->bindValue(11, $_POST["nit"]);
-        $sql->bindValue(12, $_POST["codigo_paciente"]);
+        $sql->bindValue(12, $_POST["empresa_paciente"]);
+        $sql->bindValue(13, $_POST["codigo_emp"]);
+        $sql->bindValue(14, $_POST["departamento"]);
+        $sql->bindValue(15, $_POST["codigo_paciente"]);
         $sql->execute();     
          
 }

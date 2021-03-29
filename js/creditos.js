@@ -851,6 +851,7 @@ function get_finaliza(){
   var detalle_venta_flotante = [];
   var venta_flotante = [];
   var beneficiarios_orden = [];
+  
   function acciones_oid(numero_orden,id_paciente,estado){
   detalle_venta_flotante = [];
   venta_flotante = [];

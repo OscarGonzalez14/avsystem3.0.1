@@ -39,9 +39,9 @@ require_once('modals/empresa.php');
         <th style="text-align:center;width: 20%;" colspan="20">Titular</th>
         <th style="text-align:center;width: 25%;" colspan="25">Empresa</th>
         <th style="text-align:center;width: 10%;" colspan="10">Monto</th>
-        <th style="text-align:center;width: 10%;" colspan="10">#Venta</th>
-        <th style="text-align:center;width: 10%;" colspan="10">Abono Act</th>
-        <th style="text-align:center;width: 10%;" colspan="10">Saldo</th>
+        <th style="text-align:center;width: 10%;" colspan="10">Saldo Act.</th>
+        <th style="text-align:center;width: 10%;" colspan="10">Abono Act.</th>
+        <th style="text-align:center;width: 10%;" colspan="10">Nuevo Saldo</th>
         <th style="text-align:center;width: 10%;" colspan="10">Subtotal</th>
       </tr>
     </thead>
@@ -50,7 +50,7 @@ require_once('modals/empresa.php');
     <tfoot style='background:#E0E0E0'>
       <tr>
         <td style="text-align:center;text-align:center;width: 90%" colspan="90"><strong>Monto total del cobro</strong></td>
-        <td style="text-align:center;text-align:center" colspan="10"><strong><span>$</span><span id="total_venta"></span></strong></td>                      
+        <td style="text-align:center;text-align:center" colspan="10"><strong><span>$</span><span id="total_abonos"></span></strong></td>                      
       </tr>
     <tfoot>                 
     </table>

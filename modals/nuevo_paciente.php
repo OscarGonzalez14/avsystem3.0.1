@@ -62,10 +62,32 @@
                   <input class="form-control" id="correo" type="text" name="correo" placeholder="correo del paciente" required>
                 </div>
 
-                <div class="col-sm-3">
+                <div class="form-group col-md-4">
+                <label for="inputPassword4">Empresa</label>
+                <select class="form-control input-dark" id="empresa_paciente" required>
+                  <option value="">Seleccionar...</option>
+                  <option value="Corrugado">Corrugado</option>
+                  <option value="Plegadizo">Plegadizo</option>
+                  <option value="Ecofibra">Ecofibra</option>
+                  <option value="Flexible">Flexible</option>
+                </select>
+              </div>
+
+                <div class="form-group col-md-5">
+                  <label for="inputPassword4">Departamento</label>
+                  <select class="form-control input-dark" id="departamento_paciente" required>
+                </select>
+               </div>
+
+              <div class="form-group col-md-3">
+             <label for="inputEmail4">#Cod. Empleado</label>
+              <input type="text" class="form-control input-dark" id="codigo_emp" placeholder="Código de empleado" required="" onkeyup="mayus(this);" >
+              </div> 
+
+              <div class="col-sm-3">
                   <label for="ex3">Ocupación</label>
                   <input class="form-control" id="ocupacion" type="text" name="ocupacion" placeholder="ocupacion del paciente" onkeyup="mayus(this);" required>
-                </div>
+              </div>
 
             </div><!--Fin form-group-->
               

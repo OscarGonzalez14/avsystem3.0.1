@@ -321,7 +321,6 @@ $(document).on("click","#select_paciente_venta", function(){
   }
 
 }else{
-
   show_pacientes_empresas();
 }
 
