@@ -4,6 +4,7 @@ function init(){
    get_correlativo_recibo();
     //prueba();
     listar_recibos_emitidos();
+    get_correlativo_orden_cobro();
 }
 
 ////////OCULTAR BTN DE IMPRIMIR RECIBO AL INICIO
@@ -259,6 +260,7 @@ function listar_recibos_emitidos(){
 }
 
 
+//==========================RECIBOS POR LOTES =============================//
 /////////////// GET CREDITOS PARA EMITIR POR LOTES ////////////////////////
 
 function get_cobros_empresariales(){
@@ -386,13 +388,20 @@ function get_data_credito_oid(){
     success:function(data){
     console.log(data);
 
+    let plazo = data.plazo;
+    let monto = data.monto;
+
+    let monto_abono = monto/plazo;
+
     let obj = {
+      plazo :data.plazo,
+      id_paciente : data.id_paciente,      
       pacientes : data.nombres,
       empresa : data.empresas,
       monto : data.monto,
       saldo : data.saldo,
       subtotal : 0,
-      abono_act : 0,
+      abono_act : monto_abono.toFixed(2),
       numero_venta : data.numero_venta,
       nuevo_saldo :data.saldo
     }
@@ -419,10 +428,11 @@ function listar_data_oid(){
 
       var filas = filas + "<tr id='fila"+i+"'><td style='text-align:center;width: 5%;' colspan='5'>"+(i+1)+"</td>"+
       "<td style='text-align:center;width: 20%;' colspan='20'>"+data_credito_oid[i].pacientes+"</td>"+
-      "<td style='text-align:center;width: 25%;' colspan='25'>"+data_credito_oid[i].empresa+"</td>"+
+      "<td style='text-align:center;width: 20%;' colspan='20'>"+data_credito_oid[i].empresa+"</td>"+
       "<td style='text-align:center;width: 10%;' colspan='10'>"+"$"+data_credito_oid[i].monto+"</td>"+
+      "<td style='text-align:center;width: 5%;' colspan='5'>"+data_credito_oid[i].plazo+" Cuotas"+"</td>"+
       "<td style='text-align:center;width: 10%;' colspan='10'>"+"$"+data_credito_oid[i].saldo+"</td>"+
-      "<td style='text-align:center;width: 10%;text-align:center' colspan='10'><input style='text-align:center' type='number' value="+data_credito_oid[i].abono_act+" class='form-control' onClick='setCantidadAbono(event, this, "+(i)+");' onKeyUp='setCantidadAbono(event, this, "+(i)+");'></td>"+
+      "<td style='text-align:center;width: 10%;text-align:center' colspan='10'><input style='text-align:center' type='text' value="+data_credito_oid[i].abono_act+" class='form-control' onClick='setCantidadAbono(event, this, "+(i)+");' onKeyUp='setCantidadAbono(event, this, "+(i)+");'></td>"+
       "<td style='text-align:center;width: 10%;' colspan='10'><span id=saldo"+i+">"+"$"+data_credito_oid[i].nuevo_saldo+"</span></td>"+
       "<td  style='text-align:center;width: 10%;font-size:13px;color:blue' colspan='10'><b><span id=subtotal"+i+">"+"$"+data_credito_oid[i].subtotal+"</span></b></td>"+"</tr>";
     }//cierre for
@@ -458,9 +468,57 @@ function calcularTotal(){
     var abono = data_credito_oid[i].abono_act;
     total_final = total_final+abono;
   }
-  console.log(total_final);
-  $("#total_abonos").html(total_final.toFixed(2));
+  let totales_finales=total_final.toFixed(2);
+  $("#total_abonos").html(totales_finales);
 
 }
 
+function get_correlativo_orden_cobro(){
+  console.log("HolaCorrelativo")
+  $.ajax({
+  url:"ajax/recibos.php?op=get_numero_orden_cobro",
+  method:"POST",
+ // data:{sucursal_correlativo:sucursal_correlativo},
+  cache:false,
+  dataType:"json",
+    success:function(data){
+    console.log(data);        
+    $("#correlativo_orden").html(data.correlativo);             
+    }
+  })
+
+}
+
+function saveOrdenCobro(){
+  let numero_orden = $("#correlativo_orden").html();
+  let usuario = $("#usuario").val();
+  let id_usuario = $("#id_usuario").val();
+  let empresa =$("#empresa_act_oid").html();
+  let monto = $("#total_abonos").html();
+
+  console.log(numero_orden);
+
+
+  $.ajax({
+     url:"ajax/recibos.php?op=registrar_orden_cobro",
+    method:"POST",
+    data:{'arrayOrdenCobro':JSON.stringify(data_credito_oid),'numero_orden':numero_orden,'usuario':usuario,'id_usuario':id_usuario,'empresa':empresa,'monto':monto},
+    cache: false,
+    dataType:"json",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+    },
+    success:function(data){
+      console.log();
+    }
+
+  })///Fin ajax
+
+}
+
+//========================== FIN RECIBOS POR LOTES =============================//
+
 init();
+//SELECT*from corte_diario where n_venta = "AVSM-244" or n_venta="AVSM-240" or n_venta="AVSM-236" or n_venta="AVSM-246" or n_venta="AVSM-229" or n_venta="AVSM-250"

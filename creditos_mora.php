@@ -59,7 +59,7 @@ require_once("modals/info_pacientes_modal.php");
         <th style="text-align:center"></th>
         <th style="text-align:center"></th>
         <th style="text-align:center"></th>
-         <th style="text-align:center"></th>
+        <th style="text-align:center"></th>
         <th style="text-align:center" id="montos_c"></th>
         <th style="text-align:center" id="saldo_pend"></th>
         <th style="text-align:center" id="abonado"></th>

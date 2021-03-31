@@ -17,7 +17,6 @@ if($empresa == ""){
 <?php }
 
 if(isset($_SESSION["usuario"])){
-
 require_once('header_dos.php');
 require_once('modals/empresa.php');
 ?>
@@ -27,7 +26,7 @@ require_once('modals/empresa.php');
 
 <div style="margin: 1px">
   <div class="callout callout-info">
-      <h5 align="center"><span style="background:#DCDCDC;padding: 8px;border-radius: 5px"><i class="fas fa-tasks" style="color:green;"></i><b>  ORDEN DE COBRO:&nbsp;<span style="color: red" id="empresa_act_oid"><?php echo $empresa;?></span></b></span></h5>
+      <h5 align="center"><span style="background:#DCDCDC;padding: 8px;border-radius: 5px"><i class="fas fa-tasks" style="color:green;"></i><b>  ORDEN DE COBRO:&nbsp;<span style="color: red" id="empresa_act_oid"><?php echo $empresa;?></span> -- <span id="correlativo_orden"></span></b></span></h5>
 
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalOrdenCobro" style="margin-top:3px" onClick="get_cobros_empresariales();"><i class="fas fa-street-view"></i>
     BUSCAR PACIENTES
@@ -37,8 +36,9 @@ require_once('modals/empresa.php');
       <tr>
         <th style="text-align:center;width: 5%;" colspan="5">#</th>
         <th style="text-align:center;width: 20%;" colspan="20">Titular</th>
-        <th style="text-align:center;width: 25%;" colspan="25">Empresa</th>
+        <th style="text-align:center;width: 20%;" colspan="20">Empresa</th>
         <th style="text-align:center;width: 10%;" colspan="10">Monto</th>
+        <th style="text-align:center;width: 5%;" colspan="5">Plazo</th>
         <th style="text-align:center;width: 10%;" colspan="10">Saldo Act.</th>
         <th style="text-align:center;width: 10%;" colspan="10">Abono Act.</th>
         <th style="text-align:center;width: 10%;" colspan="10">Nuevo Saldo</th>
@@ -88,7 +88,10 @@ require_once('modals/empresa.php');
           <!-- /.modal-content -->
         </div>
 </div>
-<input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>"/>
+<input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"
+/>
+<input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"
+/>
 </div><!--fin content wrapper-->
 <?php require_once("footer.php"); ?>
 <script src="js/empresas.js"></script>

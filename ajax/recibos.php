@@ -138,5 +138,58 @@ switch ($_GET["op"]) {
       echo json_encode($results);      
     break;
 
+    case 'get_numero_orden_cobro':
+
+    $datos = $recibos->get_numero_orden_cobro();
+
+    if (is_array($datos)==true and count($datos)>0) {
+      foreach ($datos as $row) {
+        $cod = $row["numero_orden"];
+        $cod = (substr($cod, 3,11))+1;
+        $output["correlativo"] = "OC-".$cod;
+      }
+    }else{
+      $output["correlativo"] = "OC-1";
+    }
+
+    echo json_encode($output);
+
+    break;
+
+
+case 'registrar_orden_cobro':
+
+$datos=$recibos->valida_existencia_oc($_POST["numero_orden"]);
+if(is_array($datos)==true and count($datos)==0){
+  //$ventas->agrega_detalle_orden_credito();
+  $messages[]="ok";
+
+}else{
+  $errors[]="error";
+}
+
+if (isset($messages)){
+ ?>
+ <?php
+ foreach ($messages as $message) {
+   echo json_encode($message);
+ }
+ ?>
+ <?php
+}
+    //mensaje error
+if (isset($errors)){
+
+ ?>
+
+ <?php
+ foreach ($errors as $error) {
+   echo json_encode($error);
+ }
+ ?>
+ <?php
+
+}
+  break;
 
 }

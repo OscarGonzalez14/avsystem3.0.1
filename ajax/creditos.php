@@ -727,7 +727,8 @@ case 'listar_oid_aprobadas':
       $output["monto"] = number_format($row["monto"],2,".",",");
       $output["saldo"] = number_format($row["saldo"],2,".",",");
       $output["id_paciente"] = $row["id_paciente"];
-      $output["numero_venta"] = $row["numero_venta"];              
+      $output["numero_venta"] = $row["numero_venta"];
+      $output["plazo"] = $row["plazo"];            
     }      
 
   } else {                 

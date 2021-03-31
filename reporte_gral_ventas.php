@@ -33,6 +33,7 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("Y-m-d");;
   <div class="content" id="listar_reporte_ventas">
 
     <div class="header" style="padding:7px;">
+<<<<<<< HEAD
       <div class="row mb-2">
           <div class="col-sm-9">
             <h2 class="card-title" align="right" style="text-align:right;"><i class="far fa-file-alt" style="color:green"></i><strong>    REPORTE GENERAL DE VENTAS </strong></h2>
@@ -51,6 +52,17 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("Y-m-d");;
 
         
         
+=======
+        <h2 class="card-title" align="center" style="text-align: center;"><i class="fas fa-file" style="color:green"></i><strong> REPORTE GENERAL DE VENTAS </strong></h2>
+        <div>
+         <ul class="breadcrumb float-sm-right" style="background-color:transparent;padding:0px;">
+         <li class="breadcrumb-item"><a href="ventas.php">Nueva Venta</a></li>
+         <li class="breadcrumb-item"><a href="corte_diario.php">Corte Diario</a></li>
+         <li class="breadcrumb-item"><a href="reporte_mensual_vtas.php">Reporte Mensual</a></li>
+         <li class="breadcrumb-item active">Reporte General</li>
+         </ul>
+        </div>
+>>>>>>> reportes
 
     </div><br>
 

@@ -565,4 +565,28 @@ public function show_datos_paciente($id_paciente){
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
   }
+
+////get ventas mensuales
+Public function get_vtas_mensuales($fin_fecha,$fecha_inicio,$sucursal){
+
+    $conectar = parent::conexion();
+
+    $date_inicial = $_POST["fecha_inicial"];
+    $date_final = $_POST["fecha_final"];
+    $fecha_inicial = date("Y-m-d", strtotime($date_inicial));
+    $fecha_final = date("Y-m-d", strtotime($date_final));
+    /*$sql = "select*from detalle_ccf_laboratorios where laboratorio=? AND fecha between ? AND ? AND sucursal=?;";*/
+    $sql = "select*from ventas as v inner join creditos as c on v.id_paciente=c.id_paciente where v.sucursal=? and fecha between ? AND ? AND sucursal=? order by id_ventas DESC;";
+    $sql = $conectar->prepare($sql);
+    $sql->bindValue(1,$fecha_inicial);
+    $sql->bindValue(2,$fecha_final);
+    $sql->bindValue(3,$sucursal);
+    
+    $sql->execute();    
+    return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
+    //echo $date_inicial;
+}
+
+
+
 }//////Fin de la clase

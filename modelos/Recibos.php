@@ -261,6 +261,28 @@ public function get_creditos_empresarial($empresa){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
+  public function get_numero_orden_cobro(){
+
+    $conectar= parent::conexion();
+    $sql= "select numero_orden from orden_cobro order by id_orden DESC limit 1;";
+    $sql=$conectar->prepare($sql);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+  }
+
+public function valida_existencia_oc($numero_orden){
+
+    $conectar = parent::conexion();
+    $sql= "select * from orden_cobro where numero_orden = ?;";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$numero_orden);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+ 
 }
 
+}
+////SELECT u.usuario,v.fecha_venta,v.paciente,v.monto_total,v.tipo_venta,v.tipo_pago,v.sucursal from ventas as v inner join usuarios as u on v.id_usuario=u.id_usuario where v.fecha_venta like "%02-2021%" and v.sucursal="San Miguel" order by v.id_ventas desc limit 500
  ?>
