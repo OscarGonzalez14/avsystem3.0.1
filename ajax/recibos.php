@@ -160,36 +160,33 @@ switch ($_GET["op"]) {
 case 'registrar_orden_cobro':
 
 $datos=$recibos->valida_existencia_oc($_POST["numero_orden"]);
+
 if(is_array($datos)==true and count($datos)==0){
-  //$ventas->agrega_detalle_orden_credito();
+  $recibos->agrega_detalle_orden_credito();
   $messages[]="ok";
 
 }else{
   $errors[]="error";
 }
 
-if (isset($messages)){
- ?>
- <?php
- foreach ($messages as $message) {
-   echo json_encode($message);
- }
- ?>
- <?php
-}
-    //mensaje error
-if (isset($errors)){
+      if (isset($messages)){ ?>
+       <?php
+         foreach ($messages as $message) {
+             echo json_encode($message);
+           }
+         ?>
+      <?php
+      }
 
- ?>
+      if (isset($errors)){ ?>
+         <?php
+           foreach ($errors as $error) {
+               echo json_encode($error);
+             }
+           ?>
+      <?php
+   }
 
- <?php
- foreach ($errors as $error) {
-   echo json_encode($error);
- }
- ?>
- <?php
-
-}
   break;
 
 }

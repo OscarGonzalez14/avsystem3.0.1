@@ -495,12 +495,9 @@ function saveOrdenCobro(){
   let id_usuario = $("#id_usuario").val();
   let empresa =$("#empresa_act_oid").html();
   let monto = $("#total_abonos").html();
-
-  console.log(numero_orden);
-
-
+  console.log(`Usuario: ${usuario} id ${id_usuario}`);
   $.ajax({
-     url:"ajax/recibos.php?op=registrar_orden_cobro",
+    url:"ajax/recibos.php?op=registrar_orden_cobro",
     method:"POST",
     data:{'arrayOrdenCobro':JSON.stringify(data_credito_oid),'numero_orden':numero_orden,'usuario':usuario,'id_usuario':id_usuario,'empresa':empresa,'monto':monto},
     cache: false,
@@ -511,7 +508,7 @@ function saveOrdenCobro(){
       console.log(z);
     },
     success:function(data){
-      console.log();
+      console.log(data);
     }
 
   })///Fin ajax

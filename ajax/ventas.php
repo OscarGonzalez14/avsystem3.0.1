@@ -222,7 +222,7 @@ break;
 //////////////////////////SE REGISTRA VENTA O PRIMER REGISTRO DE CREDITO /////////////////////
 case 'registrar_venta':
 
-$datos=$recibos->valida_existencia_venta($_POST["numero_venta"]);
+$datos=$ventas->valida_existencia_venta($_POST["numero_venta"]);
 if(is_array($datos)==true and count($datos)==0){
   $ventas->agrega_detalle_venta();
   $messages[]="ok";
@@ -292,16 +292,17 @@ if (isset($errors)){
 
 
   case 'get_datos_lentes_rec_ini':
-  $datos= $ventas->get_detalle_lente_rec_ini($_POST["id_paciente"],$_POST["numero_venta"]); 
 
+  $datos= $ventas->get_detalle_lente_rec_ini($_POST["id_paciente"],$_POST["numero_venta"]);
   if(is_array($datos)==true and count($datos)>0){
     foreach($datos as $row){         
       $output["producto"] = $row["producto"];                
     }       
-    echo json_encode($output);
-  } 
+  echo json_encode($output);
+  }
   break;
-      //////////GET DATA PHOTOSENSIBLES RECIBO INICIAL 
+
+  //////////GET DATA PHOTOSENSIBLES RECIBO INICIAL 
   case 'get_datos_photo_rec_ini':
   $datos= $ventas->get_detalle_photo_rec_ini($_POST["id_paciente"],$_POST["numero_venta"]); 
 
@@ -313,7 +314,7 @@ if (isset($errors)){
   } 
   break;
 
-            //////////GET DATA ANTIREFLEJANTE RECIBO INICIAL 
+  //////////GET DATA ANTIREFLEJANTE RECIBO INICIAL 
   case 'get_datos_ar_rec_ini':
   $datos= $ventas->get_detalle_ar_rec_ini($_POST["id_paciente"],$_POST["numero_venta"]); 
 

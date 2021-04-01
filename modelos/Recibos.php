@@ -177,26 +177,10 @@ $conectar=parent::conexion();
   $fecha_ingr = substr($fecha_ing, 0,10);
   date_default_timezone_set('America/El_Salvador');$hoy = date("d-m-Y");
 
-  if ($fecha_ingr==$fecha_venta and $suma_res==1) {
-    $tipo_ingreso = "Venta";
-    $factura='';
-    $sql6="update corte_diario set forma_cobro=?,monto_cobrado=?,n_recibo=?,sucursal_cobro=?,saldo_credito=?,tipo_ingreso=? where id_paciente=? and n_venta=?;";
-    $sql6=$conectar->prepare($sql6);
-    $sql6->bindValue(1,$forma_pago);
-    $sql6->bindValue(2,$numero);
-    $sql6->bindValue(3,$n_recibo);
-    $sql6->bindValue(4,$sucursal);
-    $sql6->bindValue(5,$saldo);
-    $sql6->bindValue(6,$tipo_ingreso);
-    $sql6->bindValue(7,$id_paciente);
-    $sql6->bindValue(8,$n_venta_recibo_ini);
-    $sql6->execute();           
-  
-  }elseif(($fecha_ingr==$fecha_venta and $suma_res>1) or ($fecha_ingr!=$fecha_venta)){
-  
+  if (($fecha_ingr != $hoy and $suma_res==1) or ($fecha_ingr == $fecha_venta and $suma_res>1)){
+
   $tipo_ingreso = "Recuperado";
   $factura = "";
-
   $sql17="insert into corte_diario values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
   $sql17=$conectar->prepare($sql17);
   $sql17->bindValue(1,$fecha);
@@ -220,6 +204,25 @@ $conectar=parent::conexion();
   $sql17->bindValue(19,$tipo_ingreso);
 
   $sql17->execute();
+
+  }else{
+
+    $tipo_ingreso = "Venta";
+    $factura='';
+    $sql6="update corte_diario set forma_cobro=?,monto_cobrado=?,n_recibo=?,sucursal_cobro=?,saldo_credito=?,tipo_ingreso=? where id_paciente=? and n_venta=?;";
+    $sql6=$conectar->prepare($sql6);
+    $sql6->bindValue(1,$forma_pago);
+    $sql6->bindValue(2,$numero);
+    $sql6->bindValue(3,$n_recibo);
+    $sql6->bindValue(4,$sucursal);
+    $sql6->bindValue(5,$saldo);
+    $sql6->bindValue(6,$tipo_ingreso);
+    $sql6->bindValue(7,$id_paciente);
+    $sql6->bindValue(8,$n_venta_recibo_ini);
+    $sql6->execute();           
+  
+  
+  
   }
 
 }
@@ -268,7 +271,7 @@ public function get_creditos_empresarial($empresa){
     $sql=$conectar->prepare($sql);
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
-
+  
   }
 
 public function valida_existencia_oc($numero_orden){
@@ -283,6 +286,56 @@ public function valida_existencia_oc($numero_orden){
  
 }
 
+
+public function agrega_detalle_orden_credito(){
+
+  $conectar= parent::conexion();
+  parent::set_names();
+
+    $str = '';
+  $detalles = array();
+  $detalles = json_decode($_POST['arrayOrdenCobro']);
+
+  foreach ($detalles as $k => $v) {
+      $abono_act = $v->abono_act;
+      $empresa = $v->empresa;
+      $id_paciente = $v->id_paciente;
+      $monto = $v->monto;
+      $nuevo_saldo = $v->nuevo_saldo;
+      $numero_venta = $v->numero_venta;
+      $pacientes = $v->pacientes;
+      $plazo = $v->plazo;
+      $saldo = $v->saldo;
+      $subtotal = $v->subtotal;
+  }
+
+  $numero_orden = $_POST["numero_orden"];
+  $usuario = $_POST["usuario"];
+  $id_usuario = $_POST["id_usuario"];
+  $empresa = $_POST["empresa"];
+  $monto = $_POST["monto"];
+
+  $estado="0";
+  $forma_cobro ="Null";
+  date_default_timezone_set('America/El_Salvador');$hoy = date("d-m-Y");
+  $notas = "Null";
+
+  $sql = "insert into orden_cobro values(null,?,?,?,?,?,?,?,?,?);";
+  $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$numero_orden);
+    $sql->bindValue(2,$usuario);
+    $sql->bindValue(3,$id_usuario);
+    $sql->bindValue(4,$hoy);
+    $sql->bindValue(5,$empresa);
+    $sql->bindValue(6,$monto);
+    $sql->bindValue(7,$forma_cobro);
+    $sql->bindValue(8,$notas);
+    $sql->bindValue(9,$estado);
+  $sql->execute();
 }
-////SELECT u.usuario,v.fecha_venta,v.paciente,v.monto_total,v.tipo_venta,v.tipo_pago,v.sucursal from ventas as v inner join usuarios as u on v.id_usuario=u.id_usuario where v.fecha_venta like "%02-2021%" and v.sucursal="San Miguel" order by v.id_ventas desc limit 500
+
+
+}
+////SELECT u.usuario,v.fecha_venta,v.paciente,v.monto_total,v.tipo_venta,v.tipo_pago,v.sucursal from ventas as v inner join usuarios as u on v.id_usuario=u.id_usuario where v.fecha_venta like "%02-2021%" and v.sucursal="San Miguel" order by v.id_ventas desc limit 500;
+
  ?>
