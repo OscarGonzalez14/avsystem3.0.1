@@ -177,7 +177,7 @@ $conectar=parent::conexion();
   $fecha_ingr = substr($fecha_ing, 0,10);
   date_default_timezone_set('America/El_Salvador');$hoy = date("d-m-Y");
 
-  if (($fecha_ingr != $hoy and $suma_res==1) or ($fecha_ingr == $fecha_venta and $suma_res>1)){
+/* if (($fecha_ingr != $hoy and $suma_res==1) or ($fecha_ingr == $fecha_venta and $suma_res>1)){
 
   $tipo_ingreso = "Recuperado";
   $factura = "";
@@ -223,6 +223,50 @@ $conectar=parent::conexion();
   
   
   
+  }*/
+    if ($fecha_ingr==$fecha_venta and $suma_res==1) {
+    $tipo_ingreso = "Venta";
+    $factura='';
+    $sql6="update corte_diario set forma_cobro=?,monto_cobrado=?,n_recibo=?,sucursal_cobro=?,saldo_credito=?,tipo_ingreso=? where id_paciente=? and n_venta=?;";
+    $sql6=$conectar->prepare($sql6);
+    $sql6->bindValue(1,$forma_pago);
+    $sql6->bindValue(2,$numero);
+    $sql6->bindValue(3,$n_recibo);
+    $sql6->bindValue(4,$sucursal);
+    $sql6->bindValue(5,$saldo);
+    $sql6->bindValue(6,$tipo_ingreso);
+    $sql6->bindValue(7,$id_paciente);
+    $sql6->bindValue(8,$n_venta_recibo_ini);
+    $sql6->execute();           
+  
+  }elseif(($fecha_ingr==$fecha_venta and $suma_res>1) or ($fecha_ingr!=$fecha_venta)){
+  
+  $tipo_ingreso = "Recuperado";
+  $factura = "";
+
+  $sql17="insert into corte_diario values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  $sql17=$conectar->prepare($sql17);
+  $sql17->bindValue(1,$fecha);
+  $sql17->bindValue(2,$n_recibo);
+  $sql17->bindValue(3,$n_venta_recibo_ini);
+  $sql17->bindValue(4,$factura);
+  $sql17->bindValue(5,$recibi_rec_ini);
+  $sql17->bindValue(6,$id_usuario);
+  $sql17->bindValue(7,$monto);
+  $sql17->bindValue(8,$forma_pago);
+  $sql17->bindValue(9,$numero);
+  $sql17->bindValue(10,$saldo);
+  $sql17->bindValue(11,$tipo_venta);
+  $sql17->bindValue(12,$tipo_pago);
+  $sql17->bindValue(13,$id_usuario);
+  $sql17->bindValue(14,$suma_abonos_ant-$numero);
+  $sql17->bindValue(15,$suma_res);
+  $sql17->bindValue(16,$id_paciente);
+  $sql17->bindValue(17,$sucursal);
+  $sql17->bindValue(18,$sucursal);
+  $sql17->bindValue(19,$tipo_ingreso);
+
+  $sql17->execute();
   }
 
 }
@@ -291,8 +335,14 @@ public function agrega_detalle_orden_credito(){
 
   $conectar= parent::conexion();
   parent::set_names();
+  
+  $numero_orden = $_POST["numero_orden"];
+  $usuario = $_POST["usuario"];
+  $id_usuario = $_POST["id_usuario"];
+  $empresa = $_POST["empresa"];
+  $monto_total = $_POST["monto_total"];
 
-    $str = '';
+  $str = '';
   $detalles = array();
   $detalles = json_decode($_POST['arrayOrdenCobro']);
 
@@ -309,11 +359,7 @@ public function agrega_detalle_orden_credito(){
       $subtotal = $v->subtotal;
   }
 
-  $numero_orden = $_POST["numero_orden"];
-  $usuario = $_POST["usuario"];
-  $id_usuario = $_POST["id_usuario"];
-  $empresa = $_POST["empresa"];
-  $monto = $_POST["monto"];
+  
 
   $estado="0";
   $forma_cobro ="Null";
@@ -327,7 +373,7 @@ public function agrega_detalle_orden_credito(){
     $sql->bindValue(3,$id_usuario);
     $sql->bindValue(4,$hoy);
     $sql->bindValue(5,$empresa);
-    $sql->bindValue(6,$monto);
+    $sql->bindValue(6,$monto_total);
     $sql->bindValue(7,$forma_cobro);
     $sql->bindValue(8,$notas);
     $sql->bindValue(9,$estado);

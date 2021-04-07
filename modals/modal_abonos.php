@@ -28,7 +28,7 @@
     <div class="row" style="margin: 8px"><!--aros datos-->
     <div class="form-group col-md-4">
       <label for="inputPassword4">Recibí de:</label>
-      <input type="text" class="form-control" id="recibi_abono" readonly="" style="background: white">
+      <input type="text" class="form-control" id="recibi_abono" style="background: white">
     </div>
 
     <div class="form-group col-md-4">

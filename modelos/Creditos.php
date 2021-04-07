@@ -82,7 +82,7 @@ where c.tipo_credito='Contado' and p.sucursal=? order by c.id_credito DESC;";
     return $resultado=$sql->fetchAll();
     }
 
-    //////////////GET DATOS DE PACIENTE DE MODAL ABONOS
+    ////////////// GET DATOS DE PACIENTE DE MODAL ABONOS
     public function get_datos_abonos($id_paciente,$numero_venta){
     $conectar=parent::conexion();
     parent::set_names();

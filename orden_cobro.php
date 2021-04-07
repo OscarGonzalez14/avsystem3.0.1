@@ -34,7 +34,6 @@ require_once('modals/empresa.php');
   <table  id="d_oid" width="100%" class="table-hover table-bordered" style="font-size:12px;margin-top: 5px">
     <thead style="background: #00001a;color:white">
       <tr>
-        <th style="text-align:center;width: 5%;" colspan="5">#</th>
         <th style="text-align:center;width: 20%;" colspan="20">Titular</th>
         <th style="text-align:center;width: 20%;" colspan="20">Empresa</th>
         <th style="text-align:center;width: 10%;" colspan="10">Monto</th>
@@ -42,13 +41,14 @@ require_once('modals/empresa.php');
         <th style="text-align:center;width: 10%;" colspan="10">Saldo Act.</th>
         <th style="text-align:center;width: 10%;" colspan="10">Abono Act.</th>
         <th style="text-align:center;width: 10%;" colspan="10">Nuevo Saldo</th>
-        <th style="text-align:center;width: 10%;" colspan="10">Subtotal</th>
+        <th style="text-align:center;width: 10%;" colspan="10">Subt.</th>
+        <th style="text-align:center;width: 5%;" colspan="5">Elim.</th>
       </tr>
     </thead>
     <tbody id="listar_data_oid" style="width: 100%"></tbody>        
 
     <tfoot style='background:#E0E0E0'>
-      <tr>
+      <tr id="totales_oid">
         <td style="text-align:center;text-align:center;width: 90%" colspan="90"><strong>Monto total del cobro</strong></td>
         <td style="text-align:center;text-align:center" colspan="10"><strong><span>$</span><span id="total_abonos"></span></strong></td>                      
       </tr>

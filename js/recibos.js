@@ -426,7 +426,7 @@ function listar_data_oid(){
 
     for(var i=0; i<data_credito_oid.length; i++){
 
-      var filas = filas + "<tr id='fila"+i+"'><td style='text-align:center;width: 5%;' colspan='5'>"+(i+1)+"</td>"+
+      var filas = filas + "<tr id='filac"+i+"'>"+
       "<td style='text-align:center;width: 20%;' colspan='20'>"+data_credito_oid[i].pacientes+"</td>"+
       "<td style='text-align:center;width: 20%;' colspan='20'>"+data_credito_oid[i].empresa+"</td>"+
       "<td style='text-align:center;width: 10%;' colspan='10'>"+"$"+data_credito_oid[i].monto+"</td>"+
@@ -434,8 +434,10 @@ function listar_data_oid(){
       "<td style='text-align:center;width: 10%;' colspan='10'>"+"$"+data_credito_oid[i].saldo+"</td>"+
       "<td style='text-align:center;width: 10%;text-align:center' colspan='10'><input style='text-align:center' type='text' value="+data_credito_oid[i].abono_act+" class='form-control' onClick='setCantidadAbono(event, this, "+(i)+");' onKeyUp='setCantidadAbono(event, this, "+(i)+");'></td>"+
       "<td style='text-align:center;width: 10%;' colspan='10'><span id=saldo"+i+">"+"$"+data_credito_oid[i].nuevo_saldo+"</span></td>"+
-      "<td  style='text-align:center;width: 10%;font-size:13px;color:blue' colspan='10'><b><span id=subtotal"+i+">"+"$"+data_credito_oid[i].subtotal+"</span></b></td>"+"</tr>";
+      "<td style='text-align:center;width: 10%;font-size:13px;color:blue' colspan='10'><b><span id=subtotal"+i+">"+"$"+data_credito_oid[i].subtotal+"</span></b></td>"+
+      "<td style='text-align:center;width: 5%' colspan='5' id=subtotal"+i+"><i class='nav-icon fas fa-times-circle fa-2x' onClick='eliminarCobro("+i+");' style='color:red'></i></td>"+"</tr>";
     }//cierre for
+
     $('#listar_data_oid').html(filas);
   //calcularTotales();
 }
@@ -445,8 +447,21 @@ function setCantidadAbono(event, obj, idx){
   event.preventDefault();
   console.log(data_credito_oid[idx].abono_act);
   data_credito_oid[idx].abono_act = parseFloat(obj.value);
+  data_credito_oid[idx].subtotal = parseFloat(obj.value);
   console.log(data_credito_oid[idx].abono_act);
   recalcular_datos(idx);
+
+}
+
+function eliminarCobro(index) {
+  $("#filac" + index).remove();
+  drop_index(index);
+}
+
+function drop_index(position_element){
+  data_credito_oid.splice(position_element, 1);
+  //recalcular(position_element);
+  calcularTotal();
 
 }
 
@@ -494,12 +509,27 @@ function saveOrdenCobro(){
   let usuario = $("#usuario").val();
   let id_usuario = $("#id_usuario").val();
   let empresa =$("#empresa_act_oid").html();
-  let monto = $("#total_abonos").html();
-  console.log(`Usuario: ${usuario} id ${id_usuario}`);
+  let monto_total = $("#total_abonos").html();
+
+  let length_data_oid = data_credito_oid.length;
+
+  if (length_data_oid<1) {
+    Swal.fire('Orden de cobro vacio!','','error')
+    return false;
+  }
+
+  for(var i=0;i<data_credito_oid.length;i++){
+    let currentSubt= data_credito_oid[i].subtotal;
+    if(currentSubt==0) {
+      Swal.fire('Existe un item que no ha sido verificado!','','error');
+      return false;
+    }
+  }
+
   $.ajax({
     url:"ajax/recibos.php?op=registrar_orden_cobro",
     method:"POST",
-    data:{'arrayOrdenCobro':JSON.stringify(data_credito_oid),'numero_orden':numero_orden,'usuario':usuario,'id_usuario':id_usuario,'empresa':empresa,'monto':monto},
+    data:{'arrayOrdenCobro':JSON.stringify(data_credito_oid),'numero_orden':numero_orden,'usuario':usuario,'id_usuario':id_usuario,'empresa':empresa,'monto_total':monto_total},
     cache: false,
     dataType:"json",
     error:function(x,y,z){
@@ -509,6 +539,14 @@ function saveOrdenCobro(){
     },
     success:function(data){
       console.log(data);
+      if(data=='ok'){
+        setTimeout ("Swal.fire('Orden de cobro creada Existosamente','','success')", 100);
+        data_credito_oid = [];
+        listar_data_oid();
+        document.getElementById("totales_oid").style.display = "none";      
+      }else{
+        setTimeout ("Swal.fire('Correlativo Duplicado','','error')", 100);
+      }
     }
 
   })///Fin ajax

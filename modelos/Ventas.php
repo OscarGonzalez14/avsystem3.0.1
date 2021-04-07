@@ -271,6 +271,7 @@ public function agrega_detalle_venta(){
 //////////////////////VALIDAR SI VENTA ES CREDITO
   }elseif($tipo_venta == "Credito" and $tipo_pago == "Descuento en Planilla"){////////////////////////FIN PARA VALIDAR SI9 VENTA  == CONTADO
   ////////////////////////   SI NO ES  == CONTADO REGISTRAR VENTAS FLOTANTES /////////////
+
   $detalles_oid = array();
   $detalles_oid = json_decode($_POST['arrayOid']);
 
@@ -300,6 +301,7 @@ public function agrega_detalle_venta(){
 
     $estado_orden = "0";
     $tipo_orden = "Individual";
+    //$id_paciente = 168;
 
     $sql8="insert into orden_credito values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql8=$conectar->prepare($sql8);          
@@ -319,10 +321,10 @@ public function agrega_detalle_venta(){
     $sql8->bindValue(14,$plazo);
     $sql8->bindValue(15,$observaciones_oid);
     $sql8->bindValue(16,$tipo_orden);
-
     $sql8->execute();
 
-  ///////////////////////UPDATE DATOS DE PACIENTE
+  ///////////////////////UPDATE DATOS DE PACIENTE /////////////////
+
    $sql9 = "update pacientes set telefono=?,ocupacion=?,dui=?,correo=?,empresas=?,nit=?,telefono_oficina=?,direccion=? where id_paciente=?;";
    $sql9 = $conectar->prepare($sql9);
    $sql9->bindValue(1,$tel_pac);

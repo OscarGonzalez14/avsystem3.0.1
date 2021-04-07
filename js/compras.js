@@ -228,7 +228,9 @@ var test_array = detalles.length;
   Swal.fire('Debe Agregar Productos a la compra!','','error')
   return false;
 }
+
 var cuenta_vacios = compra_precio_empty.length;
+
 if (cuenta_vacios>0) {
   Swal.fire('Debe llenar los precios de compra y precios de venta correctamente!','','error')
   return false;
