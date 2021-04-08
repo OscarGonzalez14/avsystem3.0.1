@@ -11,8 +11,8 @@ require_once('modals/empresa.php');
 <div class="content-wrapper" >
   <!-- Button to Open the Modal -->
   <div style="margin: 5px;">
-  <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#newEmpresa" style="margin-top:3px"><i class="fas fa-plus"></i>
-    CREAR EMPRESA
+  <button type="button" class="btn btn-dark"style="float: right;margin-top: 3px;color: white">
+    CORTE EMPRESARIAL
   </button>
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#empresasModal" onClick="listar_en_pacientes();" style="margin-top:3px"><i class="far fa-clipboard"></i>
     SELECCIONAR EMPRESA
@@ -25,6 +25,8 @@ require_once('modals/empresa.php');
     <button type="submit" class="btn btn-success"style="float: right;margin-top: 3px;background:#0d645c;color: white" onClick="nueva_orden_pago()"><i class="nav-icon fas fa-cash-register"></i>
     ORDEN DE COBRO
   </button>
+
+
 </form>
   </div>
 

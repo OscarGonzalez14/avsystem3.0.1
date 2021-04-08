@@ -11,7 +11,7 @@ $n_venta =$_GET["n_venta"];
 $n_recibo =$_GET["n_recibo"];
 $sucursal = $_GET["sucursal"];
 
-/////////////DESCRIBE DETALLE DE RECIBO---FROM FACTURAS
+///////////// DESCRIBE DETALLE DE RECIBO --- FROM FACTURAS
 $datos_factura_cantidad = $reporteria->get_datos_factura_cantidad($_GET["n_venta"],$_GET["id_paciente"]);
 $datos_factura_producto = $reporteria->get_datos_factura($_GET["n_venta"],$_GET["id_paciente"]);
 $datos_factura_precio_u = $reporteria->get_datos_factura_p_unitario($_GET["n_venta"],$_GET["id_paciente"]);
@@ -38,8 +38,8 @@ if ($sucursal == "Metrocentro") {
 }
 
 $datos_recibo = $reporteria->print_recibo_paciente($_GET["n_recibo"],$_GET["n_venta"],$_GET["id_paciente"]);
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>

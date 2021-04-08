@@ -31,6 +31,11 @@ require_once('modals/empresa.php');
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalOrdenCobro" style="margin-top:3px" onClick="get_cobros_empresariales();"><i class="fas fa-street-view"></i>
     BUSCAR PACIENTES
   </button>
+
+    <button type="button" class="btn btn-success"  style="margin-top:3px"><i class="fas fa-usd"></i>
+    FINALIZAR ORDEN
+  </button>
+
   <table  id="d_oid" width="100%" class="table-hover table-bordered" style="font-size:12px;margin-top: 5px">
     <thead style="background: #00001a;color:white">
       <tr>

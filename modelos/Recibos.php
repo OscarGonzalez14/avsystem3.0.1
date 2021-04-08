@@ -336,11 +336,13 @@ public function agrega_detalle_orden_credito(){
   $conectar= parent::conexion();
   parent::set_names();
   
+  date_default_timezone_set('America/El_Salvador');$hoy = date("d-m-Y");
   $numero_orden = $_POST["numero_orden"];
   $usuario = $_POST["usuario"];
   $id_usuario = $_POST["id_usuario"];
   $empresa = $_POST["empresa"];
   $monto_total = $_POST["monto_total"];
+  $suc_emp = "Empresarial";
 
   $str = '';
   $detalles = array();
@@ -357,8 +359,92 @@ public function agrega_detalle_orden_credito(){
       $plazo = $v->plazo;
       $saldo = $v->saldo;
       $subtotal = $v->subtotal;
-  }
+ 
+      /////////////// GET NUMERO RECIBO
+      $sql= "select numero_recibo from recibos where sucursal = 'Empresarial' order by id_recibo DESC limit 1;";
+      $sql=$conectar->prepare($sql);
+      $sql->execute();
+      $correlativos = $sql->fetchAll(PDO::FETCH_ASSOC);
 
+      if (is_array($correlativos)==true and count($correlativos)>0){          
+          foreach ($correlativos as $row) {
+            $codigo=$row["numero_recibo"];
+            $cod=(substr($codigo,4,11))+1;
+            $correlativo = "EMP-".$cod;
+          }
+      }else{
+          $correlativo = "EMP-1";
+      }
+
+      //////////////// get datos pacientes /////
+
+    $sql2 = "select nombres,empresas,telefono from pacientes where id_paciente=?;";
+    $sql2=$conectar->prepare($sql2);
+    $sql2->bindValue(1,$id_paciente);
+    $sql2->execute();
+    $paciente = $sql2->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($paciente as $row){
+      $name_pac = $row["nombres"];
+      $tel_pac = $row['telefono'];
+      $empresas = $row['empresas'];
+    }
+
+    $sql3 = "update creditos set saldo=? where numero_venta=? and id_paciente=?;";
+    $sql3=$conectar->prepare($sql3);
+    $sql3->bindValue(1,$nuevo_saldo);
+    $sql3->bindValue(2,$numero_venta);
+    $sql3->bindValue(3,$id_paciente);
+    $sql3->execute();
+  
+
+    $cant_letras="";
+    $a_anteriores="";
+    $forma_pago="";
+    $marca_aro="";
+    $modelo_aro="";
+    $color_aro="";
+    $lente="";
+    $anti_r="";
+    $photo="";
+    $observaciones="";
+    $prox_abono="";
+
+  $sql4="insert into recibos values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+  $sql4=$conectar->prepare($sql4);
+
+  $sql4->bindValue(1,$correlativo);
+  $sql4->bindValue(2,$numero_venta);
+  $sql4->bindValue(3,$monto);
+  $sql4->bindValue(4,$hoy);
+  $sql4->bindValue(5,$suc_emp);
+  $sql4->bindValue(6,$id_paciente);
+  $sql4->bindValue(7,$id_usuario);
+  $sql4->bindValue(8,$tel_pac);
+  $sql4->bindValue(9,$name_pac);
+  $sql4->bindValue(10,$empresas);
+  $sql4->bindValue(11,$cant_letras);
+  $sql4->bindValue(12,$a_anteriores);
+  $sql4->bindValue(13,$abono_act);
+  $sql4->bindValue(14,$nuevo_saldo);
+  $sql4->bindValue(15,$forma_pago);
+  $sql4->bindValue(16,$marca_aro);
+  $sql4->bindValue(17,$modelo_aro);
+  $sql4->bindValue(18,$color_aro);
+  $sql4->bindValue(19,$lente);
+  $sql4->bindValue(20,$anti_r);
+  $sql4->bindValue(21,$photo);
+  $sql4->bindValue(22,$observaciones);
+  $sql4->bindValue(23,$prox_abono);
+  $sql4->bindValue(24,$name_pac);  
+  $sql4->execute();
+
+
+    }//Fin recorrer detalles
+
+
+
+////////////////GET DATOS VENTA /////
   
 
   $estado="0";

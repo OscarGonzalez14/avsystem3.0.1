@@ -201,8 +201,7 @@ public function agrega_detalle_venta(){
     $sql1->bindValue(9,$fecha_venta);
 
     $sql1->execute();
-
-
+    
     $sql2="insert into ventas values(null,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql2=$conectar->prepare($sql2);
           
