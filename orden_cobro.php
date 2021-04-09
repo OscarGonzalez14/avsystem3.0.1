@@ -59,7 +59,12 @@ require_once('modals/empresa.php');
       </tr>
     <tfoot>                 
     </table>
-<button class="btn btn-primary btn-block enviar_venta" id="btn_de_compra" style="border-radius:2px" onClick='saveOrdenCobro();'><i class="fas fa-save"></i> REGISTRAR COBRO</button>        
+<button class="btn btn-primary btn-block enviar_venta" id="btn_de_compra" style="border-radius:2px" onClick='saveOrdenCobro();'><i class="fas fa-save"></i> REGISTRAR COBRO</button>
+<div class="row">
+  <div class="col-sm-3">
+    <a href="" id="reporte_orden_cobro"><button  class="btn btn-info btn-block enviar_venta" style="border-radius:0px;margin-top: 3px;background: #00001a;color:white">REPORTE ORDEN</button></a>
+  </div>
+</div>        
   </div><!--FIN callout callout-info-->
 <div id="modalOrdenCobro" class="modal fade" data-modal-index="2">
         <div class="modal-dialog modal-lg">

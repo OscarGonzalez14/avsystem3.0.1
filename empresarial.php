@@ -11,7 +11,7 @@ require_once('modals/empresa.php');
 <div class="content-wrapper" >
   <!-- Button to Open the Modal -->
   <div style="margin: 5px;">
-  <button type="button" class="btn btn-dark"style="float: right;margin-top: 3px;color: white">
+  <button type="button" class="btn btn-dark"style="float: right;color: white;margin-top: 3px">
     CORTE EMPRESARIAL
   </button>
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#empresasModal" onClick="listar_en_pacientes();" style="margin-top:3px"><i class="far fa-clipboard"></i>
@@ -20,16 +20,13 @@ require_once('modals/empresa.php');
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newEmpresa" style="margin-top:3px"><i class="fas fa-sort-amount-down"></i>
     BUSCAR PACIENTES
   </button>
-     <form action="orden_cobro.php" method="POST" target="_blank">
-     	<input type="hidden" id="empresa" name="empresa">
-    <button type="submit" class="btn btn-success"style="float: right;margin-top: 3px;background:#0d645c;color: white" onClick="nueva_orden_pago()"><i class="nav-icon fas fa-cash-register"></i>
-    ORDEN DE COBRO
-  </button>
-
-
-</form>
+    <form action="orden_cobro.php" method="POST" target="_blank" style="display: inline;margin-top: 3px">
+      <input type="hidden" id="empresa" name="empresa">
+      <button type="submit" class="btn btn-success"style="float: right;margin-top: 3px;background:#0d645c;color: white" onClick="nueva_orden_pago()"><i class="nav-icon fas fa-cash-register"></i>
+      ORDEN DE COBRO
+      </button>
+    </form>
   </div>
-
 
 <div style="margin: 1px">
   <div class="callout callout-info">
@@ -37,7 +34,7 @@ require_once('modals/empresa.php');
     </div>
     
   <table class="table-hover table-bordered" id="data_empresas_cread" width="100%">
-        <thead style="background:#034f84;color:white;max-height:10px">
+        <thead style="background:#034f84;color:white;font-size:11px">
           <tr>
             <th style="text-align:center;width: 6%">ID</th>
             <th style="text-align:center;width: 40%">Paciente</th>
@@ -47,7 +44,7 @@ require_once('modals/empresa.php');
             <th style="text-align:center;width: 13%">Dias transcurridos</th>
           </tr>
         </thead>
-    <tbody style="text-align:center">                                        
+    <tbody style="text-align:center;font-size: 11px">                                        
     </tbody>
   </table><!-- /.content -->
 </div>

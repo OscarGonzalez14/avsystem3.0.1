@@ -543,7 +543,8 @@ function saveOrdenCobro(){
         setTimeout ("Swal.fire('Orden de cobro creada Existosamente','','success')", 100);
         data_credito_oid = [];
         listar_data_oid();
-        document.getElementById("totales_oid").style.display = "none";      
+        document.getElementById("totales_oid").style.display = "none";
+        document.getElementById("reporte_orden_cobro").href = 'imprimir_orden_cobro.php?numero_orden='+numero_orden;    
       }else{
         setTimeout ("Swal.fire('Correlativo Duplicado','','error')", 100);
       }

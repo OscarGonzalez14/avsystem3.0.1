@@ -409,38 +409,50 @@ public function agrega_detalle_orden_credito(){
     $photo="";
     $observaciones="";
     $prox_abono="";
+    $estado = '0';
 
-  $sql4="insert into recibos values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-  $sql4=$conectar->prepare($sql4);
+    $sql4="insert into recibos values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    $sql4=$conectar->prepare($sql4);
+    $sql4->bindValue(1,$correlativo);
+    $sql4->bindValue(2,$numero_venta);
+    $sql4->bindValue(3,$monto);
+    $sql4->bindValue(4,$hoy);
+    $sql4->bindValue(5,$suc_emp);
+    $sql4->bindValue(6,$id_paciente);
+    $sql4->bindValue(7,$id_usuario);
+    $sql4->bindValue(8,$tel_pac);
+    $sql4->bindValue(9,$name_pac);
+    $sql4->bindValue(10,$empresas);
+    $sql4->bindValue(11,$cant_letras);
+    $sql4->bindValue(12,$a_anteriores);
+    $sql4->bindValue(13,$abono_act);
+    $sql4->bindValue(14,$nuevo_saldo);
+    $sql4->bindValue(15,$forma_pago);
+    $sql4->bindValue(16,$marca_aro);
+    $sql4->bindValue(17,$modelo_aro);
+    $sql4->bindValue(18,$color_aro);
+    $sql4->bindValue(19,$lente);
+    $sql4->bindValue(20,$anti_r);
+    $sql4->bindValue(21,$photo);
+    $sql4->bindValue(22,$observaciones);
+    $sql4->bindValue(23,$prox_abono);
+    $sql4->bindValue(24,$name_pac);  
+    $sql4->execute();
 
-  $sql4->bindValue(1,$correlativo);
-  $sql4->bindValue(2,$numero_venta);
-  $sql4->bindValue(3,$monto);
-  $sql4->bindValue(4,$hoy);
-  $sql4->bindValue(5,$suc_emp);
-  $sql4->bindValue(6,$id_paciente);
-  $sql4->bindValue(7,$id_usuario);
-  $sql4->bindValue(8,$tel_pac);
-  $sql4->bindValue(9,$name_pac);
-  $sql4->bindValue(10,$empresas);
-  $sql4->bindValue(11,$cant_letras);
-  $sql4->bindValue(12,$a_anteriores);
-  $sql4->bindValue(13,$abono_act);
-  $sql4->bindValue(14,$nuevo_saldo);
-  $sql4->bindValue(15,$forma_pago);
-  $sql4->bindValue(16,$marca_aro);
-  $sql4->bindValue(17,$modelo_aro);
-  $sql4->bindValue(18,$color_aro);
-  $sql4->bindValue(19,$lente);
-  $sql4->bindValue(20,$anti_r);
-  $sql4->bindValue(21,$photo);
-  $sql4->bindValue(22,$observaciones);
-  $sql4->bindValue(23,$prox_abono);
-  $sql4->bindValue(24,$name_pac);  
-  $sql4->execute();
+    ///////////////// INSERTAR EN DETALLE ORDEN COBRO ///////////
+    $sql5 = "insert into detalle_orden_cobro values(null,?,?,?,?,?,?,?,?);";
+    $sql5 = $conectar->prepare($sql5);
+    $sql5->bindValue(1,$numero_orden);
+    $sql5->bindValue(2,$correlativo);
+    $sql5->bindValue(3,$id_usuario);
+    $sql5->bindValue(4,$id_paciente);
+    $sql5->bindValue(5,$abono_act);
+    $sql5->bindValue(6,$numero_venta);
+    $sql5->bindValue(7,$hoy);
+    $sql5->bindValue(8,$estado);
+    $sql5->execute();
 
-
-    }//Fin recorrer detalles
+  }//Fin recorrer detalles
 
 
 
