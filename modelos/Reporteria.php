@@ -346,7 +346,7 @@ public function get_pacientes_orden_cobro($numero_orden){
 	$conectar= parent::conexion();
 	parent::set_names(); 
 
-	$sql = "select p.nombres,o.monto_abono from pacientes as p inner join detalle_orden_cobro as o on o.id_paciente=p.id_paciente where numero_orden=?;";
+	$sql = "select p.nombres,o.monto_credito,o.monto_abono,o.saldo,o.fecha from pacientes as p inner join detalle_orden_cobro as o on o.id_paciente=p.id_paciente where numero_orden=?;";
 	$sql = $conectar->prepare($sql);
 	$sql->bindValue(1,$numero_orden);
 	$sql->execute();

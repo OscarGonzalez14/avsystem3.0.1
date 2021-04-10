@@ -225,9 +225,7 @@ $cuotas_creditos = $suma_monto_orden/$plazo_credito;
           <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>".$v["cantidad_venta"]."</td>
           <td colspan='50' style='width:50%;text-align:center;border: solid 1px black'>".$v["producto"]."</td>
           <td colspan='25' style='width:25%;text-align:center;border: solid 1px black'>"."$".number_format($v["precio_final"],2,".",",")."</td>
-      </tr>   
-     
-     
+      </tr>     
 
       ";
     }

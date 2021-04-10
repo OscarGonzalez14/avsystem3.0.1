@@ -510,6 +510,7 @@ function saveOrdenCobro(){
   let id_usuario = $("#id_usuario").val();
   let empresa =$("#empresa_act_oid").html();
   let monto_total = $("#total_abonos").html();
+  //var empresa = $("#empresa_act_oid").html();
 
   let length_data_oid = data_credito_oid.length;
 
@@ -525,7 +526,7 @@ function saveOrdenCobro(){
       return false;
     }
   }
-
+ 
   $.ajax({
     url:"ajax/recibos.php?op=registrar_orden_cobro",
     method:"POST",
@@ -543,8 +544,9 @@ function saveOrdenCobro(){
         setTimeout ("Swal.fire('Orden de cobro creada Existosamente','','success')", 100);
         data_credito_oid = [];
         listar_data_oid();
+        console.log(empresa);
         document.getElementById("totales_oid").style.display = "none";
-        document.getElementById("reporte_orden_cobro").href = 'imprimir_orden_cobro.php?numero_orden='+numero_orden;    
+        document.getElementById("reporte_orden_cobro").href = 'imprimir_orden_cobro.php?numero_orden='+numero_orden+'&'+'empresa='+empresa;    
       }else{
         setTimeout ("Swal.fire('Correlativo Duplicado','','error')", 100);
       }

@@ -62,7 +62,7 @@ require_once('modals/empresa.php');
 <button class="btn btn-primary btn-block enviar_venta" id="btn_de_compra" style="border-radius:2px" onClick='saveOrdenCobro();'><i class="fas fa-save"></i> REGISTRAR COBRO</button>
 <div class="row">
   <div class="col-sm-3">
-    <a href="" id="reporte_orden_cobro"><button  class="btn btn-info btn-block enviar_venta" style="border-radius:0px;margin-top: 3px;background: #00001a;color:white">REPORTE ORDEN</button></a>
+    <a href="" id="reporte_orden_cobro" target="_blank"><button  class="btn btn-info btn-block enviar_venta" style="border-radius:0px;margin-top: 3px;background: #00001a;color:white">REPORTE ORDEN</button></a>
   </div>
 </div>        
   </div><!--FIN callout callout-info-->
@@ -100,8 +100,9 @@ require_once('modals/empresa.php');
 </div>
 <input type="hidden" name="usuario" id="usuario" value="<?php echo $_SESSION["usuario"];?>"
 />
-<input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"
-/>
+<input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
+<input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>"/>
+
 </div><!--fin content wrapper-->
 <?php require_once("footer.php"); ?>
 <script src="js/empresas.js"></script>
