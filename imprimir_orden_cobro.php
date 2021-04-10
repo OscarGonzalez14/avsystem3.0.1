@@ -152,11 +152,19 @@ for($j=0; $j<count($pacientes_cobro);$j++){
 </table>
 </div>
 <span style="text-align: right;font-size: 9px;margin-top: 8PX" align="right">Este documento ha sido emitido por el departamento Empresarial de Óptica AV Plus. user: <?php echo $_SESSION["id_usuario"]."&nbsp;-&nbsp;".$hoy;?></span>
-
  
- <p style="page-break-before: always;text-align: center;margin-top: 50px">RESUMEN DE COBROS</p> 
+ <p style="page-break-before: always;text-align: center;margin-top: 50px"></p> 
+<?php
+for($j=0; $j<count($pacientes_cobro);$j++){
+	$numero_venta = $pacientes_cobro[$j]["numero_venta"];
+	$numero_rec_oc = $pacientes_cobro[$j]["numero_recibo"];
+	$id_paciente_oc = $pacientes_cobro[$j]["id_paciente"];
 
-   </body>
+
+	include("imprimir_recibo_empresarial_pdf.php");
+}
+?>
+ </body>
 </html>
 
 <?php
