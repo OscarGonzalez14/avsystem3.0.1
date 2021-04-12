@@ -35,10 +35,11 @@ for($j=0; $j<count($pacientes_cobro);$j++){
 	<tr>
 		<td colspan='5' style='width:5%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>".$indice."</td>
 		<td colspan='35' style='width:35%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>".$pacientes_cobro[$j]["nombres"]."</td>
-		<td colspan='15' style='width:15%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>"."$ ".number_format($pacientes_cobro[$j]["monto_credito"],2,".",",")."</td>
-		<td colspan='15' style='width:15%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>"."$ ".number_format($pacientes_cobro[$j]["monto_abono"],2,".",",")."</td>
-		<td colspan='15' style='width:15%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>"."$ ".number_format($pacientes_cobro[$j]["saldo"],2,".",",")."</td>
-		<td colspan='15' style='width:15%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>".$pacientes_cobro[$j]["fecha"]."</td>	
+		<td colspan='12' style='width:12%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>"."$ ".number_format($pacientes_cobro[$j]["monto_credito"],2,".",",")."</td>
+		<td colspan='12' style='width:12%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>"."$ ".number_format($pacientes_cobro[$j]["monto_abono"],2,".",",")."</td>
+		<td colspan='12' style='width:12%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>"."$ ".number_format($pacientes_cobro[$j]["saldo_ant"],2,".",",")."</td>
+		<td colspan='12' style='width:12%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>"."$ ".number_format($pacientes_cobro[$j]["saldo"],2,".",",")."</td>
+		<td colspan='12' style='width:12%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>".$pacientes_cobro[$j]["fecha"]."</td>	
 	</tr>
 	";
 }
@@ -135,18 +136,21 @@ for($j=0; $j<count($pacientes_cobro);$j++){
     <tr>
     	<td colspan='5' style='width:5%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>#</b></td>
         <td colspan='35' style='width:35%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>PACIENTE</b></td>
-        <td colspan='15' style='width:15%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>MONTO CREDITO</b></td>
-        <td colspan='15' style='width:15%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>ABONO ACTUAL</b></td>
-        <td colspan='15' style='width:15%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>NUEVO SALDO</b></td>
-        <td colspan='15' style='width:15%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>FECHA COBRO</b></td>
+        <td colspan='12' style='width:12%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>MONTO</b></td>
+        <td colspan='12' style='width:12%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>ABONO</b></td>
+        <td colspan='12' style='width:12%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>SALDO ANT</b></td>
+        <td colspan='12' style='width:12%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>NUEVO SALDO</b></td>
+        <td colspan='12' style='width:12%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>FECHA COBRO</b></td>
       </tr>
     <!--Aqui iran las variables PHP-->
      <?php echo $tabla;?>
 
   <tfoot style="margin-top: 0px">
   	<tr>
-  		<td colspan="85" style='width:85%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;color: black;font-size:11px'>TOTAL</td>
-  		<td colspan="15" style='width:15%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;color: black;font-size:11px'><?php echo "$ ".number_format($monto_orden,2,".",","); ?></td>
+  		<td colspan="52" style='width:52%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;color: black;font-size:11px'><b>TOTAL ABONOS</b></td>
+  		<td colspan="12" style='width:12%;font-size:12px;text-align:center;border: solid 1px #A0A0A0;color: red;font-size:11px'><b><?php echo "$ ".number_format($monto_orden,2,".",","); ?></b></td>
+  		<td colspan="36" style='width:36%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;color: black;font-size:11px'></td>
+
   	</tr>
  </tfoot> 
 </table>
@@ -159,7 +163,6 @@ for($j=0; $j<count($pacientes_cobro);$j++){
 	$numero_venta = $pacientes_cobro[$j]["numero_venta"];
 	$numero_rec_oc = $pacientes_cobro[$j]["numero_recibo"];
 	$id_paciente_oc = $pacientes_cobro[$j]["id_paciente"];
-
 
 	include("imprimir_recibo_empresarial_pdf.php");
 }

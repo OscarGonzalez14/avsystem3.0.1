@@ -396,4 +396,3 @@ $datos_recibo = $reporteria->print_recibo_paciente($numero_rec_oc,$numero_venta,
 <?php
   }
 ?>
-<p style="page-break-before: always;text-align: center;margin-top: 50px"></p>

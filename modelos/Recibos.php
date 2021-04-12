@@ -390,12 +390,12 @@ public function agrega_detalle_orden_credito(){
       $empresas = $row['empresas'];
     }
 
-    $sql3 = "update creditos set saldo=? where numero_venta=? and id_paciente=?;";
+    /*$sql3 = "update creditos set saldo=? where numero_venta=? and id_paciente=?;";
     $sql3=$conectar->prepare($sql3);
     $sql3->bindValue(1,$nuevo_saldo);
     $sql3->bindValue(2,$numero_venta);
     $sql3->bindValue(3,$id_paciente);
-    $sql3->execute();
+    $sql3->execute();*/
   
 
     $cant_letras="";
@@ -440,7 +440,7 @@ public function agrega_detalle_orden_credito(){
     $sql4->execute();
 
     ///////////////// INSERTAR EN DETALLE ORDEN COBRO ///////////
-    $sql5 = "insert into detalle_orden_cobro values(null,?,?,?,?,?,?,?,?,?,?);";
+    $sql5 = "insert into detalle_orden_cobro values(null,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5 = $conectar->prepare($sql5);
     $sql5->bindValue(1,$numero_orden);
     $sql5->bindValue(2,$correlativo);
@@ -452,6 +452,7 @@ public function agrega_detalle_orden_credito(){
     $sql5->bindValue(8,$estado);
     $sql5->bindValue(9,$monto);
     $sql5->bindValue(10,$nuevo_saldo);
+    $sql5->bindValue(11,$saldo);
     $sql5->execute();
 
   }//Fin recorrer detalles

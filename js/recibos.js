@@ -505,6 +505,7 @@ function get_correlativo_orden_cobro(){
 }
 
 function saveOrdenCobro(){
+
   let numero_orden = $("#correlativo_orden").html();
   let usuario = $("#usuario").val();
   let id_usuario = $("#id_usuario").val();
@@ -521,6 +522,15 @@ function saveOrdenCobro(){
 
   for(var i=0;i<data_credito_oid.length;i++){
     let currentSubt= data_credito_oid[i].subtotal;
+
+    let saldo_actual  = data_credito_oid[i].saldo;
+    let abono_actual  = data_credito_oid[i].abono_act;
+
+    if (saldo_actual<abono_actual) {
+      Swal.fire('El abono no debe ser mayor al saldo!','','error');
+      return false;
+    }
+
     if(currentSubt==0) {
       Swal.fire('Existe un item que no ha sido verificado!','','error');
       return false;

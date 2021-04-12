@@ -11,18 +11,18 @@ require_once('modals/empresa.php');
 <div class="content-wrapper" >
   <!-- Button to Open the Modal -->
   <div style="margin: 5px;">
-  <button type="button" class="btn btn-dark"style="float: right;color: white;margin-top: 3px">
+  <button type="button" class="btn btn-success btn-flat btn-xs"style="float: right;color: white;margin-top: 3px">
     CORTE EMPRESARIAL
-  </button>
-    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#empresasModal" onClick="listar_en_pacientes();" style="margin-top:3px"><i class="far fa-clipboard"></i>
+  </button>&nbsp;
+  <a href="ordenes_cobro_detalles.php"><button type="button" class="btn btn-dark btn-fla btn-xs"style="float: right;color: white;margin-top: 3px">
+    ORDENES DE COBRO
+  </button></a>
+    <button type="button" class="btn btn-info btn-flat btn-xs" data-toggle="modal" data-target="#empresasModal" onClick="listar_en_pacientes();" style="margin-top:3px"><i class="far fa-clipboard"></i>
     SELECCIONAR EMPRESA
-  </button>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newEmpresa" style="margin-top:3px"><i class="fas fa-sort-amount-down"></i>
-    BUSCAR PACIENTES
   </button>
     <form action="orden_cobro.php" method="POST" target="_blank" style="display: inline;margin-top: 3px">
       <input type="hidden" id="empresa" name="empresa">
-      <button type="submit" class="btn btn-success"style="float: right;margin-top: 3px;background:#0d645c;color: white" onClick="nueva_orden_pago()"><i class="nav-icon fas fa-cash-register"></i>
+      <button type="submit" class="btn btn-outline-success btn-flat btn-xs"style="float: right;margin-top: 3px;background:#0d645c;color: white" onClick="nueva_orden_pago()"><i class="nav-icon fas fa-cash-register"></i>
       ORDEN DE COBRO
       </button>
     </form>
@@ -33,7 +33,7 @@ require_once('modals/empresa.php');
         <h5 align="center"><i class="fas fa-tasks" style="color:green"></i><b>  PACIENTES:&nbsp;<span id="empresa_act" style="color: red"></span></b></h5>              
     </div>
     
-  <table class="table-hover table-bordered" id="data_empresas_cread" width="100%">
+  <table class="table-hover table-bordered" id="data_ordenes_creadas" width="100%">
         <thead style="background:#034f84;color:white;font-size:11px">
           <tr>
             <th style="text-align:center;width: 6%">ID</th>
