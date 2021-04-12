@@ -38,7 +38,7 @@
 
     <div class="form-group col-md-2">
       <label for="inputEmail4">Télefono</label>
-      <input type="text" class="form-control" id="telefono_abono" readonly="" style="background: white">
+      <input type="text" class="form-control" id="telefono_abono_e" readonly="" style="background: white">
     </div>
 
     <div class="form-group col-md-2">
@@ -362,4 +362,4 @@ function NumeroALetras(num,centavos){
 }//NumeroALetras()
 
 
-</script>
+</script> 
