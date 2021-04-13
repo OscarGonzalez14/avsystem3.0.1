@@ -189,4 +189,83 @@ if(is_array($datos)==true and count($datos)==0){
 
   break;
 
+   case "listar_pacientes_consulta":
+
+  $datos=$pacientes->get_pacientes_con_consulta($_POST["sucursal"]);
+  $data= Array();
+  foreach($datos as $row){
+    $sub_array = array();
+    $sub_array[] = $row["id_consulta"];
+    $sub_array[] = $row["nombres"];    
+    $sub_array[] = $row["fecha_consulta"]; 
+    $sub_array[] = $row["p_evaluado"];    
+
+    $sub_array[] = '<button type="button" onClick="pacienteConsultaData('.$row["id_paciente"].','.$row["id_consulta"].');" id="'.$row["id_paciente"].'" class="btn btn-md bg-success"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>';            
+                                                
+    $data[] = $sub_array;
+  }
+
+      $results = array(
+      "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+    echo json_encode($results);
+    break;
+
+
+case "listar_ordenes_cobro":
+
+  $datos=$recibos->get_ordenes_cobro();
+  $data= Array();
+  $estado = "";
+  foreach($datos as $row){
+
+    if ($row["estado"]==0) {
+      $estado="Pendiente";
+    }elseif($row["estado"]==1){
+      $estado = "Finalizado";
+    }
+    $sub_array = array();
+    $sub_array[] = $row["id_orden"];
+    $sub_array[] = $row["numero_orden"];
+    $sub_array[] = strtoupper($row["usuario"]);    
+    $sub_array[] = $row["fecha"]; 
+    $sub_array[] = $row["empresa"];
+    $sub_array[] = "$".number_format((float)$row["monto"],2,".",",");  
+    $sub_array[] = $estado;  
+    $sub_array[] = '<button type="button" class="btn btn-md bg-primary" onClick="showDetallesOc('.$row["id_orden"].',\''.$row["numero_orden"].'\',\''.$row["empresa"].'\');"><i class="fas fa-cog" aria-hidden="true" style="color:white"></i></button>';            
+                                                
+    $data[] = $sub_array;
+  }
+
+      $results = array(
+      "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+    echo json_encode($results);
+    break;
+
+    //////////////////GET DETALLES ORDEN COBRO
+
+  case 'get_detalle_pacientes_oc':
+   $datos = $recibos->get_detalle_pacientes_oc($_POST["empresa"],$_POST["numero_orden"]);
+   if (is_array($datos)==true and count($datos)>0) {
+      $data = Array();
+      foreach($datos as $row){
+        $output = array();
+        $output["numero_orden"] = $row["numero_orden"];
+        $output["numero_recibo"] = $row["numero_recibo"];
+        //$output["id_paciente"] = $row["id_paciente"];
+        $output["monto_abono"] = $row["monto_abono"];
+        $output["numero_venta"] = $row["numero_venta"];
+        $output["nombres"] = $row["nombres"];
+        $output["empresas"] = $row["empresas"];
+        $data[]= $output;
+      }
+   }
+   echo json_encode($data);
+  break;
+
 }

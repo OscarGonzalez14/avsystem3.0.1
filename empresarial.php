@@ -33,7 +33,7 @@ require_once('modals/empresa.php');
         <h5 align="center"><i class="fas fa-tasks" style="color:green"></i><b>  PACIENTES:&nbsp;<span id="empresa_act" style="color: red"></span></b></h5>              
     </div>
     
-  <table class="table-hover table-bordered" id="data_ordenes_creadas" width="100%">
+  <table class="table-hover table-bordered" id="data_empresas_cread" width="100%">
         <thead style="background:#034f84;color:white;font-size:11px">
           <tr>
             <th style="text-align:center;width: 6%">ID</th>

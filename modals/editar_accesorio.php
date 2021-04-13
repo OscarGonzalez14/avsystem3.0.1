@@ -18,7 +18,6 @@ $marcas=$marca->get_marca();
 <div class="modal fade" role="dialog" aria-labelleddy="myLargeModalLabel" id="edit_acc" style="border-radius:0px !important;">
 	<div class="modal-dialog modal-lg" role="document" id="tamModal">
 		<div class="modal-content">
-
 		<!--cabecera de la modal  guardar accesorio-->		
 		<div class="modal-header" id="head" style="justify-content: space-between;">
 		<span><i class="fas fa-plus-square"></i> EDITAR ACCESORIO</span>

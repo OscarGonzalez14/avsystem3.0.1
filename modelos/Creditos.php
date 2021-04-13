@@ -255,17 +255,19 @@ public function get_detalle_venta_flotante($id_paciente,$n_orden){
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
 ///////////APROBAR ORDEN
 public function aprobar_orden(){
 
     $conectar = parent::conexion();
     ///////BENEFICIARIOS ORDEN
     $beneficiarios_oid = array();
-    $beneficiarios_oid = json_decode($_POST["beneficiariosArray"]);
+    $beneficiarios_oid = json_decode($_POST["beneficiariosArray"]);    
     date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y H:i:s");
 
+    foreach ($beneficiarios_oid as $k => $v){  ///////////GET BENEFICIARIOS
 
-    foreach ($beneficiarios_oid as $k => $v){///////////GET BENEFICIARIOS
         $estado = $v->estado;
         $evaluado = $v->evaluado;
         $id_orden = $v->id_orden;
@@ -276,7 +278,9 @@ public function aprobar_orden(){
         $sucursal = $v->sucursal;
 
     if ($estado=="Ok"){
+
     /////////// GET NUMERO DE VENTA
+
         require_once("Ventas.php");
         $ventas = new Ventas();
         $correlativo = $ventas->get_numero_venta($sucursal);
@@ -297,6 +301,7 @@ public function aprobar_orden(){
         }else{
             $num_venta = "AV".$prefijo."-1";
         }
+
     //////////GET ITEMS DE VENTAS FLOTANTES POR BENEFICIARIO   
     $sql = "select*from detalle_ventas_flotantes where numero_orden=? and beneficiario=?;";
     $sql=$conectar->prepare($sql);
@@ -339,6 +344,7 @@ public function aprobar_orden(){
         }
 
        $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,?,?,?,?);";
+       
        $sql=$conectar->prepare($sql);
        $sql->bindValue(1,$num_venta);
        $sql->bindValue(2,$id_producto);
@@ -351,6 +357,7 @@ public function aprobar_orden(){
        $sql->bindValue(9,$id_usuario);
        $sql->bindValue(10,$id_paciente);
        $sql->bindValue(11,$beneficiario);
+
        $sql->execute();
 
        }///////fin recorrer detalle ventas flotantes
@@ -364,6 +371,7 @@ public function aprobar_orden(){
        $resultados_vf = $sql1->fetchAll(PDO::FETCH_ASSOC);
 
        foreach ($resultados_vf as $v => $row) {//Recorrer detalle ventas flotantes
+
         $paciente = $row["paciente"];
         $vendedor = $row["vendedor"];
         $monto_total = $row["monto_total"];

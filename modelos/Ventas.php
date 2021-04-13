@@ -432,7 +432,7 @@ public function get_correlativo_orden($sucursal){
  /*GET NUMERO ORDEN */
   $conectar=parent::conexion();
   parent::set_names();
-  $sql="select numero_orden from ventas_flotantes where sucursal=? order by id_venta_flotante DESC limit 1;";
+  $sql="select numero_orden from orden_credito where sucursal=? order by id_orden DESC limit 1;";
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1,$sucursal);
   $sql->execute();

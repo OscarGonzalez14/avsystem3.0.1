@@ -155,8 +155,7 @@ for($j=0; $j<count($pacientes_cobro);$j++){
  </tfoot> 
 </table>
 </div>
-<span style="text-align: right;font-size: 9px;margin-top: 8PX" align="right">Este documento ha sido emitido por el departamento Empresarial de Óptica AV Plus. user: <?php echo $_SESSION["id_usuario"]."&nbsp;-&nbsp;".$hoy;?></span>
- 
+<span style="text-align: right;font-size: 9px;margin-top: 8PX" align="right">Este documento ha sido emitido por el departamento Empresarial de Óptica AV Plus. user: <?php echo $_SESSION["id_usuario"]."&nbsp;-&nbsp;".$hoy;?></span> 
  <p style="page-break-before: always;text-align: center;margin-top: 50px"></p> 
 <?php
 for($j=0; $j<count($pacientes_cobro);$j++){
@@ -173,22 +172,17 @@ for($j=0; $j<count($pacientes_cobro);$j++){
 <?php
 $salida_html = ob_get_contents();
 
-  //$user=$_SESSION["id_usuario"];
-
+//$user=$_SESSION["id_usuario"];
 ob_end_clean();
 $dompdf = new Dompdf();
 $dompdf->loadHtml($salida_html);
-
-// (Optional) Setup the paper size and orientation
+//(Optional) Setup the paper size and orientation
 $dompdf->setPaper('A4', 'portrait');
-
-// Render the HTML as PDF
+//Render the HTML as PDF
 $dompdf->render();
-
-// Output the generated PDF to Browser
+//Output the generated PDF to Browser
 //$dompdf->stream();
 $dompdf->stream('document', array('Attachment'=>'0'));
-
 
 ?>
 <?php  } else{

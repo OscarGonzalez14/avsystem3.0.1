@@ -1,10 +1,11 @@
 var tabla_recibos_emitidos;
-
+var tabla_cobros;
 function init(){
    get_correlativo_recibo();
     //prueba();
     listar_recibos_emitidos();
     get_correlativo_orden_cobro();
+    get_ordenes_cobro();
 }
 
 ////////OCULTAR BTN DE IMPRIMIR RECIBO AL INICIO
@@ -341,6 +342,7 @@ function get_cobros_empresariales(){
 
        }).DataTable();
 }
+
 var items_oid=[];
 
 $(document).on('click', '.selectPacienteOid', function(){
@@ -566,7 +568,107 @@ function saveOrdenCobro(){
 
 }
 
+
+function get_ordenes_cobro(){
+
+  tabla_cobros = $('#data_ordenes_cobro').dataTable({
+    "aProcessing": true,
+      "aServerSide": true,
+      dom: 'Bfrtip',
+      buttons: [
+      'excelHtml5'
+      ],
+      "ajax":
+      {
+        url: 'ajax/recibos.php?op=listar_ordenes_cobro',
+        type : "post",
+        dataType : "json",
+       // data:{empresa:empresa},
+        error: function(e){
+        console.log(e.responseText);
+        }
+      },
+      "bDestroy": true,
+      "responsive": true,
+      "bInfo":true,
+      "iDisplayLength": 10,//Por cada 10 registros hace una paginación
+      "order": [[ 0, "desc" ]],//Ordenar (columna,orden)
+
+      "language": {
+
+        "sProcessing":     "Procesando...",
+
+        "sLengthMenu":     "Mostrar _MENU_ registros",
+
+        "sZeroRecords":    "No se encontraron resultados",
+
+        "sEmptyTable":     "Ningún dato disponible en esta tabla",
+
+        "sInfo":           "Mostrando un total de _TOTAL_ registros",
+
+        "sInfoEmpty":      "Mostrando un total de 0 registros",
+
+        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+
+        "sInfoPostFix":    "",
+
+        "sSearch":         "Buscar:",
+
+        "sUrl":            "",
+
+        "sInfoThousands":  ",",
+
+        "sLoadingRecords": "Cargando...",
+
+        "oPaginate": {
+
+          "sFirst":    "Primero",
+
+          "sLast":     "Último",
+
+          "sNext":     "Siguiente",
+
+          "sPrevious": "Anterior"
+
+        },
+
+        "oAria": {
+
+          "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+
+          "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+
+        }
+
+         }//cerrando language
+
+       }).DataTable();
+}
+
+function showDetallesOc(id_orden,numero_orden,empresa){
+  $("#modal_ordenes_cobro").modal("show");
+
+    $("#empresa_oc").html(empresa)
+    $.ajax({
+    url: "ajax/recibos.php?op=get_detalle_pacientes_oc",
+    method : "POST",
+    data: {empresa:empresa,numero_orden:numero_orden},
+    cache : false,
+    dataType : "json",
+    success:function(data){
+    console.log(data);
+    //Fin GET VENTAS FLOTANTES ASOCIADOS A LA ORDEN
+}
+
+})
+
+
+}
+
+
 //========================== FIN RECIBOS POR LOTES =============================//
+
+
 
 init();
 //SELECT*from corte_diario where n_venta = "AVSM-244" or n_venta="AVSM-240" or n_venta="AVSM-236" or n_venta="AVSM-246" or n_venta="AVSM-229" or n_venta="AVSM-250"

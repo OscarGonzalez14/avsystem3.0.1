@@ -440,7 +440,7 @@ public function agrega_detalle_orden_credito(){
     $sql4->execute();
 
     ///////////////// INSERTAR EN DETALLE ORDEN COBRO ///////////
-    $sql5 = "insert into detalle_orden_cobro values(null,?,?,?,?,?,?,?,?,?,?,?);";
+    $sql5 = "insert into detalle_orden_cobro values(null,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5 = $conectar->prepare($sql5);
     $sql5->bindValue(1,$numero_orden);
     $sql5->bindValue(2,$correlativo);
@@ -453,6 +453,7 @@ public function agrega_detalle_orden_credito(){
     $sql5->bindValue(9,$monto);
     $sql5->bindValue(10,$nuevo_saldo);
     $sql5->bindValue(11,$saldo);
+    $sql5->bindValue(12,$empresa);
     $sql5->execute();
 
   }//Fin recorrer detalles
@@ -476,6 +477,27 @@ public function agrega_detalle_orden_credito(){
 
     $sql->execute();
 }
+
+
+  public function get_ordenes_cobro(){
+    $conectar= parent::conexion();
+    $sql= "select*from orden_cobro order by id_orden DESC;";
+    $sql=$conectar->prepare($sql);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+  public function get_detalle_pacientes_oc($empresa,$numero_orden){
+    $conectar= parent::conexion();
+    $sql= "select p.nombres,p.empresas,o.numero_orden,o.numero_recibo,o.monto_abono,o.numero_venta,o.monto_credito from pacientes as p inner join detalle_orden_cobro as o on p.id_paciente=o.id_paciente where o.numero_orden=? and o.empresa=? AND p.empresas=?";
+    $sql=$conectar->prepare($sql);
+    $sql->bindValue(1,$numero_orden);
+    $sql->bindValue(2,$empresa);
+    $sql->bindValue(3,$empresa);
+    $sql->execute();
+    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+  }
+
 
 
 }

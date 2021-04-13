@@ -226,7 +226,6 @@ $datos=$ventas->valida_existencia_venta($_POST["numero_venta"]);
 if(is_array($datos)==true and count($datos)==0){
   $ventas->agrega_detalle_venta();
   $messages[]="ok";
-
 }else{
   $errors[]="error";
 }
