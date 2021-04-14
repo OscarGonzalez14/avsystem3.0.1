@@ -645,7 +645,9 @@ function get_ordenes_cobro(){
        }).DataTable();
 }
 
+var items_pacientes_cobro = [];
 function showDetallesOc(id_orden,numero_orden,empresa){
+  items_pacientes_cobro = [];
   $("#modal_ordenes_cobro").modal("show");
 
     $("#empresa_oc").html(empresa)
@@ -657,18 +659,101 @@ function showDetallesOc(id_orden,numero_orden,empresa){
     dataType : "json",
     success:function(data){
     console.log(data);
-    //Fin GET VENTAS FLOTANTES ASOCIADOS A LA ORDEN
+    for(var i in data){
+      var obj = {
+        empresas: data[i].empresas,
+        monto_abono: data[i].monto_abono,
+        nombres: data[i].nombres,
+        numero_orden: data[i].numero_orden,
+        numero_recibo: data[i].numero_recibo,
+        numero_venta: data[i].numero_venta,
+        estado: 0,
+        comprobante : 0
+      };
+      items_pacientes_cobro.push(obj);
+    }
+
+    listar_pacientes_cobro();
 }
 
 })
 
+}
+
+function listar_pacientes_cobro(){
+
+  $('#confirma_orden_cobro').html('');
+
+  for(var i=0; i<items_pacientes_cobro.length; i++){
+    var filas = filas + "<tr id='fila"+i+"'><td style='text-align:center;width: 5%' colspan='5'>"+(i+1)+"</td>"+
+    "<td style='text-align:center;width: 35%' colspan='35'>"+items_pacientes_cobro[i].nombres+
+    "<td style='text-align:center;width: 15%' colspan='15'>"+"<div class='input-group'><div class='input-group-prepend' style='margin:0px !important;padding:0px !important'><span class='input-group-text' id='basic-addon3'style='margin:0px !important;padding:0px !important'>$</span></div>"+
+    "<input type='text' class='form-control' value='"+items_pacientes_cobro[i].monto_abono+"' style='text-align:center'></div></div</td>"+
+    "<td style='text-align:center;width: 15%' colspan='15'>"+items_pacientes_cobro[i].numero_recibo+"</td>"+
+    "<td style='text-align:center;width: 15%' colspan='15'>"+"<input class='hemograma' type='checkbox' name='check_box' value='hemograma' id=item_oc"+i+" onClick='item_check_oc(event, this, "+(i)+");'></td>"+
+    "<td style='text-align:center;width: 15%' colspan='15'><input type='text' class='form-control' onClick='setComprobante(event, this, "+(i)+");' onKeyUp='setComprobante(event, this, "+(i)+");'></td></tr>";
+
+  }
+
+    $('#confirma_orden_cobro').html(filas);
+}
+
+function item_check_oc(event, obj, idx){ 
+    var desc = document.getElementById("item_oc"+idx).value;
+    let x = "item_oc"+idx;
+ if (document.getElementById(x).checked){
+    items_pacientes_cobro[idx].estado = "Ok";
+ }else{
+  items_pacientes_cobro[idx].estado = "No";
+ }
+
+ calcularTotalesAbonos();
+}
+
+//========================== FIN RECIBOS POR LOTES =============================//
+function calcularTotalesAbonos(){
+let monto_cobro = 0;
+for (var i = 0; i<items_pacientes_cobro.length; i++) {
+  let estado_oc = items_pacientes_cobro[i].estado;
+  let monto_oc = items_pacientes_cobro[i].monto_abono;
+  if (estado_oc=='Ok') {
+    monto_cobro  = parseFloat(monto_cobro)+parseFloat(monto_oc);
+  }
+}
+
+$("#totales_aoc").html('$'+monto_cobro);
+}
+
+function setComprobante(event, obj, idx){
+    event.preventDefault();
+    items_pacientes_cobro[idx].comprobante = (obj.value);
+    recalcular(idx);
+  }
+
+
+function guardarComprobanteOc(){
+
+  let tipo_pago_oc = $("#tipo_pago_oc").val();
+  let forma_abono = $("#forma_abono").val();
+  let comprobante_oc = $("#comprobante_oc").val();
+  let monto_oc = $("#totales_aoc").html();
+
+ if (tipo_pago_oc != "" && forma_abono != ""){
+
+  if (forma_abono == 'Individual'){////////////campos vacios validacion
+    for (var i = 0; i<items_pacientes_cobro.length; i++) {
+      let estado_oc = items_pacientes_cobro[i].estado;
+      if (estado_oc == 'Ok' && comprobante_oc == '') {
+      Swal.fire('Error: Debe ingresar el comprobante a cada item !','','error');return false;
+    }  
+  }
+ 
+}else{////////////Fin Campos vacios validacion
+  Swal.fire('Error: Campos obligatorios vacios!','','error');return false;
+}
 
 }
 
-
-//========================== FIN RECIBOS POR LOTES =============================//
-
-
-
+}
 init();
 //SELECT*from corte_diario where n_venta = "AVSM-244" or n_venta="AVSM-240" or n_venta="AVSM-236" or n_venta="AVSM-246" or n_venta="AVSM-229" or n_venta="AVSM-250"
