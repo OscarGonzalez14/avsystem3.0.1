@@ -440,7 +440,8 @@ public function agrega_detalle_orden_credito(){
     $sql4->execute();
 
     ///////////////// INSERTAR EN DETALLE ORDEN COBRO ///////////
-    $sql5 = "insert into detalle_orden_cobro values(null,?,?,?,?,?,?,?,?,?,?,?,?);";
+    $comprobante = '';
+    $sql5 = "insert into detalle_orden_cobro values(null,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5 = $conectar->prepare($sql5);
     $sql5->bindValue(1,$numero_orden);
     $sql5->bindValue(2,$correlativo);
@@ -454,6 +455,7 @@ public function agrega_detalle_orden_credito(){
     $sql5->bindValue(10,$nuevo_saldo);
     $sql5->bindValue(11,$saldo);
     $sql5->bindValue(12,$empresa);
+    $sql5->bindValue(13,$comprobante);
     $sql5->execute();
 
   }//Fin recorrer detalles
@@ -489,7 +491,7 @@ public function agrega_detalle_orden_credito(){
 
   public function get_detalle_pacientes_oc($empresa,$numero_orden){
     $conectar= parent::conexion();
-    $sql= "select p.nombres,p.empresas,o.numero_orden,o.numero_recibo,o.monto_abono,o.numero_venta,o.monto_credito from pacientes as p inner join detalle_orden_cobro as o on p.id_paciente=o.id_paciente where o.numero_orden=? and o.empresa=? AND p.empresas=?";
+    $sql= "select p.nombres,p.id_paciente,p.empresas,o.numero_orden,o.numero_recibo,o.monto_abono,o.numero_venta,o.monto_credito from pacientes as p inner join detalle_orden_cobro as o on p.id_paciente=o.id_paciente where o.numero_orden=? and o.empresa=? AND p.empresas=?";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1,$numero_orden);
     $sql->bindValue(2,$empresa);
@@ -498,6 +500,87 @@ public function agrega_detalle_orden_credito(){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
   }
 
+public function confirmar_orden_cobro(){
+
+  $conectar= parent::conexion();
+  parent::set_names();
+
+  date_default_timezone_set('America/El_Salvador');$hoy = date("d-m-Y");
+  $tipo_pago_oc = $_POST["tipo_pago_oc"];
+  $forma_abono = $_POST["forma_abono"];
+  $comprobante_oc = $_POST["comprobante_oc"];
+  $monto_oc = $_POST["monto_oc"];
+
+  $str = '';
+  $odc = array();
+  $odc = json_decode($_POST['arrayODC']);
+
+  foreach ($odc as $k => $v) {
+   
+   $comprobante = $v->comprobante;
+   $empresas = $v->empresas;
+   $estado = $v->estado;
+   $monto_abono = $v->monto_abono;
+   $nombres = $v->nombres;
+   $numero_orden = $v->numero_orden;
+   $numero_recibo = $v->numero_recibo;
+   $numero_venta = $v->numero_venta;
+   $id_paciente = $v->id_paciente;
+
+   if($forma_abono=='Individual'){
+    $comprobante_odc = $comprobante;
+   }else{
+    $comprobante_odc = $comprobante_oc;
+   }
+
+   if($estado == 'Ok'){
+
+   $sql = 'update detalle_orden_cobro set estado="1",comprobante=? where numero_recibo=? and numero_orden=? and id_paciente=?;';
+   $sql=$conectar->prepare($sql);
+   $sql->bindValue(1, $comprobante_odc);
+   $sql->bindValue(2, $numero_recibo);
+   $sql->bindValue(3, $numero_orden);
+   $sql->bindValue(4, $id_paciente);
+   $sql->execute();
+
+  $sql3="select * from creditos where numero_venta=? AND id_paciente=?;";             
+  $sql3=$conectar->prepare($sql3);
+  $sql3->bindValue(1,$numero_venta);
+  $sql3->bindValue(2,$id_paciente);
+  $sql3->execute();
+
+  $resultados = $sql3->fetchAll(PDO::FETCH_ASSOC);
+    foreach($resultados as $b=>$row){
+      $re["saldo_actual"] = $row["saldo"];
+      $re["tipo_credito"] = $row["tipo_credito"];
+  }
+    //la cantidad total es la suma de la cantidad más la cantidad actual
+    $saldo_act = $row["saldo"] - $numero;
+    $forma_venta =$row["tipo_credito"];
+            
+      if(is_array($resultados)==true and count($resultados)>0) {                     
+      //actualiza el stock en la tabla producto
+        $sql12 = "update creditos set saldo=? where numero_venta=? and id_paciente=?";
+        $sql12 = $conectar->prepare($sql12);
+        $sql12->bindValue(1,$saldo_act);
+        $sql12->bindValue(2,$numero_venta);
+        $sql12->bindValue(3,$id_paciente);
+        //$sql12->bindValue(3,$sucursal);
+        $sql12->execute();               
+    }
+
+}else{
+   $sql = 'update detalle_orden_cobro set estado="DNG" where numero_recibo=? and numero_orden=? and id_paciente=?;';
+   $sql=$conectar->prepare($sql);
+   $sql->bindValue(1, $numero_recibo);
+   $sql->bindValue(2, $numero_orden);
+   $sql->bindValue(3, $id_paciente);
+   $sql->execute();
+}
+
+}
+  
+}
 
 
 }

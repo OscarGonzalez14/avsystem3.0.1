@@ -257,7 +257,7 @@ case "listar_ordenes_cobro":
         $output = array();
         $output["numero_orden"] = $row["numero_orden"];
         $output["numero_recibo"] = $row["numero_recibo"];
-        //$output["id_paciente"] = $row["id_paciente"];
+        $output["id_paciente"] = $row["id_paciente"];
         $output["monto_abono"] = $row["monto_abono"];
         $output["numero_venta"] = $row["numero_venta"];
         $output["nombres"] = $row["nombres"];
@@ -267,5 +267,33 @@ case "listar_ordenes_cobro":
    }
    echo json_encode($data);
   break;
+
+  case 'confirmar_orden_cobro':
+
+  $recibos->confirmar_orden_cobro();
+  $messages[]="ok";
+
+
+      if (isset($messages)){ ?>
+       <?php
+         foreach ($messages as $message) {
+             echo json_encode($message);
+           }
+         ?>
+      <?php
+      }
+
+      if (isset($errors)){ ?>
+         <?php
+           foreach ($errors as $error) {
+               echo json_encode($error);
+             }
+           ?>
+      <?php
+   }
+
+  break;
+
+
 
 }

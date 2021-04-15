@@ -24,7 +24,7 @@
           <div class="col-sm-4">
               <label for="sel1">Tipo Pago</label>
               <select class="form-control" id="tipo_pago_oc">
-                <option value="">Seleccionar...</option>
+                <option value="0">Seleccionar...</option>
                 <option value="Cheque">Cheque</option>
                 <option value="Efectivo">Efectivo</option>
                 <option value="Transferencia">Transferencia</option>
@@ -34,7 +34,7 @@
           <div class="col-sm-4">
             <label>Forma Abono</label>
               <select class="form-control" id="forma_abono">
-                <option value="">Seleccionar...</option>
+                <option value="0">Seleccionar...</option>
                 <option value="Agrupado">Agrupado</option>
                 <option value="Individual">Individual</option>
               </select>

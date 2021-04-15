@@ -646,8 +646,10 @@ function get_ordenes_cobro(){
 }
 
 var items_pacientes_cobro = [];
+var items_ok =[];
 function showDetallesOc(id_orden,numero_orden,empresa){
   items_pacientes_cobro = [];
+  items_ok = [];
   $("#modal_ordenes_cobro").modal("show");
 
     $("#empresa_oc").html(empresa)
@@ -668,7 +670,8 @@ function showDetallesOc(id_orden,numero_orden,empresa){
         numero_recibo: data[i].numero_recibo,
         numero_venta: data[i].numero_venta,
         estado: 0,
-        comprobante : 0
+        comprobante : 0,
+        id_paciente : data[i].id_paciente
       };
       items_pacientes_cobro.push(obj);
     }
@@ -691,7 +694,7 @@ function listar_pacientes_cobro(){
     "<input type='text' class='form-control' value='"+items_pacientes_cobro[i].monto_abono+"' style='text-align:center'></div></div</td>"+
     "<td style='text-align:center;width: 15%' colspan='15'>"+items_pacientes_cobro[i].numero_recibo+"</td>"+
     "<td style='text-align:center;width: 15%' colspan='15'>"+"<input class='hemograma' type='checkbox' name='check_box' value='hemograma' id=item_oc"+i+" onClick='item_check_oc(event, this, "+(i)+");'></td>"+
-    "<td style='text-align:center;width: 15%' colspan='15'><input type='text' class='form-control' onClick='setComprobante(event, this, "+(i)+");' onKeyUp='setComprobante(event, this, "+(i)+");'></td></tr>";
+    "<td style='text-align:center;width: 15%' colspan='15'><input type='text' class='form-control' onClick='setComprobante(event, this, "+(i)+");' onKeyUp='setComprobante(event, this, "+(i)+");' id=comprobante"+i+"></td></tr>";
 
   }
 
@@ -703,8 +706,10 @@ function item_check_oc(event, obj, idx){
     let x = "item_oc"+idx;
  if (document.getElementById(x).checked){
     items_pacientes_cobro[idx].estado = "Ok";
+    items_ok.push('1');
  }else{
   items_pacientes_cobro[idx].estado = "No";
+  items_ok.splice(idx,1);
  }
 
  calcularTotalesAbonos();
@@ -738,22 +743,53 @@ function guardarComprobanteOc(){
   let comprobante_oc = $("#comprobante_oc").val();
   let monto_oc = $("#totales_aoc").html();
 
- if (tipo_pago_oc != "" && forma_abono != ""){
+ if(tipo_pago_oc != "0" && forma_abono != "0"){
 
-  if (forma_abono == 'Individual'){////////////campos vacios validacion
-    for (var i = 0; i<items_pacientes_cobro.length; i++) {
+  if (forma_abono == 'Individual'){////////////campos vacios validacion si es individual
+  for (var i = 0; i<items_pacientes_cobro.length; i++) {
+      let comprobante_i = 'comprobante'+i;
+      let comprobante_value = document.getElementById(comprobante_i).value;
       let estado_oc = items_pacientes_cobro[i].estado;
-      if (estado_oc == 'Ok' && comprobante_oc == '') {
-      Swal.fire('Error: Debe ingresar el comprobante a cada item !','','error');return false;
+      if (estado_oc == 'Ok' && comprobante_value == '') {
+      Swal.fire('Error: Debe ingresar el comprobante a cada item !','','error');
+    }
+  } 
+}else if(forma_abono =='Agrupado' && comprobante_oc==''){//////////Fin campos vacios validacion si es individual
+  Swal.fire('Error: Debe ingresar el comprobante!','','error');
+  return false;
+}
+/*for (var i = 0; i<items_pacientes_cobro.length; i++){
+      let estado_oc = items_pacientes_cobro[i].estado;
+      if (estado_oc=='Ok') {
+      items_ok.push('1');
     }  
+  }*/
+if (items_ok.length>0) {
+  console.log('Correcto!')
+}else{
+  Swal.fire('Error: Orden de cobro vacio!','','error');
+}
+
+//*************ENVIAR ORDEN DE COBRO A BASE DATOS *******
+$.ajax({
+  url:"ajax/recibos.php?op=confirmar_orden_cobro",
+  method:"POST",
+  data:{'arrayODC':JSON.stringify(items_pacientes_cobro),'tipo_pago_oc':tipo_pago_oc,'forma_abono':forma_abono,'comprobante_oc':comprobante_oc,'monto_oc':monto_oc},
+  cache:false,
+  dataType:"json",
+  success:function(data)
+  {
+    console.log(data);
+    //$("#n_compra").val(data.num_recibo);
   }
- 
+})
+//*************FIN ENVIAR ORDEN DE COBRO A BASE DATOS *******
+
 }else{////////////Fin Campos vacios validacion
   Swal.fire('Error: Campos obligatorios vacios!','','error');return false;
 }
-
 }
 
-}
+
 init();
 //SELECT*from corte_diario where n_venta = "AVSM-244" or n_venta="AVSM-240" or n_venta="AVSM-236" or n_venta="AVSM-246" or n_venta="AVSM-229" or n_venta="AVSM-250"
