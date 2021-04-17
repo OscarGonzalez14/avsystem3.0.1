@@ -652,7 +652,8 @@ function showDetallesOc(id_orden,numero_orden,empresa){
   items_ok = [];
   $("#modal_ordenes_cobro").modal("show");
 
-    $("#empresa_oc").html(empresa)
+    $("#empresa_oc").html(empresa);
+    $("#n_o").html(numero_orden);
     $.ajax({
     url: "ajax/recibos.php?op=get_detalle_pacientes_oc",
     method : "POST",
@@ -742,6 +743,7 @@ function guardarComprobanteOc(){
   let forma_abono = $("#forma_abono").val();
   let comprobante_oc = $("#comprobante_oc").val();
   let monto_oc = $("#totales_aoc").html();
+  let id_usuario = $('#id_usuario').val();
 
  if(tipo_pago_oc != "0" && forma_abono != "0"){
 
@@ -774,7 +776,7 @@ if (items_ok.length>0) {
 $.ajax({
   url:"ajax/recibos.php?op=confirmar_orden_cobro",
   method:"POST",
-  data:{'arrayODC':JSON.stringify(items_pacientes_cobro),'tipo_pago_oc':tipo_pago_oc,'forma_abono':forma_abono,'comprobante_oc':comprobante_oc,'monto_oc':monto_oc},
+  data:{'arrayODC':JSON.stringify(items_pacientes_cobro),'tipo_pago_oc':tipo_pago_oc,'forma_abono':forma_abono,'comprobante_oc':comprobante_oc,'monto_oc':monto_oc,'id_usuario':id_usuario},
   cache:false,
   dataType:"json",
   success:function(data)

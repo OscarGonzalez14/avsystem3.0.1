@@ -19,7 +19,7 @@
       </div>
       <div class="modal-body">
 
-        <p><b>EMPRESA: <span id="empresa_oc" style="color: blue"></span></b></p>
+        <p><b>EMPRESA: <span id="empresa_oc" style="color: blue"></span></b>&nbsp;&nbsp;--&nbsp;&nbsp;<b>#ORDEN: <span id="n_o" style="color: blue"></span></span></p>
         <div class="row">
           <div class="col-sm-4">
               <label for="sel1">Tipo Pago</label>

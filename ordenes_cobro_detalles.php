@@ -37,6 +37,7 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("Y-m-d");;
   </div>
 </div>
 <input type="hidden" name="sucursal" id="sucursal" value="<?php echo $_SESSION["sucursal"];?>"/>
+<input type="hidden" name="id_usuario" id="id_usuario" value="<?php echo $_SESSION["id_usuario"];?>"/>
 
 <script src="js/recibos.js"> </script>
 <script type="text/javascript">

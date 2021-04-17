@@ -146,8 +146,7 @@ $conectar=parent::conexion();
 
     }
 /////////////////////EXTRAER EL TIPO DE PAGO
-    $sql19="select * from ventas where numero_venta=? and id_paciente=?;";
-             
+    $sql19="select * from ventas where numero_venta=? and id_paciente=?;";             
     $sql19=$conectar->prepare($sql19);
     $sql19->bindValue(1,$n_venta_recibo_ini);
     $sql19->bindValue(2,$id_paciente);
@@ -390,14 +389,6 @@ public function agrega_detalle_orden_credito(){
       $empresas = $row['empresas'];
     }
 
-    /*$sql3 = "update creditos set saldo=? where numero_venta=? and id_paciente=?;";
-    $sql3=$conectar->prepare($sql3);
-    $sql3->bindValue(1,$nuevo_saldo);
-    $sql3->bindValue(2,$numero_venta);
-    $sql3->bindValue(3,$id_paciente);
-    $sql3->execute();*/
-  
-
     $cant_letras="";
     $a_anteriores="";
     $forma_pago="";
@@ -510,6 +501,9 @@ public function confirmar_orden_cobro(){
   $forma_abono = $_POST["forma_abono"];
   $comprobante_oc = $_POST["comprobante_oc"];
   $monto_oc = $_POST["monto_oc"];
+  $sucursal_oc = 'Empresarial';
+  $id_usuario = $_POST['id_usuario'];
+
 
   $str = '';
   $odc = array();
@@ -526,6 +520,8 @@ public function confirmar_orden_cobro(){
    $numero_recibo = $v->numero_recibo;
    $numero_venta = $v->numero_venta;
    $id_paciente = $v->id_paciente;
+  
+
 
    if($forma_abono=='Individual'){
     $comprobante_odc = $comprobante;
@@ -533,16 +529,7 @@ public function confirmar_orden_cobro(){
     $comprobante_odc = $comprobante_oc;
    }
 
-   if($estado === 'Ok'){
-
-   $sql = 'update detalle_orden_cobro set estado=?,comprobante=? where numero_recibo=? and numero_orden=? and id_paciente=?;';
-   $sql=$conectar->prepare($sql);
-   $sql->bindValue(1, $estado);
-   $sql->bindValue(2, $comprobante_odc);
-   $sql->bindValue(3, $numero_recibo);
-   $sql->bindValue(4, $numero_orden);
-   $sql->bindValue(5, $id_paciente);
-   $sql->execute();
+   if($estado === 'Ok'){  
 
   $sql3="select * from creditos where numero_venta=? AND id_paciente=?;";             
   $sql3=$conectar->prepare($sql3);
@@ -568,29 +555,69 @@ public function confirmar_orden_cobro(){
         $sql12->bindValue(3,$id_paciente);
         //$sql12->bindValue(3,$sucursal);
         $sql12->execute();
-
-                       
     }
+
+$sql = 'update detalle_orden_cobro set estado=?,comprobante=?,saldo=? where numero_recibo=? and numero_orden=? and id_paciente=?;';
+   $sql=$conectar->prepare($sql);
+   $sql->bindValue(1, $estado);
+   $sql->bindValue(2, $comprobante_odc);
+   $sql->bindValue(3, $saldo_act);
+   $sql->bindValue(4, $numero_recibo);
+   $sql->bindValue(5, $numero_orden);
+   $sql->bindValue(6, $id_paciente);
+   $sql->execute();
+
 
 
 }else{
-   $sql = 'update detalle_orden_cobro set estado="DNG" where numero_recibo=? and numero_orden=? and id_paciente=?;';
+
+  $sql3="select * from creditos where numero_venta=? AND id_paciente=?;";             
+  $sql3=$conectar->prepare($sql3);
+  $sql3->bindValue(1,$numero_venta);
+  $sql3->bindValue(2,$id_paciente);
+  $sql3->execute();
+
+  $resultados = $sql3->fetchAll(PDO::FETCH_ASSOC);
+    foreach($resultados as $b=>$row){
+      $re["saldo_actual"] = $row["saldo"];
+      $re["tipo_credito"] = $row["tipo_credito"];
+  }
+    //la cantidad total es la suma de la cantidad más la cantidad actual
+    $saldo_actual_doc = $row["saldo"];
+
+   $sql = 'update detalle_orden_cobro set estado="DNG",saldo=? where numero_recibo=? and numero_orden=? and id_paciente=?;';
    $sql=$conectar->prepare($sql);
-   $sql->bindValue(1, $numero_recibo);
-   $sql->bindValue(2, $numero_orden);
-   $sql->bindValue(3, $id_paciente);
+   $sql->bindValue(1, $saldo_actual_doc);
+   $sql->bindValue(2, $numero_recibo);
+   $sql->bindValue(3, $numero_orden);
+   $sql->bindValue(4, $id_paciente);
    $sql->execute();
 }
 
-}
+////////////INSERTAR EN TABLA ABONOS //////
+$sql5 = 'insert into abonos values(null,?,?,?,?,?,?,?,?);';
+$sql5 = $conectar->prepare($sql5);
+$sql5->bindValue(1,$monto_abono);
+$sql5->bindValue(2,$tipo_pago_oc);  
+$sql5->bindValue(3,$hoy); 
+$sql5->bindValue(4,$id_paciente); 
+$sql5->bindValue(5,$id_usuario);
+$sql5->bindValue(6,$numero_recibo);
+$sql5->bindValue(7,$numero_venta); 
+$sql5->bindValue(8,$sucursal_oc);
+$sql5->execute();
+
+}///////FIN FOR EACH RECORRE arraY
 
 /////////////////   Actualizar estado orden cobro  /////////////
-$sql4 = "update orden_cobro set estado='1' where numero_orden=?;";
+$sql4 = "update orden_cobro set estado='1',forma_cobro=? where numero_orden=?;";
 $sql4 = $conectar->prepare($sql4);
-$sql4->bindValue(1, $numero_orden);
+$sql4->bindValue(1, $tipo_pago_oc);
+$sql4->bindValue(2, $numero_orden);
 $sql4->execute();
   
 }
+
 
 
 }
