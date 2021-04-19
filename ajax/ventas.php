@@ -371,6 +371,7 @@ if (isset($errors)){
   echo json_encode($results);      
   break;
     /// FIN LISTAR TODAS LAS VENTAS
+
   case "ver_detalle_venta":
   $datos= $ventas->get_detalle_ventas_paciente($_POST["numero_venta"],$_POST["id_paciente"]);
   break;
@@ -419,5 +420,40 @@ if (isset($errors)){
   }
   echo json_encode($codigo);
   break;
+
+/// INICIO LISTAR VENTAS MENSUALES
+  case "listar_ventas_mensuales":
+  $datos=$ventas->get_ventas_mensuales($_POST["sucursal"]);
+    //Vamos a declarar un array
+  $data= Array();
+
+  foreach($datos as $row)
+  {
+    $sub_array = array();
+
+    $sub_array[] = $row["numero_venta"];
+    $sub_array[] = $fecha%(substr(string,(m-y))))%;
+    $sub_array[] = $row["usuario"];
+    $sub_array[] = $row["paciente"];
+    $sub_array[] = $row["evaluado"];
+    $sub_array[] = $row["tipo_venta"];
+    $sub_array[] = $row["tipo_pago"];
+    $sub_array[] = "$".number_format($row["monto_total"],2,".",","); 
+    $sub_array[] = $row["sucursal"];
+           
+    $data[] = $sub_array;
+  }
+
+  $results = array(
+      "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+  echo json_encode($results);      
+  break;
+    /// FIN LISTAR TODAS LAS VENTAS
+
+
+
 }
 ?>

@@ -565,4 +565,14 @@ public function show_datos_paciente($id_paciente){
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
   }
+
+public function get_ventas_mensuales($sucursal){
+  $conectar= parent::conexion();
+  $sql="select v.fecha_venta,v.numero_venta,v.paciente,v.evaluado,u.usuario,v.monto_total,v.tipo_venta,v.tipo_pago from ventas as v inner join usuarios as u on v.id_usuario=u.id_usuario where v.sucursal=? and fecha like '%fecha%' order by id_ventas DESC;";
+  $sql = $conectar->prepare($sql);
+  $sql->bindValue(1,$sucursal);
+  $sql->execute();
+  return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+  
 }//////Fin de la clase
