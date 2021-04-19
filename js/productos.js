@@ -1,3 +1,4 @@
+
 var tabla_aros;
 var tabla_aros_creados;
 var tabla_acc_compras;
@@ -1304,6 +1305,7 @@ Swal.fire('Hay Campos que no han sido completados o Seleccionados!','','error')
 //modal listar servicios en venta;
 function listar_servicios_venta(){
   tabla_servicios_venta=$('#lista_servicios_ventas_data').dataTable(
+    
   {
     "aProcessing": true,//Activamos el procesamiento del datatables
       "aServerSide": true,//Paginación y filtrado realizados por el servidor

@@ -87,9 +87,10 @@ switch($_GET["op"]){
   if(is_array($datos)==true and count($datos)>0){
     foreach($datos as $row){
  
-    $output["servicio"] = $row["servicio"];
+    $output["desc_producto"] = $row["desc_producto"];
     $output["precio_venta"] = number_format($row["precio_venta"],2,".",","); 
-    $output["id_producto"] = $row["id_producto"];       
+    $output["id_producto"] = $row["id_producto"];  
+    $output["categoria_producto"] = strtoupper($row["categoria_producto"]);      
   }      
 
 } 
@@ -432,7 +433,7 @@ if (isset($errors)){
     $sub_array = array();
 
     $sub_array[] = $row["numero_venta"];
-    $sub_array[] = $fecha%(substr(string,(m-y))))%;
+    //$sub_array[] = $fecha%(substr(string,(D-m-y))))%;
     $sub_array[] = $row["usuario"];
     $sub_array[] = $row["paciente"];
     $sub_array[] = $row["evaluado"];

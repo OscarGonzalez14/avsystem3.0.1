@@ -29,6 +29,11 @@
         {
           $output["id_producto"] = $row["id_producto"];
           $output["medidas"] = $row["medidas"];
+          $output["marca"] = $row["marca"];
+          $output["color"] = $row["color"];
+          $output["diseno"] = $row["diseno"];
+          $output["materiales"] = $row["materiales"];
+          $output["categoria"] = strtoupper(substr($row["categoria_producto"],0,3));                   
           $output["modelo"] = $row["modelo"];
           $output["marca"] = $row["marca"];
           $output["color"] = $row["color"];
