@@ -50,6 +50,7 @@ $marcas=$marca->get_marca();
 						<option value="Spray de limpieza">Spray de limpieza</option>
 						<option value="Lente de contacto">Lente de contacto</option>
 						<option value="Adaptador Anatomico">Adaptador Anatomico</option>
+						<option value="Bolsa de Entrega">Bolsa de Entrega</option>
 					</select>
 				</div>
 				<div class="form-group col-md-5">

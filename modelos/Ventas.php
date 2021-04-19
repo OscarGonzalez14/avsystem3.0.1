@@ -281,7 +281,6 @@ public function agrega_detalle_venta(){
       $empresa = $v->empresa;
       $funcion_laboral = $v->funcion_laboral;
       $edad_pac = $v->edad_pac;
-
       $dui_pac = $v->dui_pac;
       $nit_pac = $v->nit_pac;
       $tel_pac = $v->tel_pac;

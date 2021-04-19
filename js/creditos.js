@@ -1127,11 +1127,12 @@ function detalle_productos_flotantes(){
 function aprobar_od_planilla(){
  let plazo = $("#plazo_orden_desc").val();
  let numero_orden = $("#n_orden_des").val();
+ let sucursal = $("#sucursal").val();
 
  $.ajax({
   url:"ajax/creditos.php?op=aprobar_orden_planilla",
   method: "POST",
-  data: {'beneficiariosArray':JSON.stringify(beneficiarios_orden)},
+  data: {'beneficiariosArray':JSON.stringify(beneficiarios_orden),'sucursal':sucursal},
   cache: false,
   dataType:"json",
   error:function(x,y,z){

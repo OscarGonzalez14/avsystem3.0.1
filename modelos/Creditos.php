@@ -321,6 +321,7 @@ public function aprobar_orden(){
        $id_usuario = $row["id_usuario"];
        $id_paciente = $row["id_paciente"];
        $beneficiario = $row["beneficiario"];
+       $categoria_ub  = $row["categoria_ub"];
 
         //////////OBETENER LA DESCRIPCION DEL PRODUCTO /////////////
         $sqlp = "select*from productos where id_producto=?;";
@@ -341,7 +342,8 @@ public function aprobar_orden(){
         }elseif($cat_prod=="accesorios"){
             $descripcion = "ACC: ".$item["desc_producto"];
         }
-        }
+
+        }///
 
        $sql="insert into detalle_ventas values(null,?,?,?,?,?,?,?,?,?,?,?);";
        
@@ -357,8 +359,41 @@ public function aprobar_orden(){
        $sql->bindValue(9,$id_usuario);
        $sql->bindValue(10,$id_paciente);
        $sql->bindValue(11,$beneficiario);
-
        $sql->execute();
+
+
+       ////////////////////////ACTUALIZAR EN INVENTARIO //////////
+    if($cat_prod=="aros" or $cat_prod == "accesorios"){
+
+      $suc_oc = $_POST["sucursal"];
+      ////////////////////ACTUALIZAR STOCK DE BODEGA SI PRODUCTO == aros o accesorios
+      $sql3="select * from existencias where id_producto=? and bodega=? and categoria_ub=?;";           
+      $sql3=$conectar->prepare($sql3);
+      $sql3->bindValue(1,$id_producto);
+      $sql3->bindValue(2,$suc_oc);
+      $sql3->bindValue(3,$categoria_ub);
+      $sql3->execute();
+
+      $resultados = $sql3->fetchAll(PDO::FETCH_ASSOC);
+
+      foreach($resultados as $b=>$row){
+      $re["existencia"] = $row["stock"];
+    }            
+    
+    $cantidad_totales = $row["stock"] - $cantidad_venta;
+
+    if(is_array($resultados)==true and count($resultados)>0) {                    
+
+      $sql12 = "update existencias set stock=? where id_producto=? and bodega=? and categoria_ub=?";
+      $sql12 = $conectar->prepare($sql12);
+      $sql12->bindValue(1,$cantidad_totales);
+      $sql12->bindValue(2,$id_producto);
+      $sql12->bindValue(3,$sucursal);
+      $sql12->bindValue(4,$categoria_ub);
+      $sql12->execute();
+  }       
+
+  }
 
        }///////fin recorrer detalle ventas flotantes
 

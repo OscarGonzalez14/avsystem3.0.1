@@ -607,6 +607,9 @@ $sql5->bindValue(7,$numero_venta);
 $sql5->bindValue(8,$sucursal_oc);
 $sql5->execute();
 
+
+/////////////////////////// INGRESAR EN CORTE EMPRESARIAL /////////////
+
 }///////FIN FOR EACH RECORRE arraY
 
 /////////////////   Actualizar estado orden cobro  /////////////

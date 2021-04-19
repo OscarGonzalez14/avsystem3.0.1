@@ -59,7 +59,9 @@
                 <option value="Gaveta">Gaveta</option>
                 <option value="Exhibición">Exhibición</option>
                 <option value="Maleta">Maleta</option>
-                <option value="Accesorios">Accesorios</option>                 
+                <option value="Accesorios">Accesorios</option> 
+                <option value="Bandeja">Bandeja</option>
+              
               </select>         
             </div>
        			<div class="form-group col-md-8">
