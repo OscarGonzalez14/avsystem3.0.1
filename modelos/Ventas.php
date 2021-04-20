@@ -42,7 +42,7 @@ public function buscar_lentes_ventas($id_producto){
 
 public function buscar_servicios_ventas($id_producto){
   $conectar= parent::conexion();
-  $sql="select id_producto,modelo as servicio, categoria as precio_venta from productos where id_producto=?;";
+  $sql="select id_producto,desc_producto, categoria as precio_venta from productos where id_producto=?;";
 
   $sql = $conectar->prepare($sql);
   $sql->bindValue(1,$id_producto);
@@ -274,7 +274,7 @@ public function agrega_detalle_venta(){
   $detalles_oid = array();
   $detalles_oid = json_decode($_POST['arrayOid']);
 
-  foreach ($detalles_oid as $k => $v) {
+  foreach ($detalles_oid as $k => $v){
       $id_paciente = $v->id_paciente;
       $fecha_inicio = $v->fecha_inicio;
       $plazo_credito = $v->plazo_credito;
@@ -321,8 +321,7 @@ public function agrega_detalle_venta(){
     $sql8->bindValue(16,$tipo_orden);
     $sql8->execute();
 
-  ///////////////////////UPDATE DATOS DE PACIENTE /////////////////
-
+  /////////////////////// UPDATE DATOS DE PACIENTE /////////////////
    $sql9 = "update pacientes set telefono=?,ocupacion=?,dui=?,correo=?,empresas=?,nit=?,telefono_oficina=?,direccion=? where id_paciente=?;";
    $sql9 = $conectar->prepare($sql9);
    $sql9->bindValue(1,$tel_pac);
@@ -371,7 +370,7 @@ public function agrega_detalle_venta(){
 
   } 
   $estado_flotante = 0;
-  $sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+  $sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5=$conectar->prepare($sql5);
     $sql5->bindValue(1,$codigo);          
     $sql5->bindValue(2,$fecha_venta);
@@ -387,6 +386,7 @@ public function agrega_detalle_venta(){
     $sql5->bindValue(12,$evaluado);
     $sql5->bindValue(13,$optometra);
     $sql5->bindValue(14,$estado_flotante);
+    $sql5->bindValue(15,$plazo);
     $sql5->execute();
 
 
@@ -566,8 +566,9 @@ public function show_datos_paciente($id_paciente){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
   }
 
+
 ////get ventas mensuales
-Public function get_vtas_mensuales($fin_fecha,$fecha_inicio,$sucursal){
+public function get_vtas_mensuales($fin_fecha,$fecha_inicio,$sucursal){
 
     $conectar = parent::conexion();
 
@@ -588,5 +589,15 @@ Public function get_vtas_mensuales($fin_fecha,$fecha_inicio,$sucursal){
 }
 
 
+
+public function get_ventas_mensuales($sucursal){
+  $conectar= parent::conexion();
+  $sql="select v.fecha_venta,v.numero_venta,v.paciente,v.evaluado,u.usuario,v.monto_total,v.tipo_venta,v.tipo_pago from ventas as v inner join usuarios as u on v.id_usuario=u.id_usuario where v.sucursal=? and fecha like '%fecha%' order by id_ventas DESC;";
+  $sql = $conectar->prepare($sql);
+  $sql->bindValue(1,$sucursal);
+  $sql->execute();
+  return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+}
+  
 
 }//////Fin de la clase

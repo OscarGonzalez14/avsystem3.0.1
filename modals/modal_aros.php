@@ -30,18 +30,19 @@
           <span aria-hidden="true">&times;</span>
      </div>
 
-              <div class="card-body p-0" style="margin:7px">
+             <div class="card-body p-0" style="margin:7px">
                 <table class="table-hover table-bordered display nowrap" id="data_aros" style="cursor:pointer;" width="100%" cellspacing="0" data-order='[[0,"desc"]]'>
                   <thead style="background:#034f84;color:white">
-                    <tr>
-                      <th style="text-align:center">ID</th>
+                   <tr>
+                      <!--<th style="text-align:center">ID</th>-->
+                      <th style="text-align:center">listar</th>
                       <th style="text-align:center">Marca</th>
                       <th style="text-align:center">Modelo</th>
                       <th style="text-align:center">Color</th>
                       <th style="text-align:center">Medidas</th>
                       <th style="text-align:center">Diseño</th>
                       <th style="text-align:center">Materiales</th>
-                      <th style="text-align:center">Agregar</th>
+                      
                     </tr>
                   </thead>
                   <tbody style="text-align:center; font-size:14px;">
@@ -50,8 +51,10 @@
                 </table>
               </div>
               <!-- /.card-body -->
-  
-    </div><!--Fin modal Content-->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-block" onClick=""><i class="fas fa-save"></i> Agregar</button>
+          </div>
+ </div><!--Fin modal Content-->
 
   </div>
 </div>

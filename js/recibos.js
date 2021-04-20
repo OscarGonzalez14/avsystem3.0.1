@@ -4,8 +4,12 @@ function init(){
    get_correlativo_recibo();
     //prueba();
     listar_recibos_emitidos();
+
     get_correlativo_orden_cobro();
     get_ordenes_cobro();
+
+    ocultar_btn_editar_abono();
+
 }
 
 ////////OCULTAR BTN DE IMPRIMIR RECIBO AL INICIO
@@ -13,6 +17,20 @@ $(document).ready(ocultar_btn_print_rec_ini);
 
 function ocultar_btn_print_rec_ini(){
   document.getElementById("btn_print_recibos").style.display = "none";
+}
+
+/////OCULTAR BOTONES RECIBOS
+function ocultar_btn_editar_abono(){
+  document.getElementById("edit_abono").style.display = "none";
+}
+function hidden_btn_guardar(){
+  document.getElementById("registrar_abono").style.display = "none";
+}
+function show_btn_editar_abono(){
+  document.getElementById("edit_abono").style.display = "block";
+}
+function show_btn_guardar(){
+  document.getElementById("registrar_abono").style.display = "block";
 }
 
 //////// AL DAR IMPRIMIR EN LISTA DE RECIBOS 
@@ -35,7 +53,7 @@ function get_correlativo_recibo(){
     dataType:"json",
       success:function(data){
       console.log(data); 
-      console.log("Este es el correlativo de REcibo"+data.correlativo)       
+      console.log("Este es el correlativo de Recibo "+data.correlativo)       
       $("#n_recibo").html(data.correlativo);             
       }
     })
@@ -185,6 +203,7 @@ function comprobarSaldo(){
 /////////LISTAR RECIBOS EMITIDOS
 function listar_recibos_emitidos(){
   var sucursal= $("#sucursal").val();
+
   tabla_recibos_emitidos=$('#recibos_emitidos').dataTable(
   {
     "aProcessing": true,//Activamos el procesamiento del datatables
@@ -343,6 +362,7 @@ function get_cobros_empresariales(){
        }).DataTable();
 }
 
+
 var items_oid=[];
 
 $(document).on('click', '.selectPacienteOid', function(){
@@ -425,6 +445,17 @@ function listar_data_oid(){
     var filas = "";
     //var subtotal = 0;
     var total = 0;
+
+    data_credito_oid.sort((a,b)=>{
+      if (a.id_paciente<b.id_paciente) {
+        return -1
+      }
+      if (a.id_paciente>b.id_paciente) {
+        return -1
+      }
+
+      return 0;
+    });
 
     for(var i=0; i<data_credito_oid.length; i++){
 
@@ -792,6 +823,65 @@ $.ajax({
 }
 }
 
+///////////////EDITAR RECIBO
+function editar_recibo(){
+  show_btn_editar_abono();
+  hidden_btn_guardar();
+  $('.modal-header').text("EDITAR RECIBOS&nbsp; & &nbsp;ABONOS#");
+  var element= document.getElementById("head_abonosg");
+    element.classList.add("bg-secondary");
+
+    var elements= document.getElementById("edit_abono");
+    elements.classList.add("bg-success");
+}
+
+function destroy_edits(){
+  explode();
+}
+
+
+function show_datos_recibo(id_paciente,id_credito,numero_venta){
+  $("#modal_recibos_generico").modal("show");
+  get_correlativo_recibo();
+
+
+  $.ajax({
+    url:"ajax/recibos.php?op=show_datos_recibo",
+    method:"POST",
+    data:{id_paciente:id_paciente,id_credito:id_credito,numero_venta:numero_venta},
+    cache:false,
+    dataType:"json",
+    success:function(data)
+    { 
+      console.log(data); 
+    $("#recibi_abono").val(data.recibi_de);
+    $("#servicio_abono").val(data.servicio_para);
+    $("#telefono_abono").val(data.telefono);
+    $("#empresa_abono").val(data.empresa);
+    $("#texto").val(data.cant_letras);
+    $("#pr_abono_ini").val(data.pr_abono_ini);
+    $("#monto_venta_rec_ini").val(data.monto);
+    $("#abono_ant").val(data.abono_ant);
+    $("#saldo_credito").val(data.saldo_credito);
+    $("#numero").val(data.numero);
+    $("#saldo").val(data.saldo);
+    $("#forma_pago").val(data.forma_pago);
+    $("#pr_abono").val(data.prox_abono);
+    $("#marca_aro_ini").val(data.marca_aro);
+    $("#modelo_aro_ini").val(data.modelo_aro);
+    $("#color_aro_ini").val(data.color_aro);
+    $("#lente_rec_ini").val(data.lente);
+    $("#photo_rec_ini").val(data.photo);    
+    $("#ar_rec_ini").val(data.anti_r);
+    $("#observaciones_rec_ini").val(data.observaciones);
+    $("#id_pac_ini").val(data.id_paciente);
+    $("#n_venta_recibo_ini").val(data.numero_venta);
+
+  }
+
+})
+
+}
 
 init();
 //SELECT*from corte_diario where n_venta = "AVSM-244" or n_venta="AVSM-240" or n_venta="AVSM-236" or n_venta="AVSM-246" or n_venta="AVSM-229" or n_venta="AVSM-250"

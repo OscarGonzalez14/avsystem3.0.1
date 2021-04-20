@@ -73,22 +73,22 @@ if (isset($messages)){
    }*/
 break;
 
-    case "listar_aros":
-    $datos=$productos->get_aros();
+    case "listar_aros_comp":
+    $datos=$productos->get_aros_compras();
     //Vamos a declarar un array
     $data= Array();
 
     foreach($datos as $row)
       {
         $sub_array = array();
-        $sub_array[] = $row["id_producto"];
+        $sub_array[] = '&nbsp;<input type="checkbox" class="form-check-input seleccionar" value="'.$row["id_producto"].'" id="elegir-aro'.'">&nbsp;'; 
         $sub_array[] = $row["marca"];
         $sub_array[] = $row["modelo"];
         $sub_array[] = $row["color"];
         $sub_array[] = $row["medidas"];
         $sub_array[] = $row["diseno"];
         $sub_array[] = $row["materiales"];
-        $sub_array[] = '<button type="button" class="btn btn-primary btn-sm agrega_aro"  style="border-radius:0px; btn-sm" onClick="agregar_aro('.$row["id_producto"].')"><i class="fa fa-plus" aria-hidden="true"></i></button>';
+        
         $data[] = $sub_array;
       }
 
@@ -415,6 +415,7 @@ case "buscar_aros_venta":
    <?php
  }
     break;
+
 case "listar_productos_traslado":
 
   $datos=$productos->get_productos_traslados($_POST["sucursal"]);
@@ -452,8 +453,9 @@ case "listar_productos_traslado":
         $sub_array = array();
         $sub_array[] = $row["id_producto"];
         $sub_array[] = $row["modelo"];
+        $sub_array[] = $row["desc_producto"];
         $sub_array[] = "$".number_format($row["precio"],2,".",",");
-        $sub_array[] = '<button type="button" onClick="agregarServicioVenta('.$row["id_producto"].')" class="btn btn-sm bg-primary"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>';          
+        $sub_array[] = '<button type="button" onClick="agregarServicioVenta('.$row["id_producto"].')" class="btn btn-sm bg-primary agrega_servicio"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>';         
 
         $data[] = $sub_array;
       }
@@ -466,6 +468,47 @@ case "listar_productos_traslado":
       echo json_encode($results);
 
     break;
+
+   /* case 'agregar_aros_compra':
+    $productos->agregar_aros_compra();
+    $messages[]="ok";
+
+    if (isset($messages)){
+      ?>
+      <?php
+      foreach ($messages as $message) {
+        echo json_encode($message);
+      }
+      ?>
+      <?php
+    }
+
+    break;*/
+
+  /*case "agregar_aros_compra":          
+  $datos=$productos->agregar_aros_compras($_POST["id_producto"]);
+  if(is_array($datos)==true and count($datos)>0){
+    foreach($datos as $row)
+    {
+      $output["marca"] = $row["marca"];
+      $output["modelo"] = $row["modelo"];
+      $output["color"] = $row["color"];
+      $output["medidas"] = $row["medidas"];
+      $output["diseno"] = $row["diseno"];
+      $output["materiales"] = $row["materiales"];
+      $output["categoria_producto"] = $row["categoria_producto"];
+                
+    }      
+
+  } else {                 
+                 //si no existe el registro entonces no recorre el array
+    $output["error"]="El producto seleccionado está inactivo, intenta con otro";
+
+  }
+
+  echo json_encode($output);
+
+  break;*/
 
 
   

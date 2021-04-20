@@ -276,11 +276,10 @@ public function aprobar_orden(){
         $nombres = $v->nombres;
         $numero_orden = $v->numero_orden;
         $sucursal = $v->sucursal;
+        $plazo = $v->plazo;
 
     if ($estado=="Ok"){
-
     /////////// GET NUMERO DE VENTA
-
         require_once("Ventas.php");
         $ventas = new Ventas();
         $correlativo = $ventas->get_numero_venta($sucursal);
@@ -395,7 +394,7 @@ public function aprobar_orden(){
 
   }
 
-       }///////fin recorrer detalle ventas flotantes
+}///////fin recorrer detalle ventas flotantes
 
        ///////CONSULTAR VENTA FLOTANTE POR BENEFICIARIO
        $sql1="select * from ventas_flotantes where numero_orden=? and evaluado=?;";
@@ -417,7 +416,8 @@ public function aprobar_orden(){
         $sucursal = $row["sucursal"];
         $evaluado = $row["evaluado"];
         $optometra = $row["optometra"];
-        $estado = $row["estado"];        
+        $estado = $row["estado"]; 
+        $plazo = $row['plazo'];       
     }
     
     $sql2 = "insert into ventas values(null,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -459,7 +459,7 @@ public function aprobar_orden(){
         $monto_credito = $item["monto"];
     }
 
-    if(is_array($saldos)==true and count($saldos)>0){
+    /*if(is_array($saldos)==true and count($saldos)>0){
        $saldo_act = $saldo+$monto_total;
        $nuevo_monto = $monto_credito+$monto_total;
        $sql6 ="update creditos set saldo=?,monto=? where id_credito=?;";
@@ -470,7 +470,7 @@ public function aprobar_orden(){
        $sql6->execute();
     }else{
        $tipo_venta = "Credito";
-       $plazo =12;
+       $plazo =12;*/
 
        $sql7="insert into creditos values(null,?,?,?,?,?,?,?,?,?);";
        $sql7= $conectar->prepare($sql7);
@@ -485,7 +485,7 @@ public function aprobar_orden(){
        $sql7->bindValue(9,$hoy);
 
        $sql7->execute();
-    }
+   // }
 
     }///////FIN COMPROBACION DE ESTADO
     }/////////// FIN GET BENEFICARIOS FOREACH
@@ -594,7 +594,7 @@ public function agregar_benefiaciario_oid(){
 }//////////////////FIN FOREACH ////////
 $estado_ord="0";
 
-$sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+$sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5=$conectar->prepare($sql5);
     $sql5->bindValue(1,$numero_orden);          
     $sql5->bindValue(2,$fecha_venta);
@@ -610,6 +610,8 @@ $sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     $sql5->bindValue(12,$evaluado);
     $sql5->bindValue(13,$optometra);
     $sql5->bindValue(14,$estado_ord);
+    $sql5->bindValue(15,$plazo);
+
     $sql5->execute();
 
     //$finalizacion = date("d-m-Y",strtotime($fecha_inicio."+ $plazo month"));
@@ -640,7 +642,7 @@ $sql5="insert into ventas_flotantes values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 public function get_beneficiarios($id_paciente,$numero_orden){
    $conectar= parent::conexion();
-  $sql= "select o.numero_orden,p.nombres,p.empresas,p.id_paciente,o.fecha_registro,v.estado,o.id_orden,o.sucursal,v.evaluado,v.monto_total from orden_credito as o inner join pacientes as p on o.id_paciente = p.id_paciente inner join ventas_flotantes as v on o.numero_orden=v.numero_orden  where v.id_paciente=? and v.numero_orden=? group by v.evaluado; ";
+  $sql= "select o.numero_orden,p.nombres,p.empresas,p.id_paciente,o.fecha_registro,v.estado,o.id_orden,o.sucursal,v.evaluado,v.monto_total,v.plazo from orden_credito as o inner join pacientes as p on o.id_paciente = p.id_paciente inner join ventas_flotantes as v on o.numero_orden=v.numero_orden  where v.id_paciente=? and v.numero_orden=? group by v.evaluado; ";
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1, $id_paciente);
   $sql->bindValue(2, $numero_orden);

@@ -46,7 +46,7 @@
               </tbody>
             </table><br>
 
-            <table id="lista_det_abonos" width="100%" class ="table-hover">
+            <table id="lista_det_abonos" width="100%" class ="table-hover table-bordered table-striped">
               <thead style="background:#034f84;color:white;text-align: center;">
                 <tr>
                 <th>Fecha Abono</th>

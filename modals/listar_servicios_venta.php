@@ -37,7 +37,8 @@
               <thead style="background:#034f84;color:white;text-align: center;">
                 <tr>
                 <th style="text-align:center" width="5%">ID</th>
-                <th style="text-align:center" width="70%">Servicio</th>
+                <th style="text-align:center" width="20%">Servicio</th>
+                <th style="text-align:center" width="50%">Detalle</th>
                 <th style="text-align:center" width="20%">Precio</th>
                 <th style="text-align:center" width="5%">Agregar</th> 
                 </tr>

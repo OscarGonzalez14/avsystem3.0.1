@@ -503,7 +503,7 @@ $datos=$creditos->get_det_orden($_POST["n_orden_add"],$_POST["id_paciente"]);
 
       foreach($datos as $row){
        
-       if ($row["estado"]==1) {
+       if($row["estado"]==1) {
          $estado= "Aprobado";
          $badge="success";
          $est="Aprobado";
@@ -522,7 +522,7 @@ $datos=$creditos->get_det_orden($_POST["n_orden_add"],$_POST["id_paciente"]);
         $output["empresas"] = $row["empresas"];
         $output["id_paciente"] = $row["id_paciente"];
         $output["estado"] = $estado;
-        //$output["estado"] = '<span class="right badge badge-'.$badge.'">'.$est.'</span>';
+        $output["plazo"] = $row["plazo"];
         $output["id_orden"] = $row["id_orden"];
         $output["sucursal"] = $row["sucursal"];
         $output["evaluado"] = $row["evaluado"];

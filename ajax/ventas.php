@@ -87,9 +87,10 @@ switch($_GET["op"]){
   if(is_array($datos)==true and count($datos)>0){
     foreach($datos as $row){
  
-    $output["servicio"] = $row["servicio"];
+    $output["desc_producto"] = $row["desc_producto"];
     $output["precio_venta"] = number_format($row["precio_venta"],2,".",","); 
-    $output["id_producto"] = $row["id_producto"];       
+    $output["id_producto"] = $row["id_producto"];  
+    //$output["categoria_producto"] = strtoupper($row["categoria_producto"]);      
   }      
 
 } 
@@ -372,6 +373,7 @@ if (isset($errors)){
   break;
 
     /// FIN LISTAR TODAS LAS VENTAS
+
   case "ver_detalle_venta":
   $datos= $ventas->get_detalle_ventas_paciente($_POST["numero_venta"],$_POST["id_paciente"]);
   break;
@@ -422,8 +424,9 @@ if (isset($errors)){
   break;
 
 
+
 /// INICIO LISTAR VENTAS MENSUALES
-  case "listar_ventas_mensuales":
+ /* case "listar_ventas_mensuales":
 
   $datos=$ventas->get_vtas_mensuales($_POST["fin_fecha"],$_POST["fecha_inicio"],$_POST["sucursal"]);
   $data= Array();
@@ -440,13 +443,41 @@ if (isset($errors)){
     $data[] = $sub_array;
   }
 
-      $results = array(
+      $results = array
+
+/// INICIO LISTAR VENTAS MENSUALES
+  case "listar_ventas_mensuales":
+  $datos=$ventas->get_ventas_mensuales($_POST["sucursal"]);
+    //Vamos a declarar un array
+  $data= Array();
+
+  foreach($datos as $row)
+  {
+    $sub_array = array();
+
+    $sub_array[] = $row["numero_venta"];
+    //$sub_array[] = $fecha%(substr(string,(D-m-y))))%;
+    $sub_array[] = $row["usuario"];
+    $sub_array[] = $row["paciente"];
+    $sub_array[] = $row["evaluado"];
+    $sub_array[] = $row["tipo_venta"];
+    $sub_array[] = $row["tipo_pago"];
+    $sub_array[] = "$".number_format($row["monto_total"],2,".",","); 
+    $sub_array[] = $row["sucursal"];
+           
+    $data[] = $sub_array;
+  }
+
+  $results = array(
+
       "sEcho"=>1, //Información para el datatables
       "iTotalRecords"=>count($data), //enviamos el total registros al datatable
       "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
       "aaData"=>$data);
     echo json_encode($results);
-    break;
+    break;*/
+    /// FIN LISTAR TODAS LAS VENTAS
+
 
 
 }

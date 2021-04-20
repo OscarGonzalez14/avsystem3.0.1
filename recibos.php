@@ -2,6 +2,7 @@
 require_once("config/conexion.php");
 if(isset($_SESSION["usuario"])){ 
   require_once('header_dos.php');
+  require_once("modals/modal_abonos.php");
 
   $cat_user = $_SESSION["categoria"];
   require_once("modelos/Reporteria.php");
@@ -73,10 +74,10 @@ if(isset($_SESSION["usuario"])){
 <?php require_once("footer.php"); ?>
 <script type="text/javascript" src="js/recibos.js"></script>
 <!--<script type="text/javascript" src="js/bootbox.min.js"></script>-->
-<script type="text/javascript">
+<!--<script type="text/javascript">
   var title = document.getElementById("name_pag").value;
   document.getElementById("title_mod").innerHTML=" "+ title;
-</script>
+</script>-->
 
 <?php } else{
   echo "Acceso no permitido";

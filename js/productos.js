@@ -1,3 +1,4 @@
+
 var tabla_aros;
 var tabla_aros_creados;
 var tabla_acc_compras;
@@ -314,7 +315,7 @@ function listar_aros()
             ],
     "ajax":
         {
-          url: 'ajax/productos.php?op=listar_aros',
+          url: 'ajax/productos.php?op=listar_aros_comp',
           type : "get",
           dataType : "json",
           error: function(e){
@@ -1304,6 +1305,7 @@ Swal.fire('Hay Campos que no han sido completados o Seleccionados!','','error')
 //modal listar servicios en venta;
 function listar_servicios_venta(){
   tabla_servicios_venta=$('#lista_servicios_ventas_data').dataTable(
+    
   {
     "aProcessing": true,//Activamos el procesamiento del datatables
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
@@ -1380,5 +1382,54 @@ function listar_servicios_venta(){
 
   }).DataTable();
 }
+
+///agregando aros a compras
+var items_aros = [];
+
+$(document).on('click', '.seleccionar', function(){
+  var id_product = $(this).attr("value");
+  let id_item = $(this).attr("id");
+
+  var checkbox = document.getElementById(id_item);
+  let check_state = checkbox.checked;
+  console.log(check_state);
+
+  if (check_state == true) {
+        let obj = {
+        id_producto : id_product,
+       }
+       items_aros.push(obj);
+  }else if(check_state == false){
+  let index = items_aros.findIndex(x => x.id_producto==id_product)
+  console.log(index)
+  items_aros.splice(index, 1)
+  }
+  
+});
+
+/*function comprar_aros(){
+   let  id_producto = $("#id_producto").val();
+   let  sucursal = $("#sucursal").val();
+
+   $.ajax({
+    url:"ajax/productos.php?op=registrar_compra",
+    method:"POST",
+    data:{'arrayAros':JSON.stringify(items_aros),'id_producto':id_producto,'sucursal':sucursal},
+    cache: false,
+    dataType:"json",
+    error:function(x,y,z){
+      d_pacole.log(x);
+      console.log(y);
+      console.log(z);
+      },
+      success:function(data){
+      console.log(data)
+       $('#data_aros').DataTable().ajax.reload();
+      }     
+ 
+  });
+}*/
+
+
 
 init();

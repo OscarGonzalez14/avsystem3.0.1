@@ -280,7 +280,7 @@ function registrarEnvio(){
 
     if(paciente_orden !="" && laboratorio_orden !="" && prioridad_orden !="" && lente_orden !=""){
     $.ajax({
- 	   url: "ajax/ordenes.php?op=registrarEnvio",
+ 	   url: "ajax/ordenes.php?op=registrarEnviof",
  	   method: "POST",
  	   data: {paciente_orden:paciente_orden,laboratorio_orden:laboratorio_orden,id_pac_orden:id_pac_orden,id_consulta_orden:id_consulta_orden,
  	   lente_orden:lente_orden,tratamiento_orden:tratamiento_orden,modelo_aro_orden:modelo_aro_orden,marca_aro_orden:marca_aro_orden,
@@ -302,7 +302,7 @@ function registrarEnvio(){
  	}
 })
 }else{
-Swal.fire('LLEnar los campos obligatorios correctamente!','','error');	
+Swal.fire('Llene los campos obligatorios correctamente!','','error');	
 }
 }
 

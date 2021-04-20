@@ -177,7 +177,6 @@ $conectar=parent::conexion();
   date_default_timezone_set('America/El_Salvador');$hoy = date("d-m-Y");
 
 /* if (($fecha_ingr != $hoy and $suma_res==1) or ($fecha_ingr == $fecha_venta and $suma_res>1)){
-
   $tipo_ingreso = "Recuperado";
   $factura = "";
   $sql17="insert into corte_diario values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -201,11 +200,8 @@ $conectar=parent::conexion();
   $sql17->bindValue(17,$sucursal);
   $sql17->bindValue(18,$sucursal);
   $sql17->bindValue(19,$tipo_ingreso);
-
   $sql17->execute();
-
   }else{
-
     $tipo_ingreso = "Venta";
     $factura='';
     $sql6="update corte_diario set forma_cobro=?,monto_cobrado=?,n_recibo=?,sucursal_cobro=?,saldo_credito=?,tipo_ingreso=? where id_paciente=? and n_venta=?;";
@@ -300,7 +296,7 @@ public function get_creditos_empresarial($empresa){
     $conectar=parent::conexion();
     parent::set_names();
 
-    $sql="select p.nombres,p.empresas,c.monto,c.saldo,c.fecha_adquirido,c.id_paciente,c.numero_venta from pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente where forma_pago='Descuento en Planilla' and p.empresas=? and c.saldo>0;";
+    $sql="select p.nombres,p.empresas,c.monto,c.saldo,c.fecha_adquirido,c.id_paciente,c.numero_venta,v.evaluado from pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente INNER JOIN ventas as v on c.numero_venta=v.numero_venta where  c.forma_pago='Descuento en Planilla' and p.empresas=? and c.saldo>0 order by p.id_paciente DESC;";
     $sql=$conectar->prepare($sql);
     $sql->bindValue(1, $empresa);
     $sql->execute();

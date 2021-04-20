@@ -1,6 +1,10 @@
 function init() {
   reporte_ventas_gral();
-  ver_ventas();
+
+  //ver_ventas();
+
+  //reporte_vtas_mensual();
+
   get_correlativo_venta();
   get_correlativo_orden();
     //get_correlativo_venta();btn_print_recibos
@@ -111,15 +115,11 @@ function agregarServicioVenta(id_producto){
     var obj = {
       cantidad : 1,
       codProd  : id_producto,
-      descripcion    : data.servicio,
-      precio_venta  : data.precio_venta,
-      subtotal : 0,
-      descuento : 0,
-      categoria_prod : data.categoria_producto,
-      cantidad : 1,
-      codProd  : id_producto,
-      descripcion    : data.desc_modelo,
+      id_ingreso   : "",
+      stock    : 0,
+      descripcion    : data.desc_producto,
       categoria_ub  : "",
+      num_compra : "",
       precio_venta  : data.precio_venta,
       subtotal : 0,
       descuento : 0,
@@ -1202,11 +1202,12 @@ if (tipo_venta=="Credito Fiscal"){
 }
  
 });
+
 /// fin comprobar tipo de venta
 
 
 ///////////////////LISTADO MENSUAL VENTAS
-function ver_ventas(){
+/*function ver_ventas(){
 
   let fecha_inicio = $("#fecha_inicio").val();
   let fin_fecha = $("#fecha_fin").val();
@@ -1216,6 +1217,12 @@ function ver_ventas(){
 
 
   tabla_ventas_mensuales=$('#lista_reporte_vtas_mensual_data').dataTable(
+
+
+function reporte_vtas_mensual(){
+  var sucursal = $("#sucursal").val();
+  tabla_ventas_mensuales=$('#lista_vtas_mensuales_data').dataTable(
+
   {
     "aProcessing": true,//Activamos el procesamiento del datatables
       "aServerSide": true,//Paginación y filtrado realizados por el servidor
@@ -1228,7 +1235,8 @@ function ver_ventas(){
           url: 'ajax/ventas.php?op=listar_ventas_mensuales',
           type : "post",
           dataType : "json",
-          data:{fin_fecha:fin_fecha,fecha_inicio:fecha_inicio,sucursal:sucursal},
+          data:{sucursal:sucursal},
+
           error: function(e){
             console.log(e.responseText);
           }
@@ -1289,7 +1297,7 @@ function ver_ventas(){
 
   }).DataTable();
 }
-
+*/
 
 
 init();

@@ -41,7 +41,7 @@ case "listar_productos_ingreso_bodegas":
         {
           $output["numero_compra"] = $row["numero_compra"];
           $output["descripcion"] = $row["descripcion"]." ".$row["diseno"]." ".$row["materiales"];
-          /*$output["descripcion"] = $row["descripcion"];*/
+          $output["sucursal"] = $row["sucursal"];
           $output["id_producto"] = $row["id_producto"];
           $output["cant_ingreso"] = $row["cant_ingreso"];
           $output["precio_venta"] = $row["precio_venta"];
@@ -54,7 +54,26 @@ break;
 
 ///////REGISTRAR INGRESO
 	case "registrar_ingreso_a_bodega";
-       $bodegas->registrar_ingreso_a_bodega();
+       $bodegas->registrar_ingreso_a_bodega($_POST["fecha_ingreso"],$_POST["usuario"],$_POST["sucursal_i"],$_POST["numero_compra_i"],$_POST["categoria_ubicacion"],$_POST["numero_ingreso"]);
+       $data= Array();
+       foreach ($datos as $row){
+        $sub_array = array();
+        $sub_array[] = $row["fecha_ingreso"];
+        $sub_array[] = $row["usuario"];
+        $sub_array[] = $row["sucursal_i"];
+        $sub_array[] = $row["numero_compra_i"];
+        $sub_array[] = $row["categoria_ubicacion"];
+        $sub_array[] = $row["numero_ingreso"];
+        $data[] = $sub_array;
+       }
+
+       $results = array(
+      "sEcho"=>1, //Información para el datatables
+      "iTotalRecords"=>count($data), //enviamos el total registros al datatable
+      "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
+      "aaData"=>$data);
+    echo json_encode($results);
+
     break;
 //////////////REPORTE INGRESOS BODEGA
 case "reporte_ingresos_bodega":

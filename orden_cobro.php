@@ -67,7 +67,7 @@ require_once('modals/empresa.php');
 </div>        
   </div><!--FIN callout callout-info-->
 <div id="modalOrdenCobro" class="modal fade" data-modal-index="2">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header" style="background:#0275d8;color: white;text-align: center">
               <span class="modal-title">CREDITOS EMPRESARIALES</span>
@@ -81,6 +81,7 @@ require_once('modals/empresa.php');
                    <tr>
                     <th>Seleccionar</th>          
                     <th>Paciente</th>
+                    <th>Beneficiario</th>
                     <th>Empresa</th>
                     <th>Monto</th>
                     <th>Saldo</th>

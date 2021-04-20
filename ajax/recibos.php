@@ -69,7 +69,19 @@ switch ($_GET["op"]) {
              }
            ?>
    <?php
-   } 
+   }else{
+    $pacientes->editar_recibo($_POST["a_anteriores"],$_POST["n_recibo"],$_POST["n_venta_recibo_ini"],$_POST["monto"],$_POST["fecha"],$_POST["sucursal"],$_POST["id_paciente"],$_POST["id_usuario"],$_POST["telefono_ini"],$_POST["recibi_rec_ini"],$_POST["empresa_ini"],$_POST["texto"],$_POST["numero"],$_POST["saldo"],$_POST["forma_pago"],$_POST["marca_aro_ini"],$_POST["modelo_aro_ini"],$_POST["color_aro_ini"],$_POST["lente_rec_ini"],$_POST["ar_rec_ini"],$_POST["photo_rec_ini"],$_POST["observaciones_rec_ini"],$_POST["pr_abono"],$_POST["servicio_rec_ini"]);
+    $messages[]="editado";
+        if (isset($messages)){
+     ?>
+       <?php
+         foreach ($messages as $message) {
+             echo json_encode($message);
+           }
+         ?>
+   <?php
+ }
+  }
 
     break;
 
@@ -101,8 +113,8 @@ switch ($_GET["op"]) {
         $sub_array[] = $row["numero_venta"];
         $sub_array[] = $row["nombres"];
         $sub_array[] = $row["servicio_para"];
-        $sub_array[] = '<button type="button"  class="btn btn-md bg-light" onClick="editar_recibo('.$row["id_recibo"].',\''.$row["numero_recibo"].'\',\''.$row["numero_venta"].'\','.$row["nombres"].')"><i class="fa fa-edit" aria-hidden="true" style="color:green"></i></button>';
-        $sub_array[] = '<a href="imprimir_recibo_pdf.php?n_recibo='.$row["numero_recibo"].'&'."nombres=".$row["nombres"].'&'."sucursal=".$row["sucursal"].'" method="POST" target="_blank"><button type="button" class="btn btn-link btn-md imprimir_recibo"><i class="fa fa-print" aria-hidden="true" style="color:green"></i></button></a>';
+        $sub_array[] = '<button type="button" style="text-align:center" onClick="show_datos_recibo("'.$row["id_recibo"].',\''.$row["numero_recibo"].'\',\''.$row["numero_venta"].',\''.$row["id_paciente"].'\');" data-toggle="modal" data-target="#modal_recibos_generico" data-backdrop="static" class="btn btn-light btn-md bg-white" data-keyboard="false"><i class="fa fa-edit" aria-hidden="true" style="color:#006600"></i></button>';
+        $sub_array[] = '<a href="imprimir_recibo_pdf.php?n_recibo='.$row["numero_recibo"].'&'."n_venta=".$row["numero_venta"].'&'."id_paciente=".$row["id_paciente"].'&'."sucursal=".$row["sucursal"].'" method="POST" target="_blank"><button type="button" class="btn btn-link btn-md bg-white"><i class="fa fa-print" aria-hidden="true" style="color:green"></i></button></a>';
         $data[] = $sub_array;
       }
 
@@ -114,6 +126,7 @@ switch ($_GET["op"]) {
       echo json_encode($results);      
     break;
 
+
 /////////////////////LISTAR CVREDITOS EMPRESARIALES
     case 'listar_creditos_empresariales':
     $datos=$recibos->get_creditos_empresarial($_POST["empresa"]);
@@ -123,6 +136,7 @@ switch ($_GET["op"]) {
         $sub_array = array();
         $sub_array[] = '<input type="checkbox" class="form-check-input selectPacienteOid" value="'.$row["id_paciente"].'" name="'.$row["numero_venta"].'" id="oid_correlativo'.$i.'"><span style="color:white">.</span>';
         $sub_array[] = $row["nombres"];
+        $sub_array[] = $row["evaluado"];
         $sub_array[] = $row["empresas"];
         $sub_array[] = "$".number_format($row["monto"],2,".",",");
         $sub_array[] = "$".number_format($row["saldo"],2,".",",");
@@ -292,6 +306,50 @@ case "listar_ordenes_cobro":
       <?php
    }
 
+  break;
+
+     ///////////////BUSCAR NUMERO DE RECIBO VISUALIZAR LA INFORMACION
+    case 'ver_recibo_data':    
+    $datos=$recibos->get_recibo_por_num($_POST["sucursal"]);
+      foreach($datos as $row)
+      {
+      $output["sucursal"] = $row["sucursal"];   
+      }
+    echo json_encode($output);
+    break;
+
+    /////////////////SHOW DATOS EN LA MODAL RECIBOS PARA EDITAR
+  case 'show_datos_recibo':
+
+    $datos=$recibos->show_datos_recibo($_POST["id_paciente"],$_POST["id_credito"],$_POST["numero_venta"]);
+
+      foreach($datos as $row){
+
+      $output["recibi_de"] = $row["recibi_de"];
+      $output["servicio_para"] = $row["servicio_para"];
+      $output["telefono"] = $row["telefono"];
+      $output["empresa"] = $row["empresa"];
+      $output["cant_letras"] = $row["cant_letras"];
+      $output["pr_abono_ini"] = $row["pr_abono_ini"];
+      $output["monto"] = $row["monto"];
+      $output["abono_ant"] = $row["abono_ant"];
+      $output["saldo"] = $row["saldo"];
+      $output["numero"] = $row["numero"];
+      $output["saldo"] = $row["saldo"];
+      $output["forma_pago"] = $row["forma_pago"];
+      $output["prox_abono"] = $row["prox_abono"];
+      $output["marca_aro"] = $row["marca_aro"];
+      $output["modelo_aro"] = $row["modelo_aro"];
+      $output["color_aro"] = $row["color_aro"];
+      $output["lente"] = $row["lente"];
+      $output["photo"] = $row["photo"];
+      $output["anti_r"] = $row["anti_r"];
+      $output["observaciones"] = $row["observaciones"];
+      $output["id_paciente"] = $row["id_paciente"];
+      $output["numero_venta"] = $row["numero_venta"];
+
+      }
+    echo json_encode($output);
   break;
 
 

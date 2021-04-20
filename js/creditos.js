@@ -913,7 +913,7 @@ function get_finaliza(){
     cache : false,
     dataType : "json",
     success:function(data){
-   // console.log(data);  
+    console.log(data);  
 
     for(var i in data){
     var obj = {
@@ -925,7 +925,8 @@ function get_finaliza(){
       id_orden : data[i].id_orden,
       sucursal : data[i].sucursal,
       evaluado : data[i].evaluado,
-      monto_total : data[i].monto_total
+      monto_total : data[i].monto_total,
+      plazo : data[i].plazo
     };//FIN OBJ
       beneficiarios_orden.push(obj);
      // console.log(beneficiarios_orden);
