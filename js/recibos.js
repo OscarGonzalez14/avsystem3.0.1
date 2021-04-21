@@ -419,6 +419,7 @@ function get_data_credito_oid(){
       plazo :data.plazo,
       id_paciente : data.id_paciente,      
       pacientes : data.nombres,
+      evaluado : data.evaluado,
       empresa : data.empresas,
       monto : data.monto,
       saldo : data.saldo,
@@ -451,7 +452,7 @@ function listar_data_oid(){
         return -1
       }
       if (a.id_paciente>b.id_paciente) {
-        return -1
+        return 1
       }
 
       return 0;
@@ -460,9 +461,10 @@ function listar_data_oid(){
     for(var i=0; i<data_credito_oid.length; i++){
 
       var filas = filas + "<tr id='filac"+i+"'>"+
-      "<td style='text-align:center;width: 20%;' colspan='20'>"+data_credito_oid[i].pacientes+"</td>"+
-      "<td style='text-align:center;width: 20%;' colspan='20'>"+data_credito_oid[i].empresa+"</td>"+
-      "<td style='text-align:center;width: 10%;' colspan='10'>"+"$"+data_credito_oid[i].monto+"</td>"+
+      "<td style='text-align:center;width: 15%;' colspan='15'>"+data_credito_oid[i].pacientes+"</td>"+
+      "<td style='text-align:center;width: 15%;' colspan='15'>"+data_credito_oid[i].evaluado+"</td>"+
+      "<td style='text-align:center;width: 15%;' colspan='15'>"+data_credito_oid[i].empresa+"</td>"+
+      "<td style='text-align:center;width: 5%;' colspan='5'>"+"$"+data_credito_oid[i].monto+"</td>"+
       "<td style='text-align:center;width: 5%;' colspan='5'>"+data_credito_oid[i].plazo+" Cuotas"+"</td>"+
       "<td style='text-align:center;width: 10%;' colspan='10'>"+"$"+data_credito_oid[i].saldo+"</td>"+
       "<td style='text-align:center;width: 10%;text-align:center' colspan='10'><input style='text-align:center' type='text' value="+data_credito_oid[i].abono_act+" class='form-control' onClick='setCantidadAbono(event, this, "+(i)+");' onKeyUp='setCantidadAbono(event, this, "+(i)+");'></td>"+
@@ -478,7 +480,7 @@ function listar_data_oid(){
 
 function setCantidadAbono(event, obj, idx){
   event.preventDefault();
-  console.log(data_credito_oid[idx].abono_act);
+  //console.log(data_credito_oid[idx].abono_act);
   data_credito_oid[idx].abono_act = parseFloat(obj.value);
   data_credito_oid[idx].subtotal = parseFloat(obj.value);
   console.log(data_credito_oid[idx].abono_act);
@@ -516,7 +518,7 @@ function calcularTotal(){
     var abono = data_credito_oid[i].abono_act;
     total_final = total_final+abono;
   }
-  let totales_finales=total_final.toFixed(2);
+  let totales_finales = parseFloat(total_final).toFixed(2);
   $("#total_abonos").html(totales_finales);
 
 }

@@ -723,6 +723,7 @@ case 'listar_oid_aprobadas':
     foreach($datos as $row)
     {
       $output["nombres"] = $row["nombres"];
+      $output["evaluado"] = $row["evaluado"];
       $output["empresas"] = $row["empresas"];
       $output["monto"] = number_format($row["monto"],2,".",",");
       $output["saldo"] = number_format($row["saldo"],2,".",",");

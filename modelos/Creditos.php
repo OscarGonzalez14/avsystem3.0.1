@@ -727,7 +727,7 @@ public function get_det_ventas_flotantes($id_paciente,$numero_orden){
 
 public function get_data_credito_oid($id_paciente,$numero_venta){
 $conectar= parent::conexion();
-  $sql= "select p.nombres,p.empresas,c.monto,c.saldo,c.fecha_adquirido,c.id_paciente,c.numero_venta,c.plazo from pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente where forma_pago='Descuento en Planilla' and c.id_paciente=? and c.numero_venta=?;";
+  $sql= "select p.nombres,p.empresas,c.monto,c.saldo,c.fecha_adquirido,c.id_paciente,c.numero_venta,c.plazo,v.evaluado from pacientes as p inner join creditos as c on p.id_paciente=c.id_paciente inner join ventas as v on c.numero_venta=v.numero_venta  where forma_pago='Descuento en Planilla' and c.id_paciente=? and c.numero_venta=?";
   $sql=$conectar->prepare($sql);
   $sql->bindValue(1, $id_paciente);
   $sql->bindValue(2, $numero_venta);

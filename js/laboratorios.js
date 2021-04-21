@@ -254,6 +254,8 @@ function get_data_tratamientos(codProd){
 
 function registrarEnvio(){
 
+  console.log('Holaaa')
+
 	let paciente_orden = $("#paciente_orden").val();
 	let laboratorio_orden = $("#laboratorio_orden").val();
 	let id_pac_orden = $("#id_pac_orden").val();
@@ -280,7 +282,7 @@ function registrarEnvio(){
 
     if(paciente_orden !="" && laboratorio_orden !="" && prioridad_orden !="" && lente_orden !=""){
     $.ajax({
- 	   url: "ajax/ordenes.php?op=registrarEnviof",
+ 	   url: "ajax/ordenes.php?op=registrarEnvio",
  	   method: "POST",
  	   data: {paciente_orden:paciente_orden,laboratorio_orden:laboratorio_orden,id_pac_orden:id_pac_orden,id_consulta_orden:id_consulta_orden,
  	   lente_orden:lente_orden,tratamiento_orden:tratamiento_orden,modelo_aro_orden:modelo_aro_orden,marca_aro_orden:marca_aro_orden,
@@ -1204,8 +1206,8 @@ function listar_items_cff(){
   for (i = 0; i < items_ccf.length; i++){
        var filas = filas + "<tr id='fila"+i+"'><td colspan='45' style='width: 45%'>"+items_ccf[i].tratamiento+"</td>"+
        "<td colspan='15' style='width: 15%'><input type='number' class='form-control cantidad' style='text-align: right' value='"+items_ccf[i].cantidad+"' onKeyUp='setCantidad_ccf(event, this, "+(i)+");' onClick='setCantidad_ccf(event, this, "+(i)+");'></td>"+
-       "<td colspan='10' style='width: 10%'><input type='number' class='form-control p_unit' style='text-align: right' value='"+items_ccf[i].precio+"' readonly></td>"+
-       "<td colspan='10' style='width: 10%'><input type='text' class='form-control gravadas' style='text-align: right' value='"+items_ccf[i].subtotal+"' readonly id='subtotal"+i+"'></td>"+
+       "<td colspan='10' style='width: 10%'><input type='number' class='form-control p_unit' style='text-align: right' value='"+items_ccf[i].precio+"' onKeyUp='setPrecio_ccf(event, this, "+(i)+");' onClick='setPrecio_ccf(event, this, "+(i)+");'></td>"+
+       "<td colspan='10' style='width: 10%'><input type='text' class='form-control gravadas' style='text-align: right' value='"+items_ccf[i].subtotal+"' id='subtotal"+i+"'></td>"+
       "<td colspan='20' style='width: 20%'><input type='text' class='form-control iva' style='text-align: right' value='' readonly id='afectas"+i+"'></td>"+"</tr>";
   }
   
@@ -1213,7 +1215,7 @@ function listar_items_cff(){
 }
 
 function setCantidad_ccf(event, obj, idx){
-  console.log("change");
+    console.log("change");
     event.preventDefault();
     items_ccf[idx].cantidad = parseFloat(obj.value);
     recalcular_ccf(idx);

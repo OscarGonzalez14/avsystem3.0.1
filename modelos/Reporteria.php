@@ -354,5 +354,19 @@ public function get_pacientes_orden_cobro($numero_orden){
 
 }
 
+/////////////////COBROS EMPRESARIALES RESUMEN ///
+public function resumen_pacientes_orden_cobro($numero_orden){
+
+	$conectar= parent::conexion();
+	parent::set_names(); 
+
+	$sql = "select p.nombres,sum(o.monto_credito) as montos,sum(o.monto_abono) as abonos,sum(o.saldo) as saldos,o.fecha,o.numero_venta,o.numero_recibo,o.id_paciente,sum(o.saldo_ant) as saldo_ant from pacientes as p inner join detalle_orden_cobro as o on o.id_paciente=p.id_paciente where numero_orden=? group by id_paciente;";
+	$sql = $conectar->prepare($sql);
+	$sql->bindValue(1,$numero_orden);
+	$sql->execute();
+	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+}
+
 
 }

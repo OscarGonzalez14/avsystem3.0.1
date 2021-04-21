@@ -93,7 +93,6 @@ $datos_recibo = $reporteria->print_recibo_paciente($numero_rec_oc,$numero_venta,
 <tr>
     <th bgcolor="#0061a9" colspan="39" style="color:white;font-size:12px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:39%"><span class="Estilo11">RECIBI DE</span></th>
     <th bgcolor="#0061a9" colspan="39" style="color:white;font-size:12px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:39%"><span class="Estilo11">SERVICIO PARA</span></th>
-    <!--<th bgcolor="#0061a9" colspan="20" style="color:white;font-size:12px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:20%"><span class="Estilo11">EMPRESA</span></th>-->
     <th bgcolor="#0061a9" colspan="22" style="color:white;font-size:12px;border: 1px solid #034f84;font-family: Helvetica, Arial, sans-serif;width:22%"><span class="Estilo11">FECHA</span></th>
 </tr>
 <?php

@@ -44,6 +44,36 @@ for($j=0; $j<count($pacientes_cobro);$j++){
 	";
 }
 
+
+$resumen_cobros_empresarial = $reporteria->resumen_pacientes_orden_cobro($_GET['numero_orden']);
+//var_dump($resumen_cobros_empresarial);
+//exit();
+$res_table = "";
+$resumen_monto = 0;
+for($j=0; $j<count($resumen_cobros_empresarial);$j++){
+	$abono_res = $resumen_cobros_empresarial[$j]["montos"];
+	$resumen_monto_total = $resumen_monto+$abono_res;
+    $index = $j+1;
+
+    if ($j % 2 == 0) {
+    	$color = "#E8E8E8";
+    }else{
+    	$color = "white";
+    }
+	$res_table .= "
+	if	
+	<tr>
+		<td colspan='5' style='width:5%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>".$indice."</td>
+		<td colspan='35' style='width:35%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>".$resumen_cobros_empresarial[$j]["nombres"]."</td>
+		<td colspan='12' style='width:12%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>"."$ ".number_format($resumen_cobros_empresarial[$j]["montos"],2,".",",")."</td>
+		<td colspan='12' style='width:12%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>"."$ ".number_format($resumen_cobros_empresarial[$j]["abonos"],2,".",",")."</td>
+		<td colspan='12' style='width:12%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>"."$ ".number_format($resumen_cobros_empresarial[$j]["saldo_ant"],2,".",",")."</td>
+		<td colspan='12' style='width:12%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>"."$ ".number_format($resumen_cobros_empresarial[$j]["saldos"],2,".",",")."</td>
+		<td colspan='12' style='width:12%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;background:".$color."'>".$resumen_cobros_empresarial[$j]["fecha"]."</td>	
+	</tr>
+	";
+}
+
 ?>
 
 <html>
@@ -131,6 +161,7 @@ for($j=0; $j<count($pacientes_cobro);$j++){
 <p><h3><b>EMPRESA: <span><?php echo $_GET["empresa"]?></span></b></h3></p>
 
 <div style="width:100%;margin-top:0px;font-size:12px;font-family: Helvetica, Arial, sans-serif;height: 885px">
+	<h5 style="font-size:12px;font-family: Helvetica, Arial, sans-serif;margin-top: 1px;text-align: center;" align="ceneter">LISTADO GENERAL DE COBROS</h5>
  <table width="100%" class="table2">
 
     <tr>
@@ -154,7 +185,34 @@ for($j=0; $j<count($pacientes_cobro);$j++){
   	</tr>
  </tfoot> 
 </table>
+
+<h5 style="font-size:12px;font-family: Helvetica, Arial, sans-serif;margin-top: 8px;margin-bottom: 1px; text-align: center;" align="ceneter">RESUMEN  DE COBROS POR PACIENTE</h5>
+ <table width="100%" class="table2">
+
+    <tr>
+    	<td colspan='5' style='width:5%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>#</b></td>
+        <td colspan='35' style='width:35%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>PACIENTE</b></td>
+        <td colspan='12' style='width:12%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>MONTO</b></td>
+        <td colspan='12' style='width:12%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>ABONO</b></td>
+        <td colspan='12' style='width:12%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>SALDO ANT</b></td>
+        <td colspan='12' style='width:12%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>NUEVO SALDO</b></td>
+        <td colspan='12' style='width:12%;text-align:center;border: solid 1px white;background:#5bc0de;color: black;font-size:11px'><b>FECHA COBRO</b></td>
+      </tr>
+    <!--Aqui iran las variables PHP-->
+     <?php echo $res_table;?>
+
+  <tfoot style="margin-top: 0px">
+  	<tr>
+  		<td colspan="52" style='width:52%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;color: black;font-size:11px'><b>TOTAL ABONOS</b></td>
+  		<td colspan="12" style='width:12%;font-size:12px;text-align:center;border: solid 1px #A0A0A0;color: red;font-size:11px'><b><?php echo "$ ".number_format($monto_orden,2,".",","); ?></b></td>
+  		<td colspan="36" style='width:36%;font-size:11px;text-align:center;border: solid 1px #A0A0A0;color: black;font-size:11px'></td>
+  	</tr>
+ </tfoot> 
+</table>
 </div>
+
+
+
 <span style="text-align: right;font-size: 9px;margin-top: 8PX" align="right">Este documento ha sido emitido por el departamento Empresarial de Óptica AV Plus. user: <?php echo $_SESSION["id_usuario"]."&nbsp;-&nbsp;".$hoy;?></span> 
  <p style="page-break-before: always;text-align: center;margin-top: 50px"></p> 
 <?php
