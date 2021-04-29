@@ -35,14 +35,14 @@
                   <thead style="background:#034f84;color:white">
                    <tr>
                       <!--<th style="text-align:center">ID</th>-->
-                      <th style="text-align:center">listar</th>
+                      <th style="text-align:center">Id</th>
                       <th style="text-align:center">Marca</th>
                       <th style="text-align:center">Modelo</th>
                       <th style="text-align:center">Color</th>
                       <th style="text-align:center">Medidas</th>
                       <th style="text-align:center">Diseño</th>
                       <th style="text-align:center">Materiales</th>
-                      
+                      <th style="text-align:center">Agregar</th>                      
                     </tr>
                   </thead>
                   <tbody style="text-align:center; font-size:14px;">

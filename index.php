@@ -42,7 +42,7 @@
         <div class="register-logo">
           <a href="#" style="font-size:18px !important; color:#383838"><strong>Avsys 2021</strong></a>
       </div>
-        <div class="register-logo">
+  <div class="register-logo">
     <img src="images/logooficial.jpg" width="160" height="80"  />
   </div>
       <form method="post" class="login" autocomplete="off">
@@ -60,12 +60,13 @@
             <option value="Metrocentro">Metrocentro</option>
             <option value="Santa Ana">Santa Ana</option>
             <option value="San Miguel">San Miguel</option>
+            <option value="Emp-Metrocentro">Metrocentro-Empresarial</option>
+            <option value="Emp-San Miguel">San Miguel-Empresarial</option>
           </select>
         </div>
 
         <div class="input-group mb-3">
         <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
-
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>

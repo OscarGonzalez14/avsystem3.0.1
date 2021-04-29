@@ -45,7 +45,7 @@
           </div>    
         </div>
 
-        <table width="100%" class="table-hover table-bordered" style="margin-top: 8px;;font-family: Helvetica, Arial, sans-serif;font-size: 12px;">
+        <table width="100%" class="table-hover table-bordered" style="margin-top: 8px;font-family: Helvetica, Arial, sans-serif;font-size: 12px;">
             <tr style="background:#080842;color:white;text-align: center">
               <th colspan='5' style="width: 5%">#</th>
               <th colspan='35' style="width: 35%">Paciente</th>

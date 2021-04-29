@@ -41,11 +41,11 @@ case "listar_productos_ingreso_bodegas":
         {
           $output["numero_compra"] = $row["numero_compra"];
           $output["descripcion"] = $row["descripcion"]." ".$row["diseno"]." ".$row["materiales"];
-          $output["sucursal"] = $row["sucursal"];
+          /*$output["descripcion"] = $row["descripcion"];*/
           $output["id_producto"] = $row["id_producto"];
           $output["cant_ingreso"] = $row["cant_ingreso"];
           $output["precio_venta"] = $row["precio_venta"];
-          $output["precio_compra"] = $row["precio_compra"];                             
+          $output["precio_compra"] = $row["precio_compra"];                           
         }      
 
        } 

@@ -56,7 +56,7 @@ $datos_recibo = $reporteria->print_recibo_paciente($numero_rec_oc,$numero_venta,
 <table style="width:95%;">
 
  <tr>
-    <td style="text-align:center; font-size:20px";font-family: Helvetica, Arial, sans-serif;><strong>OPTICA AVPLUS S.A de C.V.</strong></td>
+    <td style="text-align:center; font-size:20px;color:#1560bd";font-family: Helvetica, Arial, sans-serif;><strong>Optica AV Plus S.A de C.V.</strong></td>
   </tr>
 
   <tr>
@@ -232,7 +232,7 @@ $datos_recibo = $reporteria->print_recibo_paciente($numero_rec_oc,$numero_venta,
 <table style="width:95%;">
 
  <tr>
-    <td style="text-align:center; font-size:20px";font-family: Helvetica, Arial, sans-serif;><strong>OPTICA AVPLUS S.A de C.V.</strong></td>
+    <td style="text-align:center; font-size:20px;color:blue";font-family: Helvetica, Arial, sans-serif;><strong>Optica AV Plus S.A de C.V.</strong></td>
   </tr>
 
   <tr>

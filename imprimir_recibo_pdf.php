@@ -20,7 +20,7 @@ $datos_factura_paciente = $reporteria->get_datos_factura_paciente($_GET["id_paci
 $datos_factura_venta    = $reporteria->get_datos_factura_venta($_GET["n_venta"],$_GET["id_paciente"]);
 
 
-if ($sucursal == "Metrocentro") {
+if ($sucursal == "Metrocentro" or $sucursal == "Emp-Metrocentro") {
   $direccion = "Boulevard de los Heroes. Centro Comercial Metrocentro Local#7 San Salvador";
   $telefono = "2260-1653";
   $wha = "7469-2542";

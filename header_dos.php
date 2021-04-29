@@ -38,12 +38,14 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css">
 
 <style type="text/css">
-<?php $cat_user = $_SESSION["categoria"];?>
+<?php $cat_user = $_SESSION["categoria"];
+$sucursal_act = substr($_SESSION["sucursal"],0,3);
+?>
 </style>
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
-  <!-- Navbar -->
+<div class="wrapper"> <!-- Navbar -->
+ 
 <nav class="main-header navbar navbar-expand navbar-dark navbar-gray-dark" style="background: black">
     <!-- Left navbar links -->
  <ul class="navbar-nav">
@@ -58,6 +60,7 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
+
         <a href="logout.php" style="text-decoration: none;color:white">
           Salir <i class="fas fa-sign-out-alt"></i>
         </a>
@@ -115,7 +118,22 @@
               <i class="nav-icon fas fa-building"></i>
               <p>Empresas</p>
             </a>
-          </li>  
+          </li>
+
+        <?php if ($sucursal_act=='Emp') {
+
+           echo '
+          <li class="nav-item has">
+            <a href="empresarial.php" class="nav-link">
+              <i class="fas fa-donate"></i>
+              <p>
+                 Empresarial.                
+              </p>
+            </a>
+
+            ';
+        }
+    ?> 
 
           <li class="nav-item">
             <a href="adquisiciones.php" class="nav-link">

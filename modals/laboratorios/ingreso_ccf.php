@@ -63,15 +63,22 @@
       </div><!--Fin Form Row-->
 
       <table class="table-bordered table-hover table2" id="notas_contacto" width="100%">
+
         <thead style="text-align: center;">
-          <th colspan="45" style="width: 45%;text-align: center" class="stilot1">Descripción</th>
-          <th colspan="15" style="width: 15%;text-align: center" class="stilot1">Cantidad</th>
-          <th colspan="10" style="width: 10%;text-align: center" class="stilot1">Costo</th>
-          <th colspan="10" style="width: 10%;text-align: center" class="stilot1">V. Gravadas</th>
-          <th colspan="20" style="width: 20%;text-align: center" class="stilot1">13% IVA</th>
+          <th colspan="35" style="width: 35%;text-align: center" class="stilot1">Descripción</th>
+          <th colspan="10" style="width: 10%;text-align: center" class="stilot1">Costo $</th>
+          <th colspan="10" style="width: 10%;text-align: center" class="stilot1">Cant.</th>
+          <th colspan="15" style="width: 15%;text-align: center" class="stilot1">V. Afectas$</th>
+          <th colspan="15" style="width: 15%;text-align: center" class="stilot1">Descuento %</th>
+          <th colspan="15" style="width: 15%;text-align: center" class="stilot1">13% IVA</th>
 
         </thead>
          <tbody id="listar_items_ccf" style="text-align: center"></tbody>
+           <tr>
+             <td colspan="70" style="width: 70%"></td>
+             <td colspan="10" style="width: 10%"><b>SUMAS</b></td>
+             <td colspan="20" style="width: 20%;text-align: center;"><b><span id="tot_afectas"></span></b></td>
+           </tr>
 
            <tr>
              <td colspan="70" style="width: 70%"></td>
@@ -80,20 +87,18 @@
            </tr>
            <tr>
              <td colspan="70" style="width: 70%"></td>
-             <td colspan="10" style="width: 10%"><b>SUBTOTAL</b></td>
-             <td colspan="20" style="width: 20%;text-align: center;"><b><span id="subtotales_ccf"></span></b></td>
-           </tr>
-           <tr>
-             <td colspan="70" style="width: 70%"></td>
-             <td colspan="10" style="width: 10%"><b>TOTAL VENTA</b></td>
+             <td colspan="10" style="width: 10%"><b>VENTA TOTAL</b></td>
              <td colspan="20" style="width: 20%;text-align: center;"><b><span id="totales_ccf_orden"></span></b></td>
            </tr>
          </tfoot>
       </table>
+
       <input type="hidden" id="precio_tratamiento">
       <input type="hidden" id="numero_de_orden">
       <input type="hidden" id="id_envio">
+
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-block" style="margin: border-radius:0px" onClick="registrar_ccf_laboratorio();">Ingresar CCF</button>
       </div>

@@ -9,11 +9,19 @@ class Externos extends conectar
 	public function get_categorias($sucursal){
 	    $conectar= parent::conexion();
 		parent::set_names();
-		 $sql="select id_categoria, nombre from categoria where sucursal=?";
-		 $sql=$conectar->prepare($sql);
-		 $sql->bindValue(1, $sucursal);
-    	 $sql->execute();
-    	 return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+
+	    $suscursal='';
+  		$prefijo = substr($sucursal,0,3);
+  		if ($prefijo =='Emp') {
+    		$suscursal = substr($sucursal, 4,25);
+  		}else{
+    		$suscursal=$sucursal;
+  		}  		
+		$sql="select id_categoria, nombre from categoria where sucursal=?";
+		$sql=$conectar->prepare($sql);
+		$sql->bindValue(1, $suscursal);
+    	$sql->execute();
+    	return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
     	}
 
 	public function get_marca(){

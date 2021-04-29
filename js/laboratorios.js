@@ -1143,7 +1143,6 @@ function get_data_ccf(id_envio){
     $("#numero_de_orden").val(data.numero_orden);
     $("#id_envio").val(id_envio);
 
-
     var tratamientos_lentes = data.lente+","+data.tratamientos;
     var elementos_ccf = tratamientos_lentes.split(",");
     console.log(elementos_ccf);
@@ -1194,7 +1193,8 @@ function create_object(precio,tratamiento_1){
     subtotal : 0,
     ventas_afectas : 0,
     iva : 0,
-    precio : precio
+    precio : precio,
+    descuento : 0
   }
   items_ccf.push(obj);
   listar_items_cff();
@@ -1204,11 +1204,13 @@ function listar_items_cff(){
     $('#listar_items_ccf').html(""); 
   var filas = "";   
   for (i = 0; i < items_ccf.length; i++){
-       var filas = filas + "<tr id='fila"+i+"'><td colspan='45' style='width: 45%'>"+items_ccf[i].tratamiento+"</td>"+
-       "<td colspan='15' style='width: 15%'><input type='number' class='form-control cantidad' style='text-align: right' value='"+items_ccf[i].cantidad+"' onKeyUp='setCantidad_ccf(event, this, "+(i)+");' onClick='setCantidad_ccf(event, this, "+(i)+");'></td>"+
-       "<td colspan='10' style='width: 10%'><input type='number' class='form-control p_unit' style='text-align: right' value='"+items_ccf[i].precio+"' onKeyUp='setPrecio_ccf(event, this, "+(i)+");' onClick='setPrecio_ccf(event, this, "+(i)+");'></td>"+
-       "<td colspan='10' style='width: 10%'><input type='text' class='form-control gravadas' style='text-align: right' value='"+items_ccf[i].subtotal+"' id='subtotal"+i+"'></td>"+
-      "<td colspan='20' style='width: 20%'><input type='text' class='form-control iva' style='text-align: right' value='' readonly id='afectas"+i+"'></td>"+"</tr>";
+      var filas = filas + "<tr id='fila"+i+"'>"+
+      "<td colspan='35' style='width: 35%'>"+items_ccf[i].tratamiento+"</td>"+       
+      "<td colspan='10' style='width: 10%'><input type='number' class='form-control p_unit' style='text-align: right' value='"+items_ccf[i].precio+"' onKeyUp='setP_unit(event, this, "+(i)+");' onClick='setP_unit(event, this, "+(i)+");'></td>"+
+      "<td colspan='10' style='width: 10%'><input type='number' class='form-control cantidad' style='text-align: right' value='"+items_ccf[i].cantidad+"' onKeyUp='setCantidad_ccf(event, this, "+(i)+");' onClick='setCantidad_ccf(event, this, "+(i)+");'></td>"+
+      "<td colspan='15' style='width: 15%'><input type='text' class='form-control gravadas' style='text-align: right' value='"+items_ccf[i].p_unit+"' id='afectas"+i+"'></td>"+
+      "<td colspan='15' style='width: 15%'><input type='number' class='form-control gravadas' style='text-align: right' value='"+items_ccf[i].descuento+"' id='descuento"+i+"' onKeyUp='setDescuento_ccf(event, this, "+(i)+");' onClick='setDescuento_ccf(event, this, "+(i)+");'></td>"+
+      "<td colspan='15' style='width: 15%'><input type='text' class='form-control iva' style='text-align: right' value='"+items_ccf[i].iva+"' readonly id='iva"+i+"'></td>"+"</tr>";
   }
   
   $('#listar_items_ccf').html(filas);
@@ -1225,43 +1227,64 @@ function setP_unit(event, obj, idx){
   event.preventDefault();
   items_ccf[idx].precio = parseFloat(obj.value);
   recalcular_ccf(idx);
-  
 }
 
-function recalcular_ccf(idx){
-  var subtotal = items_ccf[idx].subtotal = items_ccf[idx].cantidad * items_ccf[idx].precio;
-  console.log(subtotal);
-  subtotalFinal = subtotal.toFixed(2);
-  $('#subtotal'+idx).val("$"+subtotalFinal);
 
-  var afectas = subtotalFinal*0.13;
-  var total_afectas_item = parseFloat(subtotalFinal)+parseFloat(afectas);
-  items_ccf[idx].ventas_afectas = parseFloat(total_afectas_item.toFixed(2))
-  $('#afectas'+idx).val(`IVA: $ (${afectas.toFixed(2)}) || +IVA($${total_afectas_item.toFixed(2)})`);
-  items_ccf[idx].iva = afectas.toFixed(2);  ////////  IVA 
+function setDescuento_ccf(event, obj, idx){
+  event.preventDefault();
+  items_ccf[idx].descuento = parseFloat(obj.value);
+  recalcular_ccf(idx);  
+}
+
+
+
+function recalcular_ccf(idx){
+
+  var ccf_descuento = parseFloat((items_ccf[idx].descuento)/100).toFixed(2);
+  console.log(ccf_descuento);
+
+  var subtotal = items_ccf[idx].subtotal = items_ccf[idx].cantidad * items_ccf[idx].precio;
+  var v_afectas = (parseFloat(subtotal/1.13)).toFixed(2);
+
+  let descuento = v_afectas*ccf_descuento;
+  let afectas = v_afectas-descuento;
+
+  items_ccf[idx].p_unit = parseFloat(afectas).toFixed(2);
+  var iva = parseFloat(afectas*0.13).toFixed(2);
+  items_ccf[idx].iva = iva;
+
+  id_afecta = 'afectas'+idx;
+  id_iva = 'iva'+idx;
+
+ document.getElementById(id_afecta).value = parseFloat(afectas).toFixed(2);
+ document.getElementById(id_iva).value = iva;
+
+
+ 
   calcularTotalesccf();
 }
 
+
 function calcularTotalesccf(){
-  var total_items = items_ccf.length;
-  let totales_p_unit =0;
-  let subtotales = 0;
+
+  let sumas_afectas =0;
+  let sumas_iva = 0;
+
   for(var i=0; i<items_ccf.length;i++){
-    totales_p_unit = totales_p_unit + items_ccf[i].p_unit;
-    subtotales = subtotales + items_ccf[i].subtotal;
-  
-  }
-  let total_iva = subtotales*0.13;
-  let total_ventas_orden = total_iva+subtotales;
-  $("#tot_p_unit").html("$"+totales_p_unit.toFixed(2));
-  $("#tot_gravadas_ccf").html("$"+subtotales.toFixed(2));
-  $("#tot_iva").html("$"+total_iva.toFixed(2));
-  $("#subtotales_ccf").html("$"+subtotales.toFixed(2));
-  $("#totales_ccf_orden").html("$"+total_ventas_orden.toFixed(2));
-
+    sumas_afectas = parseFloat(sumas_afectas) + parseFloat(items_ccf[i].p_unit);
+    sumas_iva = parseFloat(sumas_iva) + parseFloat(items_ccf[i].iva);  
   }
 
-  ///////////////  GUARDAR CCF LABORATORIOS  /////
+
+  let total_ventas_orden = parseFloat(sumas_afectas+sumas_iva).toFixed(2);
+  $("#tot_afectas").html("$"+parseFloat(sumas_afectas).toFixed(2));
+  $("#tot_iva").html("$"+parseFloat(sumas_iva).toFixed(2));
+  $("#totales_ccf_orden").html("$"+parseFloat(total_ventas_orden).toFixed(2));
+
+}
+
+
+///////////////  GUARDAR CCF LABORATORIOS  /////
 function registrar_ccf_laboratorio(){
 
   let numero_comprobante = $("#numero_comprobante").val();
@@ -1273,7 +1296,7 @@ function registrar_ccf_laboratorio(){
   let sucursal = $("#sucursal").val();
   let id_envio = $("#id_envio").val();
   let iva = $("#tot_iva").html();
-  let subtotal = $("#subtotales_ccf").html();
+  let subtotal = $("#tot_afectas").html();
   let total_venta = $("#totales_ccf_orden").html();
 
   var cantidad_empty = 0;
@@ -1292,7 +1315,7 @@ function registrar_ccf_laboratorio(){
     return false;
   }
 
-  if(numero_comprobante != "" && cantidad_empty == 0){
+  if(numero_comprobante != ""){
     $.ajax({
     url:"ajax/ordenes.php?op=registrar_ccf_labs",
     method:"POST",
@@ -1304,6 +1327,7 @@ function registrar_ccf_laboratorio(){
       console.log(y);
       console.log(z);
     },
+
     success:function(data){
     console.log(data);
     if (data=='ok') {

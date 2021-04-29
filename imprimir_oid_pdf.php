@@ -218,7 +218,7 @@ $cuotas_creditos = $suma_monto_orden/$plazo_credito;
     ";
     $total=0;
     foreach ($det_ventas_flot as $k => $v) {
-      $precio= $v["precio_final"];
+      $precio = $v["precio_final"];
       $total = $total+$precio;
       $html.="
       <tr>

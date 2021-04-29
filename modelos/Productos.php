@@ -78,14 +78,15 @@ public function get_accesorios(){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
-/*public function get_aros(){
+public function get_aros(){
     $conectar= parent::conexion();
     $sql= "select*from productos where categoria_producto='aros' order by id_producto DESC;";
     $sql=$conectar->prepare($sql);
     //$sql->bindValue(1, $sucursal_correlativo);
     $sql->execute();
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
-    }*/
+
+}
 
 //////LISTAR AROS EN COMPRAS
 public function get_acc_compras(){
@@ -108,14 +109,20 @@ public function get_lentes_ventas(){
 ////////////////////listar aros en MODAL VENTAS
 public function buscar_aros_ventas($sucursal){
   $conectar= parent::conexion();
-  $suscursal=$_POST["sucursal"];
+  $suscursal='';
+  $prefijo = substr($sucursal,0,3);
+  if ($prefijo =='Emp') {
+    $suscursal = substr($sucursal, 4,25);
+  }else{
+    $suscursal = $_POST["sucursal"];
+  }
 
   $sql="select p.desc_producto,e.precio_venta,e.stock,e.categoria_ub,e.num_compra,e.fecha_ingreso,e.id_ingreso,p.id_producto from
-productos as p inner join existencias as e on p.id_producto=e.id_producto
-where e.bodega=? and e.stock>0 and p.categoria_producto='aros'";
+  productos as p inner join existencias as e on p.id_producto=e.id_producto
+  where e.bodega=? and e.stock>0 and p.categoria_producto='aros'";
 
   $sql = $conectar->prepare($sql);
-  $sql->bindValue(1,$sucursal);
+  $sql->bindValue(1,$suscursal);
   $sql->execute();
   return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 

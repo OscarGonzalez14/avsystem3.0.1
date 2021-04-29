@@ -295,10 +295,10 @@ public function aprobar_orden(){
             foreach($correlativo as $row){                  
                 $codigo=$row["numero_venta"];
                 $cod=(substr($codigo,5,11))+1;
-                $num_venta ="AV".$prefijo."-".$cod;
+                $num_venta ="EM".$prefijo."-".$cod;
             }///FIN FOREACH             
         }else{
-            $num_venta = "AV".$prefijo."-1";
+            $num_venta = "EM".$prefijo."-1";
         }
 
     //////////GET ITEMS DE VENTAS FLOTANTES POR BENEFICIARIO   
@@ -458,19 +458,6 @@ public function aprobar_orden(){
         $id_credito = $item["id_credito"];
         $monto_credito = $item["monto"];
     }
-
-    /*if(is_array($saldos)==true and count($saldos)>0){
-       $saldo_act = $saldo+$monto_total;
-       $nuevo_monto = $monto_credito+$monto_total;
-       $sql6 ="update creditos set saldo=?,monto=? where id_credito=?;";
-       $sql6= $conectar->prepare($sql6);
-       $sql6->bindValue(1,$saldo_act);
-       $sql6->bindValue(2,$nuevo_monto);
-       $sql6->bindValue(3,$id_credito);
-       $sql6->execute();
-    }else{
-       $tipo_venta = "Credito";
-       $plazo =12;*/
 
        $sql7="insert into creditos values(null,?,?,?,?,?,?,?,?,?);";
        $sql7= $conectar->prepare($sql7);

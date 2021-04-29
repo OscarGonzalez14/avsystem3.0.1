@@ -546,7 +546,7 @@ function saveOrdenCobro(){
   let id_usuario = $("#id_usuario").val();
   let empresa =$("#empresa_act_oid").html();
   let monto_total = $("#total_abonos").html();
-  //var empresa = $("#empresa_act_oid").html();
+  let sucursal 
 
   let length_data_oid = data_credito_oid.length;
 
@@ -760,7 +760,7 @@ for (var i = 0; i<items_pacientes_cobro.length; i++) {
   }
 }
 
-$("#totales_aoc").html('$'+monto_cobro);
+$("#totales_aoc").html('$'+parseFloat(monto_cobro).toFixed(2));
 }
 
 function setComprobante(event, obj, idx){

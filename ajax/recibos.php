@@ -22,6 +22,12 @@ switch ($_GET["op"]) {
     $prefijo="SA";
   }elseif ($sucursal=="San Miguel") {
     $prefijo="SM";
+  }elseif($sucursal=="Emp-Metrocentro"){
+    $prefijo == "EM";
+  }elseif($sucursal=="Emp-San Miguel"){
+    $prefijo == "ES";
+  }elseif($sucursal=="Emp-Santa Ana"){
+    $prefijo == "EA";
   }
     if(is_array($datos)==true and count($datos)>0){
     foreach($datos as $row){                  

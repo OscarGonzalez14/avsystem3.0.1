@@ -74,21 +74,21 @@ if (isset($messages)){
 break;
 
     case "listar_aros_comp":
-    $datos=$productos->get_aros_compras();
+    $datos=$productos->get_aros();
     //Vamos a declarar un array
     $data= Array();
 
     foreach($datos as $row)
       {
         $sub_array = array();
-        $sub_array[] = '&nbsp;<input type="checkbox" class="form-check-input seleccionar" value="'.$row["id_producto"].'" id="elegir-aro'.'">&nbsp;'; 
+        $sub_array[] = $row["id_producto"];
         $sub_array[] = $row["marca"];
         $sub_array[] = $row["modelo"];
         $sub_array[] = $row["color"];
         $sub_array[] = $row["medidas"];
         $sub_array[] = $row["diseno"];
         $sub_array[] = $row["materiales"];
-        
+        $sub_array[] = '<button type="button" class="btn btn-primary btn-sm agrega_aro"  style="border-radius:0px; btn-sm" onClick="agregar_aro('.$row["id_producto"].')"><i class="fa fa-plus" aria-hidden="true"></i></button>';
         $data[] = $sub_array;
       }
 
@@ -100,6 +100,7 @@ break;
       echo json_encode($results);
 
     break;
+
 
     /////////////DATA TABLE LENTES EN VENTAS
     case "listar_lentes_venta":////////muestra lentes en modal de ventas
@@ -123,7 +124,6 @@ break;
       "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
       "aaData"=>$data);
       echo json_encode($results);
-
     break;
 
     ////////////////LISTAR AROS CREADOS

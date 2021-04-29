@@ -16,7 +16,11 @@
 		$prefijo="SA";
 	}elseif ($sucursal=="San Miguel") {
 		$prefijo="SM";
-	}
+	}elseif ($sucursal=="Emp-Metrocentro") {
+    $prefijo="EM";
+  }elseif ($sucursal=="Emp-San Miguel") {
+    $prefijo="ES";
+  }
     if(is_array($datos)==true and count($datos)>0){
 		foreach($datos as $row){			  					
 			$codigo=$row["codigo"];
