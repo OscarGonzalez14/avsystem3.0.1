@@ -90,7 +90,7 @@ switch($_GET["op"]){
     $output["desc_producto"] = $row["desc_producto"];
     $output["precio_venta"] = number_format($row["precio_venta"],2,".",","); 
     $output["id_producto"] = $row["id_producto"];  
-    $output["categoria_producto"] = strtoupper($row["categoria_producto"]);      
+    //$output["categoria_producto"] = strtoupper($row["categoria_producto"]);      
   }      
 
 } 
