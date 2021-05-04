@@ -22,6 +22,9 @@
       overflow-y: auto;
     }
 </style>
+<head>
+  <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'rel='stylesheet'> 
+</head>
 
 <div class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="oid" style="border-radius:0px !important;">
   <div class="modal-dialog modal-dialog-scrollable" role="document" id="tamModal_orden_desc">
@@ -128,7 +131,7 @@
 
   <div class="form-group purple-border col-md-12">
   <label for="exampleFormControlTextarea4">Observaciones</label>
-  <textarea class="form-control" id="observaciones_oid" rows="2"></textarea>
+  <textarea class="form-control" id="observaciones_oid" rows="2" onkeyup="mayus(this);"></textarea>
 </div>
 
   </div> 
@@ -144,8 +147,15 @@
   </div><!--Fin modal Content-->
 </div>
 
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="   crossorigin="anonymous"></script>
+
 <script type="text/javascript" src="js/cleave.js"></script>
 <script>
+$( function() {
+    $( "#fecha_inicio" ).datepicker();
+  } );
+
   function mayus(e) {
     e.value = e.value.toUpperCase();
   }
@@ -182,4 +192,5 @@ var dui = new Cleave('#tel_ref2', {
   blocks: [4,4],
   uppercase : true
 });
+
 </script>
