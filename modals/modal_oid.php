@@ -54,7 +54,7 @@
 
     <div class="form-group col-md-2">
       <label for="inputCity">Inicio</span></label>
-      <input type="date" class="form-control" id="fecha_inicio" onClick="calculaFinCredito();" placeholder="INICIO CREDITO">
+      <input type="text" class="form-control" id="fecha_inicio" onClick="calculaFinCredito();" placeholder="INICIO CREDITO">
     </div>
 
     <div class="form-group col-md-2">
