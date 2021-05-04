@@ -1,69 +1,32 @@
-<?php ob_start();
-use Dompdf\Dompdf;
-use Dompdf\Options;
-
-require_once 'dompdf/autoload.inc.php';
-
-
-?>
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-   <style>
-      html{
-        margin-top: 0;
-        margin-left: 28px;
-        margin-right:20px; 
-        margin-bottom: 0;
-    }
-    .stilot1{
-       border: 1px solid black;
-       padding: 5px;
-       font-size: 12px;
-       font-family: Helvetica, Arial, sans-serif;
-       border-collapse: collapse;
-       text-align: center;
-    }
+<html>
+<head>
+<!--
 
-    .stilot2{
-       border: 1px solid black;
-       text-align: center;
-       font-size: 11px;
-       font-family: Helvetica, Arial, sans-serif;
-    }
-    .stilot3{
-       text-align: center;
-       font-size: 11px;
-       font-family: Helvetica, Arial, sans-serif;
-    }
+	<link href=’https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css’ rel=’stylesheet’>
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="   crossorigin="anonymous"></script>-->
 
-    #table2 {
-       border-collapse: collapse;
-    }
-   </style>
-  </head>
-  <body>
-    Codigo de Barras 12333255
+	<link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'rel='stylesheet'> 
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="   crossorigin="anonymous"></script>
+
+</head>
+<body>
+	 <div class="form-group col-md-2 ">
+      <label for="inputCity">Inicio</label>
+      <input type="text" class="form-control" id="fecha_inicio" placeholder="INICIO CREDITO">
+    </div>
+
 </body>
 </html>
-<?php
-$salida_html = ob_get_contents();
 
-  //$user=$_SESSION["id_usuario"];
+<script type="text/javascript">
+  $( function() {
+    $( "#fecha_inicio" ).datepicker();
+  } );
 
-  ob_end_clean();
-$dompdf = new Dompdf();
-$dompdf->loadHtml($salida_html);
+</script>
 
-// (Optional) Setup the paper size and orientation
-$dompdf->setPaper(array(0,0,200,200));
 
-// Render the HTML as PDF
-$dompdf->render();
-
-// Output the generated PDF to Browser
-//$dompdf->stream();
-$dompdf->stream('document', array('Attachment'=>'0'));
-?>
+<!--onClick="calculaFinCredito();" 
