@@ -36,7 +36,6 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/rowreorder/1.2.7/css/rowReorder.dataTables.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css">
-
 <style type="text/css">
 <?php $cat_user = $_SESSION["categoria"];
 $sucursal_act = substr($_SESSION["sucursal"],0,3);

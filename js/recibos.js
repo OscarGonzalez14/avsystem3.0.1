@@ -412,7 +412,6 @@ function get_data_credito_oid(){
 
     let plazo = data.plazo;
     let monto = data.monto;
-
     let monto_abono = monto/plazo;
 
     let obj = {
@@ -546,7 +545,7 @@ function saveOrdenCobro(){
   let id_usuario = $("#id_usuario").val();
   let empresa =$("#empresa_act_oid").html();
   let monto_total = $("#total_abonos").html();
-  let sucursal 
+  let sucursal = 
 
   let length_data_oid = data_credito_oid.length;
 
