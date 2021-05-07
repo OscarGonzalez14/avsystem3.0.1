@@ -545,9 +545,9 @@ function saveOrdenCobro(){
   let id_usuario = $("#id_usuario").val();
   let empresa =$("#empresa_act_oid").html();
   let monto_total = $("#total_abonos").html();
-  let sucursal = 
+  let sucursal = $("#sucursal").val();
 
-  let length_data_oid = data_credito_oid.length;
+ // let length_data_oid = data_credito_oid.length;
 
   if (length_data_oid<1) {
     Swal.fire('Orden de cobro vacio!','','error')
