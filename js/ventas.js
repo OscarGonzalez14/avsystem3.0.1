@@ -133,6 +133,7 @@ function agregarServicioVenta(id_producto){
   });//fin de ajax
 }
 
+
 ///////////AGEREGAR ACCESORIOS A LA VENTA
 var detalles = [];
 function agregarAccVenta(id_producto,id_ingreso){
@@ -183,6 +184,7 @@ function agregarAccVenta(id_producto,id_ingreso){
     }//fin success
   });//fin de ajax
 }
+
 
 function agregar_detalles_lente_venta(id_producto){
   var consulta = $("#id_consulta").val();
@@ -1049,6 +1051,21 @@ function reciboInicial(){
     $("#color_aro_ini").val(data.color);
   }
   })
+
+////////////////SERVICIO
+  $.ajax({
+  url:"ajax/ventas.php?op=get_datos_servicio_rec_ini",
+  method:"POST",
+  data:{id_paciente:id_paciente,numero_venta:numero_venta},
+  cache:false,
+  dataType:"json",
+  success:function(data)
+  { 
+    console.log(data);  
+    $("#servicio_rec_ini").val(data.producto);
+  }
+  })
+
 //////////////DATOS PACIENTE
   $.ajax({
   url:"ajax/pacientes.php?op=datos_pacientes_rec_ini",

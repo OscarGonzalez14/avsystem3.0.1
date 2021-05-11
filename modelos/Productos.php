@@ -369,11 +369,13 @@ public function guardar_servicio($tipo_servicio,$des_servicio,$precio_servicio,$
 public function get_servicios_ventas(){
   $conectar= parent::conexion();
 
-  $sql="select id_producto, modelo, categoria as precio, categoria_producto, desc_producto from productos where categoria_producto='servicio'";
+  $sql="select id_producto,categoria as precio, categoria_producto, desc_producto from productos where categoria_producto='servicio';";
   $sql = $conectar->prepare($sql);
   $sql->execute();
   return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
 /*
 public function agregar_aros_compras(){
 

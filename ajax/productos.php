@@ -452,11 +452,10 @@ case "listar_productos_traslado":
     foreach($datos as $row){
         $sub_array = array();
         $sub_array[] = $row["id_producto"];
-        $sub_array[] = $row["modelo"];
+        $sub_array[] = $row["categoria_producto"];
         $sub_array[] = $row["desc_producto"];
         $sub_array[] = "$".number_format($row["precio"],2,".",",");
-        $sub_array[] = '<button type="button" onClick="agregarServicioVenta('.$row["id_producto"].')" class="btn btn-sm bg-primary agrega_servicio"><i class="fas fa-plus" aria-hidden="true" style="color:white"></i></button>';         
-
+        $sub_array[] = '<button type="button" class="btn btn-primary btn-sm agrega_servicio"  style="border-radius:0px" onClick="agregarServicioVenta('.$row["id_producto"].')"><i class="fa fa-plus" aria-hidden="true"></i></button>'; 
         $data[] = $sub_array;
       }
 

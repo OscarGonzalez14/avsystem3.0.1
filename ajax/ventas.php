@@ -85,16 +85,18 @@ switch($_GET["op"]){
   case "agregar_servicios_venta":          
   $datos=$ventas->buscar_servicios_ventas($_POST["id_producto"]);
   if(is_array($datos)==true and count($datos)>0){
-    foreach($datos as $row){
- 
+    foreach($datos as $row)
+    {
     $output["desc_producto"] = $row["desc_producto"];
     $output["precio_venta"] = number_format($row["precio_venta"],2,".",","); 
-    $output["id_producto"] = $row["id_producto"];  
-    //$output["categoria_producto"] = strtoupper($row["categoria_producto"]);      
+    $output["categoria_producto"] = strtoupper($row["categoria_producto"]);      
   }      
 
-} 
+} else {                 
+                 //si no existe el registro entonces no recorre el array
+    $output["error"]="El producto seleccionado está inactivo, intenta con otro";
 
+}
 echo json_encode($output);
 
 break;
@@ -326,6 +328,7 @@ if (isset($errors)){
   } 
   break;
 
+//////GET DATA ARO RECIBO INICIAL
   case 'get_datos_aros_rec_ini':
   $datos= $ventas->get_detalle_aros_rec_ini($_POST["id_paciente"],$_POST["numero_venta"]); 
 

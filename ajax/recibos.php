@@ -75,7 +75,7 @@ switch ($_GET["op"]) {
              }
            ?>
    <?php
-   }else{
+   }/*else{
     $pacientes->editar_recibo($_POST["a_anteriores"],$_POST["n_recibo"],$_POST["n_venta_recibo_ini"],$_POST["monto"],$_POST["fecha"],$_POST["sucursal"],$_POST["id_paciente"],$_POST["id_usuario"],$_POST["telefono_ini"],$_POST["recibi_rec_ini"],$_POST["empresa_ini"],$_POST["texto"],$_POST["numero"],$_POST["saldo"],$_POST["forma_pago"],$_POST["marca_aro_ini"],$_POST["modelo_aro_ini"],$_POST["color_aro_ini"],$_POST["lente_rec_ini"],$_POST["ar_rec_ini"],$_POST["photo_rec_ini"],$_POST["observaciones_rec_ini"],$_POST["pr_abono"],$_POST["servicio_rec_ini"]);
     $messages[]="editado";
         if (isset($messages)){
@@ -87,7 +87,7 @@ switch ($_GET["op"]) {
          ?>
    <?php
  }
-  }
+  }*/
 
     break;
 

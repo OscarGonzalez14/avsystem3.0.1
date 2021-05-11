@@ -38,7 +38,7 @@ public function valida_existencia_nrecibo($n_recibo){
   return $resultado=$sql->fetchAll();
 }
 ///////////////////GREGISTRA RECIBO
-public function agrega_detalle_abono($a_anteriores,$n_recibo,$n_venta_recibo_ini,$monto,$fecha,$sucursal,$id_paciente,$id_usuario,$telefono_ini,$recibi_rec_ini,$empresa_ini,$texto,$numero,$saldo,$forma_pago,$marca_aro_ini,$modelo_aro_ini,$color_aro_ini,$lente_rec_ini,$ar_rec_ini,$photo_rec_ini,$observaciones_rec_ini,$pr_abono,$servicio_rec_ini){
+public function agrega_detalle_abono($a_anteriores,$n_recibo,$n_venta_recibo_ini,$monto,$fecha,$sucursal,$id_paciente,$id_usuario,$telefono_ini,$recibi_rec_ini,$empresa_ini,$texto,$numero,$saldo,$forma_pago,$marca_aro_ini,$modelo_aro_ini,$color_aro_ini,$lente_rec_ini,$ar_rec_ini,$photo_rec_ini,$servicio_rec_ini,$observaciones_rec_ini,$pr_abono){
 
 $conectar=parent::conexion();  
 
@@ -66,9 +66,9 @@ $conectar=parent::conexion();
   $sql->bindValue(19,$lente_rec_ini);
   $sql->bindValue(20,$ar_rec_ini);
   $sql->bindValue(21,$photo_rec_ini);
-  $sql->bindValue(22,$observaciones_rec_ini);
-  $sql->bindValue(23,$pr_abono);
-  $sql->bindValue(24,$servicio_rec_ini);
+  $sql->bindValue(22,$servicio_rec_ini);
+  $sql->bindValue(23,$observaciones_rec_ini);
+  $sql->bindValue(24,$pr_abono);
   
   $sql->execute();
 

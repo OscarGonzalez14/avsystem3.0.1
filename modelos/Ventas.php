@@ -42,7 +42,7 @@ public function buscar_lentes_ventas($id_producto){
 
 public function buscar_servicios_ventas($id_producto){
   $conectar= parent::conexion();
-  $sql="select id_producto,desc_producto, categoria as precio_venta from productos where id_producto=?;";
+  $sql="select categoria_producto, desc_producto, categoria as precio_venta from productos where id_producto=?;";
 
   $sql = $conectar->prepare($sql);
   $sql->bindValue(1,$id_producto);
@@ -111,6 +111,7 @@ public function agrega_detalle_venta(){
       $precio_venta = $v->precio_venta;
       $stock = $v->stock;
       $subtotal = $v->subtotal;
+      
 
       //////////OBETENER LA DESCRIPCION DEL PRODUCTO /////////////
       $sqlp = "select*from productos where id_producto=?;";
@@ -119,7 +120,7 @@ public function agrega_detalle_venta(){
       $sqlp->execute();
 
       $detalles_producto = $sqlp->fetchAll(PDO::FETCH_ASSOC);
-
+    
       foreach ($detalles_producto as $item){
         $cat_prod = $item["categoria_producto"];
         if ($cat_prod == "aros") {
@@ -130,7 +131,8 @@ public function agrega_detalle_venta(){
           $descripcion = "TRATAMIENTOS: ".$item["desc_producto"];
         }elseif($cat_prod=="accesorios"){
           $descripcion = "ACC: ".$item["desc_producto"];
-        }
+        }elseif($cat_prod=="servicio"){
+          $descripcion = "SERVICIO: ".$item["desc_producto"];
       }
 
    
@@ -149,6 +151,7 @@ public function agrega_detalle_venta(){
       $sql->bindValue(11,$evaluado);
      // $sql->bindValue(12,$precio_compra);
      $sql->execute();
+
 
     if($categoria_prod=="aros" or $categoria_prod == "accesorios"){
     ////////////////////ACTUALIZAR STOCK DE BODEGA SI PRODUCTO == aros o accesorios
@@ -181,10 +184,10 @@ public function agrega_detalle_venta(){
       $sql12->bindValue(6,$num_compra);
       $sql12->execute();
   }          
-
-  }//////////// fin validar para descontar de inventario     
  
+  }//////////// fin validar para descontar de inventario   
 
+}
 }//FIN DEL FOREACH**************
 
     ///////////////////////INSERTAR CREDITOS

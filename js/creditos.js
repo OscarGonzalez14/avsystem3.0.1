@@ -340,6 +340,20 @@ function realizarAbonos(id_paciente,id_credito,numero_venta){
         }
       })
 
+      ////////////////antireflejante
+    $.ajax({
+      url:"ajax/ventas.php?op=get_datos_servicio_rec_ini",
+      method:"POST",
+      data:{id_paciente:id_paciente,numero_venta:numero_venta},
+      cache:false,
+      dataType:"json",
+      success:function(data)
+      { 
+        console.log(data);  
+        $("#servicio_rec_ini").val(data.producto);
+      }
+    })
+
     ////////////////abono anterior
     $.ajax({
       url:"ajax/creditos.php?op=datos_abono_anterior",
