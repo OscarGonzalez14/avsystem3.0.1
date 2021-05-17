@@ -23,9 +23,10 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("Y-m-d");;
                     <div class="col-sm-2">
                       <button type="submit" class="btn btn-primary"><i class="fas fa-print"></i>CORTE DIARIO</button>
                     </div>
-
-                </form>
-                </div>
+                    <div class="col-sm-8">
+                    </div>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>
@@ -48,7 +49,7 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("Y-m-d");;
           </div>
       </div>
 
-        <h2 class="card-title" align="center" style="text-align: center;"><i class="fas fa-file" style="color:green"></i><strong> REPORTE GENERAL DE VENTAS </strong></h2>
+        <!--<h2 class="card-title" align="center" style="text-align: center;"><i class="fas fa-file" style="color:green"></i><strong> REPORTE GENERAL DE VENTAS </strong></h2>
         <div>
          <ul class="breadcrumb float-sm-right" style="background-color:transparent;padding:0px;">
          <li class="breadcrumb-item"><a href="ventas.php">Nueva Venta</a></li>
@@ -56,7 +57,7 @@ date_default_timezone_set('America/El_Salvador'); $hoy = date("Y-m-d");;
          <li class="breadcrumb-item"><a href="reporte_mensual_vtas.php">Reporte Mensual</a></li>
          <li class="breadcrumb-item active">Reporte General</li>
          </ul>
-        </div>
+        </div>-->
 
     </div><br>
 

@@ -1,9 +1,8 @@
 function init() {
   reporte_ventas_gral();
+  reporte_vtas_mensual();
 
   //ver_ventas();
-
-  //reporte_vtas_mensual();
 
   get_correlativo_venta();
   get_correlativo_orden();
@@ -1207,20 +1206,9 @@ if (tipo_venta=="Credito Fiscal"){
 
 
 ///////////////////LISTADO MENSUAL VENTAS
-/*function ver_ventas(){
-
-  let fecha_inicio = $("#fecha_inicio").val();
-  let fin_fecha = $("#fecha_fin").val();
-  let sucursal = $("#sucursal").val();
-
-  console.log(`fecha_inicio: ${fecha_inicio}fin_fecha: ${fin_fecha}sucursal: ${sucursal}`)
-
-
-  tabla_ventas_mensuales=$('#lista_reporte_vtas_mensual_data').dataTable(
-
-
 function reporte_vtas_mensual(){
   var sucursal = $("#sucursal").val();
+  var 
   tabla_ventas_mensuales=$('#lista_vtas_mensuales_data').dataTable(
 
   {
@@ -1297,7 +1285,7 @@ function reporte_vtas_mensual(){
 
   }).DataTable();
 }
-*/
+
 
 
 init();

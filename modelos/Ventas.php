@@ -566,38 +566,23 @@ public function show_datos_paciente($id_paciente){
     return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
   }
 
-
-////get ventas mensuales
-public function get_vtas_mensuales($fin_fecha,$fecha_inicio,$sucursal){
-
-    $conectar = parent::conexion();
-
-    $date_inicial = $_POST["fecha_inicial"];
-    $date_final = $_POST["fecha_final"];
-    $fecha_inicial = date("Y-m-d", strtotime($date_inicial));
-    $fecha_final = date("Y-m-d", strtotime($date_final));
-    /*$sql = "select*from detalle_ccf_laboratorios where laboratorio=? AND fecha between ? AND ? AND sucursal=?;";*/
-    $sql = "select*from ventas as v inner join creditos as c on v.id_paciente=c.id_paciente where v.sucursal=? and fecha between ? AND ? AND sucursal=? order by id_ventas DESC;";
-    $sql = $conectar->prepare($sql);
-    $sql->bindValue(1,$fecha_inicial);
-    $sql->bindValue(2,$fecha_final);
-    $sql->bindValue(3,$sucursal);
-    
-    $sql->execute();    
-    return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
-    //echo $date_inicial;
-}
-
-
-
+//mostrar ventas mensuales
 public function get_ventas_mensuales($sucursal){
   $conectar= parent::conexion();
-  $sql="select v.fecha_venta,v.numero_venta,v.paciente,v.evaluado,u.usuario,v.monto_total,v.tipo_venta,v.tipo_pago from ventas as v inner join usuarios as u on v.id_usuario=u.id_usuario where v.sucursal=? and fecha like '%fecha%' order by id_ventas DESC;";
+  $sql="select v.fecha_venta,v.numero_venta,v.paciente,v.evaluado,u.usuario,v.monto_total,v.tipo_venta,v.tipo_pago from ventas as v inner join usuarios as u on v.id_usuario=u.id_usuario where v.sucursal='metrocentro' and fecha_venta like '%05-2021%' order by id_ventas DESC;";
   $sql = $conectar->prepare($sql);
   $sql->bindValue(1,$sucursal);
   $sql->execute();
   return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
 }
   
+public function get_ventas_gral($sucursal){
+  $conectar= parent::conexion();
+  $sql="select v.id_paciente,v.id_ventas,v.numero_venta,u.usuario,v.optometra,v.fecha_venta,v.paciente,v.evaluado,v.tipo_pago,v.tipo_venta,v.sucursal,v.monto_total from ventas as v inner join usuarios as u on v.id_usuario=u.id_usuario where v.sucursal=? order by id_ventas DESC;";
+  $sql = $conectar->prepare($sql);
+  $sql->bindValue(1,$sucursal);
+  $sql->execute();
+  return $result = $sql->fetchAll(PDO::FETCH_ASSOC);
+}
 
 }//////Fin de la clase

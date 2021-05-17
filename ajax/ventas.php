@@ -426,26 +426,6 @@ if (isset($errors)){
 
 
 /// INICIO LISTAR VENTAS MENSUALES
- /* case "listar_ventas_mensuales":
-
-  $datos=$ventas->get_vtas_mensuales($_POST["fin_fecha"],$_POST["fecha_inicio"],$_POST["sucursal"]);
-  $data= Array();
-  foreach($datos as $row){
-    $sub_array = array();
-    $sub_array[] = $row["id_ventas"];
-    $sub_array[] = $row["evaluado"];
-    $sub_array[] = $row["tipo_venta"];
-    $sub_array[] = $row["tipo_pago"];
-    $sub_array[] = $row["monto_total"];
-    $sub_array[] = $row["saldo"];
-    $sub_array[] = date("d-m-Y",strtotime($row["fecha_venta"])); 
-    $sub_array[] = $row["vendedor"];  
-    $data[] = $sub_array;
-  }
-
-      $results = array
-
-/// INICIO LISTAR VENTAS MENSUALES
   case "listar_ventas_mensuales":
   $datos=$ventas->get_ventas_mensuales($_POST["sucursal"]);
     //Vamos a declarar un array
@@ -454,9 +434,8 @@ if (isset($errors)){
   foreach($datos as $row)
   {
     $sub_array = array();
-
     $sub_array[] = $row["numero_venta"];
-    //$sub_array[] = $fecha%(substr(string,(D-m-y))))%;
+    $sub_array[] = $row["fecha_venta"];
     $sub_array[] = $row["usuario"];
     $sub_array[] = $row["paciente"];
     $sub_array[] = $row["evaluado"];
@@ -464,7 +443,6 @@ if (isset($errors)){
     $sub_array[] = $row["tipo_pago"];
     $sub_array[] = "$".number_format($row["monto_total"],2,".",","); 
     $sub_array[] = $row["sucursal"];
-           
     $data[] = $sub_array;
   }
 
@@ -475,9 +453,8 @@ if (isset($errors)){
       "iTotalDisplayRecords"=>count($data), //enviamos el total registros a visualizar
       "aaData"=>$data);
     echo json_encode($results);
-    break;*/
-    /// FIN LISTAR TODAS LAS VENTAS
-
+    break;
+    /// FIN LISTAR ventas mensuales
 
 
 }
