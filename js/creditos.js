@@ -762,6 +762,75 @@ function get_finaliza(){
     }
   })
 }
+
+///////////////EMISION DE CREDITO FISCAL/////////////
+/////////////////////////////////////////////////////
+
+function print_cff_ventas(){
+
+  let id_paciente = $("#id_paciente").val();
+  let numero_venta = $("#n_venta").val();
+
+  console.log(numero_venta);
+  print_invoices(id_paciente,numero_venta);
+}
+
+function print_invoices(id_paciente,numero_venta){
+ // console.log(numero_venta);return false;
+ var sucursal = $("#sucursal").val();
+ var id_usuario = $("#usuario").val();
+ var fecha_fac = $("#fecha_facturacion").val();
+ $("#id_paciente_venta_cff").val(id_paciente);
+ $("#print_invoices").modal("show");
+ $("#n_venta_cff").val(numero_venta);
+
+ $.ajax({
+  url:"ajax/creditos.php?op=get_correlativo_cff",
+  method:"POST",
+  data:{sucursal:sucursal},
+  cache:false,
+  dataType:"json",
+  success:function(data){ 
+    console.log(data);
+
+    $("#correlativo_cff").html(data.correlativo);
+    var correlativo_cff = data.correlativo;
+    console.log(correlativo_cff);
+    document.getElementById("link_invoice_print").href='imprimir_credito_fiscal_pdf.php?n_venta='+numero_venta+'&'+'id_paciente='+id_paciente+'&'+'correlativo_cff='+correlativo_ccf+'&'+'fecha_cff='+fecha_cff;
+  }
+})
+
+  //var enlace = document.getElementById("link_invoice_print");
+  //enlace.addEventListener("click", registrar_impresion, false);
+}
+
+
+function registrar_impresion(){
+
+  let sucursal = $("#sucursal").val();
+  let id_usuario = $("#usuario").val();
+  let correlativo_fac = $("#correlativo_cff").html();
+  let numero_venta = $("#n_venta_cff").val();
+  var id_paciente = $("#id_paciente_venta_cff").val();
+  $("#print_invoices").modal("hide"); 
+  ///////////// REGISTRA CORRELATIVO EN BD ////////////////
+  $.ajax({
+    url:"ajax/creditos.php?op=save_correlativo_cff",
+    method:"POST",
+    data:{sucursal:sucursal,numero_venta:numero_venta,id_usuario:id_usuario,correlativo_cff:correlativo_cff,id_paciente:id_paciente},
+    cache:false,
+    dataType:"json",
+    success:function(data){ 
+      console.log(data);  
+
+    }
+  })
+
+}
+
+
+//////FIN CFF/////
+
     /************************************************************
     *****************ORDENES DE DESCUENTO EN PLANILLA************
     *************************************************************/

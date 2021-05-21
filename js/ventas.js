@@ -12,9 +12,9 @@ function init() {
   document.getElementById("print_pagare").style.display = "none";
   document.getElementById("print_manual_oid").style.display = "none";
   //document.getElementById("btn_print_recibos").style.display = "none";
-  document.getElementById("print_factura").style.display = "none";
-  document.getElementById("credito_fiscal_print").style.display = "none";
-
+  //document.getElementById("print_factura").style.display = "none";
+  //document.getElementById("credito_fiscal_print").style.display = "none";
+  document.getElementById("comprobantes_cancelacion").style.display = "block";
 }
 
 $(document).ready(ocultar_btn_post_venta);

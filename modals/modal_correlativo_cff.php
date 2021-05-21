@@ -1,4 +1,4 @@
-<!-- IMPRIMIR FACTURA-->
+<!-- IMPRIMIR cff-->
 <div class="modal fade" id="print_invoices" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -12,15 +12,15 @@
       <input type="hidden" name="" id="id_paciente_venta_factura">
       <div class="modal-footer">
 
-        <label for="">Tipo de factura:</label>
+        <!--<label for="">Tipo de factura:</label>
         <select name="" id="">
           <option value="fact_normal"> Normal</option>
           <option value="fact_detallada">Detalla</option>
-        </select>
+        </select>-->
         
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <a id="link_invoice_print" target="_blank" href=""><button type="button" class="btn btn-primary" onClick="registrar_impresion();">Imprimir</button></a>
-        <input type="hidden" name="id_usuario" id="id_usuario" value="Factura"/>
+        <a id="link_invoice_print" target="_blank" href=""><button type="button" class="btn btn-primary" onClick="registrar_impresionn();">Imprimir</button></a>
+        <input type="hidden" name="credito_fiscal" id="id_correlativo" value="Credito Fiscal"/>
       </div>
     </div>
   </div>
