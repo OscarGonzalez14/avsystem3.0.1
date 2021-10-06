@@ -865,6 +865,7 @@ venta_flotante = [];
       $("#ref2_orden").html(data.referencia_dos);
       $("#total_orden_t").html(data.monto);
       $("#plazo_orden_desc").val(data.plazo);
+      $("#n_orden_des").val(numero_orden);
     }
   })
 
@@ -969,10 +970,11 @@ function detalle_productos_flotantes(){
 
 function aprobar_od_planilla(){
  let plazo = $("#plazo_orden_desc").val();
+ let numero_orden = $("#n_orden_des").val();
  $.ajax({
     url:"ajax/creditos.php?op=aprobar_orden_planilla",
     method: "POST",
-    data: {'detOrden':JSON.stringify(detalle_venta_flotante),'arrayVenta':JSON.stringify(venta_flotante),'plazo':plazo},
+    data: {'detOrden':JSON.stringify(detalle_venta_flotante),'arrayVenta':JSON.stringify(venta_flotante),'plazo':plazo,'numero_orden':numero_orden},
     cache: false,
     dataType:"json",
     error:function(x,y,z){
@@ -981,6 +983,8 @@ function aprobar_od_planilla(){
       console.log(z);
     },     
     success:function(data){
+      console.log(data);
+      $('#ordenes_desc_pendientes').DataTable().ajax.reload();
     }
  })
  Swal.fire('Orden de descuento registrado!','','success');

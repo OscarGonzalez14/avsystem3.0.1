@@ -402,7 +402,7 @@ case 'get_detalles_orden_oid':
         $output["cuota"] = "$".number_format(($row["monto"]/$row["plazo"]),2,".",",");
         $output["referencia_uno"] = $row["ref_uno"]." Tel.:".$row["tel_ref_uno"];
         $output["referencia_dos"] = $row["ref_dos"]." Tel.:".$row["tel_ref_dos"];
-        //$output["plazo_orden"] = $row["plazo"];
+        
       }       
     echo json_encode($output);
     } 
@@ -424,7 +424,6 @@ $datos=$creditos->get_paciente_id($_POST["id_paciente"]);
         $output["correo"] = $row["correo"];
         $output["direccion"] = $row["direccion"];
         $output["empresas"] = $row["empresas"];
-
        
       }       
     echo json_encode($output);
@@ -487,6 +486,16 @@ $datos=$creditos->get_paciente_id($_POST["id_paciente"]);
   case 'aprobar_orden_planilla':
 
     $creditos->aprobar_orden();
+    $messages[]="ok";
+    if (isset($messages)){
+     ?>
+       <?php
+         foreach ($messages as $message) {
+             echo json_encode($message);
+           }
+         ?>
+   <?php
+  }
     
     break;
 

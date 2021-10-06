@@ -53,6 +53,8 @@
     
     <div class="card-body p-0" style="margin:7px">
   <input type="hidden" id="plazo_orden_desc">
+  <input type="hidden" id="n_orden_des">
+
   <table width="100%" class="table-hover table-bordered display nowrap">
     <tr class="bg-info">
     <th colspan="100" style="color:white;font-size:13px;font-family: Helvetica, Arial, sans-serif;width:30%;text-align: center"><b>DATOS GENERALES DEL PACIENTE</b></th>  

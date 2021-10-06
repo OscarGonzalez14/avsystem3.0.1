@@ -230,7 +230,7 @@ public function get_detalle_orden_credito($id_paciente,$n_orden){
     $sql->bindValue(1,$id_paciente);
     $sql->bindValue(2,$n_orden);
     $sql->execute();
-    return $resultado= $sql->fetchAll(PDO::FETCH_ASSOC);
+    return $resultado = $sql->fetchAll(PDO::FETCH_ASSOC);
 }
 
 public function get_detalle_venta_flotante($id_paciente,$n_orden){
@@ -254,6 +254,7 @@ public function aprobar_orden(){
  $detalle_venta = array();
  $detalle_venta = json_decode($_POST["arrayVenta"]);
  $plazo = $_POST["plazo"];
+ $numero_orden = $_POST["numero_orden"];
  date_default_timezone_set('America/El_Salvador'); $hoy = date("d-m-Y");
 
 foreach ($detalle_venta as $k => $v) {
@@ -387,10 +388,15 @@ $correlativo = $ventas->get_numero_venta($sucursal);
     $sql2->bindValue(17,$sucursal);
     $sql2->bindValue(18,$sucursal_cobro);
     $sql2->bindValue(19,$tipo_ingreso);
-
     $sql2->execute();
 
+    //////ACRUALIZAR ESTADO DE ORDEN
 
+    $sql3 = "update orden_credito set estado='1' where numero_orden=? and id_paciente=?;";
+    $sql3 = $conectar->prepare($sql3);
+    $sql3->bindValue(1,$numero_orden);
+    $sql3->bindValue(2,$id_paciente);
+    $sql3->execute();
 }
 
 }/////FIN CLASS
